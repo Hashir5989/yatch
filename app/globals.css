@@ -1,0 +1,257 @@
+@import "tailwindcss";
+
+:root {
+  --font-sans: var(--font-jakarta), var(--font-montserrat), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-jakarta), var(--font-montserrat), sans-serif;
+  --font-display: var(--font-jakarta), var(--font-montserrat), sans-serif;
+  
+  /* Saxdor Yachts Signature Palette */
+  --navy-deep: #08101C;
+  --navy-marine: #0E2047;
+  --navy-surface: #101B2E;
+  --navy-card: #14233D;
+  
+  --gold-saxdor: #C6A155;
+  --gold-light: #DFBA73;
+  --gold-hover: #A4844F;
+  
+  --white: #FFFFFF;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-navy: rgba(14, 32, 71, 0.2);
+  --border-gold: rgba(198, 161, 85, 0.35);
+
+  /* Backward Compatibility */
+  --gold-primary: #C6A155;
+  --bg-deep: #08101C;
+  --bg-surface: #0E1A2D;
+  --bg-card: #13223B;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--navy-deep);
+  color: #E8EEF5;
+  overflow-x: hidden;
+}
+
+/* Saxdor Yachts Architectural Typography */
+.saxdor-title {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.saxdor-eyebrow {
+  color: #C6A155;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.font-editorial {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+.font-display-luxury {
+  font-family: var(--font-sans);
+  letter-spacing: 0.12em;
+}
+
+.tracking-luxury {
+  letter-spacing: 0.22em;
+}
+
+.tracking-ultra-wide {
+  letter-spacing: 0.3em;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08101C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1C2C45;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C6A155;
+}
+
+/* Saxdor Yachts Signature Rectangular Box Buttons */
+.saxdor-btn-solid,
+.saxdor-btn-outline,
+.saxdor-btn-navy-outline,
+.saxdor-btn-navy-solid,
+.btn-gold,
+.btn-luxury-outline,
+.btn-rectangular,
+.btn-rect {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 52px !important;
+  min-height: 52px !important;
+  min-width: 195px;
+  padding: 0 36px !important;
+  border-radius: 0px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  outline: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  white-space: nowrap;
+}
+
+/* Solid White Rectangular Box (Hero / Dark background primary CTA) */
+.saxdor-btn-solid {
+  border: 1px solid #FFFFFF !important;
+  background: #FFFFFF !important;
+  color: #0E2047 !important;
+}
+
+.saxdor-btn-solid:hover {
+  background: transparent !important;
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+/* Outline Rectangular Box (Hero / Dark background secondary CTA) */
+.saxdor-btn-outline {
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  background: transparent !important;
+  color: #FFFFFF !important;
+}
+
+.saxdor-btn-outline:hover {
+  background: #FFFFFF !important;
+  color: #0E2047 !important;
+  border-color: #FFFFFF !important;
+}
+
+/* Navy Outline Rectangular Box (Light background primary / secondary CTA) */
+.saxdor-btn-navy-outline {
+  border: 1px solid #0E2047 !important;
+  background: transparent !important;
+  color: #0E2047 !important;
+  font-weight: 800 !important;
+}
+
+.saxdor-btn-navy-outline:hover {
+  background: #0E2047 !important;
+  color: #FFFFFF !important;
+  border-color: #0E2047 !important;
+}
+
+/* Navy Solid Rectangular Box (Light background inverted CTA) */
+.saxdor-btn-navy-solid {
+  border: 1px solid #0E2047 !important;
+  background: #0E2047 !important;
+  color: #FFFFFF !important;
+}
+
+.saxdor-btn-navy-solid:hover {
+  background: transparent !important;
+  color: #0E2047 !important;
+  border-color: #0E2047 !important;
+}
+
+/* Backward-compatible btn classes mapped to crisp Rectangular Box style */
+.btn-gold {
+  border: 1px solid #FFFFFF !important;
+  background: #FFFFFF !important;
+  color: #0E2047 !important;
+}
+
+.btn-gold:hover {
+  background: transparent !important;
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+.btn-luxury-outline {
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  background: transparent !important;
+  color: #FFFFFF !important;
+}
+
+.btn-luxury-outline:hover {
+  background: #FFFFFF !important;
+  color: #0E2047 !important;
+  border-color: #FFFFFF !important;
+}
+
+/* Global strict zero radius enforcement on all action buttons & CTA links */
+a.saxdor-btn-solid,
+a.saxdor-btn-outline,
+a.saxdor-btn-navy-outline,
+a.saxdor-btn-navy-solid,
+button.saxdor-btn-solid,
+button.saxdor-btn-outline,
+button.saxdor-btn-navy-outline,
+button.saxdor-btn-navy-solid {
+  border-radius: 0px !important;
+}
+
+/* Subtle Shimmer Animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Device Preview Frames for CMS */
+.device-desktop {
+  width: 100%;
+  max-width: 100%;
+  transition: all 0.3s ease;
+}
+
+.device-tablet {
+  width: 768px;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  border: 12px solid #1A202C;
+  transition: all 0.3s ease;
+}
+
+.device-mobile {
+  width: 375px;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 36px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8);
+  border: 12px solid #1A202C;
+  transition: all 0.3s ease;
+}
+
+/* Subtle pulse for selected section */
+.section-selected-ring {
+  outline: 2px solid #C5A880;
+  outline-offset: -2px;
+  box-shadow: 0 0 30px rgba(197, 168, 128, 0.2);
+}

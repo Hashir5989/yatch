@@ -1,0 +1,192 @@
+"use client";
+
+import { ArrowRight, Image as ImageIcon } from "lucide-react";
+import InlineEditableText from "@/components/cms/InlineEditableText";
+import InlineButtonEditor from "@/components/cms/InlineButtonEditor";
+
+export default function HeroBannerSection({
+  data = {},
+  isEditable = false,
+  onUpdateField = null,
+  onOpenMediaPicker = null,
+}) {
+  const {
+    eyebrow = "ASMARATY • EST. 1979",
+    heading = "BESPOKE NAVAL MASTERPIECES",
+    subheading = "Pioneering luxury composite yacht manufacturing in the United Arab Emirates.",
+    imageUrl = "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=2000&q=80",
+    imageAlt = "ASMARATY Yacht",
+    primaryButtonText = "Explore Fleet",
+    primaryButtonUrl = "/yachts",
+    secondaryButtonText = "Private Commission",
+    secondaryButtonUrl = "/contact",
+    stats = [
+      { value: "100 FT", label: "Flagship AS 100" },
+      { value: "45+ YRS", label: "Shipyard Heritage" },
+      { value: "35 KTS", label: "Max Speed" },
+      { value: "100%", label: "Custom Bespoke" }
+    ],
+    contentAlignment = "center"
+  } = data;
+
+  const isCenter = contentAlignment === "center";
+
+  return (
+    <section className="relative min-h-[92vh] flex flex-col justify-between overflow-hidden bg-[#080B10] group/hero">
+      {/* Background Image with Dark Vignette Gradient */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={imageUrl}
+          alt={imageAlt || heading}
+          className="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#08101C] via-[#08101C]/25 to-[#08101C]/40"></div>
+        <div 
+          className="absolute -left-[20vw] -bottom-[30vh] w-[130vw] h-[130vh] pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at 30% 72%, rgba(6, 16, 34, 0.70) 0%, rgba(6, 16, 34, 0.50) 22%, rgba(6, 16, 34, 0.22) 45%, transparent 70%)"
+          }}
+        />
+
+        {/* Change Background Image Button when in Edit Mode */}
+        {isEditable && onOpenMediaPicker && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenMediaPicker("imageUrl", imageUrl);
+            }}
+            className="absolute top-6 right-6 z-30 px-3.5 py-2 rounded-full bg-[#080B10]/90 backdrop-blur-md text-[#C5A880] border border-[#C5A880]/50 hover:bg-[#C5A880] hover:text-[#080B10] text-xs font-medium flex items-center gap-2 shadow-xl transition-all"
+            title="Replace Hero Background Image"
+          >
+            <ImageIcon className="w-3.5 h-3.5" />
+            <span>Change Background Photo</span>
+          </button>
+        )}
+      </div>
+
+      {/* Main Saxdor-Style Hero Content */}
+      <div className={`relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-32 pb-16 sm:pb-20 flex-1 flex flex-col justify-end ${
+        isCenter ? "items-center" : "items-start"
+      }`}>
+        <div className={`max-w-4xl ${isCenter ? "text-center mx-auto" : "text-left"}`}>
+          {/* Saxdor Gold Eyebrow */}
+          <div className="mb-4">
+            <InlineEditableText
+              as="span"
+              value={eyebrow}
+              isEditable={isEditable}
+              onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
+              className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]"
+              placeholder="THE ALL-NEW MODEL..."
+            />
+          </div>
+
+          {/* Saxdor Architectural Title */}
+          <h1 className="font-sans text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-white leading-[1.06] tracking-[0.03em] uppercase mb-5">
+            <InlineEditableText
+              as="span"
+              value={heading}
+              isEditable={isEditable}
+              onChange={(val) => onUpdateField && onUpdateField("heading", val)}
+              placeholder="ENTER HERO TITLE..."
+              multiline={true}
+            />
+          </h1>
+
+          {/* Subheading / Narrative */}
+          {subheading && (
+            <p className={`text-sm sm:text-base md:text-lg text-white/80 font-normal leading-relaxed max-w-2xl mb-8 ${
+              isCenter ? "mx-auto" : ""
+            }`}>
+              <InlineEditableText
+                as="span"
+                value={subheading}
+                isEditable={isEditable}
+                onChange={(val) => onUpdateField && onUpdateField("subheading", val)}
+                placeholder="Enter hero subtitle..."
+                multiline={true}
+              />
+            </p>
+          )}
+
+          {/* Saxdor Action Buttons */}
+          <div className={`flex flex-wrap items-center gap-4 ${isCenter ? "justify-center" : "justify-start"}`}>
+            {/* Primary Button: Solid White (Saxdor signature) */}
+            <InlineButtonEditor
+              text={primaryButtonText}
+              url={primaryButtonUrl}
+              isEditable={isEditable}
+              onSave={(newText, newUrl) => {
+                if (onUpdateField) {
+                  onUpdateField("primaryButtonText", newText);
+                  onUpdateField("primaryButtonUrl", newUrl);
+                }
+              }}
+              className="saxdor-btn-solid"
+              icon={null}
+            />
+
+            {/* Secondary Button: Clean Outline */}
+            {secondaryButtonText && (
+              <InlineButtonEditor
+                text={secondaryButtonText}
+                url={secondaryButtonUrl}
+                isEditable={isEditable}
+                onSave={(newText, newUrl) => {
+                  if (onUpdateField) {
+                    onUpdateField("secondaryButtonText", newText);
+                    onUpdateField("secondaryButtonUrl", newUrl);
+                  }
+                }}
+                className="saxdor-btn-outline"
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Optional Stats Bar (omitted on clean Saxdor hero) */}
+      {data.showStatsBar && stats && stats.length > 0 && (
+        <div className="relative z-10 border-t border-white/10 bg-[#0A0E15]/80 backdrop-blur-md">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 py-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+              {stats.map((stat, idx) => (
+                <div key={idx} className="pt-2 md:pt-0">
+                  <div className="saxdor-title text-2xl sm:text-3xl font-light text-white tracking-wider">
+                    <InlineEditableText
+                      as="span"
+                      value={stat.value}
+                      isEditable={isEditable}
+                      onChange={(newVal) => {
+                        if (!onUpdateField) return;
+                        const newStats = [...stats];
+                        newStats[idx] = { ...newStats[idx], value: newVal };
+                        onUpdateField("stats", newStats);
+                      }}
+                      placeholder="Value"
+                    />
+                  </div>
+                  <div className="text-[10px] uppercase tracking-luxury text-[#C6A155] mt-1 font-sans font-semibold">
+                    <InlineEditableText
+                      as="span"
+                      value={stat.label}
+                      isEditable={isEditable}
+                      onChange={(newVal) => {
+                        if (!onUpdateField) return;
+                        const newStats = [...stats];
+                        newStats[idx] = { ...newStats[idx], label: newVal };
+                        onUpdateField("stats", newStats);
+                      }}
+                      placeholder="Label"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
