@@ -12,14 +12,18 @@ import {
   RotateCcw, 
   Sparkles,
   ChevronRight,
-  ShieldAlert
+  ShieldAlert,
+  LogOut,
+  UserCheck
 } from "lucide-react";
 import { resetAllDemoData } from "@/lib/cmsStore";
+import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 
-export default function CmsSidebar() {
+export default function CmsSidebar({ currentUser }) {
   const pathname = usePathname();
   const router = useRouter();
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const menuItems = [
     { label: "Pages & Sections", href: "/admin", icon: Layers, exact: true },
@@ -27,6 +31,18 @@ export default function CmsSidebar() {
     { label: "Media Library", href: "/admin/media", icon: Images },
     { label: "Settings & System", href: "/admin/settings", icon: Sliders },
   ];
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      router.push("/admin/login");
+      router.refresh();
+    } catch (err) {
+      console.error("Logout error:", err);
+      router.push("/admin/login");
+    }
+  };
 
   const handleResetData = () => {
     resetAllDemoData();
@@ -41,26 +57,28 @@ export default function CmsSidebar() {
         {/* Top: Brand & Identity */}
         <div>
           <div className="p-6 border-b border-[#1B2230]">
-            <Link href="/admin" className="flex items-center gap-3 group">
-              <div className="w-9 h-9 rounded bg-[#121822] border border-[#C5A880]/40 flex items-center justify-center text-[#C5A880] group-hover:border-[#C5A880] transition-colors">
-                <Anchor className="w-5 h-5" />
-              </div>
-              <div>
-                <h1 className="font-serif text-sm font-light text-white tracking-wider uppercase">
-                  ASMARATY
-                </h1>
-                <p className="text-[10px] uppercase tracking-widest text-[#C5A880] font-sans font-medium">
-                  Content Studio
-                </p>
-              </div>
+            <Link href="/admin" className="block group">
+              <AsmaratyLogo variant="horizontal" className="h-7" />
+              <p className="mt-2 text-[9px] uppercase tracking-widest text-[#C5A880] font-sans font-medium pl-1">
+                Shipyard Content Studio
+              </p>
             </Link>
 
-            {/* Prototype Sub-badge */}
-            <div className="mt-4 px-3 py-1.5 rounded bg-[#121824] border border-[#232E42] flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              <span className="text-[10px] text-[#A6B4C4]">
-                CMS Demo by <strong className="text-white">Nuvyara Digital</strong>
-              </span>
+            {/* Authenticated Admin User Status */}
+            <div className="mt-4 p-2.5 rounded bg-[#121824] border border-[#232E42] flex items-center justify-between">
+              <div className="flex items-center gap-2 overflow-hidden">
+                <div className="w-6 h-6 rounded-full bg-[#1B273A] border border-[#C5A880]/50 flex items-center justify-center text-[#C5A880] flex-shrink-0">
+                  <UserCheck className="w-3.5 h-3.5" />
+                </div>
+                <div className="overflow-hidden">
+                  <span className="text-[11px] font-medium text-white block truncate">
+                    {currentUser?.email || "admin@asmaraty.ae"}
+                  </span>
+                  <span className="text-[9px] uppercase tracking-wider text-[#C5A880] block">
+                    {currentUser?.role || "Administrator"}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -112,10 +130,22 @@ export default function CmsSidebar() {
             <span className="text-[10px] text-[#C5A880]">Live</span>
           </Link>
 
+          {/* Sign Out Button */}
+          <button
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            className="w-full flex items-center justify-between px-3.5 py-2 text-xs text-[#A7B3C2] hover:text-white hover:bg-[#17202C] rounded-sm transition-colors text-left cursor-pointer"
+          >
+            <div className="flex items-center gap-2.5">
+              <LogOut className="w-3.5 h-3.5 text-[#C5A880]" />
+              <span>{isLoggingOut ? "Signing Out..." : "Sign Out"}</span>
+            </div>
+          </button>
+
           {/* Reset Demo Data Button */}
           <button
             onClick={() => setShowResetConfirm(true)}
-            className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs text-[#7E8B9C] hover:text-red-300 hover:bg-red-950/20 rounded-sm transition-colors text-left"
+            className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs text-[#7E8B9C] hover:text-red-300 hover:bg-red-950/20 rounded-sm transition-colors text-left cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset Demo Data</span>
@@ -139,13 +169,13 @@ export default function CmsSidebar() {
             <div className="flex justify-end gap-3 pt-2">
               <button
                 onClick={() => setShowResetConfirm(false)}
-                className="px-4 py-2 text-xs text-[#A7B2C2] hover:bg-white/5 rounded"
+                className="px-4 py-2 text-xs text-[#A7B2C2] hover:bg-white/5 rounded cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={handleResetData}
-                className="px-4 py-2 text-xs bg-red-600 hover:bg-red-700 text-white font-semibold rounded tracking-wider"
+                className="px-4 py-2 text-xs bg-red-600 hover:bg-red-700 text-white font-semibold rounded tracking-wider cursor-pointer"
               >
                 Reset All Data
               </button>

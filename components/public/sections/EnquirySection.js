@@ -1,8 +1,7 @@
-"use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Send, CheckCircle2, Phone, Mail, MapPin, Shield } from "lucide-react";
 import InlineEditableText from "@/components/cms/InlineEditableText";
+import { getAllYachts } from "@/lib/cmsStore";
 
 export default function EnquirySection({
   data = {},
@@ -17,28 +16,55 @@ export default function EnquirySection({
     recipientEmail = "info@asmaraty.fake",
     phone = "+971 1234567890",
     address = "ASMARATY Shipyard, Maritime District, UAE",
-    yachtOptions = [
-      "AS 100 Superyacht",
-      "Magellan 32 Explorer",
-      "AS 88 Flybridge",
-      "AS 68 Sports Cruiser",
-      "AS 45 Island Explorer",
-      "Custom Vessel Build"
-    ]
   } = data;
+
+  const [availableYachts, setAvailableYachts] = useState(() => {
+    const list = getAllYachts().filter((y) => y.status !== "draft").map((y) => y.name);
+    return list.length > 0 ? [...list, "Custom Bespoke Commission"] : ["AS 100 Superyacht", "Custom Bespoke Commission"];
+  });
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    model: yachtOptions[0] || "AS 100 Superyacht",
+    model: availableYachts[0] || "AS 100 Superyacht",
     inquiryType: "Sea Trial Request",
     message: ""
   });
 
-  const handleSubmit = (e) => {
+  // Listen for model selection from the models showcase & store updates
+  useEffect(() => {
+    const updateModels = () => {
+      const list = getAllYachts().filter((y) => y.status !== "draft").map((y) => y.name);
+      setAvailableYachts(list.length > 0 ? [...list, "Custom Bespoke Commission"] : ["AS 100 Superyacht", "Custom Bespoke Commission"]);
+    };
+
+    const handleModelSelect = (e) => {
+      if (e.detail?.modelName) {
+        setFormData((prev) => ({ ...prev, model: e.detail.modelName }));
+      }
+    };
+
+    window.addEventListener("asm-select-model", handleModelSelect);
+    window.addEventListener("asm-cms-change", updateModels);
+    return () => {
+      window.removeEventListener("asm-select-model", handleModelSelect);
+      window.removeEventListener("asm-cms-change", updateModels);
+    };
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+    } catch (err) {
+      console.warn("Could not submit enquiry to API:", err);
+    }
     setFormSubmitted(true);
   };
 
@@ -223,7 +249,7 @@ export default function EnquirySection({
                         onChange={(e) => setFormData({ ...formData, model: e.target.value })}
                         className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors"
                       >
-                        {yachtOptions.map((opt, i) => (
+                        {availableYachts.map((opt, i) => (
                           <option key={i} value={opt} className="bg-[#08101C]">
                             {opt}
                           </option>
@@ -236,7 +262,7 @@ export default function EnquirySection({
                     <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
                       Inquiry Focus
                     </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
                       {["Sea Trial Request", "Custom Build Consultation", "Price & Spec List"].map((type) => (
                         <button
                           key={type}

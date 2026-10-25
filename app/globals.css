@@ -120,6 +120,26 @@ body {
   white-space: nowrap;
 }
 
+/* Fluid Mobile Scaling for Rectangular Box Buttons */
+@media (max-width: 640px) {
+  .saxdor-btn-solid,
+  .saxdor-btn-outline,
+  .saxdor-btn-navy-outline,
+  .saxdor-btn-navy-solid,
+  .btn-gold,
+  .btn-luxury-outline,
+  .btn-rectangular,
+  .btn-rect {
+    min-width: 0 !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.12em !important;
+  }
+}
+
 /* Solid White Rectangular Box (Hero / Dark background primary CTA) */
 .saxdor-btn-solid {
   border: 1px solid #FFFFFF !important;
@@ -255,3 +275,88 @@ button.saxdor-btn-navy-solid {
   outline-offset: -2px;
   box-shadow: 0 0 30px rgba(197, 168, 128, 0.2);
 }
+
+/* Realistic Live Moving Yacht Animation Keyframes */
+@keyframes yachtLiveCruise {
+  0% {
+    transform: scale(1.06) translate3d(0px, 0px, 0px) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.10) translate3d(20px, -10px, 0px) rotate(-0.6deg);
+  }
+  50% {
+    transform: scale(1.15) translate3d(36px, -18px, 0px) rotate(-0.2deg);
+  }
+  75% {
+    transform: scale(1.10) translate3d(16px, -6px, 0px) rotate(0.5deg);
+  }
+  100% {
+    transform: scale(1.06) translate3d(0px, 0px, 0px) rotate(0deg);
+  }
+}
+
+@keyframes oceanWakeFlow {
+  0% {
+    opacity: 0.35;
+    transform: translate3d(0, 0, 0) scaleY(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translate3d(-20px, 6px, 0) scaleY(1.04);
+  }
+  100% {
+    opacity: 0.35;
+    transform: translate3d(0, 0, 0) scaleY(1);
+  }
+}
+
+@keyframes oceanLightCaustic {
+  0% {
+    opacity: 0.15;
+    background-position: 0% 50%;
+  }
+  50% {
+    opacity: 0.45;
+    background-position: 100% 50%;
+  }
+  100% {
+    opacity: 0.15;
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes oceanMistDrift {
+  0% {
+    transform: translateX(-5%) translateY(0%);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateX(5%) translateY(-10px);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateX(-5%) translateY(0%);
+    opacity: 0.2;
+  }
+}
+
+.animate-yacht-live {
+  animation: yachtLiveCruise 16s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+.animate-ocean-wake {
+  animation: oceanWakeFlow 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-ocean-caustic {
+  animation: oceanLightCaustic 12s ease-in-out infinite;
+  will-change: opacity, background-position;
+}
+
+.animate-ocean-mist {
+  animation: oceanMistDrift 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+

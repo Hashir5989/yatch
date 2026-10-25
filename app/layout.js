@@ -28,8 +28,17 @@ const cinzel = Cinzel({
 
 export const metadata = {
   title: "ASMARATY | Luxury Yachts & Boats UAE",
-  description: "Pioneering luxury yacht and high-performance boat manufacturing in the Arabian Gulf. Explore the flagship AS 100, Magellan 32, and custom naval masterpieces.",
-  keywords: ["ASMARATY", "ASMARATY Yachts", "Luxury Yachts UAE", "Saxdor inspired", "Superyachts Dubai", "AS 100", "Yacht Builder Middle East"],
+  description: "Discover the ASMARATY yacht collection: G100, G66, G55, and AS 77. Considered design, refined spaces, and the pleasure of being on the water.",
+  keywords: ["ASMARATY", "ASMARATY Yachts", "Luxury Yachts UAE", "G100 Superyacht", "G66 Flybridge", "G55 Cruiser", "AS 77 Flybridge", "Yacht Builder UAE"],
+  icons: {
+    icon: [
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.png", sizes: "64x64", type: "image/png" },
+      { url: "/favicon.ico" }
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }) {

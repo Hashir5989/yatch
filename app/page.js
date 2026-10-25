@@ -20,7 +20,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-[#08101C]">
       <PublicNavbar currentPageId={page?.id || "page-home"} />
 
       <main className="flex-1">

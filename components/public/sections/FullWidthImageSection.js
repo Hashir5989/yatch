@@ -102,7 +102,7 @@ export default function FullWidthImageSection({
                     onUpdateField("buttonUrl", newUrl);
                   }
                 }}
-                className="saxdor-btn-solid inline-flex items-center gap-2"
+                className="saxdor-btn-solid inline-flex items-center gap-2 w-full sm:w-auto text-center"
                 icon={ArrowRight}
               />
             </div>

@@ -14,8 +14,9 @@ export default function HeroBannerSection({
     eyebrow = "ASMARATY • EST. 1979",
     heading = "BESPOKE NAVAL MASTERPIECES",
     subheading = "Pioneering luxury composite yacht manufacturing in the United Arab Emirates.",
-    imageUrl = "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=2000&q=80",
+    imageUrl = "/images/yachts/g100.jpg",
     imageAlt = "ASMARATY Yacht",
+    videoUrl = "/videos/live-yacht-journey.mp4",
     primaryButtonText = "Explore Fleet",
     primaryButtonUrl = "/yachts",
     secondaryButtonText = "Private Commission",
@@ -33,35 +34,71 @@ export default function HeroBannerSection({
 
   return (
     <section className="relative min-h-[92vh] flex flex-col justify-between overflow-hidden bg-[#080B10] group/hero">
-      {/* Background Image with Dark Vignette Gradient */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={imageUrl}
-          alt={imageAlt || heading}
-          className="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#08101C] via-[#08101C]/25 to-[#08101C]/40"></div>
+      {/* Background Media: Live Video or Photo with Dark Vignette Gradient */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {videoUrl ? (
+          <div className="absolute inset-0 w-full h-full">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={imageUrl || "/images/live-yacht-journey.jpg"}
+              className="w-full h-full object-cover object-center scale-[1.01]"
+            >
+              <source src={videoUrl} type="video/mp4" />
+              <source src="/videos/gemini_generated_video_965a036b.mp4" type="video/mp4" />
+              <source src="/videos/live-yacht-journey.mp4" type="video/mp4" />
+              <img
+                src={imageUrl || "/images/live-yacht-journey.jpg"}
+                alt={imageAlt || heading}
+                className="w-full h-full object-cover object-center scale-105"
+              />
+            </video>
+          </div>
+        ) : (
+          <img
+            src={imageUrl}
+            alt={imageAlt || heading}
+            className="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#08101C] via-[#08101C]/30 to-[#08101C]/45 pointer-events-none"></div>
         <div 
           className="absolute -left-[20vw] -bottom-[30vh] w-[130vw] h-[130vh] pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse at 30% 72%, rgba(6, 16, 34, 0.70) 0%, rgba(6, 16, 34, 0.50) 22%, rgba(6, 16, 34, 0.22) 45%, transparent 70%)"
+            background: "radial-gradient(ellipse at 30% 72%, rgba(6, 16, 34, 0.70) 0%, rgba(6, 16, 34, 0.45) 25%, rgba(6, 16, 34, 0.20) 45%, transparent 70%)"
           }}
         />
 
-        {/* Change Background Image Button when in Edit Mode */}
+        {/* Change Background Media Button when in Edit Mode */}
         {isEditable && onOpenMediaPicker && (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onOpenMediaPicker("imageUrl", imageUrl);
-            }}
-            className="absolute top-6 right-6 z-30 px-3.5 py-2 rounded-full bg-[#080B10]/90 backdrop-blur-md text-[#C5A880] border border-[#C5A880]/50 hover:bg-[#C5A880] hover:text-[#080B10] text-xs font-medium flex items-center gap-2 shadow-xl transition-all"
-            title="Replace Hero Background Image"
-          >
-            <ImageIcon className="w-3.5 h-3.5" />
-            <span>Change Background Photo</span>
-          </button>
+          <div className="absolute top-6 right-6 z-30 flex items-center gap-2 pointer-events-auto">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenMediaPicker("videoUrl", videoUrl || "/videos/live-yacht-journey.mp4");
+              }}
+              className="px-3.5 py-2 rounded-full bg-[#080B10]/90 backdrop-blur-md text-[#C5A880] border border-[#C5A880]/50 hover:bg-[#C5A880] hover:text-[#080B10] text-xs font-medium flex items-center gap-2 shadow-xl transition-all"
+              title="Replace Hero Background Video"
+            >
+              <ImageIcon className="w-3.5 h-3.5" />
+              <span>Change Video</span>
+            </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenMediaPicker("imageUrl", imageUrl);
+              }}
+              className="px-3.5 py-2 rounded-full bg-[#080B10]/90 backdrop-blur-md text-[#C5A880] border border-[#C5A880]/50 hover:bg-[#C5A880] hover:text-[#080B10] text-xs font-medium flex items-center gap-2 shadow-xl transition-all"
+              title="Replace Hero Fallback Photo"
+            >
+              <ImageIcon className="w-3.5 h-3.5" />
+              <span>Change Photo</span>
+            </button>
+          </div>
         )}
       </div>
 
@@ -70,6 +107,17 @@ export default function HeroBannerSection({
         isCenter ? "items-center" : "items-start"
       }`}>
         <div className={`max-w-4xl ${isCenter ? "text-center mx-auto" : "text-left"}`}>
+          {/* Official ASMARATY Emblem Crest */}
+          {isCenter && (
+            <div className="mb-6 flex justify-center">
+              <img
+                src="/images/asmaraty-emblem.png"
+                alt="ASMARATY Emblem"
+                className="w-auto h-10 sm:h-12 md:h-14 object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)] transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+          )}
+
           {/* Saxdor Gold Eyebrow */}
           <div className="mb-4">
             <InlineEditableText
@@ -111,7 +159,7 @@ export default function HeroBannerSection({
           )}
 
           {/* Saxdor Action Buttons */}
-          <div className={`flex flex-wrap items-center gap-4 ${isCenter ? "justify-center" : "justify-start"}`}>
+          <div className={`flex flex-col sm:flex-row items-center gap-3.5 sm:gap-4 w-full sm:w-auto ${isCenter ? "justify-center" : "justify-start"}`}>
             {/* Primary Button: Solid White (Saxdor signature) */}
             <InlineButtonEditor
               text={primaryButtonText}
@@ -123,7 +171,7 @@ export default function HeroBannerSection({
                   onUpdateField("primaryButtonUrl", newUrl);
                 }
               }}
-              className="saxdor-btn-solid"
+              className="saxdor-btn-solid w-full sm:w-auto text-center"
               icon={null}
             />
 
@@ -139,7 +187,7 @@ export default function HeroBannerSection({
                     onUpdateField("secondaryButtonUrl", newUrl);
                   }
                 }}
-                className="saxdor-btn-outline"
+                className="saxdor-btn-outline w-full sm:w-auto text-center"
               />
             )}
           </div>

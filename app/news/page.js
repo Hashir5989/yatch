@@ -4,7 +4,14 @@ import { useState, useEffect } from "react";
 import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 import SectionRenderer from "@/components/public/SectionRenderer";
+import UnderConstructionView from "@/components/public/UnderConstructionView";
 import { getPageBySlug } from "@/lib/cmsStore";
+
+/**
+ * Under Construction Flag:
+ * Public news page displays Under Construction view until articles are ready.
+ */
+const IS_UNDER_CONSTRUCTION = true;
 
 export default function NewsPage() {
   const [page, setPage] = useState(() => getPageBySlug("/news"));
@@ -19,6 +26,18 @@ export default function NewsPage() {
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
   }, []);
 
+  if (IS_UNDER_CONSTRUCTION) {
+    return (
+      <UnderConstructionView
+        pageTitle="News, Insights & Boat Shows"
+        pageSlug="/news"
+        description="Our international boat show highlights, naval architecture dispatches, and media articles are currently under construction. Explore our featured yacht models on the Home page."
+        customBadge="UNDER CONSTRUCTION"
+      />
+    );
+  }
+
+  // Full page view when under construction is disabled
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PublicNavbar currentPageId={page?.id || "page-news"} />

@@ -20,7 +20,7 @@ export default function CmsHeader({ title = "Content Studio", subtitle = "ASMARA
       <div className="flex items-center gap-4">
         <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded bg-[#121824] border border-[#232E42] text-xs text-[#9DAAB8]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880]"></span>
-          <span>Client Prototype — Nuvyara Digital</span>
+          <span>ASMARATY Maritime Studio</span>
         </div>
 
         <Link

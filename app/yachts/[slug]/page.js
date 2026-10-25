@@ -19,7 +19,14 @@ import {
 } from "lucide-react";
 import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
-import { getYachtBySlug, getAllYachts } from "@/lib/cmsStore";
+import UnderConstructionView from "@/components/public/UnderConstructionView";
+import { getYachtBySlug, getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
+
+/**
+ * Under Construction Flag:
+ * Public yacht detail pages display Under Construction view until dossiers are ready.
+ */
+const IS_UNDER_CONSTRUCTION = true;
 
 function YachtDetailPageInner() {
   const params = useParams();
@@ -31,6 +38,13 @@ function YachtDetailPageInner() {
   const [activeTab, setActiveTab] = useState("specs"); // specs, highlights, layout
 
   useEffect(() => {
+    syncYachtsFromServer().then((synced) => {
+      if (slug && synced) {
+        const found = synced.find((y) => y.slug === slug);
+        if (found) setYacht(found);
+      }
+    });
+
     const handleUpdate = () => {
       if (slug) {
         const y = getYachtBySlug(slug);
@@ -41,6 +55,23 @@ function YachtDetailPageInner() {
     window.addEventListener("asm-cms-change", handleUpdate);
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
   }, [slug]);
+
+  if (IS_UNDER_CONSTRUCTION) {
+    const modelTitle = yacht?.name ? `${yacht.name} — Specification Dossier` : "Yacht Model Dossier";
+    const modelDesc = yacht?.name
+      ? `The dedicated specification dossier and interactive configurator for ${yacht.name} are currently under construction. Complete specifications and photo galleries can be explored on our Home page.`
+      : "The individual yacht specification dossier is currently under construction. Complete specifications for our featured yacht models are on the Home page.";
+
+    return (
+      <UnderConstructionView
+        pageTitle={modelTitle}
+        pageSlug={`/yachts/${slug || ""}`}
+        description={modelDesc}
+        customBadge="UNDER CONSTRUCTION"
+        yacht={yacht}
+      />
+    );
+  }
 
   if (!yacht) {
     return (
@@ -74,14 +105,6 @@ function YachtDetailPageInner() {
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to Fleet Collections</span>
-            </Link>
-
-            <Link
-              href="/admin/yachts"
-              className="text-[#C5A880] hover:text-white flex items-center gap-1.5 transition-colors"
-            >
-              <Sparkles className="w-3 h-3" />
-              <span>Edit this Yacht in CMS</span>
             </Link>
           </div>
         </div>

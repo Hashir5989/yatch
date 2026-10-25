@@ -13,11 +13,11 @@ export default function FeaturedYachtSection({
 }) {
   const {
     eyebrow = "FLAGSHIP SPOTLIGHT",
-    heading = "The AS 100 Tri-Deck Superyacht",
-    yachtSlug = "as-100",
+    heading = "The ASMARATY G100 Superyacht",
+    yachtSlug = "g100",
     description = "An unmistakable presence on international waters. Featuring a full-beam master suite on the main deck, four guest staterooms, and twin CAT C32 Acert 1900 HP engines.",
-    imageUrl = "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=2000&q=80",
-    imageAlt = "ASMARATY Flagship AS 100",
+    imageUrl = "/images/yachts/g100.jpg",
+    imageAlt = "ASMARATY Flagship G100",
     keySpecs = [
       { label: "Length Overall", value: "100 ft (30.5m)" },
       { label: "Max Speed", value: "28 Knots" },
@@ -138,7 +138,7 @@ export default function FeaturedYachtSection({
             </div>
 
             {/* Action Buttons */}
-            <div className="pt-4 flex flex-wrap gap-4">
+            <div className="pt-4 flex flex-col sm:flex-row items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
               <InlineButtonEditor
                 text={buttonText}
                 url={buttonUrl}
@@ -149,7 +149,7 @@ export default function FeaturedYachtSection({
                     onUpdateField("buttonUrl", newUrl);
                   }
                 }}
-                className="saxdor-btn-solid inline-flex items-center gap-2"
+                className="saxdor-btn-solid inline-flex items-center gap-2 w-full sm:w-auto text-center"
                 icon={ArrowRight}
               />
 
@@ -163,7 +163,7 @@ export default function FeaturedYachtSection({
                     onUpdateField("secondaryButtonUrl", newUrl);
                   }
                 }}
-                className="saxdor-btn-outline"
+                className="saxdor-btn-outline w-full sm:w-auto text-center"
               />
             </div>
           </div>

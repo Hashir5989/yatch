@@ -15,14 +15,21 @@ import {
   Image as ImageIcon,
   Star,
   Eye,
-  EyeOff
+  EyeOff,
+  ChevronUp,
+  ChevronDown,
+  Layers,
+  ArrowUpDown
 } from "lucide-react";
 import CmsHeader from "@/components/cms/CmsHeader";
 import MediaPickerModal from "@/components/cms/MediaPickerModal";
 import { 
   getAllYachts, 
   saveYacht, 
-  deleteYacht 
+  deleteYacht,
+  reorderYachts,
+  togglePublishYacht,
+  syncYachtsFromServer
 } from "@/lib/cmsStore";
 
 export default function YachtManagementScreen() {
@@ -34,6 +41,8 @@ export default function YachtManagementScreen() {
   // Edit / Create Modal State
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [currentYacht, setCurrentYacht] = useState(null);
+  const [newHighlight, setNewHighlight] = useState("");
+  const [newGalleryUrl, setNewGalleryUrl] = useState("");
 
   // Media Picker
   const [mediaPickerOpen, setMediaPickerOpen] = useState(false);
@@ -44,6 +53,11 @@ export default function YachtManagementScreen() {
   };
 
   useEffect(() => {
+    syncYachtsFromServer().then((synced) => {
+      if (synced && Array.isArray(synced) && synced.length > 0) {
+        setYachts(synced);
+      }
+    });
     const handleUpdate = () => loadYachts();
     window.addEventListener("asm-cms-change", handleUpdate);
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
@@ -61,70 +75,143 @@ export default function YachtManagementScreen() {
       slug: "",
       category: "Superyacht",
       tagline: "",
-      series: "Custom Series",
+      series: "G-Series",
       description: "",
-      mainImage: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=2000&q=80",
+      mainImage: "/images/yachts/g100.jpg",
       gallery: [],
       featured: false,
       status: "published",
+      displayOrder: yachts.length + 1,
       specs: {
-        lengthOverall: "75 ft (22.8m)",
-        beam: "18.5 ft (5.6m)",
-        draft: "3.8 ft (1.15m)",
-        engines: "Twin CAT 1200 HP",
-        maxSpeed: "30 Knots",
-        cruisingSpeed: "24 Knots",
-        staterooms: "3 En-suites",
-        guests: "6 Guests",
-        crew: "2 Crew",
+        lengthOverall: "",
         hullMaterial: "Vacuum-Infused Composite",
       },
       highlights: [
-        "Custom handcrafted Italian leather appointments",
-        "Zero-speed gyroscopic stabilizer",
-        "Hydraulic swim platform"
+        "Contemporary aesthetic with generous living spaces",
+        "Refined interior and exterior deck integration"
       ]
     });
+    setNewHighlight("");
+    setNewGalleryUrl("");
     setIsEditorOpen(true);
   };
 
   const handleOpenEdit = (yacht) => {
     setCurrentYacht(JSON.parse(JSON.stringify(yacht)));
+    setNewHighlight("");
+    setNewGalleryUrl("");
     setIsEditorOpen(true);
   };
 
   const handleDelete = (id, name) => {
-    if (confirm(`Delete "${name}" from the yacht catalog?`)) {
+    if (confirm(`Are you sure you want to delete "${name}" from the yacht catalog? This action will remove it from the authoritative content source.`)) {
       deleteYacht(id);
       loadYachts();
-      showToast(`Deleted ${name}`);
+      showToast(`Deleted "${name}"`);
     }
+  };
+
+  const handleTogglePublish = (yacht) => {
+    const updated = togglePublishYacht(yacht.id);
+    if (updated) {
+      loadYachts();
+      const statusLabel = updated.status === "published" ? "Published live" : "Unpublished (Draft)";
+      showToast(`"${yacht.name}" is now ${statusLabel}`);
+    }
+  };
+
+  const handleMoveUp = (index) => {
+    if (index <= 0) return;
+    const reorderedList = [...yachts];
+    const temp = reorderedList[index];
+    reorderedList[index] = reorderedList[index - 1];
+    reorderedList[index - 1] = temp;
+
+    const orderedIds = reorderedList.map((y) => y.id);
+    const updated = reorderYachts(orderedIds);
+    setYachts(updated);
+    showToast(`Moved "${temp.name}" up (Order #${index})`);
+  };
+
+  const handleMoveDown = (index) => {
+    if (index >= yachts.length - 1) return;
+    const reorderedList = [...yachts];
+    const temp = reorderedList[index];
+    reorderedList[index] = reorderedList[index + 1];
+    reorderedList[index + 1] = temp;
+
+    const orderedIds = reorderedList.map((y) => y.id);
+    const updated = reorderYachts(orderedIds);
+    setYachts(updated);
+    showToast(`Moved "${temp.name}" down (Order #${index + 2})`);
+  };
+
+  const handleAddHighlight = () => {
+    if (!newHighlight.trim() || !currentYacht) return;
+    const currentHighlights = currentYacht.highlights || [];
+    setCurrentYacht({
+      ...currentYacht,
+      highlights: [...currentHighlights, newHighlight.trim()]
+    });
+    setNewHighlight("");
+  };
+
+  const handleRemoveHighlight = (idxToRemove) => {
+    if (!currentYacht) return;
+    const currentHighlights = currentYacht.highlights || [];
+    setCurrentYacht({
+      ...currentYacht,
+      highlights: currentHighlights.filter((_, idx) => idx !== idxToRemove)
+    });
+  };
+
+  const handleAddGalleryImage = () => {
+    if (!newGalleryUrl.trim() || !currentYacht) return;
+    const currentGallery = currentYacht.gallery || [];
+    setCurrentYacht({
+      ...currentYacht,
+      gallery: [...currentGallery, newGalleryUrl.trim()]
+    });
+    setNewGalleryUrl("");
+  };
+
+  const handleRemoveGalleryImage = (idxToRemove) => {
+    if (!currentYacht) return;
+    const currentGallery = currentYacht.gallery || [];
+    setCurrentYacht({
+      ...currentYacht,
+      gallery: currentGallery.filter((_, idx) => idx !== idxToRemove)
+    });
   };
 
   const handleSaveYacht = (e) => {
     e.preventDefault();
     if (!currentYacht.name.trim()) return;
 
-    let slug = currentYacht.slug.trim();
+    let slug = (currentYacht.slug || "").trim();
     if (!slug) {
       slug = currentYacht.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
     }
 
+    const order = parseInt(currentYacht.displayOrder, 10);
+    const displayOrder = isNaN(order) ? (yachts.length + 1) : order;
+
     saveYacht({
       ...currentYacht,
       slug,
+      displayOrder,
     });
 
     setIsEditorOpen(false);
     loadYachts();
-    showToast(`Saved "${currentYacht.name}"`);
+    showToast(`Saved "${currentYacht.name}" to database`);
   };
 
   const filteredYachts = yachts.filter((y) => {
     const matchesCat = activeCategory === "all" || y.category?.toLowerCase() === activeCategory.toLowerCase();
     const matchesQuery = !searchQuery || 
       y.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      y.description.toLowerCase().includes(searchQuery.toLowerCase());
+      (y.description && y.description.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCat && matchesQuery;
   });
 
@@ -132,7 +219,7 @@ export default function YachtManagementScreen() {
     <div className="flex-1 flex flex-col min-h-screen bg-[#070A0F]">
       <CmsHeader 
         title="Yacht Models & Fleet" 
-        subtitle="Manage vessel specifications, imagery, status, and public catalog records"
+        subtitle="Authoritative model management: add, edit, reorder, publish, or remove vessels"
       />
 
       {/* Toast Notification */}
@@ -148,11 +235,14 @@ export default function YachtManagementScreen() {
         {/* Top Action Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="font-serif text-2xl font-light text-white tracking-wide">
-              Yacht Catalog ({yachts.length})
+            <h1 className="font-serif text-2xl font-light text-white tracking-wide flex items-center gap-3">
+              <span>Authoritative Fleet Collection</span>
+              <span className="text-xs font-mono font-normal px-2.5 py-0.5 bg-[#0E1A2D] text-[#C6A155] border border-[#C6A155]/30 rounded">
+                {yachts.length} {yachts.length === 1 ? "Model" : "Models"}
+              </span>
             </h1>
             <p className="text-xs text-[#828F9E] mt-1">
-              Add or edit vessel models. All changes immediately reflect on the public fleet pages.
+              Changes persist in real time and automatically reflect on the public Home page collection.
             </p>
           </div>
 
@@ -172,7 +262,7 @@ export default function YachtManagementScreen() {
             {/* Add Yacht Button */}
             <button
               onClick={handleOpenCreate}
-              className="btn-gold px-4 py-2 text-xs font-semibold rounded-sm inline-flex items-center gap-2 tracking-wider"
+              className="btn-gold px-4 py-2 text-xs font-semibold rounded-sm inline-flex items-center gap-2 tracking-wider cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Add Yacht Model</span>
@@ -181,15 +271,19 @@ export default function YachtManagementScreen() {
         </div>
 
         {/* Yacht Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredYachts.map((yacht) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          {filteredYachts.map((yacht, idx) => (
             <div
               key={yacht.id}
-              className="bg-[#0A0D15] rounded-sm border border-[#1A2230] overflow-hidden hover:border-[#C5A880]/50 transition-all flex flex-col justify-between group"
+              className={`bg-[#0A0D15] rounded-sm border overflow-hidden transition-all flex flex-col justify-between group ${
+                yacht.status === "published"
+                  ? "border-[#1A2230] hover:border-[#C5A880]/60"
+                  : "border-amber-900/30 opacity-75"
+              }`}
             >
               <div>
                 {/* Photo & Badges */}
-                <div className="relative h-48 overflow-hidden bg-black">
+                <div className="relative h-56 overflow-hidden bg-black">
                   <img
                     src={yacht.mainImage}
                     alt={yacht.name}
@@ -197,86 +291,142 @@ export default function YachtManagementScreen() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D15] via-transparent to-transparent"></div>
 
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    <span className="px-2.5 py-1 text-[10px] uppercase tracking-wider font-medium bg-[#080B10]/85 backdrop-blur-md text-[#E0C7A6] border border-[#C5A880]/30 rounded-sm">
+                  {/* Top Left: Order & Series */}
+                  <div className="absolute top-3 left-3 flex items-center gap-2">
+                    <span className="px-2.5 py-1 text-[11px] font-mono font-bold bg-[#080B10]/90 text-[#C6A155] border border-[#C6A155]/40 rounded-sm">
+                      #{idx + 1}
+                    </span>
+                    <span className="px-2.5 py-1 text-[10px] uppercase tracking-wider font-medium bg-[#080B10]/85 backdrop-blur-md text-[#E0C7A6] border border-white/10 rounded-sm">
                       {yacht.category}
                     </span>
                     {yacht.featured && (
-                      <span className="px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold bg-[#C5A880] text-[#080B10] rounded-sm flex items-center gap-1">
+                      <span className="px-2 py-1 text-[10px] uppercase tracking-wider font-semibold bg-[#C5A880] text-[#080B10] rounded-sm flex items-center gap-1">
                         <Star className="w-3 h-3 fill-current" />
-                        <span>Flagship</span>
+                        <span>Featured</span>
                       </span>
                     )}
                   </div>
 
-                  <div className="absolute top-3 right-3">
-                    {yacht.status === "published" ? (
-                      <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-950/80 text-emerald-300 border border-emerald-800">
-                        Published
-                      </span>
-                    ) : (
-                      <span className="px-2 py-0.5 rounded text-[10px] bg-amber-950/80 text-amber-300 border border-amber-800">
-                        Draft
-                      </span>
-                    )}
+                  {/* Top Right: One-Click Publish / Unpublish Toggle */}
+                  <div className="absolute top-3 right-3 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleTogglePublish(yacht)}
+                      className={`px-3 py-1 rounded text-[11px] font-semibold flex items-center gap-1.5 transition-all cursor-pointer backdrop-blur-md ${
+                        yacht.status === "published"
+                          ? "bg-emerald-950/90 text-emerald-300 border border-emerald-600 hover:bg-emerald-900"
+                          : "bg-amber-950/90 text-amber-300 border border-amber-600 hover:bg-amber-900"
+                      }`}
+                      title="Click to toggle publication"
+                    >
+                      {yacht.status === "published" ? (
+                        <>
+                          <Eye className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>Published</span>
+                        </>
+                      ) : (
+                        <>
+                          <EyeOff className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Draft (Hidden)</span>
+                        </>
+                      )}
+                    </button>
                   </div>
 
-                  <div className="absolute bottom-3 left-3 font-serif text-xs text-[#E8EAEE]">
-                    {yacht.specs?.lengthOverall}
+                  {/* Bottom: Length */}
+                  <div className="absolute bottom-3 left-3 font-mono text-xs text-[#E8EAEE] bg-black/60 px-2 py-0.5 rounded">
+                    {yacht.specs?.lengthOverall || yacht.length || "Length: Pending"}
                   </div>
                 </div>
 
                 {/* Details */}
-                <div className="p-5">
-                  <h3 className="font-serif text-xl font-medium text-white group-hover:text-[#F5E6D3] transition-colors">
-                    {yacht.name}
-                  </h3>
-                  <p className="text-[11px] text-[#C5A880] uppercase tracking-wider mt-0.5 mb-3 font-sans">
-                    {yacht.tagline || yacht.series}
-                  </p>
-                  <p className="text-xs text-[#7E8B9C] line-clamp-2 leading-relaxed font-light mb-4">
-                    {yacht.description}
-                  </p>
+                <div className="p-5 space-y-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="font-serif text-2xl font-normal text-white group-hover:text-[#DFBA73] transition-colors">
+                        {yacht.name}
+                      </h3>
+                      {yacht.tagline && (
+                        <p className="text-[11px] text-[#C5A880] uppercase tracking-wider mt-0.5 font-sans">
+                          {yacht.tagline}
+                        </p>
+                      )}
+                    </div>
 
-                  <div className="grid grid-cols-3 gap-2 py-3 border-t border-b border-white/5 text-center text-xs">
-                    <div>
-                      <span className="text-[10px] text-[#5E6B7C] block uppercase">Speed</span>
-                      <span className="text-white font-medium">{yacht.specs?.maxSpeed || "—"}</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-[#5E6B7C] block uppercase">Cabins</span>
-                      <span className="text-white font-medium">{yacht.specs?.staterooms?.split(" ")[0] || "—"}</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-[#5E6B7C] block uppercase">Guests</span>
-                      <span className="text-white font-medium">{yacht.specs?.guests?.split(" ")[0] || "—"}</span>
+                    {/* Order Adjustment Controls */}
+                    <div className="flex items-center gap-1 bg-[#0E1522] border border-white/10 rounded p-1">
+                      <button
+                        type="button"
+                        onClick={() => handleMoveUp(idx)}
+                        disabled={idx === 0}
+                        className={`p-1 rounded transition-colors ${
+                          idx === 0 ? "text-white/20 cursor-not-allowed" : "text-white/70 hover:text-[#C6A155] hover:bg-white/5 cursor-pointer"
+                        }`}
+                        title="Move Up in Display Order"
+                      >
+                        <ChevronUp className="w-4 h-4" />
+                      </button>
+                      <span className="text-[10px] font-mono text-white/50 px-1">
+                        {idx + 1}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleMoveDown(idx)}
+                        disabled={idx === yachts.length - 1}
+                        className={`p-1 rounded transition-colors ${
+                          idx === yachts.length - 1 ? "text-white/20 cursor-not-allowed" : "text-white/70 hover:text-[#C6A155] hover:bg-white/5 cursor-pointer"
+                        }`}
+                        title="Move Down in Display Order"
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
+
+                  <p className="text-xs text-[#8E9EAF] line-clamp-2 leading-relaxed font-light">
+                    {yacht.description || "No description provided."}
+                  </p>
+
+                  {/* Highlights list */}
+                  {yacht.highlights && yacht.highlights.length > 0 && (
+                    <div className="pt-2 border-t border-white/5">
+                      <ul className="space-y-1 text-[11px] text-white/70">
+                        {yacht.highlights.slice(0, 2).map((h, hIdx) => (
+                          <li key={hIdx} className="flex items-center gap-1.5 truncate">
+                            <Check className="w-3 h-3 text-[#C6A155] flex-shrink-0" />
+                            <span className="truncate">{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="p-5 pt-0 flex items-center justify-between gap-2">
+              <div className="p-5 pt-0 flex items-center justify-between gap-3 border-t border-white/5 mt-4">
                 <button
+                  type="button"
                   onClick={() => handleOpenEdit(yacht)}
-                  className="flex-1 py-2 px-3 rounded-sm bg-[#162030] hover:bg-[#C5A880] hover:text-[#080B10] text-[#D1D9E4] text-xs font-semibold tracking-wider transition-all flex items-center justify-center gap-1.5"
+                  className="flex-1 py-2 px-3 rounded-sm bg-[#162030] hover:bg-[#C5A880] hover:text-[#080B10] text-[#D1D9E4] text-xs font-semibold tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
                   <span>Edit Model</span>
                 </button>
 
                 <Link
-                  href={`/yachts/${yacht.slug}`}
-                  target="_blank"
-                  className="p-2 rounded-sm text-[#8E9AA8] hover:text-white hover:bg-white/5 transition-colors"
-                  title="View Public Page"
+                  href="/#fleet"
+                  className="py-2 px-3 rounded-sm text-[#8E9AA8] hover:text-white bg-white/5 hover:bg-white/10 transition-colors text-xs font-medium flex items-center gap-1.5"
+                  title="View on Home Page"
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Home View</span>
                 </Link>
 
                 <button
+                  type="button"
                   onClick={() => handleDelete(yacht.id, yacht.name)}
-                  className="p-2 rounded-sm text-[#8E9AA8] hover:text-red-400 hover:bg-red-950/20 transition-colors"
+                  className="p-2 rounded-sm text-[#8E9AA8] hover:text-red-400 hover:bg-red-950/20 transition-colors cursor-pointer"
                   title="Delete Model"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -299,16 +449,17 @@ export default function YachtManagementScreen() {
                 </div>
                 <div>
                   <h3 className="font-serif text-lg text-white font-medium">
-                    {currentYacht.name ? `Edit ${currentYacht.name}` : "Create Yacht Model"}
+                    {currentYacht.name ? `Edit Model: ${currentYacht.name}` : "Create New Yacht Model"}
                   </h3>
                   <p className="text-xs text-[#828F9E]">
-                    Configure naval specifications, imagery, and marketing copy
+                    Configure verified naval specifications, display order, imagery, and copywriting
                   </p>
                 </div>
               </div>
               <button
+                type="button"
                 onClick={() => setIsEditorOpen(false)}
-                className="text-[#8E9AA8] hover:text-white p-1.5 rounded hover:bg-white/5"
+                className="text-[#8E9AA8] hover:text-white p-1.5 rounded hover:bg-white/5 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -317,15 +468,15 @@ export default function YachtManagementScreen() {
             {/* Form */}
             <form onSubmit={handleSaveYacht} className="flex-1 overflow-y-auto p-6 space-y-6 text-xs">
               {/* Basic Details */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="sm:col-span-2">
                   <label className="block text-[10px] uppercase tracking-wider text-[#9DAAB8] mb-1 font-semibold">
                     Yacht Model Name *
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. AS 100 Superyacht"
+                    placeholder="e.g. G100 or AS 77"
                     value={currentYacht.name}
                     onChange={(e) => {
                       const name = e.target.value;
@@ -338,14 +489,13 @@ export default function YachtManagementScreen() {
 
                 <div>
                   <label className="block text-[10px] uppercase tracking-wider text-[#9DAAB8] mb-1 font-semibold">
-                    URL Slug *
+                    Display Order (Position)
                   </label>
                   <input
-                    type="text"
-                    required
-                    placeholder="as-100"
-                    value={currentYacht.slug}
-                    onChange={(e) => setCurrentYacht({ ...currentYacht, slug: e.target.value })}
+                    type="number"
+                    min="1"
+                    value={currentYacht.displayOrder ?? 1}
+                    onChange={(e) => setCurrentYacht({ ...currentYacht, displayOrder: parseInt(e.target.value, 10) || 1 })}
                     className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-sm font-mono text-[#C5A880] focus:outline-none focus:border-[#C5A880]"
                   />
                 </div>
@@ -354,38 +504,33 @@ export default function YachtManagementScreen() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-[10px] uppercase tracking-wider text-[#9DAAB8] mb-1 font-semibold">
-                    Category Series
+                    URL Slug *
                   </label>
-                  <select
-                    value={currentYacht.category}
-                    onChange={(e) => setCurrentYacht({ ...currentYacht, category: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
-                  >
-                    <option value="Superyacht">Superyacht</option>
-                    <option value="Explorer">Explorer</option>
-                    <option value="Flybridge">Flybridge</option>
-                    <option value="Sports Cruiser">Sports Cruiser</option>
-                    <option value="Island Explorer">Island Explorer</option>
-                    <option value="Offshore">Offshore</option>
-                  </select>
+                  <input
+                    type="text"
+                    required
+                    placeholder="g100"
+                    value={currentYacht.slug}
+                    onChange={(e) => setCurrentYacht({ ...currentYacht, slug: e.target.value })}
+                    className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs font-mono text-[#C5A880] focus:outline-none focus:border-[#C5A880]"
+                  />
                 </div>
 
                 <div>
                   <label className="block text-[10px] uppercase tracking-wider text-[#9DAAB8] mb-1 font-semibold">
-                    Featured Flagship
+                    Category / Series
                   </label>
-                  <div className="flex items-center gap-2 pt-1">
-                    <input
-                      type="checkbox"
-                      id="featured-check"
-                      checked={currentYacht.featured || false}
-                      onChange={(e) => setCurrentYacht({ ...currentYacht, featured: e.target.checked })}
-                      className="w-4 h-4 accent-[#C5A880]"
-                    />
-                    <label htmlFor="featured-check" className="text-white text-xs">
-                      Mark as Flagship Showcase
-                    </label>
-                  </div>
+                  <select
+                    value={currentYacht.category || "Superyacht"}
+                    onChange={(e) => setCurrentYacht({ ...currentYacht, category: e.target.value })}
+                    className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
+                  >
+                    <option value="Superyacht">Superyacht</option>
+                    <option value="Flybridge">Flybridge</option>
+                    <option value="Cruiser">Cruiser</option>
+                    <option value="Explorer">Explorer</option>
+                    <option value="Offshore">Offshore</option>
+                  </select>
                 </div>
 
                 <div>
@@ -397,8 +542,8 @@ export default function YachtManagementScreen() {
                     onChange={(e) => setCurrentYacht({ ...currentYacht, status: e.target.value })}
                     className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
                   >
-                    <option value="published">Published</option>
-                    <option value="draft">Draft (Hidden)</option>
+                    <option value="published">Published (Visible on Home)</option>
+                    <option value="draft">Draft (Hidden from Public)</option>
                   </select>
                 </div>
               </div>
@@ -409,7 +554,7 @@ export default function YachtManagementScreen() {
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. The Pinnacle of Arabian Gulf Naval Architecture"
+                  placeholder="e.g. The Flagship of the G-Series"
                   value={currentYacht.tagline || ""}
                   onChange={(e) => setCurrentYacht({ ...currentYacht, tagline: e.target.value })}
                   className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
@@ -422,7 +567,7 @@ export default function YachtManagementScreen() {
                 </label>
                 <textarea
                   rows={4}
-                  placeholder="Describe the vessel's architecture, sea trial performance, and craftsmanship..."
+                  placeholder="Describe the vessel's architecture, living spaces, and luxury appointments..."
                   value={currentYacht.description || ""}
                   onChange={(e) => setCurrentYacht({ ...currentYacht, description: e.target.value })}
                   className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880] resize-none"
@@ -432,13 +577,13 @@ export default function YachtManagementScreen() {
               {/* Main Image */}
               <div>
                 <label className="block text-[10px] uppercase tracking-wider text-[#9DAAB8] mb-1 font-semibold">
-                  Main Showcase Image
+                  Main Showcase Image URL *
                 </label>
                 <div className="flex gap-2">
                   <input
                     type="text"
                     required
-                    value={currentYacht.mainImage}
+                    value={currentYacht.mainImage || ""}
                     onChange={(e) => setCurrentYacht({ ...currentYacht, mainImage: e.target.value })}
                     className="flex-1 px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
                   />
@@ -448,7 +593,7 @@ export default function YachtManagementScreen() {
                       setMediaTargetField("mainImage");
                       setMediaPickerOpen(true);
                     }}
-                    className="px-3 py-2 rounded-sm bg-[#1A2230] hover:bg-[#C5A880] hover:text-[#080B10] text-[#C5A880] text-xs font-medium border border-[#2A374C] flex items-center gap-1.5"
+                    className="px-3 py-2 rounded-sm bg-[#1A2230] hover:bg-[#C5A880] hover:text-[#080B10] text-[#C5A880] text-xs font-medium border border-[#2A374C] flex items-center gap-1.5 cursor-pointer"
                   >
                     <ImageIcon className="w-3.5 h-3.5" />
                     <span>Browse Media</span>
@@ -456,11 +601,16 @@ export default function YachtManagementScreen() {
                 </div>
               </div>
 
-              {/* Technical Specs Grid */}
-              <div className="p-4 bg-[#0A0D14] border border-[#1C2534] rounded-sm space-y-4">
-                <span className="text-xs font-serif text-[#C5A880] uppercase tracking-wider font-medium block">
-                  Technical Specifications
-                </span>
+              {/* Verified Specifications Grid */}
+              <div className="p-4 bg-[#0A0D14] border border-[#1C2534] rounded-sm space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-serif text-[#C5A880] uppercase tracking-wider font-medium">
+                    Verified Specifications
+                  </span>
+                  <span className="text-[10px] text-[#8E9AA8] italic">
+                    Optional — only enter verified client information; leave blank if unavailable
+                  </span>
+                </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   <div>
@@ -474,13 +624,29 @@ export default function YachtManagementScreen() {
                           specs: { ...currentYacht.specs, lengthOverall: e.target.value },
                         })
                       }
-                      placeholder="100 ft (30.5m)"
+                      placeholder="e.g. 100 ft"
                       className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[9px] uppercase tracking-wider text-[#7E8B9C] mb-1">Beam</label>
+                    <label className="block text-[9px] uppercase tracking-wider text-[#7E8B9C] mb-1">Hull Material</label>
+                    <input
+                      type="text"
+                      value={currentYacht.specs?.hullMaterial || ""}
+                      onChange={(e) =>
+                        setCurrentYacht({
+                          ...currentYacht,
+                          specs: { ...currentYacht.specs, hullMaterial: e.target.value },
+                        })
+                      }
+                      placeholder="e.g. Vacuum-Infused Composite"
+                      className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] uppercase tracking-wider text-[#7E8B9C] mb-1">Beam (Width)</label>
                     <input
                       type="text"
                       value={currentYacht.specs?.beam || ""}
@@ -490,7 +656,7 @@ export default function YachtManagementScreen() {
                           specs: { ...currentYacht.specs, beam: e.target.value },
                         })
                       }
-                      placeholder="22.8 ft (6.95m)"
+                      placeholder="Leave blank if unverified"
                       className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
                     />
                   </div>
@@ -506,87 +672,7 @@ export default function YachtManagementScreen() {
                           specs: { ...currentYacht.specs, draft: e.target.value },
                         })
                       }
-                      placeholder="4.8 ft (1.46m)"
-                      className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[9px] uppercase tracking-wider text-[#7E8B9C] mb-1">Max Speed</label>
-                    <input
-                      type="text"
-                      value={currentYacht.specs?.maxSpeed || ""}
-                      onChange={(e) =>
-                        setCurrentYacht({
-                          ...currentYacht,
-                          specs: { ...currentYacht.specs, maxSpeed: e.target.value },
-                        })
-                      }
-                      placeholder="28 Knots"
-                      className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[9px] uppercase tracking-wider text-[#7E8B9C] mb-1">Cruising Speed</label>
-                    <input
-                      type="text"
-                      value={currentYacht.specs?.cruisingSpeed || ""}
-                      onChange={(e) =>
-                        setCurrentYacht({
-                          ...currentYacht,
-                          specs: { ...currentYacht.specs, cruisingSpeed: e.target.value },
-                        })
-                      }
-                      placeholder="22 Knots"
-                      className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[9px] uppercase tracking-wider text-[#7E8B9C] mb-1">Staterooms</label>
-                    <input
-                      type="text"
-                      value={currentYacht.specs?.staterooms || ""}
-                      onChange={(e) =>
-                        setCurrentYacht({
-                          ...currentYacht,
-                          specs: { ...currentYacht.specs, staterooms: e.target.value },
-                        })
-                      }
-                      placeholder="5 Luxury En-suites"
-                      className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[9px] uppercase tracking-wider text-[#7E8B9C] mb-1">Guests Sleeping</label>
-                    <input
-                      type="text"
-                      value={currentYacht.specs?.guests || ""}
-                      onChange={(e) =>
-                        setCurrentYacht({
-                          ...currentYacht,
-                          specs: { ...currentYacht.specs, guests: e.target.value },
-                        })
-                      }
-                      placeholder="10 Guests"
-                      className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[9px] uppercase tracking-wider text-[#7E8B9C] mb-1">Crew Cabins</label>
-                    <input
-                      type="text"
-                      value={currentYacht.specs?.crew || ""}
-                      onChange={(e) =>
-                        setCurrentYacht({
-                          ...currentYacht,
-                          specs: { ...currentYacht.specs, crew: e.target.value },
-                        })
-                      }
-                      placeholder="4 Crew in 2 Cabins"
+                      placeholder="Leave blank if unverified"
                       className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
                     />
                   </div>
@@ -602,10 +688,72 @@ export default function YachtManagementScreen() {
                           specs: { ...currentYacht.specs, engines: e.target.value },
                         })
                       }
-                      placeholder="Twin CAT C32 1900 HP"
+                      placeholder="Leave blank if unverified"
                       className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
                     />
                   </div>
+
+                  <div>
+                    <label className="block text-[9px] uppercase tracking-wider text-[#7E8B9C] mb-1">Max Speed</label>
+                    <input
+                      type="text"
+                      value={currentYacht.specs?.maxSpeed || ""}
+                      onChange={(e) =>
+                        setCurrentYacht({
+                          ...currentYacht,
+                          specs: { ...currentYacht.specs, maxSpeed: e.target.value },
+                        })
+                      }
+                      placeholder="Leave blank if unverified"
+                      className="w-full px-2.5 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Highlights Manager */}
+              <div className="p-4 bg-[#0A0D14] border border-[#1C2534] rounded-sm space-y-3">
+                <span className="text-xs font-serif text-[#C5A880] uppercase tracking-wider font-medium block">
+                  Model Highlights & Key Features
+                </span>
+
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Add verified highlight..."
+                    value={newHighlight}
+                    onChange={(e) => setNewHighlight(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleAddHighlight();
+                      }
+                    }}
+                    className="flex-1 px-3 py-1.5 bg-[#101622] border border-[#1E2838] rounded-sm text-xs text-white"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleAddHighlight}
+                    className="px-3 py-1.5 rounded-sm bg-[#162030] hover:bg-[#C5A880] hover:text-[#080B10] text-[#D1D9E4] text-xs font-semibold cursor-pointer"
+                  >
+                    Add
+                  </button>
+                </div>
+
+                <div className="space-y-1.5 pt-1">
+                  {(currentYacht.highlights || []).map((hl, hIdx) => (
+                    <div key={hIdx} className="flex items-center justify-between p-2 bg-[#101622] border border-white/5 rounded text-xs text-white/80">
+                      <span>{hl}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveHighlight(hIdx)}
+                        className="text-red-400 hover:text-red-300 p-1 cursor-pointer"
+                        title="Remove highlight"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -614,15 +762,15 @@ export default function YachtManagementScreen() {
                 <button
                   type="button"
                   onClick={() => setIsEditorOpen(false)}
-                  className="px-4 py-2 text-xs text-[#8E9AA8] hover:text-white"
+                  className="px-4 py-2 text-xs text-[#8E9AA8] hover:text-white cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="btn-gold px-6 py-2.5 text-xs font-semibold rounded-sm tracking-wider"
+                  className="btn-gold px-6 py-2.5 text-xs font-semibold rounded-sm tracking-wider cursor-pointer"
                 >
-                  Save Yacht Record
+                  Save Model Record
                 </button>
               </div>
             </form>

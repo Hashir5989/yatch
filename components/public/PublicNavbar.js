@@ -15,12 +15,13 @@ import {
   Ship,
   Layers
 } from "lucide-react";
-import { getAllPages, getAllYachts } from "@/lib/cmsStore";
+import { getAllPages, getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
+import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 
 export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [panelMenuOpen, setPanelMenuOpen] = useState(false);
-  const [yachts, setYachts] = useState(() => getAllYachts().filter((y) => y.status !== "draft"));
+  const [yachts, setYachts] = useState(() => getAllYachts().filter((y) => y.status === "published"));
   const pathname = usePathname();
 
   // Derive target pageId to edit in visual builder directly without cascading setState
@@ -42,8 +43,15 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   }, []);
 
   useEffect(() => {
+    // Dynamic sync from server database API so admin-added models appear live in navbar
+    syncYachtsFromServer(true).then((synced) => {
+      if (synced && Array.isArray(synced) && synced.length > 0) {
+        setYachts(synced.filter((y) => y.status === "published"));
+      }
+    });
+
     const handleUpdate = () => {
-      setYachts(getAllYachts().filter((y) => y.status !== "draft"));
+      setYachts(getAllYachts().filter((y) => y.status === "published"));
     };
     window.addEventListener("asm-cms-change", handleUpdate);
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
@@ -60,44 +68,13 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
 
   const navLinks = [
     { label: "Fleet", href: "/yachts" },
-    { label: "Concept & Shipyard", href: "/about" },
+    { label: "About Us", href: "/about" },
     { label: "News & Events", href: "/news" },
     { label: "VIP Concierge", href: "/contact" },
   ];
 
   return (
     <>
-      {/* Top Demo Bar / Nuvyara Digital Prototype Header */}
-      <div className="bg-[#08101C] border-b border-white/10 text-xs py-2 px-4 sm:px-8 text-[#A0AAB8] z-50 relative select-none">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="font-semibold text-[#C6A155] tracking-wider uppercase text-[10px]">
-              ASMARATY CMS
-            </span>
-            <span className="text-white/20 hidden sm:inline">•</span>
-            <span className="hidden sm:inline text-[#8E9CAE] text-[11px]">
-              Saxdor-Inspired Visual Architecture
-            </span>
-          </div>
-          <div className="flex items-center gap-2.5">
-            <Link
-              href={`/admin/editor/${pageIdToEdit}`}
-              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#101A29] hover:bg-[#C6A155] hover:text-[#08101C] text-[#D8C29D] border border-white/10 text-[11px] font-medium transition-all"
-            >
-              <Edit3 className="w-3 h-3" />
-              <span>Edit Page</span>
-            </Link>
-            <Link
-              href="/admin"
-              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#C6A155] hover:bg-white text-[#08101C] text-[11px] font-bold tracking-wider uppercase transition-all"
-            >
-              <Sparkles className="w-3 h-3" />
-              <span>CMS Studio</span>
-            </Link>
-          </div>
-        </div>
-      </div>
 
       {/* Saxdor-Style Main Header */}
       <header
@@ -107,15 +84,15 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
             : "bg-gradient-to-b from-[#08101C]/95 via-[#08101C]/70 to-transparent py-4 sm:py-5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 flex items-center justify-between min-h-[50px] sm:min-h-[56px]">
           {/* Left: Saxdor 3-Line Panel Menu Toggle */}
-          <div className="flex items-center">
+          <div className="flex items-center flex-1 justify-start z-10">
             <button
               onClick={() => setPanelMenuOpen(true)}
-              className="p-1 -ml-1 text-white hover:text-[#C6A155] transition-colors flex items-center gap-3 group cursor-pointer"
+              className="p-1 -ml-1 text-white hover:text-[#C6A155] transition-colors flex items-center gap-2 sm:gap-3 group cursor-pointer"
               aria-label="Open menu"
             >
-              <svg width="32" height="32" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="28" height="28" className="sm:w-8 sm:h-8" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.5 10H26.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"/>
                 <path d="M7.5 17H26.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"/>
                 <path d="M7.5 24H26.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"/>
@@ -126,25 +103,16 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
             </button>
           </div>
 
-          {/* Center: Brand Logo */}
-          <div className="flex items-center justify-center">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-7 h-7 border border-[#C6A155]/60 flex items-center justify-center bg-[#0E2047] text-[#C6A155] group-hover:border-white transition-all">
-                <Anchor className="w-3.5 h-3.5" />
-              </div>
-              <div className="flex flex-col text-center">
-                <span className="font-sans tracking-[0.24em] text-base sm:text-lg font-light text-white uppercase group-hover:text-[#DFBA73] transition-colors leading-tight">
-                  ASMARATY
-                </span>
-                <span className="text-[8px] tracking-[0.3em] text-[#C6A155] font-sans uppercase font-medium">
-                  Yachts & Boats UAE
-                </span>
-              </div>
-            </Link>
+          {/* Center: Official ASMARATY Brand Logo - Mathematically Centered on All Responsive Screens */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center pointer-events-auto">
+            <AsmaratyLogo 
+              variant="horizontal" 
+              priority={true} 
+            />
           </div>
 
           {/* Right Action: Saxdor-Style Solid White CTA Button */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-end gap-3 sm:gap-4 flex-1 z-10">
             <a
               href="tel:1234567890"
               className="hidden lg:flex items-center gap-2 text-xs text-white/70 hover:text-[#C6A155] transition-colors font-mono"
@@ -155,9 +123,10 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
 
             <Link
               href="/contact"
-              className="saxdor-btn-solid !h-[42px] !min-h-[42px] !min-w-0 !px-6 !text-xs font-bold rounded-none"
+              className="saxdor-btn-solid !h-[36px] sm:!h-[42px] !min-h-0 !min-w-0 !px-3 sm:!px-6 !text-[11px] sm:!text-xs font-bold rounded-none whitespace-nowrap"
             >
-              <span>Discuss Build</span>
+              <span className="hidden sm:inline">Discuss Build</span>
+              <span className="inline sm:hidden">Enquire</span>
             </Link>
           </div>
         </div>
@@ -176,19 +145,11 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
           <div className="relative w-full max-w-3xl bg-[#08101C] border-r border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.95)] z-10 flex flex-col h-full overflow-hidden animate-slideInLeft">
             {/* Drawer Header */}
             <div className="p-6 sm:p-8 border-b border-white/10 bg-[#0E2047]/60 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 border border-[#C6A155]/60 flex items-center justify-center bg-[#08101C] text-[#C6A155]">
-                  <Anchor className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="font-sans text-sm sm:text-base font-semibold text-white tracking-[0.16em] uppercase">
-                    ASMARATY
-                  </h3>
-                  <p className="text-[10px] text-[#C6A155] tracking-[0.2em] uppercase font-medium">
-                    European & Arabian Maritime Excellence
-                  </p>
-                </div>
-              </div>
+              <AsmaratyLogo 
+                variant="full" 
+                className="h-12 sm:h-14" 
+                onClick={() => setPanelMenuOpen(false)} 
+              />
 
               <button
                 onClick={() => setPanelMenuOpen(false)}
@@ -241,7 +202,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                           {yacht.name}
                         </h4>
                         <span className="text-[10px] text-white/50 block font-mono">
-                          {yacht.specs?.lengthOverall} • {yacht.specs?.maxSpeed}
+                          {[yacht.specs?.lengthOverall || yacht.length, yacht.category].filter(Boolean).join(" • ")}
                         </span>
                       </div>
                     </Link>
@@ -256,12 +217,10 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                   {[
-                    { label: "Concept & Naval Architecture", href: "/about" },
-                    { label: "UAE Shipyard & Facilities", href: "/about" },
-                    { label: "Newsroom & Sea Trials", href: "/news" },
-                    { label: "Private VIP Sea Trials", href: "/contact" },
-                    { label: "Dealers & Global Network", href: "/contact" },
-                    { label: "CMS Content Studio", href: "/admin" },
+                    { label: "About Us", href: "/about" },
+                    { label: "News", href: "/news" },
+                    { label: "Contact Us", href: "/contact" },
+                    { label: "Bespoke Yacht Commissions", href: "/#enquiry-form" },
                   ].map((item, idx) => (
                     <Link
                       key={idx}

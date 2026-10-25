@@ -1,0 +1,9 @@
+{
+  "id": "admin-1",
+  "email": "admin@asmaraty.ae",
+  "name": "Shipyard Director",
+  "role": "superadmin",
+  "salt": "60d38a25129ec78a650c7a664e9d269a",
+  "hash": "243c7690d5d284646a02f0ed5340806bc2eeec20195301d3ce8acbd106ee0fc5f9a8db9918fc85f0d3844876a08a17be1f5b7c52624636067104790783dbe792",
+  "createdAt": "2026-10-24T08:27:00.914Z"
+}

@@ -76,11 +76,62 @@ export default function AdminSettingsScreen() {
             </div>
             <div>
               <h3 className="font-serif text-base text-white font-medium">
-                ASMARATY CMS Solution Prototype
+                ASMARATY CMS Studio & System Architecture
               </h3>
               <p className="text-xs text-[#8E9DAE] mt-1 leading-relaxed">
-                Engineered by <strong className="text-white">Nuvyara Digital</strong> to demonstrate a bespoke luxury Content Management System. Changes are stored in browser localStorage with realistic draft and publishing lifecycle separation.
+                Official yacht content studio. Edits to yacht models, specifications, and pages are synchronized with server storage and live endpoints.
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* System Architecture & Status Panel */}
+        <div className="p-6 rounded-sm bg-[#0A0E17] border border-[#1C2638] space-y-4 text-xs">
+          <div className="flex items-center justify-between border-b border-white/5 pb-3">
+            <div className="flex items-center gap-2 text-white font-serif text-sm font-medium">
+              <ShieldAlert className="w-4 h-4 text-[#C5A880]" />
+              <span>System Security & Data Persistence</span>
+            </div>
+            <span className="text-[10px] uppercase font-mono px-2 py-0.5 bg-[#152030] text-emerald-400 border border-emerald-400/30">
+              Active & Protected
+            </span>
+          </div>
+
+          <p className="text-[#8E9DAE] text-xs">
+            Admin routes and API endpoints are secured with session tokens, encrypted cookies, and server-side data persistence:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="p-3 bg-[#0E1522] border border-white/5 space-y-1">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-white">Yacht Catalog Database</span>
+                <span className="text-[10px] text-emerald-400 font-mono">Live (/api/yachts)</span>
+              </div>
+              <p className="text-[11px] text-[#7A8798]">Dynamic persistence in server storage synchronized with frontend showcase.</p>
+            </div>
+
+            <div className="p-3 bg-[#0E1522] border border-white/5 space-y-1">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-white">Admin Authentication</span>
+                <span className="text-[10px] text-emerald-400 font-mono">Enforced (PBKDF2)</span>
+              </div>
+              <p className="text-[11px] text-[#7A8798]">Secure HTTP-only session cookies and authentication guard on all admin routes.</p>
+            </div>
+
+            <div className="p-3 bg-[#0E1522] border border-white/5 space-y-1">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-white">Customer Enquiries</span>
+                <span className="text-[10px] text-emerald-400 font-mono">Capturing (/api/enquiries)</span>
+              </div>
+              <p className="text-[11px] text-[#7A8798]">Sea trial and private consultation submissions are recorded directly on the server.</p>
+            </div>
+
+            <div className="p-3 bg-[#0E1522] border border-white/5 space-y-1">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-white">Public Route Status</span>
+                <span className="text-[10px] text-[#C5A880] font-mono">Under Construction</span>
+              </div>
+              <p className="text-[11px] text-[#7A8798]">Secondary public pages display the official Under Construction advisory notice.</p>
             </div>
           </div>
         </div>

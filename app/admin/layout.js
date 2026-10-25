@@ -1,20 +1,17 @@
 import { Suspense } from "react";
-import CmsSidebar from "@/components/cms/CmsSidebar";
+import AdminAuthGuard from "@/components/cms/AdminAuthGuard";
 
 export const metadata = {
-  title: "CMS Studio | ASMARATY by Nuvyara Digital",
-  description: "Bespoke Content Management System for ASMARATY luxury yachts and pages.",
+  title: "CMS Studio | ASMARATY Luxury Yachts",
+  description: "Bespoke Content Management System for ASMARATY luxury yachts, models, and pages.",
 };
 
 export default function AdminLayout({ children }) {
   return (
-    <div className="min-h-screen flex bg-[#070A0F] text-[#E8EAEE] font-sans">
-      <Suspense fallback={<div className="w-64 bg-[#0A0D14] min-h-screen" />}>
-        <CmsSidebar />
-      </Suspense>
-      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
+    <Suspense fallback={<div className="min-h-screen bg-[#070A0F]" />}>
+      <AdminAuthGuard>
         {children}
-      </div>
-    </div>
+      </AdminAuthGuard>
+    </Suspense>
   );
 }
