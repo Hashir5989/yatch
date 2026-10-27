@@ -17,6 +17,7 @@ const DATA_DIR = path.join(__dirname, "..", "data");
 const YACHTS_FILE = path.join(DATA_DIR, "yachts.json");
 const ENQUIRIES_FILE = path.join(DATA_DIR, "enquiries.json");
 const ADMIN_FILE = path.join(DATA_DIR, "admin.json");
+const PAGES_FILE = path.join(DATA_DIR, "pages.json");
 
 // Read environment from .env.local if present
 const envPath = path.join(__dirname, "..", ".env.local");
@@ -127,8 +128,24 @@ async function runMigration() {
       CREATE INDEX IF NOT EXISTS idx_admin_email ON admin_users(email);
     `);
 
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS pages (
+        id VARCHAR(100) PRIMARY KEY,
+        slug VARCHAR(255) UNIQUE NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        template VARCHAR(100) NOT NULL,
+        status VARCHAR(50) DEFAULT 'published',
+        sections JSONB NOT NULL DEFAULT '[]'::jsonb,
+        meta_title VARCHAR(255),
+        meta_description TEXT,
+        last_modified TIMESTAMPTZ DEFAULT NOW(),
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+      CREATE INDEX IF NOT EXISTS idx_pages_slug ON pages(slug);
+    `);
+
     await client.query("COMMIT");
-    console.log("✓ Schema verified (tables: yachts, customer_enquiries, admin_users).");
+    console.log("✓ Schema verified (tables: yachts, customer_enquiries, admin_users, pages).");
 
     // 2. Migrate Yachts
     console.log("\n[2/4] Migrating yacht models from data/yachts.json...");
@@ -279,16 +296,63 @@ async function runMigration() {
     }
     console.log(adminMigrated ? "✓ Admin profile migrated." : "• No admin.json found.");
 
+    // 5. Migrate CMS Pages
+    console.log("\n[5/5] Migrating CMS pages from data/pages.json...");
+    let pageCount = 0;
+    if (fs.existsSync(PAGES_FILE)) {
+      const pages = JSON.parse(fs.readFileSync(PAGES_FILE, "utf-8"));
+      if (Array.isArray(pages)) {
+        for (const page of pages) {
+          const query = `
+            INSERT INTO pages (
+              id, slug, title, template, status, sections, meta_title, meta_description, last_modified, created_at
+            ) VALUES (
+              $1, $2, $3, $4, $5, $6::jsonb, $7, $8, $9, $10
+            )
+            ON CONFLICT (id) DO UPDATE SET
+              slug = EXCLUDED.slug,
+              title = EXCLUDED.title,
+              template = EXCLUDED.template,
+              status = EXCLUDED.status,
+              sections = EXCLUDED.sections,
+              meta_title = EXCLUDED.meta_title,
+              meta_description = EXCLUDED.meta_description,
+              last_modified = EXCLUDED.last_modified;
+          `;
+
+          const values = [
+            page.id || `page-${pageCount + 1}`,
+            page.slug,
+            page.title || "Page",
+            page.template || "custom",
+            page.status || "published",
+            JSON.stringify(page.sections || []),
+            page.metaTitle || "",
+            page.metaDescription || "",
+            page.lastModified || new Date().toISOString(),
+            new Date().toISOString()
+          ];
+
+          await client.query(query, values);
+          console.log(`  • Migrated page: ${page.title} (${page.slug})`);
+          pageCount++;
+        }
+      }
+    }
+    console.log(`✓ ${pageCount} page(s) migrated.`);
+
     // Final Verification
     console.log("\n------------------------------------------------------------");
     console.log("📊 PostgreSQL Database Verification:");
     const { rows: yachtRows } = await client.query("SELECT COUNT(*) as count FROM yachts");
     const { rows: enqRows } = await client.query("SELECT COUNT(*) as count FROM customer_enquiries");
     const { rows: adminRows } = await client.query("SELECT COUNT(*) as count FROM admin_users");
+    const { rows: pageRows } = await client.query("SELECT COUNT(*) as count FROM pages");
 
     console.log(`  • Total Yachts in DB: ${yachtRows[0].count}`);
     console.log(`  • Total Enquiries in DB: ${enqRows[0].count}`);
     console.log(`  • Total Admin Users in DB: ${adminRows[0].count}`);
+    console.log(`  • Total Pages in DB: ${pageRows[0].count}`);
     console.log("------------------------------------------------------------");
     console.log("\n🎉 MIGRATION COMPLETED SUCCESSFULLY!");
     console.log("Note: Original JSON backup files in data/ remain intact.\n");

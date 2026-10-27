@@ -55,8 +55,8 @@
         "layoutStyle": "fleet_feature",
         "backgroundStyle": "dark",
         "contentAlignment": "center",
-        "buttonText": "EXPLORE SIGNATURE MODELS",
-        "buttonUrl": "#fleet"
+        "buttonText": "DISCOVER OUR STORY",
+        "buttonUrl": "/about"
       },
       {
         "id": "home-four-models",
