@@ -569,19 +569,13 @@ export default function YachtCollectionSection({
                 {[currentYacht.specs?.lengthOverall || currentYacht.length, currentYacht.category, currentYacht.specs?.hullMaterial].filter(Boolean).join(" • ")}
               </p>
               <div>
-                <a
-                  href="#fleet"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.dispatchEvent(new CustomEvent("asm-switch-fleet-model", { detail: { slug: currentYacht.slug } }));
-                    const fleetElem = document.getElementById("fleet");
-                    if (fleetElem) fleetElem.scrollIntoView({ behavior: "smooth" });
-                  }}
+                <Link
+                  href={`/yachts/${currentYacht.slug}`}
                   className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-white hover:text-[#C6A155] border-b border-white hover:border-[#C6A155] pb-1 transition-colors font-semibold cursor-pointer"
                 >
                   <span>EXPLORE {currentYacht.name} SPECIFICATIONS</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#C6A155]" />
-                </a>
+                </Link>
               </div>
             </div>
 

@@ -25,7 +25,7 @@ import { getYachtBySlug, getAllYachts, syncYachtsFromServer } from "@/lib/cmsSto
 /**
  * Under Construction Flag: Public yacht detail pages display Under Construction view
  */
-const IS_UNDER_CONSTRUCTION = true;
+const IS_UNDER_CONSTRUCTION = false;
 
 function YachtDetailPageInner() {
   const params = useParams();
