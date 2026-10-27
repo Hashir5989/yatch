@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { usePathname } from "next/navigation";
 import { X, ArrowUpRight, MessageCircle } from "lucide-react";
 import { getSiteSettings } from "@/lib/cmsStore";
@@ -19,7 +19,7 @@ export function WhatsAppIcon({ className = "w-5 h-5", ...props }) {
   );
 }
 
-export default function WhatsAppConcierge() {
+function WhatsAppConciergeContent() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("971565268126");
@@ -136,5 +136,13 @@ export default function WhatsAppConcierge() {
         </button>
       </div>
     </aside>
+  );
+}
+
+export default function WhatsAppConcierge() {
+  return (
+    <Suspense fallback={null}>
+      <WhatsAppConciergeContent />
+    </Suspense>
   );
 }
