@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Send, CheckCircle2, Phone, Mail, MapPin, Shield, ArrowUpRight } from "lucide-react";
+import { Send, CheckCircle2, Phone, Mail, MapPin, Shield } from "lucide-react";
 import InlineEditableText from "@/components/cms/InlineEditableText";
-import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 
 export default function EnquirySection({
   data = {},
@@ -155,33 +154,6 @@ export default function EnquirySection({
                   />
                 </div>
               </div>
-            </div>
-
-            {/* Direct WhatsApp Concierge Card */}
-            <div className="p-4 bg-gradient-to-r from-[#25D366]/10 via-[#0E2047] to-[#C6A155]/10 border border-[#25D366]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group hover:border-[#25D366]/60 transition-all">
-              <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 bg-[#25D366]/20 border border-[#25D366]/50 flex items-center justify-center text-[#25D366] flex-shrink-0 group-hover:scale-105 transition-transform shadow-[0_0_12px_rgba(37,211,102,0.25)]">
-                  <WhatsAppIcon className="w-5 h-5 fill-current" />
-                </div>
-                <div>
-                  <div className="saxdor-eyebrow text-[9px] uppercase tracking-[0.22em] text-[#25D366] font-bold flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse" />
-                    Direct WhatsApp Concierge
-                  </div>
-                  <div className="text-xs text-white/90 font-medium mt-0.5">
-                    Confidential Chat • Senior Marine Advisor
-                  </div>
-                </div>
-              </div>
-              <a
-                href={`https://wa.me/${phone.replace(/[^0-9]/g, "") || "971565268126"}?text=${encodeURIComponent("Hello ASMARATY, I would like to enquire about your luxury yacht collection and arrange a private consultation.")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto px-4 py-2 bg-[#25D366] hover:bg-[#20bd5a] text-[#08101C] text-[10px] uppercase font-bold tracking-widest flex items-center justify-center gap-1.5 transition-colors shadow-sm flex-shrink-0"
-              >
-                <span>Chat Now</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
             </div>
           </div>
 
