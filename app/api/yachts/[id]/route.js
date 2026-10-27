@@ -15,7 +15,7 @@ export async function PUT(request, { params }) {
     const { id } = await params;
     const yachtData = await request.json();
 
-    const saved = saveYachtServer({ ...yachtData, id });
+    const saved = await saveYachtServer({ ...yachtData, id });
     return NextResponse.json({ success: true, yacht: saved });
   } catch (err) {
     console.error("Yacht PUT API error:", err);
@@ -33,7 +33,7 @@ export async function DELETE(request, { params }) {
     }
 
     const { id } = await params;
-    deleteYachtServer(id);
+    await deleteYachtServer(id);
 
     return NextResponse.json({ success: true, message: "Yacht deleted successfully" });
   } catch (err) {

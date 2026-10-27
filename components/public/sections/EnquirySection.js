@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { Send, CheckCircle2, Phone, Mail, MapPin, Shield } from "lucide-react";
+import { useState } from "react";
+import { Send, CheckCircle2, Phone, Mail, MapPin, Shield, ArrowUpRight } from "lucide-react";
 import InlineEditableText from "@/components/cms/InlineEditableText";
-import { getAllYachts } from "@/lib/cmsStore";
+import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 
 export default function EnquirySection({
   data = {},
@@ -14,298 +14,374 @@ export default function EnquirySection({
     heading = "Request Private Sea Trial or Shipyard Consultation",
     description = "Connect directly with our luxury yacht advisory team in the UAE. We arrange private sea trials and confidential bespoke build consultations.",
     recipientEmail = "info@asmaraty.fake",
-    phone = "+971 1234567890",
-    address = "ASMARATY Shipyard, Maritime District, UAE",
+    phone = "+971 56 526 8126",
+    address = "AL SHAALI MARINE, OFFICE NO 6, RASHIDIA 1, Al Shaali Group Building, PO BOX NO. 787, AJMAN, United Arab Emirates",
   } = data;
 
-  const [availableYachts, setAvailableYachts] = useState(() => {
-    const list = getAllYachts().filter((y) => y.status !== "draft").map((y) => y.name);
-    return list.length > 0 ? [...list, "Custom Bespoke Commission"] : ["AS 100 Superyacht", "Custom Bespoke Commission"];
-  });
-
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
-    model: availableYachts[0] || "AS 100 Superyacht",
-    inquiryType: "Sea Trial Request",
-    message: ""
+    location: "",
+    country: "",
+    message: "",
+    consentPrivacy: true,
+    consentMailing: false,
   });
-
-  // Listen for model selection from the models showcase & store updates
-  useEffect(() => {
-    const updateModels = () => {
-      const list = getAllYachts().filter((y) => y.status !== "draft").map((y) => y.name);
-      setAvailableYachts(list.length > 0 ? [...list, "Custom Bespoke Commission"] : ["AS 100 Superyacht", "Custom Bespoke Commission"]);
-    };
-
-    const handleModelSelect = (e) => {
-      if (e.detail?.modelName) {
-        setFormData((prev) => ({ ...prev, model: e.detail.modelName }));
-      }
-    };
-
-    window.addEventListener("asm-select-model", handleModelSelect);
-    window.addEventListener("asm-cms-change", updateModels);
-    return () => {
-      window.removeEventListener("asm-select-model", handleModelSelect);
-      window.removeEventListener("asm-cms-change", updateModels);
-    };
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
+    setErrorMessage(null);
+
     try {
-      await fetch("/api/enquiries", {
+      const res = await fetch("/api/enquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+
+      const data = await res.json();
+      if (data.success) {
+        setFormSubmitted(true);
+      } else {
+        setErrorMessage(data.error || "Failed to submit enquiry. Please check your inputs.");
+      }
     } catch (err) {
       console.warn("Could not submit enquiry to API:", err);
+      setErrorMessage("Network error. Please try again or contact us directly.");
+    } finally {
+      setSubmitting(false);
     }
-    setFormSubmitted(true);
   };
 
   return (
-    <section className="py-24 sm:py-32 bg-[#08101C] text-[#E8EAEE] relative border-t border-b border-[#14233A]" id="enquiry-form">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left Column: Direct Contacts */}
-          <div className="lg:col-span-5 space-y-8">
-            <div>
-              <div className="inline-flex items-center gap-2 mb-3">
-                <span className="w-6 h-[1.5px] bg-[#C6A155]"></span>
-                <InlineEditableText
-                  as="span"
-                  value={eyebrow}
-                  isEditable={isEditable}
-                  onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
-                  className="saxdor-eyebrow text-xs uppercase tracking-[0.24em] text-[#C6A155] font-sans font-bold"
-                  placeholder="EYEBROW..."
-                />
-              </div>
-
-              <h2 className="saxdor-title text-3xl sm:text-4xl md:text-5xl font-light text-white leading-tight uppercase tracking-[0.06em]">
-                <InlineEditableText
-                  as="span"
-                  value={heading}
-                  isEditable={isEditable}
-                  onChange={(val) => onUpdateField && onUpdateField("heading", val)}
-                  placeholder="Enter enquiry heading..."
-                  multiline={true}
-                />
-              </h2>
-            </div>
-
-            <p className="text-sm sm:text-base text-[#8E9EAF] leading-relaxed font-light">
+  <section className="py-24 sm:py-32 bg-[#08101C] text-[#E8EAEE] relative border-t border-b border-[#14233A]" id="enquiry-form">
+    <div className="max-w-7xl mx-auto px-6 sm:px-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        {/* Left Column: Direct Contacts */}
+        <div className="lg:col-span-5 space-y-8">
+          <div>
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="w-6 h-[1.5px] bg-[#C6A155]"></span>
               <InlineEditableText
                 as="span"
-                value={description}
+                value={eyebrow}
                 isEditable={isEditable}
-                onChange={(val) => onUpdateField && onUpdateField("description", val)}
-                placeholder="Enter description..."
+                onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
+                className="saxdor-eyebrow text-xs uppercase tracking-[0.24em] text-[#C6A155] font-sans font-bold"
+                placeholder="EYEBROW..."
+              />
+            </div>
+
+            <h2 className="saxdor-title text-3xl sm:text-4xl md:text-5xl font-light text-white leading-tight uppercase tracking-[0.06em]">
+              <InlineEditableText
+                as="span"
+                value={heading}
+                isEditable={isEditable}
+                onChange={(val) => onUpdateField && onUpdateField("heading", val)}
+                placeholder="Enter enquiry heading..."
                 multiline={true}
               />
-            </p>
+            </h2>
+          </div>
 
-            <div className="space-y-6 pt-4 border-t border-[#182C4B]">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-[#0E2047] border border-[#1E345A] flex items-center justify-center text-[#C6A155] flex-shrink-0">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">Direct Concierge Phone</div>
-                  <div className="text-sm text-white font-medium mt-0.5">
-                    <InlineEditableText
-                      as="span"
-                      value={phone}
-                      isEditable={isEditable}
-                      onChange={(val) => onUpdateField && onUpdateField("phone", val)}
-                      placeholder="+971 6 ..."
-                    />
-                  </div>
-                </div>
+          <p className="text-sm sm:text-base text-[#8E9EAF] leading-relaxed font-light">
+            <InlineEditableText
+              as="span"
+              value={description}
+              isEditable={isEditable}
+              onChange={(val) => onUpdateField && onUpdateField("description", val)}
+              placeholder="Enter description..."
+              multiline={true}
+            />
+          </p>
+
+          <div className="space-y-6 pt-4 border-t border-[#182C4B]">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-[#0E2047] border border-[#1E345A] flex items-center justify-center text-[#C6A155] flex-shrink-0">
+                <Phone className="w-5 h-5" />
               </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-[#0E2047] border border-[#1E345A] flex items-center justify-center text-[#C6A155] flex-shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">VIP Advisory Email</div>
-                  <div className="text-sm text-[#C6A155] font-medium mt-0.5">
-                    <InlineEditableText
-                      as="span"
-                      value={recipientEmail}
-                      isEditable={isEditable}
-                      onChange={(val) => onUpdateField && onUpdateField("recipientEmail", val)}
-                      placeholder="vip@..."
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-[#0E2047] border border-[#1E345A] flex items-center justify-center text-[#C6A155] flex-shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">Shipyard & Marina Facilities</div>
-                  <div className="text-sm text-white font-medium mt-0.5">
-                    <InlineEditableText
-                      as="span"
-                      value={address}
-                      isEditable={isEditable}
-                      onChange={(val) => onUpdateField && onUpdateField("address", val)}
-                      placeholder="Shipyard location..."
-                    />
-                  </div>
+              <div>
+                <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">Direct Concierge Phone</div>
+                <div className="text-sm text-white font-medium mt-0.5">
+                  <InlineEditableText
+                    as="span"
+                    value={phone}
+                    isEditable={isEditable}
+                    onChange={(val) => onUpdateField && onUpdateField("phone", val)}
+                    placeholder="+971 6 ..."
+                  />
                 </div>
               </div>
             </div>
 
-            <div className="p-4 bg-[#0E2047]/40 border border-[#C6A155]/20 flex items-center gap-3 text-xs text-[#8E9EAF]">
-              <Shield className="w-5 h-5 text-[#C6A155] flex-shrink-0" />
-              <span>All consultations and private sea trials are held under strict non-disclosure discretion.</span>
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-[#0E2047] border border-[#1E345A] flex items-center justify-center text-[#C6A155] flex-shrink-0">
+                <Mail className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">VIP Advisory Email</div>
+                <div className="text-sm text-[#C6A155] font-medium mt-0.5">
+                  <InlineEditableText
+                    as="span"
+                    value={recipientEmail}
+                    isEditable={isEditable}
+                    onChange={(val) => onUpdateField && onUpdateField("recipientEmail", val)}
+                    placeholder="vip@..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-[#0E2047] border border-[#1E345A] flex items-center justify-center text-[#C6A155] flex-shrink-0">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">Headquarters & Marine Facilities</div>
+                <div className="text-sm text-white font-medium mt-0.5 whitespace-pre-line leading-relaxed">
+                  <InlineEditableText
+                    as="span"
+                    value={address}
+                    isEditable={isEditable}
+                    onChange={(val) => onUpdateField && onUpdateField("address", val)}
+                    placeholder="Shipyard location..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Direct WhatsApp Concierge Card */}
+            <div className="p-4 bg-gradient-to-r from-[#25D366]/10 via-[#0E2047] to-[#C6A155]/10 border border-[#25D366]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group hover:border-[#25D366]/60 transition-all">
+              <div className="flex items-center gap-3.5">
+                <div className="w-10 h-10 bg-[#25D366]/20 border border-[#25D366]/50 flex items-center justify-center text-[#25D366] flex-shrink-0 group-hover:scale-105 transition-transform shadow-[0_0_12px_rgba(37,211,102,0.25)]">
+                  <WhatsAppIcon className="w-5 h-5 fill-current" />
+                </div>
+                <div>
+                  <div className="saxdor-eyebrow text-[9px] uppercase tracking-[0.22em] text-[#25D366] font-bold flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse" />
+                    Direct WhatsApp Concierge
+                  </div>
+                  <div className="text-xs text-white/90 font-medium mt-0.5">
+                    Confidential Chat • Senior Marine Advisor
+                  </div>
+                </div>
+              </div>
+              <a
+                href={`https://wa.me/${phone.replace(/[^0-9]/g, "") || "971565268126"}?text=${encodeURIComponent("Hello ASMARATY, I would like to enquire about your luxury yacht collection and arrange a private consultation.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-4 py-2 bg-[#25D366] hover:bg-[#20bd5a] text-[#08101C] text-[10px] uppercase font-bold tracking-widest flex items-center justify-center gap-1.5 transition-colors shadow-sm flex-shrink-0"
+              >
+                <span>Chat Now</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
 
-          {/* Right Column: Form */}
-          <div className="lg:col-span-7">
-            <div className="bg-[#0E2047]/60 p-8 sm:p-10 border border-[#182C4B] relative">
-              {formSubmitted ? (
-                <div className="py-16 text-center space-y-4">
-                  <div className="w-16 h-16 bg-[#C6A155]/20 text-[#C6A155] flex items-center justify-center mx-auto mb-4 border border-[#C6A155]">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                  <h3 className="saxdor-title text-2xl text-white uppercase tracking-wider">
-                    Enquiry Received with Discretion
-                  </h3>
-                  <p className="text-sm text-[#8E9EAF] max-w-md mx-auto">
-                    Thank you. An ASMARATY Senior Naval Advisor will contact you within 2 hours to confirm your private sea trial or consultation.
-                  </p>
-                  <button
-                    onClick={() => setFormSubmitted(false)}
-                    className="mt-6 text-xs text-[#C6A155] underline uppercase tracking-widest font-bold"
-                  >
-                    Submit Another Request
-                  </button>
+          <div className="p-4 bg-[#0E2047]/40 border border-[#C6A155]/20 flex items-center gap-3 text-xs text-[#8E9EAF]">
+            <Shield className="w-5 h-5 text-[#C6A155] flex-shrink-0" />
+            <span>All consultations and private sea trials are held under strict non-disclosure discretion.</span>
+          </div>
+        </div>
+
+        {/* Right Column: Form */}
+        <div className="lg:col-span-7">
+          <div className="bg-[#0E2047]/60 p-8 sm:p-10 border border-[#182C4B] relative">
+            {formSubmitted ? (
+              <div className="py-16 text-center space-y-4">
+                <div className="w-16 h-16 bg-[#C6A155]/20 text-[#C6A155] flex items-center justify-center mx-auto mb-4 border border-[#C6A155]">
+                  <CheckCircle2 className="w-8 h-8" />
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Sheikh / Mr / Dr. ..."
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="owner@domain.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors"
-                      />
-                    </div>
+                <h3 className="saxdor-title text-2xl text-white uppercase tracking-wider">
+                  Enquiry Received with Discretion
+                </h3>
+                <p className="text-sm text-[#8E9EAF] max-w-md mx-auto">
+                  Thank you. An ASMARATY Senior Naval Advisor will review your details and contact you shortly.
+                </p>
+                <button
+                  onClick={() => {
+                    setFormSubmitted(false);
+                    setFormData({
+                      firstName: "",
+                      lastName: "",
+                      email: "",
+                      phone: "",
+                      location: "",
+                      country: "",
+                      message: "",
+                      consentPrivacy: true,
+                      consentMailing: false,
+                    });
+                  }}
+                  className="mt-6 text-xs text-[#C6A155] underline uppercase tracking-widest font-bold cursor-pointer"
+                >
+                  Submit Another Request
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {errorMessage && (
+                  <div className="p-3.5 bg-red-950/50 border border-red-500/40 text-red-300 text-xs">
+                    {errorMessage}
                   </div>
+                )}
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
-                        Contact Number / WhatsApp *
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="+971 50 ..."
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
-                        Yacht Model of Interest
-                      </label>
-                      <select
-                        value={formData.model}
-                        onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-                        className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors"
-                      >
-                        {availableYachts.map((opt, i) => (
-                          <option key={i} value={opt} className="bg-[#08101C]">
-                            {opt}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                {/* Row 1: First Name & Last Name */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
+                      First Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="First Name"
+                      value={formData.firstName}
+                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                      className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors rounded-none"
+                    />
                   </div>
 
                   <div>
                     <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
-                      Inquiry Focus
+                      Last Name *
                     </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
-                      {["Sea Trial Request", "Custom Build Consultation", "Price & Spec List"].map((type) => (
-                        <button
-                          key={type}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, inquiryType: type })}
-                          className={`text-xs py-2.5 px-3 border text-center transition-all uppercase tracking-wider font-semibold rounded-none cursor-pointer ${
-                            formData.inquiryType === type
-                              ? "bg-white text-[#0E2047] font-bold border-white"
-                              : "bg-[#08101C] text-[#8E9EAF] border-[#1B2D49] hover:border-white/30"
-                          }`}
-                        >
-                          {type}
-                        </button>
-                      ))}
-                    </div>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Last Name"
+                      value={formData.lastName}
+                      onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                      className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors rounded-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Row 2: Email & Phone */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="owner@domain.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors rounded-none"
+                    />
                   </div>
 
                   <div>
                     <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
-                      Confidential Notes / Custom Preferences
+                      Phone *
                     </label>
-                    <textarea
-                      rows={4}
-                      placeholder="Please mention preferred dates for sea trials, cruising range requirements, or interior customization requests..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors resize-none rounded-none"
-                    ></textarea>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="+971 50 ..."
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors rounded-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Row 3: Location & Country */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
+                      Location *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="City / Marina"
+                      value={formData.location}
+                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                      className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors rounded-none"
+                    />
                   </div>
 
-                  <button
-                    type="submit"
-                    className="w-full saxdor-btn-solid !h-[56px] py-4 flex items-center justify-center gap-2 rounded-none font-bold"
-                  >
-                    <span>Submit Confidential Inquiry</span>
-                    <Send className="w-4 h-4" />
-                  </button>
-                </form>
-              )}
-            </div>
+                  <div>
+                    <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
+                      Country *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="United Arab Emirates"
+                      value={formData.country}
+                      onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                      className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors rounded-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Row 4: Message */}
+                <div>
+                  <label className="block saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold mb-2">
+                    Message *
+                  </label>
+                  <textarea
+                    rows={4}
+                    required
+                    placeholder="Type of Message Here!"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full px-4 py-3 bg-[#08101C] border border-[#1B2D49] text-sm text-white focus:outline-none focus:border-[#C6A155] transition-colors resize-none rounded-none"
+                  ></textarea>
+                </div>
+
+                {/* Consents */}
+                <div className="space-y-2.5 pt-2">
+                  <label className="flex items-start gap-2.5 cursor-pointer text-xs text-[#8E9EAF] leading-relaxed">
+                    <input
+                      type="checkbox"
+                      checked={formData.consentPrivacy}
+                      onChange={(e) => setFormData({ ...formData, consentPrivacy: e.target.checked })}
+                      className="mt-0.5 accent-[#C6A155] rounded-none cursor-pointer"
+                    />
+                    <span>By submitting a contact request, you provide consent for us to collect and use your information pursuant to our Privacy Policy and Terms of Use.</span>
+                  </label>
+
+                  <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#8E9EAF]">
+                    <input
+                      type="checkbox"
+                      checked={formData.consentMailing}
+                      onChange={(e) => setFormData({ ...formData, consentMailing: e.target.checked })}
+                      className="accent-[#C6A155] rounded-none cursor-pointer"
+                    />
+                    <span>I would like to be added to the Mailing List</span>
+                  </label>
+                </div>
+
+                <p className="text-[11px] text-[#5A6B80] leading-relaxed pt-1">
+                  ASMARATY will use the information you provide on this form to be in touch with you and provide updates and marketing. You can change your mind at any time by clicking the unsubscribe link in the footer of any email you receive from us, or by contacting us. We will treat your information with respect.
+                </p>
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full saxdor-btn-solid !h-[54px] py-4 flex items-center justify-center gap-2 rounded-none font-bold uppercase tracking-wider text-xs cursor-pointer transition-all disabled:opacity-50"
+                >
+                  <span>{submitting ? "Sending..." : "Send Message"}</span>
+                  <Send className="w-4 h-4" />
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 }

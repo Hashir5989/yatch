@@ -476,7 +476,7 @@ export default function YachtManagementScreen() {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. G100 or AS 77"
+                    placeholder="e.g. G-100 or G77"
                     value={currentYacht.name}
                     onChange={(e) => {
                       const name = e.target.value;

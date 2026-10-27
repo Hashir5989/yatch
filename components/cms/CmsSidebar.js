@@ -14,7 +14,8 @@ import {
   ChevronRight,
   ShieldAlert,
   LogOut,
-  UserCheck
+  UserCheck,
+  Mail
 } from "lucide-react";
 import { resetAllDemoData } from "@/lib/cmsStore";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
@@ -28,6 +29,7 @@ export default function CmsSidebar({ currentUser }) {
   const menuItems = [
     { label: "Pages & Sections", href: "/admin", icon: Layers, exact: true },
     { label: "Yacht Models", href: "/admin/yachts", icon: Anchor },
+    { label: "Customer Enquiries", href: "/admin/enquiries", icon: Mail },
     { label: "Media Library", href: "/admin/media", icon: Images },
     { label: "Settings & System", href: "/admin/settings", icon: Sliders },
   ];
@@ -58,7 +60,7 @@ export default function CmsSidebar({ currentUser }) {
         <div>
           <div className="p-6 border-b border-[#1B2230]">
             <Link href="/admin" className="block group">
-              <AsmaratyLogo variant="horizontal" className="h-7" />
+              <AsmaratyLogo variant="horizontal" href={null} className="h-7" />
               <p className="mt-2 text-[9px] uppercase tracking-widest text-[#C5A880] font-sans font-medium pl-1">
                 Shipyard Content Studio
               </p>

@@ -23,8 +23,7 @@ import UnderConstructionView from "@/components/public/UnderConstructionView";
 import { getYachtBySlug, getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
 
 /**
- * Under Construction Flag:
- * Public yacht detail pages display Under Construction view until dossiers are ready.
+ * Under Construction Flag: Public yacht detail pages display Under Construction view
  */
 const IS_UNDER_CONSTRUCTION = true;
 
@@ -251,17 +250,42 @@ function YachtDetailPageInner() {
 
                 {/* Specs Table */}
                 <div className="lg:col-span-7">
-                  <div className="bg-[#0E131C] border border-white/5 rounded-sm divide-y divide-white/5">
-                    {Object.entries(yacht.specs || {}).map(([key, val]) => (
-                      <div key={key} className="grid grid-cols-2 p-4 text-xs">
-                        <span className="text-[#7E8B9C] uppercase tracking-wider">
-                          {key.replace(/([A-Z])/g, " $1").trim()}
-                        </span>
-                        <span className="text-white font-medium text-right font-sans">
-                          {val}
-                        </span>
-                      </div>
-                    ))}
+                  <div className="bg-[#0E131C] border border-white/10 rounded-sm divide-y divide-white/5">
+                    {Object.entries(yacht.specs || {}).map(([key, val]) => {
+                      const labelMap = {
+                        yachtType: "Yacht Type",
+                        hullConstruction: "Hull Construction",
+                        lengthOverall: "Length Overall (LOA)",
+                        lengthWaterline: "Length at Waterline",
+                        maximumBeam: "Maximum Beam",
+                        heightAboveWaterline: "Height Above Waterline",
+                        draftAtFullLoad: "Draft at Full Load",
+                        displacement: "Displacement",
+                        fuelCapacity: "Fuel Capacity",
+                        freshwaterCapacity: "Freshwater Capacity",
+                        blackwaterTank: "Blackwater Tank",
+                        greywaterTank: "Greywater Tank",
+                        airConditioningChiller: "Air-Conditioning Chiller System",
+                        marineGenerators: "Marine Generators",
+                        engines: "Engines",
+                        gearbox: "Gearbox",
+                        bedrooms: "Bedrooms",
+                        berths: "Berths",
+                        headCompartments: "Head Compartments"
+                      };
+                      const friendlyLabel = labelMap[key] || key.replace(/([A-Z])/g, " $1").trim();
+
+                      return (
+                        <div key={key} className="grid grid-cols-2 p-3.5 text-xs hover:bg-[#141D2B] transition-colors">
+                          <span className="text-[#8E9EAF] uppercase tracking-wider font-medium">
+                            {friendlyLabel}
+                          </span>
+                          <span className="text-white font-semibold text-right font-mono">
+                            {val}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

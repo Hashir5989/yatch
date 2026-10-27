@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
+  ArrowRight,
   ArrowUpRight, 
   ChevronLeft, 
   ChevronRight, 
@@ -11,9 +12,16 @@ import {
   Anchor, 
   Compass, 
   Sparkles, 
-  Layers 
+  Layers,
+  Sliders,
+  X,
+  Gauge,
+  BedDouble,
+  Maximize2,
+  CheckCircle2
 } from "lucide-react";
 import { getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
+import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import InlineEditableText from "@/components/cms/InlineEditableText";
 import InlineButtonEditor from "@/components/cms/InlineButtonEditor";
 
@@ -34,8 +42,9 @@ export default function YachtCollectionSection({
     buttonUrl = "/#fleet"
   } = data;
 
+  // Initialize with DEFAULT_YACHTS so server SSR and client hydration match 100%
   const [yachts, setYachts] = useState(() => {
-    return getAllYachts().filter((y) => y.status === "published");
+    return DEFAULT_YACHTS.filter((y) => y.status === "published");
   });
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeSlide, setActiveSlide] = useState(0);
@@ -46,10 +55,13 @@ export default function YachtCollectionSection({
   const [showAllModels, setShowAllModels] = useState(false);
 
   useEffect(() => {
-    // Dynamic sync from authoritative server content source
+    // Dynamic sync from authoritative server content source after hydration
     syncYachtsFromServer(true).then((synced) => {
-      if (synced && Array.isArray(synced)) {
+      if (synced && Array.isArray(synced) && synced.length > 0) {
         setYachts(synced.filter((y) => y.status === "published"));
+      } else {
+        const local = getAllYachts().filter((y) => y.status === "published");
+        setYachts(local);
       }
     });
 
@@ -219,20 +231,13 @@ export default function YachtCollectionSection({
               <p className="text-sm sm:text-base text-white/70 font-normal leading-relaxed">
                 <InlineEditableText
                   as="span"
-                  value={description || "Discover the ASMARATY collection. Click any model to review its dedicated specification dossier, naval architecture, and verified accommodations."}
+                  value={description || "Immerse yourself in the distinguished world of ASMARATY. Explore our expanding portfolio of bespoke motor yachts and superyachts, engineered with cutting-edge naval architecture, expansive living spaces, and peerless composite craftsmanship."}
                   isEditable={isEditable}
                   onChange={(val) => onUpdateField && onUpdateField("description", val)}
                   placeholder="Description..."
                   multiline={true}
                 />
               </p>
-            </div>
-
-            {/* Quick Fleet Counter Badge */}
-            <div className="flex items-center gap-3 self-start md:self-end">
-              <div className="px-4 py-2 bg-[#0E1A2D] border border-white/10 text-xs font-mono text-white/80">
-                <span className="text-[#C6A155] font-bold">{yachts.length}</span> Published Models
-              </div>
             </div>
           </div>
 
@@ -248,46 +253,84 @@ export default function YachtCollectionSection({
               {/* 2x2 Animated Luxury Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
                 {displayedYachts.map((yacht, idx) => {
+                  const isG100 = yacht.slug === "g100" || yacht.id === "yacht-g100";
+                  const isG66 = yacht.slug === "g66" || yacht.id === "yacht-g66";
+                  const isG50 = yacht.slug === "g50" || yacht.id === "yacht-g50" || yacht.slug === "g55";
+                  const isG77 = yacht.slug === "g77" || yacht.slug === "as-77" || yacht.id === "yacht-g77" || yacht.id === "yacht-as-77";
+                  const shortName = isG100 ? "G-100" : isG66 ? "G-66" : isG50 ? "G-50" : isG77 ? "G77" : yacht.name.replace("ASMARATY ", "").replace(" Super Yacht", "").replace(" Luxury Yacht", "").replace(" Luxury Motor Yacht", "");
+
+                  // Specification condition: true only when confirmed technical specifications exist
+                  const hasSpecs = Boolean(yacht.specs && Object.keys(yacht.specs).length > 2 && (yacht.specs.engines || yacht.specs.inboardEngines || yacht.specs.lengthOverall));
+
+                  // Extract card key specifications
+                  const lengthVal = yacht.specs?.lengthOverall || yacht.length || (isG100 ? "100 ft / 30.48 m" : isG66 ? "66 ft / 20.12 m" : isG50 ? "50 ft / 15 m" : isG77 ? "78 ft (23.7 m)" : "Bespoke Length");
+                  const beamVal = yacht.specs?.maximumBeam || yacht.specs?.beam || (isG100 ? "22.91 ft / 6.98 m" : isG66 ? "20 ft / 6.10 m" : isG50 ? "15 ft / 4.5 m" : isG77 ? "20 ft (6 m)" : "Bespoke");
+                  const engineVal = yacht.specs?.engines || yacht.specs?.inboardEngines || (isG100 ? "2 × 1,600 hp MTU" : isG66 ? "2 × 800 Volvo engines" : isG50 ? "Twin 550 HP Cummins" : isG77 ? "2 × 600–1200 HP Inboard" : "Twin Marine Propulsion");
+                  const cabinVal = yacht.specs?.bedrooms 
+                    ? (yacht.specs?.berths ? `${yacht.specs.bedrooms} (${yacht.specs.berths} Berths)` : `${yacht.specs.bedrooms}`) 
+                    : (isG100 ? "5 + 2 Cabins (12 + 5)" : isG66 ? "4 + 2 Cabins (8 + 2)" : isG50 ? "Owner Cabin + Guest" : isG77 ? "4 + 2 (8 + 3 Berths)" : "Luxury Staterooms");
+                  const draftVal = yacht.specs?.draftAtFullLoad || yacht.specs?.draft || (isG100 ? "7.5 ft / 2.29 m" : isG66 ? "3.5 ft / 1.07 m" : isG50 ? "4 ft / 1.35 m" : isG77 ? "3.5 ft (1.06 m)" : "Full Load Draft");
+                  const hullVal = yacht.specs?.hullConstruction || yacht.specs?.hullMaterial || (isG100 ? "GRP Superyacht" : isG66 ? "GRP Luxury Yacht" : isG50 ? "Fiberglass Motor Yacht" : isG77 ? "GRP Composite" : "Advanced Composite");
+
                   return (
-                    <Link
+                    <div
                       key={yacht.id}
-                      href={`/yachts/${yacht.slug}`}
-                      className="group relative bg-[#091322] border border-white/10 hover:border-[#C6A155] transition-all duration-500 overflow-hidden flex flex-col justify-between hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)] cursor-pointer"
+                      className="group relative bg-[#091322] border border-white/10 hover:border-[#C6A155] transition-all duration-500 overflow-hidden flex flex-col justify-between hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
                     >
                       {/* Image Area with Zoom & Badges */}
                       <div className="relative aspect-[16/10] overflow-hidden bg-[#060D18]">
-                        <img
-                          src={yacht.mainImage || yacht.primaryImage || "/images/hero-yacht.jpg"}
-                          alt={yacht.name}
-                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#091322] via-[#091322]/20 to-transparent opacity-90" />
+                        <Link href={`/yachts/${yacht.slug}`} className="block w-full h-full cursor-pointer">
+                          <img
+                            src={yacht.mainImage || yacht.primaryImage || "/images/hero-yacht.jpg"}
+                            alt={yacht.name}
+                            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#091322] via-[#091322]/20 to-transparent opacity-90" />
+                        </Link>
                         
                         {/* Top Badges */}
-                        <div className="absolute top-4 left-4 flex items-center gap-2">
+                        <div className="absolute top-4 left-4 flex items-center gap-2 pointer-events-none">
                           <span className="px-3 py-1 bg-[#08101C]/90 backdrop-blur-md border border-[#C6A155]/40 text-[#C6A155] text-[10px] font-semibold tracking-[0.2em] uppercase">
                             {yacht.category}
                           </span>
-                          {idx === 0 && (
+                          {(idx === 0 || isG100) && (
                             <span className="px-2.5 py-1 bg-[#C6A155] text-[#08101C] text-[9px] font-bold tracking-[0.16em] uppercase">
-                              Flagship
+                              Flagship Superyacht
+                            </span>
+                          )}
+                          {isG66 && (
+                            <span className="px-2.5 py-1 bg-[#C6A155] text-[#08101C] text-[9px] font-bold tracking-[0.16em] uppercase">
+                              Luxury Yacht
+                            </span>
+                          )}
+                          {isG50 && (
+                            <span className="px-2.5 py-1 bg-[#C6A155] text-[#08101C] text-[9px] font-bold tracking-[0.16em] uppercase">
+                              Motor Yacht
+                            </span>
+                          )}
+                          {isG77 && (
+                            <span className="px-2.5 py-1 bg-[#C6A155] text-[#08101C] text-[9px] font-bold tracking-[0.16em] uppercase">
+                              Flybridge Yacht
                             </span>
                           )}
                         </div>
 
-                        <div className="absolute top-4 right-4">
+                        <div className="absolute top-4 right-4 pointer-events-none">
                           <span className="px-3 py-1 bg-[#08101C]/90 backdrop-blur-md border border-white/15 text-white/90 font-mono text-[11px] font-medium tracking-wider">
-                            {(yacht.specs?.lengthOverall || yacht.length || "").toUpperCase()}
+                            {lengthVal.toUpperCase()}
                           </span>
                         </div>
 
                         {/* Bottom Image Micro-Label */}
-                        <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] text-white/70">
-                          <span className="font-mono text-white/50">Model 0{idx + 1}</span>
-                          <span className="text-[#DFBA73] font-semibold tracking-wider uppercase text-[10px] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                            <span>Inspect Dossier</span>
-                            <ArrowUpRight className="w-3.5 h-3.5" />
-                          </span>
+                        <div className="absolute bottom-3 right-4 flex items-center justify-end text-[11px] text-white/70">
+                          <Link
+                            href={`/yachts/${yacht.slug}`}
+                            className="!text-white hover:text-[#DFBA73] font-semibold tracking-wider uppercase text-[10px] group-hover:translate-x-1 transition-all inline-flex items-center gap-1 cursor-pointer"
+                            style={{ color: "#FFFFFF" }}
+                          >
+                            <span className="!text-white" style={{ color: "#FFFFFF" }}>Explore {shortName}</span>
+                            <ArrowUpRight className="w-3.5 h-3.5 text-[#C6A155]" />
+                          </Link>
                         </div>
                       </div>
 
@@ -298,12 +341,13 @@ export default function YachtCollectionSection({
                             <span className="text-[11px] uppercase tracking-[0.22em] text-[#C6A155] font-semibold">
                               {yacht.series || `ASMARATY ${yacht.category}`}
                             </span>
-                            <span className="text-xs text-white/40 font-mono">0{idx + 1} / 0{yachts.length}</span>
                           </div>
 
-                          <h3 className="font-sans text-2xl sm:text-3xl font-light text-white uppercase tracking-[0.04em] group-hover:text-[#DFBA73] transition-colors">
-                            {yacht.name}
-                          </h3>
+                          <Link href={`/yachts/${yacht.slug}`}>
+                            <h3 className="font-sans text-2xl sm:text-3xl font-light text-white uppercase tracking-[0.04em] group-hover:text-[#DFBA73] transition-colors cursor-pointer">
+                              {yacht.name}
+                            </h3>
+                          </Link>
 
                           {yacht.tagline && (
                             <p className="text-xs sm:text-sm text-[#C6A155]/90 italic font-serif tracking-wide">
@@ -311,81 +355,153 @@ export default function YachtCollectionSection({
                             </p>
                           )}
 
-                          <p className="text-xs sm:text-sm text-white/70 font-normal leading-relaxed line-clamp-2">
+                          <p className="text-xs sm:text-sm text-white/75 font-normal leading-relaxed line-clamp-3">
                             {yacht.description}
                           </p>
                         </div>
 
-                        {/* Verified Specs Row */}
-                        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10 text-xs">
-                          <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
-                            <span className="text-[9px] uppercase tracking-wider text-white/40 block">
-                              Length Overall
-                            </span>
-                            <span className="font-semibold text-white mt-0.5 block truncate">
-                              {yacht.specs?.lengthOverall || yacht.length || "Bespoke"}
-                            </span>
+                        {/* Comprehensive Technical Specifications Grid (conditionally rendered) */}
+                        {hasSpecs ? (
+                          <div className="space-y-1.5 pt-2 border-t border-white/10">
+                            <div className="text-[10px] uppercase tracking-[0.18em] text-[#C6A155] font-semibold mb-2">
+                              Key Marine Specifications
+                            </div>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
+                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
+                                  Length Overall
+                                </span>
+                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
+                                  {lengthVal}
+                                </span>
+                              </div>
+
+                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
+                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
+                                  Maximum Beam
+                                </span>
+                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
+                                  {beamVal}
+                                </span>
+                              </div>
+
+                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
+                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
+                                  Twin Engines
+                                </span>
+                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
+                                  {engineVal}
+                                </span>
+                              </div>
+
+                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
+                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
+                                  Cabins / Berths
+                                </span>
+                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
+                                  {cabinVal}
+                                </span>
+                              </div>
+
+                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
+                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
+                                  Draft Full Load
+                                </span>
+                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
+                                  {draftVal}
+                                </span>
+                              </div>
+
+                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
+                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
+                                  Hull / Construction
+                                </span>
+                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
+                                  {hullVal}
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                          <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
-                            <span className="text-[9px] uppercase tracking-wider text-white/40 block">
-                              Hull Construction
-                            </span>
-                            <span className="font-semibold text-white mt-0.5 block truncate">
-                              {yacht.specs?.hullMaterial || "Advanced Composite"}
-                            </span>
+                        ) : (
+                          /* Specifications Pending Confirmation Notice */
+                          <div className="space-y-1.5 pt-2 border-t border-white/10">
+                            <div className="text-[10px] uppercase tracking-[0.18em] text-[#C6A155] font-semibold mb-2">
+                              Technical Specifications
+                            </div>
+                            <div className="bg-[#0D1B2E] p-3.5 border border-white/5 flex items-start gap-3">
+                              <Sliders className="w-4 h-4 text-[#C6A155] flex-shrink-0 mt-0.5" />
+                              <p className="text-xs text-white/70 leading-relaxed font-light">
+                                Please contact our private client team for confirmed technical specifications, engine details, passenger capacity, and accommodation layout.
+                              </p>
+                            </div>
                           </div>
-                        </div>
+                        )}
 
                         {/* Architectural Highlights */}
                         {yacht.highlights && yacht.highlights.length > 0 && (
-                          <ul className="space-y-1.5 text-xs text-white/70">
-                            {yacht.highlights.slice(0, 2).map((h, hIdx) => (
-                              <li key={hIdx} className="flex items-start gap-2">
-                                <Check className="w-3.5 h-3.5 text-[#C6A155] flex-shrink-0 mt-0.5" />
-                                <span className="truncate">{h}</span>
-                              </li>
-                            ))}
-                          </ul>
+                          <div className="space-y-2 pt-2 border-t border-white/10">
+                            <div className="text-[10px] uppercase tracking-[0.18em] text-[#C6A155] font-semibold mb-1">
+                              Key Features & Highlights
+                            </div>
+                            <ul className="space-y-1.5 text-xs text-white/70">
+                              {yacht.highlights.slice(0, hasSpecs ? 3 : 5).map((h, hIdx) => (
+                                <li key={hIdx} className="flex items-start gap-2">
+                                  <Check className="w-3.5 h-3.5 text-[#C6A155] flex-shrink-0 mt-0.5" />
+                                  <span className="line-clamp-1">{h}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         )}
 
-                        {/* Action Bar */}
-                        <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                          <span className="text-xs text-white/90 font-semibold tracking-wider uppercase group-hover:text-[#C6A155] inline-flex items-center gap-1.5 transition-colors">
-                            <span>VIEW MODEL DETAILS</span>
-                            <ArrowUpRight className="w-4 h-4 text-[#C6A155] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                          </span>
+                        {/* Action Buttons: Explore Specifications & Enquire About Model */}
+                        <div className="pt-4 mt-auto border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
+                          <Link
+                            href={`/yachts/${yacht.slug}`}
+                            className="h-[48px] min-h-[48px] max-h-[48px] w-full px-3 sm:px-4 text-[11px] font-bold tracking-[0.14em] uppercase flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 border border-[#C6A155]/70 hover:border-[#DFBA73] bg-[#0E1A2D] hover:bg-[#152744] text-white hover:text-white rounded-none shadow-none m-0 box-border leading-none select-none"
+                            style={{ color: "#FFFFFF", height: "48px", minHeight: "48px", maxHeight: "48px", margin: 0, boxSizing: "border-box" }}
+                          >
+                            <Sliders className="w-3.5 h-3.5 text-[#C6A155] flex-shrink-0" />
+                            <span className="truncate text-white font-bold tracking-[0.14em]" style={{ color: "#FFFFFF" }}>Explore Specifications</span>
+                          </Link>
 
                           <button
                             type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              handleEnquireModel(yacht.name);
-                            }}
-                            className="text-[11px] text-[#C6A155] hover:text-white uppercase tracking-wider font-semibold border-b border-[#C6A155]/40 hover:border-white pb-0.5 transition-colors cursor-pointer"
+                            onClick={() => handleEnquireModel(yacht.name)}
+                            className="h-[48px] min-h-[48px] max-h-[48px] w-full px-3 sm:px-4 text-[11px] font-bold tracking-[0.14em] uppercase flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 border border-white hover:border-white/90 bg-white hover:bg-[#F2F5F8] text-[#08101C] hover:text-black rounded-none shadow-none m-0 box-border leading-none appearance-none select-none"
+                            style={{ height: "48px", minHeight: "48px", maxHeight: "48px", margin: 0, boxSizing: "border-box" }}
                           >
-                            Enquire Now
+                            <span className="truncate tracking-[0.14em]">Enquire About {shortName}</span>
+                            <ArrowUpRight className="w-3.5 h-3.5 text-[#08101C] flex-shrink-0" />
                           </button>
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>
 
-              {/* Show More / Show Less Toggle Button (if more than 4 models) */}
-              {yachts.length > 4 && (
-                <div className="text-center pt-8">
+              {/* Bottom Right: Clean View More Button with Right Arrow */}
+              <div className={`pt-8 sm:pt-10 flex items-center ${yachts.length > 4 ? "justify-between" : "justify-end"} gap-4`}>
+                {yachts.length > 4 && (
                   <button
                     type="button"
                     onClick={() => setShowAllModels(!showAllModels)}
-                    className="saxdor-btn-navy-outline !h-[50px] !px-10 text-xs font-bold text-white border-white/20 hover:border-[#C6A155] inline-flex items-center gap-2 cursor-pointer transition-all"
+                    className="saxdor-btn-navy-outline !h-[48px] !px-8 text-xs font-bold text-white border-white/20 hover:border-[#C6A155] inline-flex items-center gap-2 cursor-pointer transition-all"
                   >
                     <span>{showAllModels ? "SHOW INITIAL 4 MODELS" : `SHOW ALL FLEET MODELS (${yachts.length})`}</span>
-                    <ArrowUpRight className={`w-4 h-4 text-[#C6A155] transition-transform ${showAllModels ? "rotate-180" : ""}`} />
+                    <ArrowRight className={`w-4 h-4 text-[#C6A155] transition-transform ${showAllModels ? "-rotate-90" : "rotate-90"}`} />
                   </button>
-                </div>
-              )}
+                )}
+
+                <Link
+                  href="/yachts"
+                  className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 bg-[#0E1A2D] hover:bg-[#152744] border border-[#C6A155]/60 hover:border-[#DFBA73] text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-white hover:text-[#DFBA73] transition-all duration-300 shadow-xl cursor-pointer"
+                >
+                  <span>VIEW MORE</span>
+                  <ArrowRight className="w-4 h-4 text-[#C6A155] group-hover:translate-x-1.5 transition-transform duration-300" />
+                </Link>
+              </div>
             </>
           )}
         </div>
@@ -612,6 +728,17 @@ export default function YachtCollectionSection({
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom Right: Clean View More Button with Right Arrow */}
+        <div className="pt-10 flex items-center justify-end">
+          <Link
+            href="/yachts"
+            className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 bg-[#0E1A2D] hover:bg-[#152744] border border-[#C6A155]/60 hover:border-[#DFBA73] text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-white hover:text-[#DFBA73] transition-all duration-300 shadow-xl cursor-pointer"
+          >
+            <span>VIEW MORE</span>
+            <ArrowRight className="w-4 h-4 text-[#C6A155] group-hover:translate-x-1.5 transition-transform duration-300" />
+          </Link>
         </div>
       </div>
     </section>

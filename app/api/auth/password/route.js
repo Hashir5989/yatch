@@ -20,7 +20,7 @@ export async function POST(request) {
     const body = await request.json();
     const { currentPassword, newPassword } = body;
 
-    const result = updateAdminPassword(currentPassword, newPassword);
+    const result = await updateAdminPassword(currentPassword, newPassword, session.email);
     if (!result.success) {
       return NextResponse.json({ success: false, error: result.error }, { status: 400 });
     }

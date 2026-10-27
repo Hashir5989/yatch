@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Anchor, ArrowUpRight, Shield, Award, Compass, Sparkles } from "lucide-react";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
+import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 
 export default function PublicFooter() {
   return (
@@ -52,14 +53,14 @@ export default function PublicFooter() {
               </li>
               <li>
                 <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between group">
-                  <span className="group-hover:translate-x-0.5 transition-transform">G55</span>
-                  <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Cruiser</span>
+                  <span className="group-hover:translate-x-0.5 transition-transform">G50</span>
+                  <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Motor Yacht</span>
                 </Link>
               </li>
               <li>
                 <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between group">
-                  <span className="group-hover:translate-x-0.5 transition-transform">AS 77</span>
-                  <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Flybridge</span>
+                  <span className="group-hover:translate-x-0.5 transition-transform">G77</span>
+                  <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Luxury Yacht</span>
                 </Link>
               </li>
             </ul>
@@ -99,24 +100,30 @@ export default function PublicFooter() {
             </ul>
           </div>
 
-          {/* Shipyard Contact */}
+          {/* Headquarters / Contact */}
           <div className="space-y-4">
             <h4 className="saxdor-eyebrow text-xs font-bold text-white uppercase tracking-[0.18em]">
-              ASMARATY Shipyard HQ
+              Headquarters
             </h4>
-            <div className="space-y-2.5 text-xs text-[#8E9EAF]">
-              <p>ASMARATY Shipyard</p>
-              <p>Maritime Industrial Zone, UAE</p>
-              <p className="text-white pt-1 font-medium">Tel: +971 1234567890</p>
+            <div className="space-y-1.5 text-xs text-[#8E9EAF] leading-relaxed">
+              <p className="text-white font-semibold tracking-wide">AL SHAALI MARINE</p>
+              <p>OFFICE NO 6, RASHIDIA 1</p>
+              <p>Al Shaali Group Building</p>
+              <p>PO BOX NO. 787</p>
+              <p>AJMAN, United Arab Emirates</p>
+              <p className="text-white pt-2 font-medium">Tel: +971 56 526 8126</p>
               <p className="text-[#C6A155] font-semibold">info@asmaraty.fake</p>
               <div className="pt-2">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-1.5 text-xs text-[#C6A155] hover:text-white transition-colors font-medium"
+                <a
+                  href={`https://wa.me/971565268126?text=${encodeURIComponent("Hello ASMARATY, I would like to enquire about your yacht fleet.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#25D366] hover:text-white transition-colors font-medium group"
                 >
-                  <span>Private Helipad Coordinates</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </Link>
+                  <WhatsAppIcon className="w-3.5 h-3.5 fill-current group-hover:scale-110 transition-transform" />
+                  <span>WhatsApp Concierge</span>
+                  <ArrowUpRight className="w-3 h-3 text-[#25D366]/70 group-hover:text-white" />
+                </a>
               </div>
             </div>
           </div>

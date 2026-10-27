@@ -8,7 +8,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const publishedOnly = searchParams.get("published") === "true";
 
-    const allYachts = getYachtsServer();
+    const allYachts = await getYachtsServer(publishedOnly);
     const result = publishedOnly
       ? allYachts.filter((y) => y.status !== "draft")
       : allYachts;
@@ -34,7 +34,7 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: "Yacht model name is required" }, { status: 400 });
     }
 
-    const saved = saveYachtServer(yachtData);
+    const saved = await saveYachtServer(yachtData);
     return NextResponse.json({ success: true, yacht: saved });
   } catch (err) {
     console.error("Yachts POST API error:", err);

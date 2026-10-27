@@ -18,7 +18,7 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: "orderedIds must be an array of IDs" }, { status: 400 });
     }
 
-    const reordered = reorderYachtsServer(orderedIds);
+    const reordered = await reorderYachtsServer(orderedIds);
     return NextResponse.json({ success: true, yachts: reordered });
   } catch (err) {
     console.error("Yachts reorder API error:", err);

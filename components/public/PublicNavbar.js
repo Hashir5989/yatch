@@ -16,12 +16,14 @@ import {
   Layers
 } from "lucide-react";
 import { getAllPages, getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
+import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
+import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 
 export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [panelMenuOpen, setPanelMenuOpen] = useState(false);
-  const [yachts, setYachts] = useState(() => getAllYachts().filter((y) => y.status === "published"));
+  const [yachts, setYachts] = useState(() => DEFAULT_YACHTS.filter((y) => y.status === "published"));
   const pathname = usePathname();
 
   // Derive target pageId to edit in visual builder directly without cascading setState
@@ -114,11 +116,11 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
           {/* Right Action: Saxdor-Style Solid White CTA Button */}
           <div className="flex items-center justify-end gap-3 sm:gap-4 flex-1 z-10">
             <a
-              href="tel:1234567890"
+              href="tel:+971565268126"
               className="hidden lg:flex items-center gap-2 text-xs text-white/70 hover:text-[#C6A155] transition-colors font-mono"
             >
               <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
-              <span>+971 1234567890</span>
+              <span>+971 56 526 8126</span>
             </a>
 
             <Link
@@ -238,17 +240,26 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
               {/* Contact Bar */}
               <div className="p-5 bg-[#0E2047]/50 border border-white/10 text-xs text-white/80 space-y-2">
                 <div className="font-semibold text-white tracking-wider uppercase text-[11px]">
-                  ASMARATY Shipyard HQ
+                  AL SHAALI MARINE
                 </div>
                 <p className="text-[11px] text-white/60">
-                  Maritime District, United Arab Emirates • Direct VIP Advisory
+                  OFFICE NO 6, RASHIDIA 1, Al Shaali Group Building, PO BOX NO. 787, AJMAN, UAE
                 </p>
-                <div className="pt-2 flex flex-wrap gap-4 text-[#C6A155]">
-                  <a href="tel:1234567890" className="hover:underline font-mono">
-                    +971 1234567890
+                <div className="pt-2 flex flex-wrap items-center gap-4 text-[#C6A155]">
+                  <a href="tel:+971565268126" className="hover:underline font-mono">
+                    +971 56 526 8126
                   </a>
                   <a href="mailto:info@asmaraty.fake" className="hover:underline">
                     info@asmaraty.fake
+                  </a>
+                  <a
+                    href={`https://wa.me/971565268126?text=${encodeURIComponent("Hello ASMARATY, I would like to enquire about your luxury yacht fleet.")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-[#25D366] hover:underline font-semibold"
+                  >
+                    <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
+                    <span>WhatsApp</span>
                   </a>
                 </div>
               </div>

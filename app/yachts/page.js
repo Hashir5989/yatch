@@ -5,7 +5,7 @@ import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 import SectionRenderer from "@/components/public/SectionRenderer";
 import UnderConstructionView from "@/components/public/UnderConstructionView";
-import { getPageBySlug } from "@/lib/cmsStore";
+import { getPageBySlug, syncPagesFromServer } from "@/lib/cmsStore";
 
 /**
  * Under Construction Flag:
@@ -17,6 +17,13 @@ export default function YachtsCollectionPage() {
   const [page, setPage] = useState(() => getPageBySlug("/yachts"));
 
   useEffect(() => {
+    syncPagesFromServer().then((synced) => {
+      if (synced && Array.isArray(synced)) {
+        const found = synced.find((p) => p.slug === "/yachts");
+        if (found) setPage(found);
+      }
+    });
+
     const handleUpdate = () => {
       const updated = getPageBySlug("/yachts");
       if (updated) setPage(updated);

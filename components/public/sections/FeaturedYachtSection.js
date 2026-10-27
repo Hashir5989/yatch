@@ -13,26 +13,27 @@ export default function FeaturedYachtSection({
 }) {
   const {
     eyebrow = "FLAGSHIP SPOTLIGHT",
-    heading = "The ASMARATY G100 Superyacht",
+    heading = "ASMARATY G-100 Super Yacht",
     yachtSlug = "g100",
-    description = "An unmistakable presence on international waters. Featuring a full-beam master suite on the main deck, four guest staterooms, and twin CAT C32 Acert 1900 HP engines.",
+    description = "Discover the ASMARATY G-100, a super yacht designed to bring together refined luxury, spacious living and sophisticated marine engineering. With three expansive decks, elegant interiors and generous outdoor entertaining areas, the G-100 creates an exceptional setting for life on the water.",
     imageUrl = "/images/yachts/g100.jpg",
-    imageAlt = "ASMARATY Flagship G100",
+    imageAlt = "ASMARATY Flagship G-100 Super Yacht",
     keySpecs = [
-      { label: "Length Overall", value: "100 ft (30.5m)" },
-      { label: "Max Speed", value: "28 Knots" },
-      { label: "Staterooms", value: "5 En-suites" },
-      { label: "Guests / Crew", value: "10 / 4" }
+      { label: "Length Overall (LOA)", value: "100 ft / 30.48 m" },
+      { label: "Maximum Beam", value: "22.91 ft / 6.98 m" },
+      { label: "Twin MTU Engines", value: "2 × 1,600 hp" },
+      { label: "Accommodation", value: "5+2 (12+5 Berths)" }
     ],
-    buttonText = "Explore AS 100 Specifications",
-    buttonUrl = "/yachts/as-100"
+    buttonText = "Explore Specifications",
+    buttonUrl = "/yachts/g100"
   } = data;
 
   const features = [
-    "Full-beam private owner's suite forward on main deck",
-    "Panoramic flybridge with glass-fronted heated jacuzzi",
-    "Hydraulic transformer beach club platform",
-    "Advanced carbon-composite hull with zero-speed fin stabilizers"
+    "Spacious Three-Deck Design: Generous indoor & outdoor living with panoramic sea views",
+    "Refined Interior Living: Sunlit main salon, formal dining area & elegant lounges",
+    "Private Accommodation: Owner's cabin, forward VIP, 2 guest cabins & separate crew",
+    "Elevated Flybridge Experience: Social gatherings, sunbeds, bar & optional hot tub",
+    "Advanced Marine Systems: Twin 1,600 hp MTU engines, ZF gearbox & 24-ton AC chiller"
   ];
 
   return (

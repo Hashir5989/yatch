@@ -152,7 +152,7 @@ export default function UnderConstructionView({
             <div className="pt-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-[#9DAAB8]">
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
-                <span className="text-white">+971 1234567890</span>
+                <span className="text-white">+971 56 526 8126</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-[#C6A155]" />

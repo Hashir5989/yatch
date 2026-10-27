@@ -189,13 +189,13 @@ export default function AdminSettingsScreen() {
 
           <div>
             <label className="block text-[10px] uppercase tracking-wider text-[#9DAAB8] mb-1.5 font-semibold">
-              Shipyard Headquarters Address
+              Corporate Headquarters & Shipyard Address
             </label>
-            <input
-              type="text"
-              value={settings.shipyardAddress}
+            <textarea
+              rows={3}
+              value={settings.shipyardAddress || ""}
               onChange={(e) => setSettings({ ...settings, shipyardAddress: e.target.value })}
-              className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
+              className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880] leading-relaxed resize-y"
             />
           </div>
 

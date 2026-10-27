@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { Image as ImageIcon, Play, Pause } from "lucide-react";
+import { Image as ImageIcon } from "lucide-react";
 import InlineEditableText from "@/components/cms/InlineEditableText";
 import InlineButtonEditor from "@/components/cms/InlineButtonEditor";
 
@@ -24,7 +23,6 @@ export default function ImageTextSection({
     backgroundStyle = "white"
   } = data;
 
-  const [isPlaying, setIsPlaying] = useState(false);
   const isImageRight = layoutStyle !== "image-left";
   const isWhite = backgroundStyle === "white";
   const isVideo = layoutStyle === "video";
@@ -164,27 +162,8 @@ export default function ImageTextSection({
                   <img
                     src={imageUrl}
                     alt={imageAlt || heading}
-                    className={`w-full h-full object-cover transition-transform duration-700 ease-out ${
-                      isPlaying ? "scale-105 filter brightness-110" : "scale-100 group-hover:scale-102"
-                    }`}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30"></div>
-
-                  {/* Play Button Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <button
-                      type="button"
-                      onClick={() => setIsPlaying(!isPlaying)}
-                      className="w-16 h-16 sm:w-20 sm:h-20 bg-white hover:bg-[#C6A155] text-[#0E2047] hover:text-white flex items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.5)] transition-all duration-300 transform hover:scale-110 cursor-pointer"
-                      aria-label={isPlaying ? "Pause Video" : "Play Video"}
-                    >
-                      {isPlaying ? (
-                        <Pause className="w-7 h-7 sm:w-8 sm:h-8 fill-current" />
-                      ) : (
-                        <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1" />
-                      )}
-                    </button>
-                  </div>
 
                   {/* Edit Photo Trigger in CMS Mode */}
                   {isEditable && onOpenMediaPicker && (

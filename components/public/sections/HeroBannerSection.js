@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import { ArrowRight, Image as ImageIcon } from "lucide-react";
 import InlineEditableText from "@/components/cms/InlineEditableText";
 import InlineButtonEditor from "@/components/cms/InlineButtonEditor";
@@ -16,7 +17,7 @@ export default function HeroBannerSection({
     subheading = "Pioneering luxury composite yacht manufacturing in the United Arab Emirates.",
     imageUrl = "/images/yachts/g100.jpg",
     imageAlt = "ASMARATY Yacht",
-    videoUrl = "/videos/live-yacht-journey.mp4",
+    videoUrl,
     primaryButtonText = "Explore Fleet",
     primaryButtonUrl = "/yachts",
     secondaryButtonText = "Private Commission",
@@ -30,24 +31,58 @@ export default function HeroBannerSection({
     contentAlignment = "center"
   } = data;
 
+  const effectiveVideoUrl = videoUrl || "/videos/gemini_generated_video_4e43e0b5.mp4";
   const isCenter = contentAlignment === "center";
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.defaultMuted = true;
+    video.muted = true;
+    video.playsInline = true;
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Fallback: start autoplay upon first user interaction (touch/scroll/click)
+        const onFirstInteraction = () => {
+          if (videoRef.current) {
+            videoRef.current.play().catch(() => {});
+          }
+          window.removeEventListener("click", onFirstInteraction);
+          window.removeEventListener("touchstart", onFirstInteraction);
+          window.removeEventListener("scroll", onFirstInteraction);
+        };
+        window.addEventListener("click", onFirstInteraction, { once: true, passive: true });
+        window.addEventListener("touchstart", onFirstInteraction, { once: true, passive: true });
+        window.addEventListener("scroll", onFirstInteraction, { once: true, passive: true });
+      });
+    }
+  }, [effectiveVideoUrl]);
 
   return (
     <section className="relative min-h-[92vh] flex flex-col justify-between overflow-hidden bg-[#080B10] group/hero">
       {/* Background Media: Live Video or Photo with Dark Vignette Gradient */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {videoUrl ? (
+        {effectiveVideoUrl ? (
           <div className="absolute inset-0 w-full h-full">
             <video
+              ref={videoRef}
+              key={effectiveVideoUrl}
+              src={effectiveVideoUrl}
               autoPlay
               loop
               muted
               playsInline
+              preload="auto"
               poster={imageUrl || "/images/live-yacht-journey.jpg"}
               className="w-full h-full object-cover object-center scale-[1.01]"
             >
-              <source src={videoUrl} type="video/mp4" />
-              <source src="/videos/gemini_generated_video_965a036b.mp4" type="video/mp4" />
+              <source src={effectiveVideoUrl} type="video/mp4" />
+              <source src="/videos/gemini_generated_video_4e43e0b5.mp4" type="video/mp4" />
+              <source src="/videos/hero-banner.mp4" type="video/mp4" />
               <source src="/videos/live-yacht-journey.mp4" type="video/mp4" />
               <img
                 src={imageUrl || "/images/live-yacht-journey.jpg"}
@@ -78,7 +113,7 @@ export default function HeroBannerSection({
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                onOpenMediaPicker("videoUrl", videoUrl || "/videos/live-yacht-journey.mp4");
+                onOpenMediaPicker("videoUrl", effectiveVideoUrl);
               }}
               className="px-3.5 py-2 rounded-full bg-[#080B10]/90 backdrop-blur-md text-[#C5A880] border border-[#C5A880]/50 hover:bg-[#C5A880] hover:text-[#080B10] text-xs font-medium flex items-center gap-2 shadow-xl transition-all"
               title="Replace Hero Background Video"
