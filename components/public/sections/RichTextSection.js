@@ -50,7 +50,7 @@ Over the past four and a half decades, ASMARATY has delivered hundreds of luxury
             />
           </h2>
 
-          <div className="space-y-6 text-base sm:text-lg text-[#A6B4C4] font-light leading-relaxed">
+          <div className="space-y-6 text-base sm:text-lg text-[#A6B4C4] font-light leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
             {isEditable ? (
               <InlineEditableText
                 as="div"

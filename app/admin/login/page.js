@@ -70,7 +70,7 @@ export default function AdminLoginPage() {
       {/* Top Header */}
       <header className="relative z-10 px-6 sm:px-12 py-6 flex items-center justify-between border-b border-white/5">
         <div className="flex items-center gap-3">
-          <AsmaratyLogo variant="horizontal" className="h-7" />
+          <AsmaratyLogo variant="full" imgClassName="h-9" />
           <span className="hidden sm:inline-block text-[10px] uppercase tracking-[0.24em] text-[#C6A155] font-semibold border-l border-white/10 pl-3">
             Shipyard CMS Studio
           </span>

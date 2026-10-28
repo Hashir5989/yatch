@@ -51,7 +51,7 @@ export default function VideoBannerSection({
             />
           </h2>
           {subheading && (
-            <p className="text-sm sm:text-base text-[#8E9EAF] mt-4 font-light max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-[#8E9EAF] mt-4 font-light max-w-xl mx-auto saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
               <InlineEditableText
                 as="span"
                 value={subheading}

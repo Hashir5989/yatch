@@ -79,7 +79,7 @@ export default function FullWidthImageSection({
             />
           </h2>
 
-          <p className="text-base sm:text-lg text-[#C8D3E0] font-light max-w-2xl mb-8 mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-[#C8D3E0] font-light max-w-2xl mb-8 mx-auto leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
             <InlineEditableText
               as="span"
               value={description}

@@ -14,38 +14,45 @@ import Link from "next/link";
  */
 export default function AsmaratyLogo({
   variant = "full",
+  tone = "light", // "light" (white/platinum for dark UI) | "dark" (charcoal for light surfaces)
   className = "",
+  imgClassName = "",
   emblemClassName = "",
   textClassName = "",
   href = "/",
   priority = false,
   onClick = null,
 }) {
+  const isDarkTone = tone === "dark";
+  const logoSrc = isDarkTone ? "/images/asmaraty-logo-dark.png" : "/images/asmaraty-logo.png";
+  const emblemSrc = isDarkTone ? "/images/asmaraty-emblem-dark.png" : "/images/asmaraty-emblem.png";
+  const wordmarkSrc = isDarkTone ? "/images/asmaraty-wordmark-dark.png" : "/images/asmaraty-wordmark.png";
+
   const content = (
     <div className={`inline-flex items-center transition-transform duration-300 hover:scale-[1.02] ${className}`}>
       {variant === "full" && (
         <div className="flex flex-col items-center justify-center">
           <img
-            src="/images/asmaraty-logo.png"
-            alt="ASMARATY"
-            className="w-auto h-12 sm:h-14 md:h-16 object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
+            src={logoSrc}
+            alt="ASMARATY YACHTS"
+            className={`w-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] ${imgClassName || "h-11 sm:h-13 md:h-14"}`}
             loading={priority ? "eager" : "lazy"}
           />
         </div>
       )}
 
       {variant === "horizontal" && (
-        <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 flex-shrink-0">
+        <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3 flex-shrink-0">
           <img
-            src="/images/asmaraty-emblem.png"
+            src={emblemSrc}
             alt="ASMARATY Emblem"
             className={`w-auto h-5 sm:h-7 md:h-8 object-contain flex-shrink-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] ${emblemClassName}`}
             loading={priority ? "eager" : "lazy"}
           />
           <img
-            src="/images/asmaraty-wordmark.png"
-            alt="ASMARATY"
-            className={`w-auto h-3 sm:h-4 md:h-[18px] object-contain flex-shrink-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] ${textClassName}`}
+            src={wordmarkSrc}
+            alt="ASMARATY YACHTS"
+            className={`w-auto h-4 sm:h-5 md:h-[22px] object-contain flex-shrink-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] ${textClassName}`}
             loading={priority ? "eager" : "lazy"}
           />
         </div>
@@ -53,7 +60,7 @@ export default function AsmaratyLogo({
 
       {variant === "emblem" && (
         <img
-          src="/images/asmaraty-emblem.png"
+          src={emblemSrc}
           alt="ASMARATY Emblem"
           className={`w-auto h-8 sm:h-10 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] ${emblemClassName}`}
           loading={priority ? "eager" : "lazy"}
@@ -62,8 +69,8 @@ export default function AsmaratyLogo({
 
       {variant === "wordmark" && (
         <img
-          src="/images/asmaraty-wordmark.png"
-          alt="ASMARATY"
+          src={wordmarkSrc}
+          alt="ASMARATY YACHTS"
           className={`w-auto h-5 sm:h-6 object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] ${textClassName}`}
           loading={priority ? "eager" : "lazy"}
         />

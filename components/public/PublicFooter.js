@@ -12,7 +12,7 @@ export default function PublicFooter() {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex flex-col items-start gap-2">
-              <AsmaratyLogo variant="full" className="h-14 sm:h-16" />
+              <AsmaratyLogo variant="full" imgClassName="h-14 sm:h-16" />
               <p className="saxdor-eyebrow text-[9px] tracking-[0.26em] text-[#C6A155] uppercase font-bold pl-1">
                 Yachts & Boats • United Arab Emirates
               </p>
@@ -23,7 +23,7 @@ export default function PublicFooter() {
             <div className="flex items-center gap-4 text-xs text-[#C6A155] tracking-wider uppercase font-semibold">
               <div className="flex items-center gap-1.5">
                 <Shield className="w-3.5 h-3.5" />
-                <span>RINA / CE Certified</span>
+                <span>Certified Yachts & Boats</span>
               </div>
               <span>•</span>
               <div className="flex items-center gap-1.5">
@@ -47,6 +47,12 @@ export default function PublicFooter() {
               </li>
               <li>
                 <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between group">
+                  <span className="group-hover:translate-x-0.5 transition-transform">G77</span>
+                  <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Luxury Yacht</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between group">
                   <span className="group-hover:translate-x-0.5 transition-transform">G66</span>
                   <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Flybridge</span>
                 </Link>
@@ -55,12 +61,6 @@ export default function PublicFooter() {
                 <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between group">
                   <span className="group-hover:translate-x-0.5 transition-transform">G50</span>
                   <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Motor Yacht</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between group">
-                  <span className="group-hover:translate-x-0.5 transition-transform">G77</span>
-                  <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Luxury Yacht</span>
                 </Link>
               </li>
             </ul>
@@ -90,11 +90,6 @@ export default function PublicFooter() {
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors">
                   Book Sea Trial
-                </Link>
-              </li>
-              <li>
-                <Link href="/#enquiry-form" className="hover:text-white transition-colors">
-                  Bespoke Commissions
                 </Link>
               </li>
             </ul>

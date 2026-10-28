@@ -156,7 +156,7 @@ export default function YachtCollectionSection({
 
             {/* Right Column: Narrative + Action Button */}
             <div className="lg:col-span-8 space-y-6 lg:pl-6">
-              <p className="text-base sm:text-lg text-[#0E2047]/80 font-normal leading-relaxed">
+              <p className="text-base sm:text-lg text-[#0E2047]/80 font-normal leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
                 <InlineEditableText
                   as="span"
                   value={description || "ASMARATY offers a versatile range of models based on the same core ideas: lightweight composite construction, sharp hull shapes, and well-utilized deck space. From the AS 68 to the AS 100, each boat is designed to provide a confident, efficient, and enjoyable driving experience."}
@@ -228,7 +228,7 @@ export default function YachtCollectionSection({
                   placeholder="HEADING..."
                 />
               </h2>
-              <p className="text-sm sm:text-base text-white/70 font-normal leading-relaxed">
+              <p className="text-sm sm:text-base text-white/70 font-normal leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
                 <InlineEditableText
                   as="span"
                   value={description || "Immerse yourself in the distinguished world of ASMARATY. Explore our expanding portfolio of bespoke motor yachts and superyachts, engineered with cutting-edge naval architecture, expansive living spaces, and peerless composite craftsmanship."}
@@ -355,7 +355,7 @@ export default function YachtCollectionSection({
                             </p>
                           )}
 
-                          <p className="text-xs sm:text-sm text-white/75 font-normal leading-relaxed line-clamp-3">
+                          <p className="text-xs sm:text-sm text-white/75 font-normal leading-relaxed line-clamp-3 saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
                             {yacht.description}
                           </p>
                         </div>
@@ -627,7 +627,7 @@ export default function YachtCollectionSection({
               placeholder="TITLE..."
             />
           </h2>
-          <p className="text-sm sm:text-base text-white/70 font-normal leading-relaxed">
+          <p className="text-sm sm:text-base text-white/70 font-normal leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
             <InlineEditableText
               as="span"
               value={description || "Click any model to view comprehensive technical specifications, engine configurations, interior deck layouts, and bespoke customization packages."}

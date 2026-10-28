@@ -60,7 +60,7 @@ export default function ImageTextSection({
               </h2>
             </div>
             <div className="lg:col-span-7 space-y-6 lg:pl-6">
-              <p className={`text-base sm:text-lg leading-relaxed font-normal ${isWhite ? "text-[#0E2047]/80" : "text-white/80"}`}>
+              <p className={`text-base sm:text-lg leading-relaxed font-normal saxdor-desc-justified ${isWhite ? "text-[#0E2047]/80" : "text-white/80"}`} style={{ textAlign: "justify", textJustify: "inter-word" }}>
                 <InlineEditableText
                   as="span"
                   value={description}
@@ -113,7 +113,7 @@ export default function ImageTextSection({
                 />
               </h2>
 
-              <p className={`text-sm sm:text-base md:text-lg leading-relaxed font-normal ${isWhite ? "text-[#0E2047]/80" : "text-white/80"}`}>
+              <p className={`text-sm sm:text-base md:text-lg leading-relaxed font-normal saxdor-desc-justified ${isWhite ? "text-[#0E2047]/80" : "text-white/80"}`} style={{ textAlign: "justify", textJustify: "inter-word" }}>
                 <InlineEditableText
                   as="span"
                   value={description}

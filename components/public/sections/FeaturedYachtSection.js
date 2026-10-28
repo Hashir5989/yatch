@@ -115,7 +115,7 @@ export default function FeaturedYachtSection({
               </h2>
             </div>
 
-            <p className="text-sm sm:text-base text-[#8E9EAF] leading-relaxed font-light">
+            <p className="text-sm sm:text-base text-[#8E9EAF] leading-relaxed font-light saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
               <InlineEditableText
                 as="span"
                 value={description}

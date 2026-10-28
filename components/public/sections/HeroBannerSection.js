@@ -31,7 +31,7 @@ export default function HeroBannerSection({
     contentAlignment = "center"
   } = data;
 
-  const effectiveVideoUrl = videoUrl || "/videos/gemini_generated_video_4e43e0b5.mp4";
+  const effectiveVideoUrl = videoUrl || "/videos/gemini_generated_video_3214e3e8.mp4";
   const isCenter = contentAlignment === "center";
   const videoRef = useRef(null);
 
@@ -81,7 +81,7 @@ export default function HeroBannerSection({
               className="w-full h-full object-cover object-center scale-[1.01]"
             >
               <source src={effectiveVideoUrl} type="video/mp4" />
-              <source src="/videos/gemini_generated_video_4e43e0b5.mp4" type="video/mp4" />
+              <source src="/videos/gemini_generated_video_3214e3e8.mp4" type="video/mp4" />
               <source src="/videos/hero-banner.mp4" type="video/mp4" />
               <source src="/videos/live-yacht-journey.mp4" type="video/mp4" />
               <img
@@ -142,56 +142,19 @@ export default function HeroBannerSection({
         isCenter ? "items-center" : "items-start"
       }`}>
         <div className={`max-w-4xl ${isCenter ? "text-center mx-auto" : "text-left"}`}>
-          {/* Official ASMARATY Emblem Crest */}
-          {isCenter && (
-            <div className="mb-6 flex justify-center">
-              <img
-                src="/images/asmaraty-emblem.png"
-                alt="ASMARATY Emblem"
-                className="w-auto h-10 sm:h-12 md:h-14 object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)] transition-transform duration-500 hover:scale-105"
-              />
-            </div>
-          )}
-
-          {/* Saxdor Gold Eyebrow */}
-          <div className="mb-4">
-            <InlineEditableText
-              as="span"
-              value={eyebrow}
-              isEditable={isEditable}
-              onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
-              className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]"
-              placeholder="THE ALL-NEW MODEL..."
-            />
-          </div>
-
-          {/* Saxdor Architectural Title */}
-          <h1 className="font-sans text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-white leading-[1.06] tracking-[0.03em] uppercase mb-5">
-            <InlineEditableText
-              as="span"
-              value={heading}
-              isEditable={isEditable}
-              onChange={(val) => onUpdateField && onUpdateField("heading", val)}
-              placeholder="ENTER HERO TITLE..."
-              multiline={true}
-            />
+          {/* Accessible Heading for SEO */}
+          <h1 className="sr-only">
+            {heading || "ASMARATY Luxury Yachts & Boats UAE"}
           </h1>
 
-          {/* Subheading / Narrative */}
-          {subheading && (
-            <p className={`text-sm sm:text-base md:text-lg text-white/80 font-normal leading-relaxed max-w-2xl mb-8 ${
-              isCenter ? "mx-auto" : ""
-            }`}>
-              <InlineEditableText
-                as="span"
-                value={subheading}
-                isEditable={isEditable}
-                onChange={(val) => onUpdateField && onUpdateField("subheading", val)}
-                placeholder="Enter hero subtitle..."
-                multiline={true}
-              />
-            </p>
-          )}
+          {/* Official ASMARATY Metallic Emblem Crest */}
+          <div className="mb-8 sm:mb-10 flex justify-center">
+            <img
+              src="/images/asmaraty-emblem.png"
+              alt="ASMARATY"
+              className="w-auto h-16 sm:h-20 md:h-24 object-contain drop-shadow-[0_8px_32px_rgba(0,0,0,0.95)] transition-transform duration-500 hover:scale-105"
+            />
+          </div>
 
           {/* Saxdor Action Buttons */}
           <div className={`flex flex-col sm:flex-row items-center gap-3.5 sm:gap-4 w-full sm:w-auto ${isCenter ? "justify-center" : "justify-start"}`}>

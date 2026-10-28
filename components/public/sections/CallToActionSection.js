@@ -128,7 +128,7 @@ export default function CallToActionSection({
         </h2>
 
         {description && (
-          <p className="text-sm sm:text-base md:text-lg text-white font-medium max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_14px_rgba(0,0,0,0.95)]">
+          <p className="text-sm sm:text-base md:text-lg text-white font-medium max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_14px_rgba(0,0,0,0.95)] saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
             <InlineEditableText
               as="span"
               value={description}

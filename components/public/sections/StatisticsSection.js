@@ -52,7 +52,7 @@ export default function StatisticsSection({
               />
             </h2>
 
-            <p className="text-sm sm:text-base text-[#8E9EAF] mt-4 font-light">
+            <p className="text-sm sm:text-base text-[#8E9EAF] mt-4 font-light saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
               <InlineEditableText
                 as="span"
                 value={description}

@@ -108,8 +108,9 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
           {/* Center: Official ASMARATY Brand Logo - Mathematically Centered on All Responsive Screens */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center pointer-events-auto">
             <AsmaratyLogo 
-              variant="horizontal" 
+              variant="full" 
               priority={true} 
+              imgClassName="h-10 sm:h-12 md:h-14"
             />
           </div>
 

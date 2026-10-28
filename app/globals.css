@@ -60,6 +60,18 @@ body {
   letter-spacing: 0.04em;
 }
 
+/* Clean Editorial Justification for Section Descriptions */
+.saxdor-desc-justified,
+p.saxdor-desc-justified,
+div.saxdor-desc-justified {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+  text-align-last: left !important;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+}
+
 .font-display-luxury {
   font-family: var(--font-sans);
   letter-spacing: 0.12em;
