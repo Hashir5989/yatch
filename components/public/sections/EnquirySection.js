@@ -336,7 +336,7 @@ export default function EnquirySection({
                   </label>
                 </div>
 
-                <p className="text-[11px] text-[#5A6B80] leading-relaxed pt-1">
+                <p className="text-[11px] text-[#5A6B80] leading-relaxed pt-1 saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
                   ASMARATY will use the information you provide on this form to be in touch with you and provide updates and marketing. You can change your mind at any time by clicking the unsubscribe link in the footer of any email you receive from us, or by contacting us. We will treat your information with respect.
                 </p>
 
