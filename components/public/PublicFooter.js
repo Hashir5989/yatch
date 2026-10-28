@@ -131,10 +131,6 @@ export default function PublicFooter() {
               Official Shipyard & Luxury Naval Architecture UAE
             </p>
           </div>
-
-          <div className="flex items-center gap-4 text-xs text-[#8E9CAE]">
-            <span>Abu Dhabi • Dubai • Ras Al Khaimah</span>
-          </div>
         </div>
       </div>
     </footer>
