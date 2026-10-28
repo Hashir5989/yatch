@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "migrate:pg": "node scripts/migrate-to-postgres.js"
+    "lint": "eslint"
   },
   "dependencies": {
     "lucide-react": "^1.60.0",
