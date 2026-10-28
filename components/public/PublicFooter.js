@@ -102,9 +102,7 @@ export default function PublicFooter() {
             </h4>
             <div className="space-y-1.5 text-xs text-[#8E9EAF] leading-relaxed">
               <p className="text-white font-semibold tracking-wide">AL SHAALI MARINE</p>
-              <p>OFFICE NO 6, RASHIDIA 1</p>
-              <p>Al Shaali Group Building</p>
-              <p>PO BOX NO. 787</p>
+              <p>RASHIDIA 1</p>
               <p>AJMAN, United Arab Emirates</p>
               <p className="text-white pt-2 font-medium">Tel: +971 56 526 8126</p>
               <p className="text-[#C6A155] font-semibold">info@asmaraty.fake</p>

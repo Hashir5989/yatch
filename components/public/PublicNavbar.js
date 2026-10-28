@@ -244,7 +244,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                   AL SHAALI MARINE
                 </div>
                 <p className="text-[11px] text-white/60">
-                  OFFICE NO 6, RASHIDIA 1, Al Shaali Group Building, PO BOX NO. 787, AJMAN, UAE
+                  RASHIDIA 1, AJMAN, United Arab Emirates
                 </p>
                 <div className="pt-2 flex flex-wrap items-center gap-4 text-[#C6A155]">
                   <a href="tel:+971565268126" className="hover:underline font-mono">

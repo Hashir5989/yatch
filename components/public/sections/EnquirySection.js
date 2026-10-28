@@ -14,7 +14,7 @@ export default function EnquirySection({
     description = "Connect directly with our luxury yacht advisory team in the UAE. We arrange private sea trials and confidential bespoke build consultations.",
     recipientEmail = "info@asmaraty.fake",
     phone = "+971 56 526 8126",
-    address = "AL SHAALI MARINE, OFFICE NO 6, RASHIDIA 1, Al Shaali Group Building, PO BOX NO. 787, AJMAN, United Arab Emirates",
+    address = "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates",
   } = data;
 
   const [formSubmitted, setFormSubmitted] = useState(false);
