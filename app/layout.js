@@ -28,12 +28,12 @@ export const metadata = {
   keywords: ["ASMARATY", "ASMARATY Yachts", "Luxury Yachts UAE", "G-100 Super Yacht", "G-66 Luxury Yacht", "G-50 Luxury Motor Yacht", "G77 Luxury Yacht", "Yacht Builder UAE"],
   icons: {
     icon: [
-      { url: "/icon.png", sizes: "512x512", type: "image/png" },
-      { url: "/favicon.png", sizes: "64x64", type: "image/png" },
-      { url: "/favicon.ico" }
+      { url: "/icon.png?v=metal", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.png?v=metal", sizes: "64x64", type: "image/png" },
+      { url: "/favicon.ico?v=metal" }
     ],
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico?v=metal",
+    apple: "/apple-touch-icon.png?v=metal",
   },
 };
 
