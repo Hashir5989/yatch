@@ -8,7 +8,6 @@ import {
   X, 
   Sparkles, 
   Edit3, 
-  Phone, 
   ArrowUpRight,
   ChevronRight,
   Compass,
@@ -114,22 +113,13 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
             />
           </div>
 
-          {/* Right Action: Saxdor-Style Solid White CTA Button */}
-          <div className="flex items-center justify-end gap-3 sm:gap-4 flex-1 z-10">
-            <a
-              href="tel:+971565268126"
-              className="hidden lg:flex items-center gap-2 text-xs text-white/70 hover:text-[#C6A155] transition-colors font-mono"
-            >
-              <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
-              <span>+971 56 526 8126</span>
-            </a>
-
+          {/* Right Action: Contact Us CTA Button */}
+          <div className="flex items-center justify-end flex-1 z-10">
             <Link
               href="/contact"
-              className="saxdor-btn-solid !h-[36px] sm:!h-[42px] !min-h-0 !min-w-0 !px-3 sm:!px-6 !text-[11px] sm:!text-xs font-bold rounded-none whitespace-nowrap"
+              className="saxdor-btn-solid !h-[36px] sm:!h-[42px] !min-h-0 !min-w-0 !px-4 sm:!px-6 !text-[11px] sm:!text-xs font-bold rounded-none whitespace-nowrap"
             >
-              <span className="hidden sm:inline">Discuss Build</span>
-              <span className="inline sm:hidden">Enquire</span>
+              Contact Us
             </Link>
           </div>
         </div>
