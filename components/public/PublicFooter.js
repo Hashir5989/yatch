@@ -14,7 +14,7 @@ export default function PublicFooter() {
             <div className="flex flex-col items-start gap-2">
               <AsmaratyLogo variant="full" imgClassName="h-14 sm:h-16 md:h-18" />
               <p className="saxdor-eyebrow text-[9px] tracking-[0.26em] text-[#C6A155] uppercase font-bold pl-1">
-                Boats & Yatchs • United Arab Emirates
+                Yachts • United Arab Emirates
               </p>
             </div>
             <p className="text-xs sm:text-sm text-[#8E9EAF] leading-relaxed max-w-md font-light">
@@ -23,7 +23,7 @@ export default function PublicFooter() {
             <div className="flex items-center gap-4 text-xs text-[#C6A155] tracking-wider uppercase font-semibold">
               <div className="flex items-center gap-1.5">
                 <Shield className="w-3.5 h-3.5" />
-                <span>Certified Boats & Yatchs</span>
+                <span>Certified Yachts</span>
               </div>
               <span>•</span>
               <div className="flex items-center gap-1.5">

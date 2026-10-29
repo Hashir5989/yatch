@@ -158,11 +158,11 @@ export default function ImageTextSection({
             {/* Media / Video Showcase Column */}
             <div className={`lg:col-span-6 relative ${isImageRight ? "lg:order-2" : "lg:order-1"}`}>
               {isVideo ? (
-                <div className="relative aspect-video w-full overflow-hidden border border-[#0E2047]/15 group shadow-2xl bg-black">
+                <div className="relative aspect-video w-full overflow-hidden border border-[#0E2047]/15 group shadow-2xl bg-[#08101C]">
                   <img
                     src={imageUrl}
                     alt={imageAlt || heading}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="w-full h-full object-contain object-center transition-transform duration-700 ease-out group-hover:scale-[1.01]"
                   />
 
                   {/* Edit Photo Trigger in CMS Mode */}

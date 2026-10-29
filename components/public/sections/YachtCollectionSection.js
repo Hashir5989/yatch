@@ -358,11 +358,11 @@ export default function YachtCollectionSection({
                           href={`/yachts/${model.slug}`}
                           className="block group overflow-hidden bg-[#0A1322] shadow-xl border border-black/5"
                         >
-                          <div className="relative aspect-[16/10] overflow-hidden">
+                          <div className="relative aspect-video overflow-hidden bg-[#0A1322]">
                             <img
                               src={model.mainImage || model.primaryImage || "/images/hero-yacht.jpg"}
                               alt={model.name}
-                              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                              className={`w-full h-full ${model.slug === 'g77' ? 'object-contain' : 'object-cover'} object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]`}
                             />
                           </div>
                         </Link>
@@ -539,11 +539,11 @@ export default function YachtCollectionSection({
               key={yacht.id}
               className="group bg-[#0E2047] border border-white/10 hover:border-[#C6A155] transition-all duration-500 flex flex-col overflow-hidden"
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-[#0A1322]">
+              <div className="relative aspect-video overflow-hidden bg-[#0A1322]">
                 <img
                   src={yacht.mainImage}
                   alt={yacht.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className={`w-full h-full ${yacht.slug === 'g77' ? 'object-contain' : 'object-cover'} object-center group-hover:scale-[1.02] transition-transform duration-700`}
                 />
                 <div className="absolute top-3 left-3 bg-[#08101C]/80 px-2.5 py-1 text-[10px] uppercase tracking-wider text-[#C6A155] font-semibold border border-[#C6A155]/30">
                   {yacht.category}

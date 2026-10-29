@@ -67,15 +67,15 @@ export default function UnderConstructionView({
 
           {/* Model Preview Card if yacht prop is passed */}
           {yacht && (
-            <div className="max-w-md mx-auto bg-[#0E1A2D]/85 border border-[#C6A155]/40 overflow-hidden text-left shadow-2xl">
+            <div className="max-w-2xl mx-auto bg-[#0E1A2D]/85 border border-[#C6A155]/40 overflow-hidden text-left shadow-2xl">
               {(yacht.mainImage || yacht.primaryImage) && (
-                <div className="relative aspect-[16/9] overflow-hidden bg-black/40">
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#060D18] flex items-center justify-center">
                   <img
                     src={yacht.mainImage || yacht.primaryImage}
                     alt={yacht.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain object-center"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0E1A2D] via-transparent to-transparent opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0E1A2D]/40 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute top-3 left-3 bg-[#08101C]/90 px-2.5 py-1 text-[10px] uppercase tracking-wider text-[#C6A155] font-semibold border border-[#C6A155]/30">
                     {yacht.category}
                   </div>

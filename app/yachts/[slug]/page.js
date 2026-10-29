@@ -109,14 +109,16 @@ function YachtDetailPageInner() {
         </div>
 
         {/* Yacht Hero Section */}
-        <section className="relative min-h-[75vh] flex flex-col justify-end bg-black overflow-hidden">
-          <img
-            src={selectedImage || yacht.mainImage}
-            alt={yacht.name}
-            className="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-all duration-700"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-[#080B10]/40 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#080B10]/80 via-transparent to-transparent"></div>
+        <section className="relative min-h-[65vh] sm:min-h-[75vh] lg:min-h-[80vh] flex flex-col justify-end bg-[#080B10] overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center bg-[#080B10]">
+            <img
+              src={selectedImage || yacht.mainImage}
+              alt={yacht.name}
+              className="w-full h-full object-contain object-center transition-all duration-700"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-[#080B10]/25 to-transparent pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#080B10]/70 via-transparent to-transparent pointer-events-none"></div>
 
           {/* Hero Content */}
           <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 pb-16 w-full">
