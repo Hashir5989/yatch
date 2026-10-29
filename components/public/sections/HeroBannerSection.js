@@ -31,7 +31,7 @@ export default function HeroBannerSection({
     contentAlignment = "center"
   } = data;
 
-  const effectiveVideoUrl = videoUrl || "/videos/gemini_generated_video_3214e3e8.mp4";
+  const effectiveVideoUrl = videoUrl || "/videos/asmaraty-hero-banner.mp4";
   const isCenter = contentAlignment === "center";
   const videoRef = useRef(null);
 
