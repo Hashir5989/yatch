@@ -37,7 +37,7 @@ export default function AsmaratyLogo({
           <img
             src={logoSrc}
             alt="ASMARATY YACHTS"
-            className={`w-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] ${effectiveImgClass}`}
+            className={`w-auto object-contain ${isDarkTone ? "" : "drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"} ${effectiveImgClass}`}
             loading={priority ? "eager" : "lazy"}
           />
         </div>
@@ -48,13 +48,13 @@ export default function AsmaratyLogo({
           <img
             src={emblemSrc}
             alt="ASMARATY Emblem"
-            className={`w-auto h-5 sm:h-7 md:h-8 object-contain flex-shrink-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] ${emblemClassName}`}
+            className={`w-auto h-5 sm:h-7 md:h-8 object-contain flex-shrink-0 ${isDarkTone ? "" : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"} ${emblemClassName}`}
             loading={priority ? "eager" : "lazy"}
           />
           <img
             src={wordmarkSrc}
             alt="ASMARATY YACHTS"
-            className={`w-auto h-4 sm:h-5 md:h-[22px] object-contain flex-shrink-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] ${textClassName}`}
+            className={`w-auto h-4 sm:h-5 md:h-[22px] object-contain flex-shrink-0 ${isDarkTone ? "" : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"} ${textClassName}`}
             loading={priority ? "eager" : "lazy"}
           />
         </div>
@@ -64,7 +64,7 @@ export default function AsmaratyLogo({
         <img
           src={emblemSrc}
           alt="ASMARATY Emblem"
-          className={`w-auto h-8 sm:h-10 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] ${emblemClassName}`}
+          className={`w-auto h-8 sm:h-10 object-contain ${isDarkTone ? "" : "drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"} ${emblemClassName}`}
           loading={priority ? "eager" : "lazy"}
         />
       )}
@@ -73,7 +73,7 @@ export default function AsmaratyLogo({
         <img
           src={wordmarkSrc}
           alt="ASMARATY YACHTS"
-          className={`w-auto h-5 sm:h-6 object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] ${textClassName}`}
+          className={`w-auto h-5 sm:h-6 object-contain ${isDarkTone ? "" : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"} ${textClassName}`}
           loading={priority ? "eager" : "lazy"}
         />
       )}

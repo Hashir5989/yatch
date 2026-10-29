@@ -24,6 +24,7 @@ import { getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import InlineEditableText from "@/components/cms/InlineEditableText";
 import InlineButtonEditor from "@/components/cms/InlineButtonEditor";
+import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 
 export default function YachtCollectionSection({
   data = {},
@@ -132,8 +133,16 @@ export default function YachtCollectionSection({
       <section className="py-20 sm:py-28 bg-white text-[#0E2047] border-b border-[#0E2047]/10" id="the-fleet">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
-            {/* Left Column: Eyebrow + Huge Title */}
-            <div className="lg:col-span-4 space-y-3">
+            {/* Left Column: Official Dark Logo + Eyebrow + Huge Title */}
+            <div className="lg:col-span-4 space-y-4">
+              <div className="mb-4 sm:mb-6">
+                <AsmaratyLogo
+                  variant="full"
+                  tone="dark"
+                  href={null}
+                  imgClassName="h-12 sm:h-14 md:h-16"
+                />
+              </div>
               <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
                 <InlineEditableText
                   as="span"

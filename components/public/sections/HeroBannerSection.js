@@ -137,58 +137,13 @@ export default function HeroBannerSection({
         )}
       </div>
 
-      {/* Main Saxdor-Style Hero Content */}
-      <div className={`relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-32 pb-16 sm:pb-20 flex-1 flex flex-col justify-end ${
-        isCenter ? "items-center" : "items-start"
-      }`}>
-        <div className={`max-w-4xl ${isCenter ? "text-center mx-auto" : "text-left"}`}>
+      {/* Main Hero Container - Pure Full-Bleed Video Experience */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-32 pb-16 sm:pb-20 flex-1 flex flex-col justify-end items-center pointer-events-none">
+        <div className="max-w-4xl text-center mx-auto">
           {/* Accessible Heading for SEO */}
           <h1 className="sr-only">
             {heading || "ASMARATY Luxury Yachts & Boats UAE"}
           </h1>
-
-          {/* Official ASMARATY Metallic Emblem Crest */}
-          <div className="mb-8 sm:mb-10 flex justify-center">
-            <img
-              src="/images/asmaraty-emblem.png"
-              alt="ASMARATY"
-              className="w-auto h-16 sm:h-20 md:h-24 object-contain drop-shadow-[0_8px_32px_rgba(0,0,0,0.95)] transition-transform duration-500 hover:scale-105"
-            />
-          </div>
-
-          {/* Saxdor Action Buttons */}
-          <div className={`flex flex-col sm:flex-row items-center gap-3.5 sm:gap-4 w-full sm:w-auto ${isCenter ? "justify-center" : "justify-start"}`}>
-            {/* Primary Button: Solid White (Saxdor signature) */}
-            <InlineButtonEditor
-              text={primaryButtonText}
-              url={primaryButtonUrl}
-              isEditable={isEditable}
-              onSave={(newText, newUrl) => {
-                if (onUpdateField) {
-                  onUpdateField("primaryButtonText", newText);
-                  onUpdateField("primaryButtonUrl", newUrl);
-                }
-              }}
-              className="saxdor-btn-solid w-full sm:w-auto text-center"
-              icon={null}
-            />
-
-            {/* Secondary Button: Clean Outline */}
-            {secondaryButtonText && (
-              <InlineButtonEditor
-                text={secondaryButtonText}
-                url={secondaryButtonUrl}
-                isEditable={isEditable}
-                onSave={(newText, newUrl) => {
-                  if (onUpdateField) {
-                    onUpdateField("secondaryButtonText", newText);
-                    onUpdateField("secondaryButtonUrl", newUrl);
-                  }
-                }}
-                className="saxdor-btn-outline w-full sm:w-auto text-center"
-              />
-            )}
-          </div>
         </div>
       </div>
 
