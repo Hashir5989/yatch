@@ -5,11 +5,19 @@ import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 import SectionRenderer from "@/components/public/SectionRenderer";
 import { getPageBySlug, syncPagesFromServer } from "@/lib/cmsStore";
+import { DEFAULT_PAGES } from "@/lib/data/defaultPages";
 
 export default function HomePage() {
-  const [page, setPage] = useState(() => getPageBySlug("/"));
+  // Always initialize from DEFAULT_PAGES so server SSR and client hydration match 100%
+  const [page, setPage] = useState(() => {
+    return DEFAULT_PAGES.find((p) => p.slug === "/") || null;
+  });
 
   useEffect(() => {
+    // Read any locally updated content from storage immediately after hydration
+    const local = getPageBySlug("/");
+    if (local) setPage(local);
+
     // Dynamic sync from server database API so all admin changes show live on the frontend
     syncPagesFromServer().then((synced) => {
       if (synced && Array.isArray(synced)) {
