@@ -150,7 +150,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
             <div className="p-6 sm:p-8 border-b border-white/10 bg-[#0E2047]/60 flex items-center justify-between">
               <AsmaratyLogo 
                 variant="full" 
-                className="h-12 sm:h-14" 
+                imgClassName="h-10 sm:h-12" 
                 onClick={() => setPanelMenuOpen(false)} 
               />
 

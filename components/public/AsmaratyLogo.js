@@ -28,6 +28,8 @@ export default function AsmaratyLogo({
   const emblemSrc = isDarkTone ? "/images/asmaraty-emblem-dark.png" : "/images/asmaraty-emblem.png";
   const wordmarkSrc = isDarkTone ? "/images/asmaraty-wordmark-dark.png" : "/images/asmaraty-wordmark.png";
 
+  const effectiveImgClass = imgClassName || (className && className.includes("h-") ? className : "h-11 sm:h-13 md:h-14");
+
   const content = (
     <div className={`inline-flex items-center transition-transform duration-300 hover:scale-[1.02] ${className}`}>
       {variant === "full" && (
@@ -35,7 +37,7 @@ export default function AsmaratyLogo({
           <img
             src={logoSrc}
             alt="ASMARATY YACHTS"
-            className={`w-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] ${imgClassName || "h-11 sm:h-13 md:h-14"}`}
+            className={`w-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] ${effectiveImgClass}`}
             loading={priority ? "eager" : "lazy"}
           />
         </div>

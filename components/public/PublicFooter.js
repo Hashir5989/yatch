@@ -12,7 +12,7 @@ export default function PublicFooter() {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex flex-col items-start gap-2">
-              <AsmaratyLogo variant="full" imgClassName="h-14 sm:h-16" />
+              <AsmaratyLogo variant="full" imgClassName="h-14 sm:h-16 md:h-18" />
               <p className="saxdor-eyebrow text-[9px] tracking-[0.26em] text-[#C6A155] uppercase font-bold pl-1">
                 Boats & Yatchs • United Arab Emirates
               </p>
