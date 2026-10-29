@@ -234,41 +234,39 @@ export default function YachtCollectionSection({
         />
 
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10 space-y-10 sm:space-y-12">
-          {/* Section Header with Description and Controls */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/10 pb-8">
-            <div className="max-w-3xl space-y-3">
-              <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
-                <InlineEditableText
-                  as="span"
-                  value={eyebrow || "VERIFIED SPECIFICATIONS & FLEET DOSSIER"}
-                  isEditable={isEditable}
-                  onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
-                  placeholder="EYEBROW..."
-                />
-              </div>
-              <h2 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-light text-white uppercase tracking-[0.04em] leading-tight">
-                <InlineEditableText
-                  as="span"
-                  value={heading || "SIGNATURE FLEET MODELS"}
-                  isEditable={isEditable}
-                  onChange={(val) => onUpdateField && onUpdateField("heading", val)}
-                  placeholder="HEADING..."
-                />
-              </h2>
-              <p className="text-sm sm:text-base text-white/70 font-normal leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
-                <InlineEditableText
-                  as="span"
-                  value={description || "Immerse yourself in the distinguished world of ASMARATY. Explore our expanding portfolio of bespoke motor yachts and superyachts, engineered with cutting-edge naval architecture, expansive living spaces, and peerless composite craftsmanship."}
-                  isEditable={isEditable}
-                  onChange={(val) => onUpdateField && onUpdateField("description", val)}
-                  placeholder="Description..."
-                  multiline={true}
-                />
-              </p>
+          {/* Section Header: Centered on Screen with Explore More Button Below Description */}
+          <div className="max-w-4xl mx-auto text-center space-y-4 border-b border-white/10 pb-10">
+            <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
+              <InlineEditableText
+                as="span"
+                value={eyebrow || "VERIFIED SPECIFICATIONS & FLEET DOSSIER"}
+                isEditable={isEditable}
+                onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
+                placeholder="EYEBROW..."
+              />
             </div>
+            <h2 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-light text-white uppercase tracking-[0.04em] leading-tight">
+              <InlineEditableText
+                as="span"
+                value={heading || "SIGNATURE FLEET MODELS"}
+                isEditable={isEditable}
+                onChange={(val) => onUpdateField && onUpdateField("heading", val)}
+                placeholder="HEADING..."
+              />
+            </h2>
+            <p className="text-sm sm:text-base text-white/70 font-normal leading-relaxed max-w-2xl mx-auto" style={{ textAlign: "center" }}>
+              <InlineEditableText
+                as="span"
+                value={description || "Immerse yourself in the distinguished world of ASMARATY. Explore our expanding portfolio of bespoke motor yachts and superyachts, engineered with cutting-edge naval architecture, expansive living spaces, and peerless composite craftsmanship."}
+                isEditable={isEditable}
+                onChange={(val) => onUpdateField && onUpdateField("description", val)}
+                placeholder="Description..."
+                multiline={true}
+              />
+            </p>
 
-            {/* Header Right Actions: Explore More Button & Circular Navigation Arrows */}
-            <div className="flex items-center gap-3 sm:gap-4 flex-wrap self-start lg:self-end">
+            {/* Centered Explore More Button directly below description */}
+            <div className="pt-3 flex justify-center">
               <InlineButtonEditor
                 text={buttonText || "Explore More"}
                 url={buttonUrl || "/yachts"}
@@ -279,34 +277,9 @@ export default function YachtCollectionSection({
                     onUpdateField("buttonUrl", newUrl);
                   }
                 }}
-                className="saxdor-btn-solid !h-[42px] sm:!h-[46px] !px-6 sm:!px-8 !text-xs font-bold rounded-none whitespace-nowrap shadow-xl cursor-pointer"
+                className="saxdor-btn-solid !h-[42px] sm:!h-[46px] !px-8 sm:!px-10 !text-xs font-bold rounded-none whitespace-nowrap shadow-xl cursor-pointer"
                 icon={ArrowRight}
               />
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={prevModel}
-                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#0E1D33] hover:bg-white text-white hover:text-[#08101C] border border-white/20 hover:border-white flex items-center justify-center transition-all cursor-pointer shadow-lg"
-                  aria-label="Previous model"
-                  title="Previous model"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={nextModel}
-                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#0E1D33] hover:bg-white text-white hover:text-[#08101C] border border-white/20 hover:border-white flex items-center justify-center transition-all cursor-pointer shadow-lg"
-                  aria-label="Next model"
-                  title="Next model"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
-
-              <span className="font-mono text-xs text-white/50 tracking-widest pl-1">
-                <strong className="text-white text-sm">0{selectedModelIndex + 1}</strong> / 0{yachts.length}
-              </span>
             </div>
           </div>
 
