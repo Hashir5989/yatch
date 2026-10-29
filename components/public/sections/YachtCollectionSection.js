@@ -39,6 +39,7 @@ export default function YachtCollectionSection({
     filterCategory = "all",
     limit = 8,
     layoutStyle = "grid",
+    backgroundStyle = "white",
     buttonText = "EXPLORE ALL MODELS",
     buttonUrl = "/#fleet"
   } = data;
@@ -200,271 +201,160 @@ export default function YachtCollectionSection({
   }
 
   /* -------------------------------------------------------------
-     MODE 2: Luxury Carousel Showcase for Signature Fleet Models
+     MODE 2: Editorial Alternating Showcase for Signature Fleet Models
+     - 1st Model: Left Description & Explore Button, Right Image
+     - 2nd Model: Left Image, Right Description & Explore Button
+     - 3rd Model: Left Description & Explore Button, Right Image
+     - 4th Model: Left Image, Right Description & Explore Button
+     - Pure Narrative & Visuals without measurements/specifications table
      ------------------------------------------------------------- */
   if (layoutStyle === "four_models_showcase") {
-    const activeYacht = yachts[selectedModelIndex] || yachts[0];
-    const isG100 = activeYacht?.slug === "g100" || activeYacht?.id === "yacht-g100";
-    const isG66 = activeYacht?.slug === "g66" || activeYacht?.id === "yacht-g66";
-    const isG50 = activeYacht?.slug === "g50" || activeYacht?.id === "yacht-g50" || activeYacht?.slug === "g55";
-    const isG77 = activeYacht?.slug === "g77" || activeYacht?.slug === "as-77" || activeYacht?.id === "yacht-g77" || activeYacht?.id === "yacht-as-77";
-    const shortName = isG100 ? "G-100" : isG66 ? "G-66" : isG50 ? "G-50" : isG77 ? "G77" : (activeYacht?.name || "").replace("ASMARATY ", "").replace(" Super Yacht", "").replace(" Luxury Yacht", "").replace(" Luxury Motor Yacht", "");
-    const badgeLabel = isG100 ? "Flagship Superyacht" : isG77 ? "Flybridge Yacht" : isG66 ? "Luxury Yacht" : isG50 ? "Motor Yacht" : activeYacht?.category || "Yacht";
-
-    const lengthVal = activeYacht?.specs?.lengthOverall || activeYacht?.length || (isG100 ? "100 ft / 30.48 m" : isG66 ? "66 ft / 20.12 m" : isG50 ? "50 ft / 15 m" : isG77 ? "78 ft (23.7 m)" : "Bespoke Length");
-    const beamVal = activeYacht?.specs?.maximumBeam || activeYacht?.specs?.beam || (isG100 ? "22.91 ft / 6.98 m" : isG66 ? "20 ft / 6.10 m" : isG50 ? "15 ft / 4.5 m" : isG77 ? "20 ft (6 m)" : "Bespoke Beam");
-    const engineVal = activeYacht?.specs?.engines || activeYacht?.specs?.inboardEngines || (isG100 ? "2 × 1,600 hp MTU" : isG66 ? "2 × 800 Volvo engines" : isG50 ? "Twin 550 HP Cummins" : isG77 ? "2 × 600–1200 HP Inboard" : "Twin Marine Propulsion");
-    const cabinVal = activeYacht?.specs?.bedrooms 
-      ? (activeYacht?.specs?.berths ? `${activeYacht.specs.bedrooms} (${activeYacht.specs.berths} Berths)` : `${activeYacht.specs.bedrooms}`) 
-      : (isG100 ? "5 + 2 Cabins (12 + 5)" : isG66 ? "4 + 2 Cabins (8 + 2)" : isG50 ? "Owner Cabin + Guest" : isG77 ? "4 + 2 (8 + 3 Berths)" : "Luxury Staterooms");
-    const draftVal = activeYacht?.specs?.draftAtFullLoad || activeYacht?.specs?.draft || (isG100 ? "7.5 ft / 2.29 m" : isG66 ? "3.5 ft / 1.07 m" : isG50 ? "4 ft / 1.35 m" : isG77 ? "3.5 ft (1.06 m)" : "Full Load Draft");
-    const hullVal = activeYacht?.specs?.hullConstruction || activeYacht?.specs?.hullMaterial || (isG100 ? "GRP Superyacht" : isG66 ? "GRP Luxury Yacht" : isG50 ? "Fiberglass Motor Yacht" : isG77 ? "GRP Composite" : "Advanced Composite");
-
-    const prevModel = () => setSelectedModelIndex((prev) => (prev - 1 + yachts.length) % yachts.length);
-    const nextModel = () => setSelectedModelIndex((prev) => (prev + 1) % yachts.length);
+    const isDark = backgroundStyle === "dark";
+    const showcaseModels = (yachts && yachts.length > 0) ? yachts.slice(0, 4) : [];
 
     return (
-      <section className="py-20 sm:py-28 bg-[#08101C] text-[#E8EEF5] relative overflow-hidden border-t border-b border-white/10" id="fleet">
-        {/* Subtle decorative background gradient */}
-        <div 
-          className="absolute -top-[20%] -left-[10%] w-[60vw] h-[60vw] pointer-events-none opacity-20"
-          style={{
-            background: "radial-gradient(circle, rgba(198, 161, 85, 0.25) 0%, transparent 70%)"
-          }}
-        />
-
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10 space-y-10 sm:space-y-12">
-          {/* Section Header: Centered on Screen with Explore More Button Below Description */}
-          <div className="max-w-4xl mx-auto text-center space-y-4 border-b border-white/10 pb-10">
+      <section 
+        className={`py-20 sm:py-28 lg:py-32 relative overflow-hidden ${
+          isDark 
+            ? "bg-[#08101C] text-[#E8EEF5] border-t border-b border-white/10" 
+            : "bg-white text-[#0E2047] border-b border-[#0E2047]/10"
+        }`} 
+        id="fleet"
+      >
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
+          {/* Section Header: Centered on Screen */}
+          <div className={`max-w-4xl mx-auto text-center space-y-4 pb-16 sm:pb-24 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
             <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
               <InlineEditableText
                 as="span"
-                value={eyebrow || "VERIFIED SPECIFICATIONS & FLEET DOSSIER"}
+                value={eyebrow || "ASMARATY SIGNATURE FLEET"}
                 isEditable={isEditable}
                 onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
                 placeholder="EYEBROW..."
               />
             </div>
-            <h2 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-light text-white uppercase tracking-[0.04em] leading-tight">
+            <h2 className={`font-serif text-3xl sm:text-5xl lg:text-6xl font-normal uppercase tracking-[0.03em] leading-tight ${isDark ? "text-white" : "text-[#0E2047]"}`}>
               <InlineEditableText
                 as="span"
-                value={heading || "SIGNATURE FLEET MODELS"}
+                value={heading || "OUR SUPERYACHT COLLECTION"}
                 isEditable={isEditable}
                 onChange={(val) => onUpdateField && onUpdateField("heading", val)}
                 placeholder="HEADING..."
               />
             </h2>
-            <p className="text-sm sm:text-base text-white/70 font-normal leading-relaxed max-w-2xl mx-auto" style={{ textAlign: "center" }}>
-              <InlineEditableText
-                as="span"
-                value={description || "Immerse yourself in the distinguished world of ASMARATY. Explore our expanding portfolio of bespoke motor yachts and superyachts, engineered with cutting-edge naval architecture, expansive living spaces, and peerless composite craftsmanship."}
-                isEditable={isEditable}
-                onChange={(val) => onUpdateField && onUpdateField("description", val)}
-                placeholder="Description..."
-                multiline={true}
-              />
-            </p>
-
-            {/* Centered Explore More Button directly below description */}
-            <div className="pt-3 flex justify-center">
-              <InlineButtonEditor
-                text={buttonText || "Explore More"}
-                url={buttonUrl || "/yachts"}
-                isEditable={isEditable}
-                onSave={(newText, newUrl) => {
-                  if (onUpdateField) {
-                    onUpdateField("buttonText", newText);
-                    onUpdateField("buttonUrl", newUrl);
-                  }
-                }}
-                className="saxdor-btn-solid !h-[42px] sm:!h-[46px] !px-8 sm:!px-10 !text-xs font-bold rounded-none whitespace-nowrap shadow-xl cursor-pointer"
-                icon={ArrowRight}
-              />
-            </div>
+            {description && (
+              <p className={`text-sm sm:text-base font-normal leading-relaxed max-w-2xl mx-auto ${isDark ? "text-white/70" : "text-[#0E2047]/75"}`}>
+                <InlineEditableText
+                  as="span"
+                  value={description}
+                  isEditable={isEditable}
+                  onChange={(val) => onUpdateField && onUpdateField("description", val)}
+                  placeholder="Description..."
+                  multiline={true}
+                />
+              </p>
+            )}
           </div>
 
           {/* Empty State */}
-          {(!yachts || yachts.length === 0 || !activeYacht) ? (
-            <div className="p-16 text-center bg-[#0A1322] border border-white/10">
-              <p className="text-white/70 text-sm">
+          {showcaseModels.length === 0 ? (
+            <div className={`p-16 text-center ${isDark ? "bg-[#0A1322] border border-white/10" : "bg-neutral-50 border border-black/10"}`}>
+              <p className={`text-sm ${isDark ? "text-white/70" : "text-neutral-600"}`}>
                 The ASMARATY fleet collection is currently being curated. Please explore our brand introduction or submit an enquiry to our private advisory team.
               </p>
             </div>
           ) : (
-            <div className="space-y-6">
-              {/* Featured Carousel Showcase Card */}
-              <div className="relative bg-[#091322] border border-white/10 overflow-hidden shadow-2xl">
-                {/* Large Featured Image View with In-Image Controls matching screenshot */}
-                <div className="relative aspect-[16/10] sm:aspect-[21/9] lg:aspect-[2.35/1] overflow-hidden bg-[#060D18]">
-                  <Link href={`/yachts/${activeYacht.slug}`} className="block w-full h-full cursor-pointer group">
-                    <img
-                      key={activeYacht.id}
-                      src={activeYacht.mainImage || activeYacht.primaryImage || "/images/hero-yacht.jpg"}
-                      alt={activeYacht.name}
-                      className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#091322] via-[#091322]/20 to-transparent opacity-90 pointer-events-none" />
-                  </Link>
+            /* Alternating Editorial Showcase Rows */
+            <div className={`divide-y ${isDark ? "divide-white/10" : "divide-black/10"}`}>
+              {showcaseModels.map((model, idx) => {
+                // Alternating layout:
+                // idx = 0 (1st): Text Left, Image Right
+                // idx = 1 (2nd): Image Left, Text Right
+                // idx = 2 (3rd): Text Left, Image Right
+                // idx = 3 (4th): Image Left, Text Right
+                const isEven = idx % 2 === 0;
+                const modelCategory = model.category ? `ASMARATY • ${model.category}` : "ASMARATY FLEET";
 
-                  {/* Top Left: Dot indicator + Category & Badge matching screenshot */}
-                  <div className="absolute top-4 sm:top-6 left-4 sm:left-6 flex items-center gap-2 pointer-events-none z-10">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#C6A155] shadow-[0_0_10px_#C6A155] animate-pulse" />
-                    <span className="px-3 py-1 bg-[#08101C]/90 backdrop-blur-md border border-[#C6A155]/40 text-[#C6A155] text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase">
-                      {activeYacht.category}
-                    </span>
-                    <span className="hidden sm:inline-block px-2.5 py-1 bg-[#C6A155] text-[#08101C] text-[9px] font-bold tracking-[0.16em] uppercase">
-                      {badgeLabel}
-                    </span>
-                  </div>
+                return (
+                  <div
+                    key={model.id || idx}
+                    className="py-16 sm:py-24 lg:py-28 first:pt-16 sm:first:pt-20 last:pb-0"
+                  >
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                      {/* Description & Button Column */}
+                      <div
+                        className={`lg:col-span-5 space-y-5 sm:space-y-6 ${
+                          isEven
+                            ? "lg:order-1 order-1 lg:pr-4"
+                            : "lg:order-2 order-2 lg:pl-4"
+                        }`}
+                      >
+                        {/* Eyebrow / Category */}
+                        <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
+                          {modelCategory}
+                        </div>
 
-                  {/* Top Right: The 2 Circular Next/Prev Arrow Buttons matching user's screenshot */}
-                  <div className="absolute top-4 sm:top-6 right-4 sm:right-6 flex items-center gap-2.5 z-20">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        prevModel();
-                      }}
-                      className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/85 hover:bg-white text-white hover:text-black border border-white/20 hover:border-white flex items-center justify-center transition-all cursor-pointer shadow-2xl backdrop-blur-md"
-                      aria-label="Previous yacht model"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        nextModel();
-                      }}
-                      className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/85 hover:bg-white text-white hover:text-black border border-white/20 hover:border-white flex items-center justify-center transition-all cursor-pointer shadow-2xl backdrop-blur-md"
-                      aria-label="Next yacht model"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-                  </div>
-
-                  {/* Bottom Right: Overall Length Badge */}
-                  <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-10 pointer-events-none">
-                    <span className="px-3.5 py-1.5 bg-[#08101C]/90 backdrop-blur-md border border-white/20 text-white font-mono text-xs font-semibold tracking-wider">
-                      {lengthVal.toUpperCase()}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Lower Detail Bar: Model Information & Technical Specifications */}
-                <div className="p-6 sm:p-10 border-t border-white/10 bg-[#091322]">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    {/* Left: Model Narrative & Direct CTAs */}
-                    <div className="lg:col-span-5 space-y-4">
-                      <div className="text-[11px] uppercase tracking-[0.24em] text-[#C6A155] font-semibold">
-                        {activeYacht.series || `ASMARATY ${activeYacht.category}`} • {shortName}
-                      </div>
-
-                      <Link href={`/yachts/${activeYacht.slug}`}>
-                        <h3 className="font-sans text-2xl sm:text-4xl font-light text-white uppercase tracking-[0.04em] hover:text-[#DFBA73] transition-colors cursor-pointer">
-                          {activeYacht.name}
-                        </h3>
-                      </Link>
-
-                      {activeYacht.tagline && (
-                        <p className="text-xs sm:text-sm text-[#C6A155]/90 italic font-serif tracking-wide">
-                          “{activeYacht.tagline}”
-                        </p>
-                      )}
-
-                      <p className="text-xs sm:text-sm text-white/75 font-normal leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
-                        {activeYacht.description}
-                      </p>
-
-                      <div className="pt-2 flex flex-wrap items-center gap-3">
-                        <Link
-                          href={`/yachts/${activeYacht.slug}`}
-                          className="saxdor-btn-solid !h-[42px] !px-6 !text-xs font-bold whitespace-nowrap cursor-pointer inline-flex items-center gap-2"
-                        >
-                          <span>Explore {shortName}</span>
-                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        {/* Model Heading (Serif Typography matching Majesty / luxury editorial) */}
+                        <Link href={`/yachts/${model.slug}`} className="block group">
+                          <h3 className={`font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.15] tracking-[0.02em] transition-colors ${
+                            isDark 
+                              ? "text-white group-hover:text-[#C6A155]" 
+                              : "text-[#0E2047] group-hover:text-[#C6A155]"
+                          }`}>
+                            {model.name}
+                          </h3>
                         </Link>
 
-                        <button
-                          type="button"
-                          onClick={() => handleEnquireModel(activeYacht.name)}
-                          className="saxdor-btn-outline !h-[42px] !px-6 !text-xs font-bold whitespace-nowrap cursor-pointer"
-                        >
-                          Book Sea Trial
-                        </button>
-                      </div>
-                    </div>
+                        {/* Tagline / Subtitle */}
+                        {model.tagline && (
+                          <p className="text-xs sm:text-sm text-[#C6A155] italic font-serif tracking-wide">
+                            “{model.tagline}”
+                          </p>
+                        )}
 
-                    {/* Right: Marine Specifications Grid */}
-                    <div className="lg:col-span-7 space-y-3">
-                      <div className="text-[10px] uppercase tracking-[0.18em] text-[#C6A155] font-semibold">
-                        Key Naval Specifications
+                        {/* Narrative Description (No measurements, pure story) */}
+                        <p className={`text-sm sm:text-base font-normal leading-relaxed text-justify ${
+                          isDark ? "text-white/75" : "text-[#0E2047]/80"
+                        }`} style={{ textJustify: "inter-word" }}>
+                          {model.description}
+                        </p>
+
+                        {/* Explore Button matching user's reference screenshot */}
+                        <div className="pt-2 sm:pt-4">
+                          <Link
+                            href={`/yachts/${model.slug}`}
+                            className="inline-flex items-center justify-center px-8 sm:px-10 py-3.5 bg-[#787268] hover:bg-[#0E2047] text-white text-xs font-semibold uppercase tracking-[0.22em] transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+                          >
+                            Explore More
+                          </Link>
+                        </div>
                       </div>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
-                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Length Overall</span>
-                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{lengthVal}</span>
-                        </div>
-                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
-                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Maximum Beam</span>
-                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{beamVal}</span>
-                        </div>
-                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
-                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Propulsion Engines</span>
-                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{engineVal}</span>
-                        </div>
-                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
-                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Staterooms / Berths</span>
-                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{cabinVal}</span>
-                        </div>
-                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
-                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Full Load Draft</span>
-                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{draftVal}</span>
-                        </div>
-                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
-                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Hull Construction</span>
-                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{hullVal}</span>
-                        </div>
+
+                      {/* Image Column */}
+                      <div
+                        className={`lg:col-span-7 ${
+                          isEven
+                            ? "lg:order-2 order-2"
+                            : "lg:order-1 order-1"
+                        }`}
+                      >
+                        <Link
+                          href={`/yachts/${model.slug}`}
+                          className="block group overflow-hidden bg-[#0A1322] shadow-xl border border-black/5"
+                        >
+                          <div className="relative aspect-[16/10] overflow-hidden">
+                            <img
+                              src={model.mainImage || model.primaryImage || "/images/hero-yacht.jpg"}
+                              alt={model.name}
+                              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                            />
+                          </div>
+                        </Link>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Model Selector Tabs */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                {yachts.map((m, idx) => {
-                  const isCurrent = selectedModelIndex === idx;
-                  const mShort = m.slug === "g100" ? "G-100" : m.slug === "g66" ? "G-66" : m.slug === "g50" ? "G-50" : m.slug === "g77" ? "G77" : m.name.replace("ASMARATY ", "");
-                  return (
-                    <button
-                      key={m.id}
-                      type="button"
-                      onClick={() => setSelectedModelIndex(idx)}
-                      className={`p-3.5 sm:p-4 text-left transition-all duration-300 border cursor-pointer relative overflow-hidden ${
-                        isCurrent
-                          ? "bg-[#0E2047] border-[#C6A155] shadow-xl"
-                          : "bg-[#08101C]/70 border-white/10 hover:border-white/30 text-white/70 hover:text-white"
-                      }`}
-                    >
-                      {isCurrent && (
-                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#C6A155]" />
-                      )}
-                      <div className="text-[10px] uppercase font-mono tracking-wider text-[#C6A155] font-semibold">
-                        0${idx + 1} • ${m.category}
-                      </div>
-                      <div className="text-sm sm:text-base font-semibold text-white uppercase mt-0.5 truncate">
-                        ${mShort}
-                      </div>
-                      <div className="text-[11px] text-white/50 mt-1 font-mono truncate">
-                        ${m.specs?.lengthOverall || m.length}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+                );
+              })}
             </div>
           )}
         </div>
