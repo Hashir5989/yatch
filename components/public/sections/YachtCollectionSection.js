@@ -200,13 +200,31 @@ export default function YachtCollectionSection({
   }
 
   /* -------------------------------------------------------------
-     MODE 2: 2x2 Animated Showcase Grid (Clickable Yacht Cards)
+     MODE 2: Luxury Carousel Showcase for Signature Fleet Models
      ------------------------------------------------------------- */
   if (layoutStyle === "four_models_showcase") {
-    const displayedYachts = showAllModels ? yachts : yachts.slice(0, 4);
+    const activeYacht = yachts[selectedModelIndex] || yachts[0];
+    const isG100 = activeYacht?.slug === "g100" || activeYacht?.id === "yacht-g100";
+    const isG66 = activeYacht?.slug === "g66" || activeYacht?.id === "yacht-g66";
+    const isG50 = activeYacht?.slug === "g50" || activeYacht?.id === "yacht-g50" || activeYacht?.slug === "g55";
+    const isG77 = activeYacht?.slug === "g77" || activeYacht?.slug === "as-77" || activeYacht?.id === "yacht-g77" || activeYacht?.id === "yacht-as-77";
+    const shortName = isG100 ? "G-100" : isG66 ? "G-66" : isG50 ? "G-50" : isG77 ? "G77" : (activeYacht?.name || "").replace("ASMARATY ", "").replace(" Super Yacht", "").replace(" Luxury Yacht", "").replace(" Luxury Motor Yacht", "");
+    const badgeLabel = isG100 ? "Flagship Superyacht" : isG77 ? "Flybridge Yacht" : isG66 ? "Luxury Yacht" : isG50 ? "Motor Yacht" : activeYacht?.category || "Yacht";
+
+    const lengthVal = activeYacht?.specs?.lengthOverall || activeYacht?.length || (isG100 ? "100 ft / 30.48 m" : isG66 ? "66 ft / 20.12 m" : isG50 ? "50 ft / 15 m" : isG77 ? "78 ft (23.7 m)" : "Bespoke Length");
+    const beamVal = activeYacht?.specs?.maximumBeam || activeYacht?.specs?.beam || (isG100 ? "22.91 ft / 6.98 m" : isG66 ? "20 ft / 6.10 m" : isG50 ? "15 ft / 4.5 m" : isG77 ? "20 ft (6 m)" : "Bespoke Beam");
+    const engineVal = activeYacht?.specs?.engines || activeYacht?.specs?.inboardEngines || (isG100 ? "2 × 1,600 hp MTU" : isG66 ? "2 × 800 Volvo engines" : isG50 ? "Twin 550 HP Cummins" : isG77 ? "2 × 600–1200 HP Inboard" : "Twin Marine Propulsion");
+    const cabinVal = activeYacht?.specs?.bedrooms 
+      ? (activeYacht?.specs?.berths ? `${activeYacht.specs.bedrooms} (${activeYacht.specs.berths} Berths)` : `${activeYacht.specs.bedrooms}`) 
+      : (isG100 ? "5 + 2 Cabins (12 + 5)" : isG66 ? "4 + 2 Cabins (8 + 2)" : isG50 ? "Owner Cabin + Guest" : isG77 ? "4 + 2 (8 + 3 Berths)" : "Luxury Staterooms");
+    const draftVal = activeYacht?.specs?.draftAtFullLoad || activeYacht?.specs?.draft || (isG100 ? "7.5 ft / 2.29 m" : isG66 ? "3.5 ft / 1.07 m" : isG50 ? "4 ft / 1.35 m" : isG77 ? "3.5 ft (1.06 m)" : "Full Load Draft");
+    const hullVal = activeYacht?.specs?.hullConstruction || activeYacht?.specs?.hullMaterial || (isG100 ? "GRP Superyacht" : isG66 ? "GRP Luxury Yacht" : isG50 ? "Fiberglass Motor Yacht" : isG77 ? "GRP Composite" : "Advanced Composite");
+
+    const prevModel = () => setSelectedModelIndex((prev) => (prev - 1 + yachts.length) % yachts.length);
+    const nextModel = () => setSelectedModelIndex((prev) => (prev + 1) % yachts.length);
 
     return (
-      <section className="py-24 sm:py-32 bg-[#08101C] text-[#E8EEF5] relative overflow-hidden border-t border-b border-white/10" id="fleet">
+      <section className="py-20 sm:py-28 bg-[#08101C] text-[#E8EEF5] relative overflow-hidden border-t border-b border-white/10" id="fleet">
         {/* Subtle decorative background gradient */}
         <div 
           className="absolute -top-[20%] -left-[10%] w-[60vw] h-[60vw] pointer-events-none opacity-20"
@@ -215,10 +233,10 @@ export default function YachtCollectionSection({
           }}
         />
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10 space-y-12 sm:space-y-16">
-          {/* Section Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
-            <div className="max-w-2xl space-y-3">
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10 space-y-10 sm:space-y-12">
+          {/* Section Header with Description and Controls */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/10 pb-8">
+            <div className="max-w-3xl space-y-3">
               <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
                 <InlineEditableText
                   as="span"
@@ -248,279 +266,239 @@ export default function YachtCollectionSection({
                 />
               </p>
             </div>
+
+            {/* Header Right Actions: Explore More Button & Circular Navigation Arrows */}
+            <div className="flex items-center gap-3 sm:gap-4 flex-wrap self-start lg:self-end">
+              <InlineButtonEditor
+                text={buttonText || "Explore More"}
+                url={buttonUrl || "/yachts"}
+                isEditable={isEditable}
+                onSave={(newText, newUrl) => {
+                  if (onUpdateField) {
+                    onUpdateField("buttonText", newText);
+                    onUpdateField("buttonUrl", newUrl);
+                  }
+                }}
+                className="saxdor-btn-solid !h-[42px] sm:!h-[46px] !px-6 sm:!px-8 !text-xs font-bold rounded-none whitespace-nowrap shadow-xl cursor-pointer"
+                icon={ArrowRight}
+              />
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={prevModel}
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#0E1D33] hover:bg-white text-white hover:text-[#08101C] border border-white/20 hover:border-white flex items-center justify-center transition-all cursor-pointer shadow-lg"
+                  aria-label="Previous model"
+                  title="Previous model"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={nextModel}
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#0E1D33] hover:bg-white text-white hover:text-[#08101C] border border-white/20 hover:border-white flex items-center justify-center transition-all cursor-pointer shadow-lg"
+                  aria-label="Next model"
+                  title="Next model"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+
+              <span className="font-mono text-xs text-white/50 tracking-widest pl-1">
+                <strong className="text-white text-sm">0{selectedModelIndex + 1}</strong> / 0{yachts.length}
+              </span>
+            </div>
           </div>
 
           {/* Empty State */}
-          {yachts.length === 0 ? (
+          {(!yachts || yachts.length === 0 || !activeYacht) ? (
             <div className="p-16 text-center bg-[#0A1322] border border-white/10">
               <p className="text-white/70 text-sm">
                 The ASMARATY fleet collection is currently being curated. Please explore our brand introduction or submit an enquiry to our private advisory team.
               </p>
             </div>
           ) : (
-            <>
-              {/* 2x2 Animated Luxury Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-                {displayedYachts.map((yacht, idx) => {
-                  const isG100 = yacht.slug === "g100" || yacht.id === "yacht-g100";
-                  const isG66 = yacht.slug === "g66" || yacht.id === "yacht-g66";
-                  const isG50 = yacht.slug === "g50" || yacht.id === "yacht-g50" || yacht.slug === "g55";
-                  const isG77 = yacht.slug === "g77" || yacht.slug === "as-77" || yacht.id === "yacht-g77" || yacht.id === "yacht-as-77";
-                  const shortName = isG100 ? "G-100" : isG66 ? "G-66" : isG50 ? "G-50" : isG77 ? "G77" : yacht.name.replace("ASMARATY ", "").replace(" Super Yacht", "").replace(" Luxury Yacht", "").replace(" Luxury Motor Yacht", "");
+            <div className="space-y-6">
+              {/* Featured Carousel Showcase Card */}
+              <div className="relative bg-[#091322] border border-white/10 overflow-hidden shadow-2xl">
+                {/* Large Featured Image View with In-Image Controls matching screenshot */}
+                <div className="relative aspect-[16/10] sm:aspect-[21/9] lg:aspect-[2.35/1] overflow-hidden bg-[#060D18]">
+                  <Link href={`/yachts/${activeYacht.slug}`} className="block w-full h-full cursor-pointer group">
+                    <img
+                      key={activeYacht.id}
+                      src={activeYacht.mainImage || activeYacht.primaryImage || "/images/hero-yacht.jpg"}
+                      alt={activeYacht.name}
+                      className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#091322] via-[#091322]/20 to-transparent opacity-90 pointer-events-none" />
+                  </Link>
 
-                  // Specification condition: true only when confirmed technical specifications exist
-                  const hasSpecs = Boolean(yacht.specs && Object.keys(yacht.specs).length > 2 && (yacht.specs.engines || yacht.specs.inboardEngines || yacht.specs.lengthOverall));
+                  {/* Top Left: Dot indicator + Category & Badge matching screenshot */}
+                  <div className="absolute top-4 sm:top-6 left-4 sm:left-6 flex items-center gap-2 pointer-events-none z-10">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#C6A155] shadow-[0_0_10px_#C6A155] animate-pulse" />
+                    <span className="px-3 py-1 bg-[#08101C]/90 backdrop-blur-md border border-[#C6A155]/40 text-[#C6A155] text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase">
+                      {activeYacht.category}
+                    </span>
+                    <span className="hidden sm:inline-block px-2.5 py-1 bg-[#C6A155] text-[#08101C] text-[9px] font-bold tracking-[0.16em] uppercase">
+                      {badgeLabel}
+                    </span>
+                  </div>
 
-                  // Extract card key specifications
-                  const lengthVal = yacht.specs?.lengthOverall || yacht.length || (isG100 ? "100 ft / 30.48 m" : isG66 ? "66 ft / 20.12 m" : isG50 ? "50 ft / 15 m" : isG77 ? "78 ft (23.7 m)" : "Bespoke Length");
-                  const beamVal = yacht.specs?.maximumBeam || yacht.specs?.beam || (isG100 ? "22.91 ft / 6.98 m" : isG66 ? "20 ft / 6.10 m" : isG50 ? "15 ft / 4.5 m" : isG77 ? "20 ft (6 m)" : "Bespoke");
-                  const engineVal = yacht.specs?.engines || yacht.specs?.inboardEngines || (isG100 ? "2 × 1,600 hp MTU" : isG66 ? "2 × 800 Volvo engines" : isG50 ? "Twin 550 HP Cummins" : isG77 ? "2 × 600–1200 HP Inboard" : "Twin Marine Propulsion");
-                  const cabinVal = yacht.specs?.bedrooms 
-                    ? (yacht.specs?.berths ? `${yacht.specs.bedrooms} (${yacht.specs.berths} Berths)` : `${yacht.specs.bedrooms}`) 
-                    : (isG100 ? "5 + 2 Cabins (12 + 5)" : isG66 ? "4 + 2 Cabins (8 + 2)" : isG50 ? "Owner Cabin + Guest" : isG77 ? "4 + 2 (8 + 3 Berths)" : "Luxury Staterooms");
-                  const draftVal = yacht.specs?.draftAtFullLoad || yacht.specs?.draft || (isG100 ? "7.5 ft / 2.29 m" : isG66 ? "3.5 ft / 1.07 m" : isG50 ? "4 ft / 1.35 m" : isG77 ? "3.5 ft (1.06 m)" : "Full Load Draft");
-                  const hullVal = yacht.specs?.hullConstruction || yacht.specs?.hullMaterial || (isG100 ? "GRP Superyacht" : isG66 ? "GRP Luxury Yacht" : isG50 ? "Fiberglass Motor Yacht" : isG77 ? "GRP Composite" : "Advanced Composite");
-
-                  return (
-                    <div
-                      key={yacht.id}
-                      className="group relative bg-[#091322] border border-white/10 hover:border-[#C6A155] transition-all duration-500 overflow-hidden flex flex-col justify-between hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+                  {/* Top Right: The 2 Circular Next/Prev Arrow Buttons matching user's screenshot */}
+                  <div className="absolute top-4 sm:top-6 right-4 sm:right-6 flex items-center gap-2.5 z-20">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        prevModel();
+                      }}
+                      className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/85 hover:bg-white text-white hover:text-black border border-white/20 hover:border-white flex items-center justify-center transition-all cursor-pointer shadow-2xl backdrop-blur-md"
+                      aria-label="Previous yacht model"
                     >
-                      {/* Image Area with Zoom & Badges */}
-                      <div className="relative aspect-[16/10] overflow-hidden bg-[#060D18]">
-                        <Link href={`/yachts/${yacht.slug}`} className="block w-full h-full cursor-pointer">
-                          <img
-                            src={yacht.mainImage || yacht.primaryImage || "/images/hero-yacht.jpg"}
-                            alt={yacht.name}
-                            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#091322] via-[#091322]/20 to-transparent opacity-90" />
-                        </Link>
-                        
-                        {/* Top Badges */}
-                        <div className="absolute top-4 left-4 flex items-center gap-2 pointer-events-none">
-                          <span className="px-3 py-1 bg-[#08101C]/90 backdrop-blur-md border border-[#C6A155]/40 text-[#C6A155] text-[10px] font-semibold tracking-[0.2em] uppercase">
-                            {yacht.category}
-                          </span>
-                          {(idx === 0 || isG100) && (
-                            <span className="px-2.5 py-1 bg-[#C6A155] text-[#08101C] text-[9px] font-bold tracking-[0.16em] uppercase">
-                              Flagship Superyacht
-                            </span>
-                          )}
-                          {isG66 && (
-                            <span className="px-2.5 py-1 bg-[#C6A155] text-[#08101C] text-[9px] font-bold tracking-[0.16em] uppercase">
-                              Luxury Yacht
-                            </span>
-                          )}
-                          {isG50 && (
-                            <span className="px-2.5 py-1 bg-[#C6A155] text-[#08101C] text-[9px] font-bold tracking-[0.16em] uppercase">
-                              Motor Yacht
-                            </span>
-                          )}
-                          {isG77 && (
-                            <span className="px-2.5 py-1 bg-[#C6A155] text-[#08101C] text-[9px] font-bold tracking-[0.16em] uppercase">
-                              Flybridge Yacht
-                            </span>
-                          )}
-                        </div>
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        nextModel();
+                      }}
+                      className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/85 hover:bg-white text-white hover:text-black border border-white/20 hover:border-white flex items-center justify-center transition-all cursor-pointer shadow-2xl backdrop-blur-md"
+                      aria-label="Next yacht model"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
 
-                        <div className="absolute top-4 right-4 pointer-events-none">
-                          <span className="px-3 py-1 bg-[#08101C]/90 backdrop-blur-md border border-white/15 text-white/90 font-mono text-[11px] font-medium tracking-wider">
-                            {lengthVal.toUpperCase()}
-                          </span>
-                        </div>
+                  {/* Bottom Right: Overall Length Badge */}
+                  <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-10 pointer-events-none">
+                    <span className="px-3.5 py-1.5 bg-[#08101C]/90 backdrop-blur-md border border-white/20 text-white font-mono text-xs font-semibold tracking-wider">
+                      {lengthVal.toUpperCase()}
+                    </span>
+                  </div>
+                </div>
 
-                        {/* Bottom Image Micro-Label */}
-                        <div className="absolute bottom-3 right-4 flex items-center justify-end text-[11px] text-white/70">
-                          <Link
-                            href={`/yachts/${yacht.slug}`}
-                            className="!text-white hover:text-[#DFBA73] font-semibold tracking-wider uppercase text-[10px] group-hover:translate-x-1 transition-all inline-flex items-center gap-1 cursor-pointer"
-                            style={{ color: "#FFFFFF" }}
-                          >
-                            <span className="!text-white" style={{ color: "#FFFFFF" }}>Explore {shortName}</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-[#C6A155]" />
-                          </Link>
-                        </div>
+                {/* Lower Detail Bar: Model Information & Technical Specifications */}
+                <div className="p-6 sm:p-10 border-t border-white/10 bg-[#091322]">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    {/* Left: Model Narrative & Direct CTAs */}
+                    <div className="lg:col-span-5 space-y-4">
+                      <div className="text-[11px] uppercase tracking-[0.24em] text-[#C6A155] font-semibold">
+                        {activeYacht.series || `ASMARATY ${activeYacht.category}`} • {shortName}
                       </div>
 
-                      {/* Card Content */}
-                      <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
-                        <div className="space-y-3">
-                          <div className="flex items-baseline justify-between">
-                            <span className="text-[11px] uppercase tracking-[0.22em] text-[#C6A155] font-semibold">
-                              {yacht.series || `ASMARATY ${yacht.category}`}
-                            </span>
-                          </div>
+                      <Link href={`/yachts/${activeYacht.slug}`}>
+                        <h3 className="font-sans text-2xl sm:text-4xl font-light text-white uppercase tracking-[0.04em] hover:text-[#DFBA73] transition-colors cursor-pointer">
+                          {activeYacht.name}
+                        </h3>
+                      </Link>
 
-                          <Link href={`/yachts/${yacht.slug}`}>
-                            <h3 className="font-sans text-2xl sm:text-3xl font-light text-white uppercase tracking-[0.04em] group-hover:text-[#DFBA73] transition-colors cursor-pointer">
-                              {yacht.name}
-                            </h3>
-                          </Link>
+                      {activeYacht.tagline && (
+                        <p className="text-xs sm:text-sm text-[#C6A155]/90 italic font-serif tracking-wide">
+                          “{activeYacht.tagline}”
+                        </p>
+                      )}
 
-                          {yacht.tagline && (
-                            <p className="text-xs sm:text-sm text-[#C6A155]/90 italic font-serif tracking-wide">
-                              “{yacht.tagline}”
-                            </p>
-                          )}
+                      <p className="text-xs sm:text-sm text-white/75 font-normal leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
+                        {activeYacht.description}
+                      </p>
 
-                          <p className="text-xs sm:text-sm text-white/75 font-normal leading-relaxed line-clamp-3 saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
-                            {yacht.description}
-                          </p>
+                      <div className="pt-2 flex flex-wrap items-center gap-3">
+                        <Link
+                          href={`/yachts/${activeYacht.slug}`}
+                          className="saxdor-btn-solid !h-[42px] !px-6 !text-xs font-bold whitespace-nowrap cursor-pointer inline-flex items-center gap-2"
+                        >
+                          <span>Explore {shortName}</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </Link>
+
+                        <button
+                          type="button"
+                          onClick={() => handleEnquireModel(activeYacht.name)}
+                          className="saxdor-btn-outline !h-[42px] !px-6 !text-xs font-bold whitespace-nowrap cursor-pointer"
+                        >
+                          Book Sea Trial
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Right: Marine Specifications Grid */}
+                    <div className="lg:col-span-7 space-y-3">
+                      <div className="text-[10px] uppercase tracking-[0.18em] text-[#C6A155] font-semibold">
+                        Key Naval Specifications
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
+                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Length Overall</span>
+                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{lengthVal}</span>
                         </div>
-
-                        {/* Comprehensive Technical Specifications Grid (conditionally rendered) */}
-                        {hasSpecs ? (
-                          <div className="space-y-1.5 pt-2 border-t border-white/10">
-                            <div className="text-[10px] uppercase tracking-[0.18em] text-[#C6A155] font-semibold mb-2">
-                              Key Marine Specifications
-                            </div>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
-                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
-                                  Length Overall
-                                </span>
-                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
-                                  {lengthVal}
-                                </span>
-                              </div>
-
-                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
-                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
-                                  Maximum Beam
-                                </span>
-                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
-                                  {beamVal}
-                                </span>
-                              </div>
-
-                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
-                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
-                                  Twin Engines
-                                </span>
-                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
-                                  {engineVal}
-                                </span>
-                              </div>
-
-                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
-                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
-                                  Cabins / Berths
-                                </span>
-                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
-                                  {cabinVal}
-                                </span>
-                              </div>
-
-                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
-                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
-                                  Draft Full Load
-                                </span>
-                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
-                                  {draftVal}
-                                </span>
-                              </div>
-
-                              <div className="bg-[#0D1B2E] p-2.5 border border-white/5">
-                                <span className="text-[9px] uppercase tracking-wider text-white/40 block">
-                                  Hull / Construction
-                                </span>
-                                <span className="font-semibold text-white mt-0.5 block truncate text-[11px]">
-                                  {hullVal}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
-                          /* Specifications Pending Confirmation Notice */
-                          <div className="space-y-1.5 pt-2 border-t border-white/10">
-                            <div className="text-[10px] uppercase tracking-[0.18em] text-[#C6A155] font-semibold mb-2">
-                              Technical Specifications
-                            </div>
-                            <div className="bg-[#0D1B2E] p-3.5 border border-white/5 flex items-start gap-3">
-                              <Sliders className="w-4 h-4 text-[#C6A155] flex-shrink-0 mt-0.5" />
-                              <p className="text-xs text-white/70 leading-relaxed font-light">
-                                Please contact our private client team for confirmed technical specifications, engine details, passenger capacity, and accommodation layout.
-                              </p>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Architectural Highlights */}
-                        {yacht.highlights && yacht.highlights.length > 0 && (
-                          <div className="space-y-2 pt-2 border-t border-white/10">
-                            <div className="text-[10px] uppercase tracking-[0.18em] text-[#C6A155] font-semibold mb-1">
-                              Key Features & Highlights
-                            </div>
-                            <ul className="space-y-1.5 text-xs text-white/70">
-                              {yacht.highlights.slice(0, hasSpecs ? 3 : 5).map((h, hIdx) => (
-                                <li key={hIdx} className="flex items-start gap-2">
-                                  <Check className="w-3.5 h-3.5 text-[#C6A155] flex-shrink-0 mt-0.5" />
-                                  <span className="line-clamp-1">{h}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-
-                        {/* Action Buttons: Explore Specifications & Enquire About Model */}
-                        <div className="pt-4 mt-auto border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
-                          <Link
-                            href={`/yachts/${yacht.slug}`}
-                            className="h-[48px] min-h-[48px] max-h-[48px] w-full px-3 sm:px-4 text-[11px] font-bold tracking-[0.14em] uppercase flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 border border-[#C6A155]/70 hover:border-[#DFBA73] bg-[#0E1A2D] hover:bg-[#152744] text-white hover:text-white rounded-none shadow-none m-0 box-border leading-none select-none"
-                            style={{ color: "#FFFFFF", height: "48px", minHeight: "48px", maxHeight: "48px", margin: 0, boxSizing: "border-box" }}
-                          >
-                            <Sliders className="w-3.5 h-3.5 text-[#C6A155] flex-shrink-0" />
-                            <span className="truncate text-white font-bold tracking-[0.14em]" style={{ color: "#FFFFFF" }}>Explore Specifications</span>
-                          </Link>
-
-                          <button
-                            type="button"
-                            onClick={() => handleEnquireModel(yacht.name)}
-                            className="h-[48px] min-h-[48px] max-h-[48px] w-full px-3 sm:px-4 text-[11px] font-bold tracking-[0.14em] uppercase flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 border border-white hover:border-white/90 bg-white hover:bg-[#F2F5F8] text-[#08101C] hover:text-black rounded-none shadow-none m-0 box-border leading-none appearance-none select-none"
-                            style={{ height: "48px", minHeight: "48px", maxHeight: "48px", margin: 0, boxSizing: "border-box" }}
-                          >
-                            <span className="truncate tracking-[0.14em]">Enquire About {shortName}</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-[#08101C] flex-shrink-0" />
-                          </button>
+                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
+                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Maximum Beam</span>
+                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{beamVal}</span>
+                        </div>
+                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
+                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Propulsion Engines</span>
+                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{engineVal}</span>
+                        </div>
+                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
+                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Staterooms / Berths</span>
+                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{cabinVal}</span>
+                        </div>
+                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
+                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Full Load Draft</span>
+                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{draftVal}</span>
+                        </div>
+                        <div className="bg-[#0D1B2E] p-3.5 border border-white/5">
+                          <span className="text-[9px] uppercase tracking-wider text-white/40 block">Hull Construction</span>
+                          <span className="font-mono text-white text-xs sm:text-sm font-semibold">{hullVal}</span>
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Model Selector Tabs */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                {yachts.map((m, idx) => {
+                  const isCurrent = selectedModelIndex === idx;
+                  const mShort = m.slug === "g100" ? "G-100" : m.slug === "g66" ? "G-66" : m.slug === "g50" ? "G-50" : m.slug === "g77" ? "G77" : m.name.replace("ASMARATY ", "");
+                  return (
+                    <button
+                      key={m.id}
+                      type="button"
+                      onClick={() => setSelectedModelIndex(idx)}
+                      className={`p-3.5 sm:p-4 text-left transition-all duration-300 border cursor-pointer relative overflow-hidden ${
+                        isCurrent
+                          ? "bg-[#0E2047] border-[#C6A155] shadow-xl"
+                          : "bg-[#08101C]/70 border-white/10 hover:border-white/30 text-white/70 hover:text-white"
+                      }`}
+                    >
+                      {isCurrent && (
+                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#C6A155]" />
+                      )}
+                      <div className="text-[10px] uppercase font-mono tracking-wider text-[#C6A155] font-semibold">
+                        0${idx + 1} • ${m.category}
+                      </div>
+                      <div className="text-sm sm:text-base font-semibold text-white uppercase mt-0.5 truncate">
+                        ${mShort}
+                      </div>
+                      <div className="text-[11px] text-white/50 mt-1 font-mono truncate">
+                        ${m.specs?.lengthOverall || m.length}
+                      </div>
+                    </button>
                   );
                 })}
               </div>
-
-              {/* Bottom Right: Clean View More Button with Right Arrow */}
-              <div className={`pt-8 sm:pt-10 flex items-center ${yachts.length > 4 ? "justify-between" : "justify-end"} gap-4`}>
-                {yachts.length > 4 && (
-                  <button
-                    type="button"
-                    onClick={() => setShowAllModels(!showAllModels)}
-                    className="saxdor-btn-navy-outline !h-[48px] !px-8 text-xs font-bold text-white border-white/20 hover:border-[#C6A155] inline-flex items-center gap-2 cursor-pointer transition-all"
-                  >
-                    <span>{showAllModels ? "SHOW INITIAL 4 MODELS" : `SHOW ALL FLEET MODELS (${yachts.length})`}</span>
-                    <ArrowRight className={`w-4 h-4 text-[#C6A155] transition-transform ${showAllModels ? "-rotate-90" : "rotate-90"}`} />
-                  </button>
-                )}
-
-                <Link
-                  href="/yachts"
-                  className="group inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 bg-[#0E1A2D] hover:bg-[#152744] border border-[#C6A155]/60 hover:border-[#DFBA73] text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-white hover:text-[#DFBA73] transition-all duration-300 shadow-xl cursor-pointer"
-                >
-                  <span>VIEW MORE</span>
-                  <ArrowRight className="w-4 h-4 text-[#C6A155] group-hover:translate-x-1.5 transition-transform duration-300" />
-                </Link>
-              </div>
-            </>
+            </div>
           )}
         </div>
       </section>
     );
   }
 
-  /* -------------------------------------------------------------
-     MODE 3: Saxdor Signature Full-Bleed Dark Model Slider
-     ------------------------------------------------------------- */
   if (layoutStyle === "model_gallery") {
     return (
       <section className="w-full h-[calc(100vh-70px)] min-h-[570px] max-h-[820px] bg-[#08101C] relative overflow-hidden flex items-end">

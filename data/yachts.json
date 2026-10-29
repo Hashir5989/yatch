@@ -77,7 +77,7 @@
       "yachtType": "Luxury Flybridge Yacht",
       "hullConstruction": "GRP",
       "hullMaterial": "GRP Composite",
-      "lengthOverall": "78 ft (23.7 m)",
+      "lengthOverall": "77 ft (23.7 m)",
       "waterlineLength": "66 ft (20.1 m)",
       "lengthWaterline": "66 ft (20.1 m)",
       "maximumBeam": "20 ft (6 m)",
@@ -109,7 +109,7 @@
     "accommodation": "Owner's cabin with double bed, ensuite bathroom, and walk-in wardrobe. Forward VIP cabin with additional storage, twin guest berths, dedicated crew quarters (two beds, galley) and separate crew bathroom.",
     "floorplanUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-10-27T20:17:00.000Z"
+    "updatedAt": "2026-10-29T15:20:09.778Z"
   },
   {
     "id": "yacht-g66",
