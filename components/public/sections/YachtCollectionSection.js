@@ -323,7 +323,7 @@ export default function YachtCollectionSection({
                         <div className="pt-2 sm:pt-4">
                           <Link
                             href={`/yachts/${model.slug}`}
-                            className="inline-flex items-center justify-center px-8 sm:px-10 py-3.5 bg-[#787268] hover:bg-[#0E2047] text-white text-xs font-semibold uppercase tracking-[0.22em] transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+                            className={`${isDark ? "saxdor-btn-outline" : "saxdor-btn-navy-outline"} !h-[50px] !px-8 cursor-pointer`}
                           >
                             Explore More
                           </Link>
