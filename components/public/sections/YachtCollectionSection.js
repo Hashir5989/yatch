@@ -254,6 +254,22 @@ export default function YachtCollectionSection({
                 />
               </p>
             )}
+
+            {/* Catchy Action Button redirecting to collection listing page */}
+            <div className="pt-4 flex justify-center">
+              <InlineButtonEditor
+                text={buttonText || "DISCOVER THE COMPLETE FLEET"}
+                url={buttonUrl || "/yachts"}
+                isEditable={isEditable}
+                onSave={(newText, newUrl) => {
+                  if (onUpdateField) {
+                    onUpdateField("buttonText", newText);
+                    onUpdateField("buttonUrl", newUrl);
+                  }
+                }}
+                className={`${isDark ? "saxdor-btn-outline" : "saxdor-btn-navy-outline"} !h-[52px] !px-8 cursor-pointer`}
+              />
+            </div>
           </div>
 
           {/* Empty State */}
