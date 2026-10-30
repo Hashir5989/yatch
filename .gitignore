@@ -25,6 +25,7 @@
 *.pem
 *.bak
 *.original.*
+*-backup.*
 
 # debug
 npm-debug.log*
