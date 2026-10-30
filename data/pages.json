@@ -152,8 +152,8 @@
         "secondaryButtonText": "Download Fleet Catalog",
         "secondaryButtonUrl": "/yachts",
         "guaranteeText": "Direct consultation with Chief Naval Architect • Strict Discretion Assured",
-        "imageUrl": "/images/a77-journey-bg.jpg",
-        "videoUrl": "/videos/a77-journey.mp4",
+        "imageUrl": "/images/a77-journey-vintage.jpg",
+        "videoUrl": "",
         "layoutStyle": "cinematic-full",
         "backgroundStyle": "navy",
         "contentAlignment": "center"
