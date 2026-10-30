@@ -1,6 +1,31 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Edwardian Script ITC';
+  src: url('/fonts/edwardian-script.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Great Vibes';
+  src: url('/fonts/great-vibes.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pinyon Script';
+  src: url('/fonts/pinyon-script.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
+  --font-signature: 'Edwardian Script ITC', 'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive;
   --font-jakarta: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-montserrat: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-cormorant: "Cormorant Garamond", Georgia, serif;
@@ -35,6 +60,18 @@ body {
   background-color: var(--navy-deep);
   color: #E8EEF5;
   overflow-x: hidden;
+}
+
+/* Luxury Maritime Cursive Signature Typography */
+.font-signature {
+  font-family: var(--font-signature), 'Edwardian Script ITC', 'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive !important;
+}
+
+.saxdor-signature-heading {
+  font-family: var(--font-signature), 'Edwardian Script ITC', 'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive !important;
+  font-weight: 400;
+  text-transform: none !important;
+  letter-spacing: 0.01em;
 }
 
 /* Saxdor Yachts Architectural Typography */
@@ -291,22 +328,22 @@ button.saxdor-btn-navy-solid {
   box-shadow: 0 0 30px rgba(197, 168, 128, 0.2);
 }
 
-/* Realistic Live Moving Yacht Animation Keyframes */
+/* Realistic Live Moving Yacht Animation Keyframes - subtle calm motion with zero zoom */
 @keyframes yachtLiveCruise {
   0% {
-    transform: scale(1.06) translate3d(0px, 0px, 0px) rotate(0deg);
+    transform: scale(1) translate3d(0px, 0px, 0px) rotate(0deg);
   }
   25% {
-    transform: scale(1.10) translate3d(20px, -10px, 0px) rotate(-0.6deg);
+    transform: scale(1) translate3d(6px, -3px, 0px) rotate(-0.1deg);
   }
   50% {
-    transform: scale(1.15) translate3d(36px, -18px, 0px) rotate(-0.2deg);
+    transform: scale(1) translate3d(10px, -5px, 0px) rotate(0deg);
   }
   75% {
-    transform: scale(1.10) translate3d(16px, -6px, 0px) rotate(0.5deg);
+    transform: scale(1) translate3d(4px, -2px, 0px) rotate(0.1deg);
   }
   100% {
-    transform: scale(1.06) translate3d(0px, 0px, 0px) rotate(0deg);
+    transform: scale(1) translate3d(0px, 0px, 0px) rotate(0deg);
   }
 }
 

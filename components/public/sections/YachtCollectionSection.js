@@ -220,7 +220,7 @@ export default function YachtCollectionSection({
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
             {/* Left Column: Official Dark Logo + Eyebrow + Huge Title */}
-            <div className="lg:col-span-4 space-y-4">
+            <div className="lg:col-span-5 space-y-4">
               <div className="mb-4 sm:mb-6">
                 <AsmaratyLogo
                   variant="full"
@@ -238,19 +238,20 @@ export default function YachtCollectionSection({
                   placeholder="ASMARATY MODELS..."
                 />
               </div>
-              <h2 className="font-sans text-4xl sm:text-5xl lg:text-6xl font-light text-[#0E2047] tracking-[0.04em] uppercase leading-none">
+              <h2 className="font-signature text-5xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[86px] font-normal text-[#0E2047] tracking-normal normal-case leading-[1.08] select-none whitespace-pre-line">
                 <InlineEditableText
                   as="span"
-                  value={heading || "THE FLEET"}
+                  value={heading || "The Signature\nOf the Sea"}
                   isEditable={isEditable}
                   onChange={(val) => onUpdateField && onUpdateField("heading", val)}
-                  placeholder="THE FLEET..."
+                  placeholder="The Signature Of the Sea..."
+                  multiline={true}
                 />
               </h2>
             </div>
 
             {/* Right Column: Narrative + Action Button */}
-            <div className="lg:col-span-8 space-y-6 lg:pl-6">
+            <div className="lg:col-span-7 space-y-6 lg:pl-4">
               <p className="text-base sm:text-lg text-[#0E2047]/80 font-normal leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
                 <InlineEditableText
                   as="span"
