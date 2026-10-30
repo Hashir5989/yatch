@@ -20,13 +20,13 @@ export default function CallToActionSection({
     secondaryButtonText = "",
     secondaryButtonUrl = "/contact",
     guaranteeText = "",
-    imageUrl = "/images/a77-journey-vintage.jpg",
+    imageUrl = "/images/asmaraty-four-yachts-journey.jpg",
     videoUrl = ""
   } = data;
 
   const activeImage = imageUrl && imageUrl.trim() !== ""
     ? imageUrl
-    : "/images/a77-journey-vintage.jpg";
+    : "/images/asmaraty-four-yachts-journey.jpg";
 
   return (
     <section 
@@ -168,7 +168,7 @@ export default function CallToActionSection({
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full max-w-md mx-auto">
           <InlineButtonEditor
-            text={primaryButtonText || "EXPLORE THE FLEET"}
+            text={primaryButtonText || "VISIT THE FLEET"}
             url={primaryButtonUrl || "#fleet"}
             isEditable={isEditable}
             onSave={(newText, newUrl) => {
@@ -177,7 +177,7 @@ export default function CallToActionSection({
                 onUpdateField("primaryButtonUrl", newUrl);
               }
             }}
-            className="saxdor-btn-solid !h-[50px] sm:!h-[54px] !px-8 sm:!px-10 !text-xs !tracking-[0.18em] !font-semibold !shadow-[0_8px_24px_rgba(0,0,0,0.75)] hover:!shadow-[0_8px_32px_rgba(198,161,85,0.45)] w-full sm:w-auto text-center"
+            className="saxdor-btn-outline !border-white/90 !text-white hover:!bg-white hover:!text-[#08101C] !bg-black/25 backdrop-blur-md !h-[50px] sm:!h-[54px] !px-8 sm:!px-10 !text-xs !tracking-[0.18em] !font-semibold !shadow-[0_8px_24px_rgba(0,0,0,0.75)] w-full sm:w-auto text-center cursor-pointer"
           />
 
           {secondaryButtonText && (
