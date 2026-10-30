@@ -381,23 +381,33 @@ export default function YachtCollectionSection({
   if (layoutStyle === "model_gallery") {
     return (
       <section className="w-full h-[calc(100vh-70px)] min-h-[570px] max-h-[820px] bg-[#08101C] relative overflow-hidden flex items-end">
-        {/* Active Yacht Background Image */}
-        {currentYacht && (
-          <div className="absolute inset-0">
-            <img
-              src={currentYacht.mainImage}
-              alt={currentYacht.name}
-              className="w-full h-full object-cover transition-opacity duration-700 ease-out"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#08101C] via-[#08101C]/35 to-transparent"></div>
-            <div 
-              className="absolute -left-[20vw] -bottom-[30vh] w-[130vw] h-[130vh] pointer-events-none"
-              style={{
-                background: "radial-gradient(ellipse at 30% 72%, rgba(6, 16, 34, 0.75) 0%, rgba(6, 16, 34, 0.40) 30%, transparent 70%)"
-              }}
-            />
-          </div>
-        )}
+        {/* Active Yacht Background Images with Preloaded Smooth Dissolve */}
+        {filteredYachts.map((yacht, idx) => {
+          const isActive = idx === activeSlide;
+          return (
+            <div
+              key={yacht.id || idx}
+              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                isActive ? "opacity-100 z-0 pointer-events-auto" : "opacity-0 -z-10 pointer-events-none"
+              }`}
+            >
+              <img
+                src={yacht.mainImage}
+                alt={yacht.name}
+                className="w-full h-full object-cover object-center transform-gpu"
+                style={{
+                  imageRendering: "-webkit-optimize-contrast",
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden"
+                }}
+                loading={idx <= 1 ? "eager" : "lazy"}
+                decoding="async"
+              />
+              {/* Clean bottom gradient only behind typography - keeps yacht body & ocean 100% crisp & unblurred */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#08101C]/90 via-[#08101C]/30 to-transparent pointer-events-none" />
+            </div>
+          );
+        })}
 
         {/* Left & Right Slider Arrows */}
         {filteredYachts.length > 1 && (
@@ -405,7 +415,7 @@ export default function YachtCollectionSection({
             <button
               type="button"
               onClick={() => setActiveSlide((prev) => (prev - 1 + filteredYachts.length) % filteredYachts.length)}
-              className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 bg-[#08101C]/60 hover:bg-white text-white hover:text-[#0E2047] backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all cursor-pointer"
+              className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 bg-[#08101C]/60 hover:bg-white text-white hover:text-[#0E2047] backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all cursor-pointer shadow-lg"
               aria-label="Previous yacht"
             >
               <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
@@ -413,7 +423,7 @@ export default function YachtCollectionSection({
             <button
               type="button"
               onClick={() => setActiveSlide((prev) => (prev + 1) % filteredYachts.length)}
-              className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 bg-[#08101C]/60 hover:bg-white text-white hover:text-[#0E2047] backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all cursor-pointer"
+              className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 bg-[#08101C]/60 hover:bg-white text-white hover:text-[#0E2047] backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all cursor-pointer shadow-lg"
               aria-label="Next yacht"
             >
               <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
@@ -423,15 +433,15 @@ export default function YachtCollectionSection({
 
         {/* Bottom Info Overlay & Pagination */}
         {currentYacht && (
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pb-12 sm:pb-16 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
-            <div className="max-w-xl">
-              <span className="text-[11px] uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pb-12 sm:pb-16 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pointer-events-none">
+            <div className="max-w-xl pointer-events-auto">
+              <span className="text-[11px] uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2 drop-shadow-sm">
                 MODEL
               </span>
-              <h3 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-light text-white uppercase tracking-tight leading-none mb-3">
+              <h3 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-light text-white uppercase tracking-tight leading-none mb-3 drop-shadow">
                 {currentYacht.name}
               </h3>
-              <p className="text-xs sm:text-sm text-white/70 font-mono tracking-wider mb-4">
+              <p className="text-xs sm:text-sm text-white/80 font-mono tracking-wider mb-4 drop-shadow-sm">
                 {[currentYacht.specs?.lengthOverall || currentYacht.length, currentYacht.category, currentYacht.specs?.hullMaterial].filter(Boolean).join(" • ")}
               </p>
               <div>
@@ -446,7 +456,7 @@ export default function YachtCollectionSection({
             </div>
 
             {/* Pagination Dots */}
-            <div className="flex items-center gap-2" aria-label="Model gallery pagination">
+            <div className="flex items-center gap-2 pointer-events-auto" aria-label="Model gallery pagination">
               {filteredYachts.map((yacht, idx) => (
                 <button
                   key={yacht.id}
