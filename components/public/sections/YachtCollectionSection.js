@@ -26,6 +26,51 @@ import InlineEditableText from "@/components/cms/InlineEditableText";
 import InlineButtonEditor from "@/components/cms/InlineButtonEditor";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 
+export const DEFAULT_INTERIOR_SLIDES = [
+  {
+    id: "interior-g100-salon",
+    title: "ASMARATY G-100",
+    subtitle: "Grand Main Salon & Panoramic Ocean Lounge",
+    image: "/images/interiors/g100-main-salon.jpg",
+    modelSlug: "g100"
+  },
+  {
+    id: "interior-g100-master",
+    title: "ASMARATY G-100",
+    subtitle: "Full-Beam Owner’s Master Suite",
+    image: "/images/interiors/g100-master-suite.jpg",
+    modelSlug: "g100"
+  },
+  {
+    id: "interior-g66-salon",
+    title: "ASMARATY G-66",
+    subtitle: "Open-Plan Main Salon & Formal Dining",
+    image: "/images/interiors/g66-main-salon.jpg",
+    modelSlug: "g66"
+  },
+  {
+    id: "interior-g66-stateroom",
+    title: "ASMARATY G-66",
+    subtitle: "Handcrafted Luxury Master Stateroom",
+    image: "/images/interiors/g66-master-stateroom.jpg",
+    modelSlug: "g66"
+  },
+  {
+    id: "interior-g50-salon",
+    title: "ASMARATY G-50",
+    subtitle: "Sunlit Salon & Entertainment Lounge",
+    image: "/images/interiors/g50-luxury-salon.jpg",
+    modelSlug: "g50"
+  },
+  {
+    id: "interior-g50-cabin",
+    title: "ASMARATY G-50",
+    subtitle: "Forward Owner’s Stateroom",
+    image: "/images/interiors/g50-owner-cabin.jpg",
+    modelSlug: "g50"
+  }
+];
+
 export default function YachtCollectionSection({
   data = {},
   isEditable = false,
@@ -105,17 +150,22 @@ export default function YachtCollectionSection({
     })
     .slice(0, limit || 8);
 
+  const gallerySlides = data.interiorSlides && data.interiorSlides.length > 0
+    ? data.interiorSlides
+    : DEFAULT_INTERIOR_SLIDES;
+
   // Auto-rotate slider in gallery mode when not editing
   useEffect(() => {
     if (layoutStyle !== "model_gallery") return;
-    if (isEditable || filteredYachts.length === 0) return;
+    if (isEditable || gallerySlides.length === 0) return;
     const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % filteredYachts.length);
+      setActiveSlide((prev) => (prev + 1) % gallerySlides.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, [layoutStyle, isEditable, filteredYachts.length]);
+  }, [layoutStyle, isEditable, gallerySlides.length]);
 
   const currentYacht = filteredYachts[activeSlide] || filteredYachts[0];
+  const currentSlide = gallerySlides[activeSlide] || gallerySlides[0];
   const activeModel = yachts[selectedModelIndex] || yachts[0];
 
   const handleEnquireModel = (modelName) => {
@@ -380,20 +430,20 @@ export default function YachtCollectionSection({
 
   if (layoutStyle === "model_gallery") {
     return (
-      <section className="w-full h-[calc(100vh-70px)] min-h-[570px] max-h-[820px] bg-[#08101C] relative overflow-hidden flex items-end">
-        {/* Active Yacht Background Images with Preloaded Smooth Dissolve */}
-        {filteredYachts.map((yacht, idx) => {
+      <section className="w-full h-[calc(100vh-70px)] min-h-[580px] max-h-[860px] bg-[#08101C] relative overflow-hidden flex items-end">
+        {/* Active Interior Background Images with Preloaded Smooth Dissolve */}
+        {gallerySlides.map((slide, idx) => {
           const isActive = idx === activeSlide;
           return (
             <div
-              key={yacht.id || idx}
+              key={slide.id || idx}
               className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
                 isActive ? "opacity-100 z-0 pointer-events-auto" : "opacity-0 -z-10 pointer-events-none"
               }`}
             >
               <img
-                src={yacht.mainImage}
-                alt={yacht.name}
+                src={slide.image}
+                alt={`${slide.title} - ${slide.subtitle}`}
                 className="w-full h-full object-cover object-center transform-gpu"
                 style={{
                   imageRendering: "-webkit-optimize-contrast",
@@ -403,73 +453,66 @@ export default function YachtCollectionSection({
                 loading={idx <= 1 ? "eager" : "lazy"}
                 decoding="async"
               />
-              {/* Clean bottom gradient only behind typography - keeps yacht body & ocean 100% crisp & unblurred */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#08101C]/90 via-[#08101C]/30 to-transparent pointer-events-none" />
+              {/* Minimal bottom gradient only behind caption - keeps the interior image 100% crisp & visible */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#08101C]/85 via-transparent to-transparent pointer-events-none" />
             </div>
           );
         })}
 
         {/* Left & Right Slider Arrows */}
-        {filteredYachts.length > 1 && (
+        {gallerySlides.length > 1 && (
           <>
             <button
               type="button"
-              onClick={() => setActiveSlide((prev) => (prev - 1 + filteredYachts.length) % filteredYachts.length)}
-              className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 bg-[#08101C]/60 hover:bg-white text-white hover:text-[#0E2047] backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all cursor-pointer shadow-lg"
-              aria-label="Previous yacht"
+              onClick={() => setActiveSlide((prev) => (prev - 1 + gallerySlides.length) % gallerySlides.length)}
+              className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-[#08101C]/60 hover:bg-white text-white hover:text-[#0E2047] backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all cursor-pointer shadow-xl rounded-none"
+              aria-label="Previous interior slide"
             >
-              <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
             <button
               type="button"
-              onClick={() => setActiveSlide((prev) => (prev + 1) % filteredYachts.length)}
-              className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 bg-[#08101C]/60 hover:bg-white text-white hover:text-[#0E2047] backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all cursor-pointer shadow-lg"
-              aria-label="Next yacht"
+              onClick={() => setActiveSlide((prev) => (prev + 1) % gallerySlides.length)}
+              className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-[#08101C]/60 hover:bg-white text-white hover:text-[#0E2047] backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all cursor-pointer shadow-xl rounded-none"
+              aria-label="Next interior slide"
             >
-              <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </>
         )}
 
-        {/* Bottom Info Overlay & Pagination */}
-        {currentYacht && (
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pb-12 sm:pb-16 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pointer-events-none">
+        {/* Clean, Non-intrusive Interior Caption & Minimal Pagination */}
+        {currentSlide && (
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pb-8 sm:pb-12 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pointer-events-none">
             <div className="max-w-xl pointer-events-auto">
-              <span className="text-[11px] uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2 drop-shadow-sm">
-                MODEL
+              <span className="text-[11px] uppercase tracking-[0.26em] text-[#C6A155] font-semibold block mb-1.5 drop-shadow-sm">
+                {currentSlide.title} • BESPOKE INTERIOR
               </span>
-              <h3 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-light text-white uppercase tracking-tight leading-none mb-3 drop-shadow">
-                {currentYacht.name}
+              <h3 className="font-sans text-2xl sm:text-3xl lg:text-4xl font-light text-white uppercase tracking-tight leading-tight drop-shadow">
+                {currentSlide.subtitle}
               </h3>
-              <p className="text-xs sm:text-sm text-white/80 font-mono tracking-wider mb-4 drop-shadow-sm">
-                {[currentYacht.specs?.lengthOverall || currentYacht.length, currentYacht.category, currentYacht.specs?.hullMaterial].filter(Boolean).join(" • ")}
-              </p>
-              <div>
-                <Link
-                  href={`/yachts/${currentYacht.slug}`}
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-white hover:text-[#C6A155] border-b border-white hover:border-[#C6A155] pb-1 transition-colors font-semibold cursor-pointer"
-                >
-                  <span>EXPLORE {currentYacht.name} SPECIFICATIONS</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#C6A155]" />
-                </Link>
-              </div>
             </div>
 
-            {/* Pagination Dots */}
-            <div className="flex items-center gap-2 pointer-events-auto" aria-label="Model gallery pagination">
-              {filteredYachts.map((yacht, idx) => (
-                <button
-                  key={yacht.id}
-                  type="button"
-                  onClick={() => setActiveSlide(idx)}
-                  className={`h-2 transition-all cursor-pointer ${
-                    activeSlide === idx
-                      ? "w-8 bg-white"
-                      : "w-2.5 bg-white/40 hover:bg-white/80"
-                  }`}
-                  aria-label={`Show ${yacht.name}`}
-                />
-              ))}
+            {/* Slide Index Counter & Pagination Bars */}
+            <div className="flex items-center gap-3 pointer-events-auto" aria-label="Interior gallery pagination">
+              <span className="text-xs font-mono tracking-wider text-white/80 drop-shadow-sm">
+                {String(activeSlide + 1).padStart(2, "0")} / {String(gallerySlides.length).padStart(2, "0")}
+              </span>
+              <div className="flex items-center gap-1.5">
+                {gallerySlides.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setActiveSlide(idx)}
+                    className={`h-1.5 transition-all cursor-pointer ${
+                      activeSlide === idx
+                        ? "w-7 bg-[#C6A155]"
+                        : "w-2 bg-white/40 hover:bg-white/80"
+                    }`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         )}

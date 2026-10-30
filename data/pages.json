@@ -93,16 +93,58 @@
         "id": "home-model-slider",
         "type": "yacht_collection",
         "visible": true,
-        "eyebrow": "ASMARATY SERIES",
-        "heading": "SIGNATURE FLEET AT SEA",
-        "description": "Explore our distinguished series of custom superyachts, ocean explorers, high-performance sports cruisers, and island tenders.",
+        "eyebrow": "ASMARATY INTERIORS",
+        "heading": "BESPOKE INTERIOR CRAFTSMANSHIP",
+        "description": "",
         "filterCategory": "all",
         "limit": 6,
         "layoutStyle": "model_gallery",
         "backgroundStyle": "dark",
         "contentAlignment": "center",
-        "buttonText": "View Complete Fleet",
-        "buttonUrl": "#fleet"
+        "interiorSlides": [
+          {
+            "id": "interior-g100-salon",
+            "title": "ASMARATY G-100",
+            "subtitle": "Grand Main Salon & Panoramic Ocean Lounge",
+            "image": "/images/interiors/g100-main-salon.jpg",
+            "modelSlug": "g100"
+          },
+          {
+            "id": "interior-g100-master",
+            "title": "ASMARATY G-100",
+            "subtitle": "Full-Beam Owner’s Master Suite",
+            "image": "/images/interiors/g100-master-suite.jpg",
+            "modelSlug": "g100"
+          },
+          {
+            "id": "interior-g66-salon",
+            "title": "ASMARATY G-66",
+            "subtitle": "Open-Plan Main Salon & Formal Dining",
+            "image": "/images/interiors/g66-main-salon.jpg",
+            "modelSlug": "g66"
+          },
+          {
+            "id": "interior-g66-stateroom",
+            "title": "ASMARATY G-66",
+            "subtitle": "Handcrafted Luxury Master Stateroom",
+            "image": "/images/interiors/g66-master-stateroom.jpg",
+            "modelSlug": "g66"
+          },
+          {
+            "id": "interior-g50-salon",
+            "title": "ASMARATY G-50",
+            "subtitle": "Sunlit Salon & Entertainment Lounge",
+            "image": "/images/interiors/g50-luxury-salon.jpg",
+            "modelSlug": "g50"
+          },
+          {
+            "id": "interior-g50-cabin",
+            "title": "ASMARATY G-50",
+            "subtitle": "Forward Owner’s Stateroom",
+            "image": "/images/interiors/g50-owner-cabin.jpg",
+            "modelSlug": "g50"
+          }
+        ]
       },
       {
         "id": "home-company",
