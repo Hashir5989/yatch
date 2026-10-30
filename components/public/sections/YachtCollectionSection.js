@@ -528,26 +528,21 @@ export default function YachtCollectionSection({
               </h3>
             </div>
 
-            {/* Slide Index Counter & Pagination Bars */}
-            <div className="flex items-center gap-3 pointer-events-auto" aria-label="Interior gallery pagination">
-              <span className="text-xs font-mono tracking-wider text-white/80 drop-shadow-sm">
-                {String(activeSlide + 1).padStart(2, "0")} / {String(gallerySlides.length).padStart(2, "0")}
-              </span>
-              <div className="flex items-center gap-1.5">
-                {gallerySlides.map((_, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setActiveSlide(idx)}
-                    className={`h-1.5 transition-all cursor-pointer ${
-                      activeSlide === idx
-                        ? "w-7 bg-[#C6A155]"
-                        : "w-2 bg-white/40 hover:bg-white/80"
-                    }`}
-                    aria-label={`Go to slide ${idx + 1}`}
-                  />
-                ))}
-              </div>
+            {/* Slide Pagination Bars */}
+            <div className="flex items-center gap-1.5 pointer-events-auto" aria-label="Interior gallery pagination">
+              {gallerySlides.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setActiveSlide(idx)}
+                  className={`h-1.5 transition-all cursor-pointer ${
+                    activeSlide === idx
+                      ? "w-7 bg-[#C6A155]"
+                      : "w-2 bg-white/40 hover:bg-white/80"
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
             </div>
           </div>
         )}
