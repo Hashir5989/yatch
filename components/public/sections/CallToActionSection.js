@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, Image as ImageIcon } from "lucide-react";
 import InlineEditableText from "@/components/cms/InlineEditableText";
@@ -20,12 +21,41 @@ export default function CallToActionSection({
     secondaryButtonText = "",
     secondaryButtonUrl = "/contact",
     guaranteeText = "",
-    imageUrl = "/images/live-yacht-journey.jpg"
+    imageUrl = "/images/a77-journey-bg.jpg",
+    videoUrl = "/videos/a77-journey.mp4"
   } = data;
 
   const activeImage = imageUrl && imageUrl.trim() !== ""
     ? imageUrl
-    : "/images/live-yacht-journey.jpg";
+    : "/images/a77-journey-bg.jpg";
+
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.defaultMuted = true;
+    video.muted = true;
+    video.playsInline = true;
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        const onFirstInteraction = () => {
+          if (videoRef.current) {
+            videoRef.current.play().catch(() => {});
+          }
+          window.removeEventListener("click", onFirstInteraction);
+          window.removeEventListener("touchstart", onFirstInteraction);
+          window.removeEventListener("scroll", onFirstInteraction);
+        };
+        window.addEventListener("click", onFirstInteraction, { once: true, passive: true });
+        window.addEventListener("touchstart", onFirstInteraction, { once: true, passive: true });
+        window.addEventListener("scroll", onFirstInteraction, { once: true, passive: true });
+      });
+    }
+  }, [videoUrl]);
 
   return (
     <section 
@@ -34,15 +64,39 @@ export default function CallToActionSection({
     >
       {/* Realistic Live Moving Yacht Animation Layers (Base Creation) */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {/* Layer 1: Hydrodynamic Yacht & Ocean Cruise Motion */}
-        <div className="absolute -inset-[8%] w-[116%] h-[116%] animate-yacht-live origin-center">
-          <img
-            src={activeImage}
-            alt="ASMARATY Superyacht cruising at sea"
-            className="w-full h-full object-cover object-center"
-            loading="eager"
-          />
-        </div>
+        {/* Layer 1: Hydrodynamic Yacht & Ocean Cruise Motion (Live Video or Animated A77 Background) */}
+        {videoUrl ? (
+          <div className="absolute inset-0 w-full h-full">
+            <video
+              ref={videoRef}
+              key={videoUrl}
+              src={videoUrl}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              poster={activeImage}
+              className="w-full h-full object-cover object-center scale-[1.02]"
+            >
+              <source src={videoUrl} type="video/mp4" />
+              <img
+                src={activeImage}
+                alt="A77 Superyacht cruising at sea"
+                className="w-full h-full object-cover object-center"
+              />
+            </video>
+          </div>
+        ) : (
+          <div className="absolute -inset-[8%] w-[116%] h-[116%] animate-yacht-live origin-center">
+            <img
+              src={activeImage}
+              alt="A77 Superyacht cruising at sea"
+              className="w-full h-full object-cover object-center"
+              loading="eager"
+            />
+          </div>
+        )}
 
         {/* Layer 2: Animated Water Caustic Shimmer Wave Layer */}
         <div 
