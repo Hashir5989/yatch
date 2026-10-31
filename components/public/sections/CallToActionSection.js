@@ -25,7 +25,7 @@ export default function CallToActionSection({
 
   const activeImage = (data?.imageUrl && data.imageUrl.trim() !== "")
     ? data.imageUrl
-    : "/images/start-your-journey-bg.jpg";
+    : "/images/asmaraty-racing-yacht-journey.jpg";
 
   const activeVideo = videoUrl && videoUrl.trim() !== "" ? videoUrl : null;
 
