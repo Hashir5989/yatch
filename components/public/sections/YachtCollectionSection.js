@@ -215,6 +215,10 @@ export default function YachtCollectionSection({
      MODE 1: Saxdor Signature 'The Fleet' Pure White Split Feature
      ------------------------------------------------------------- */
   if (layoutStyle === "fleet_feature") {
+    const rawHeading = (heading ? heading.replace(/[≈~]/g, "").trim() : "The Signature\nOf the Sea");
+    const headingLines = rawHeading.split(/\r?\n/);
+    const line1 = headingLines[0] || "The Signature";
+    const line2 = headingLines.slice(1).join(" ") || "Of the Sea";
     return (
       <section className="py-14 sm:py-20 lg:py-24 bg-[#FAF8F5] text-[#0E2047] border-y border-[#E2D9CC]" id="the-fleet">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
@@ -222,34 +226,52 @@ export default function YachtCollectionSection({
             {/* Left Column: Signature Cursive Heading + Eyebrow at bottom (equal height) */}
             <div className="lg:col-span-5 flex flex-col justify-between">
               <div>
-                <h2 className="font-signature text-6xl sm:text-7xl md:text-8xl lg:text-[84px] xl:text-[96px] font-normal text-[#0E2047] tracking-normal normal-case leading-[1.05] select-none whitespace-pre-line">
-                  <InlineEditableText
-                    as="span"
-                    value={heading ? heading.replace(/[≈~]/g, "").trim() : "The Signature\nOf the Sea"}
-                    isEditable={isEditable}
-                    onChange={(val) => onUpdateField && onUpdateField("heading", val)}
-                    placeholder="The Signature\nOf the Sea"
-                    multiline={true}
-                  />
-                  <span className="inline-block ml-3 sm:ml-4 -translate-y-1 sm:-translate-y-2 align-middle">
-                    <svg
-                      viewBox="0 0 32 14"
-                      className="w-6 h-3 sm:w-8 sm:h-4 md:w-9 md:h-4.5 text-[#0E2047]/80"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M2 4.5 C 5 1.8, 8 1.8, 11 4.5 C 14 7.2, 17 7.2, 20 4.5 C 23 1.8, 26 1.8, 30 4.5" />
-                      <path d="M2 9.5 C 5 6.8, 8 6.8, 11 9.5 C 14 12.2, 17 12.2, 20 9.5 C 23 6.8, 26 6.8, 30 9.5" />
-                    </svg>
+                <h2 className="font-signature text-6xl sm:text-7xl md:text-8xl lg:text-[84px] xl:text-[96px] font-normal text-[#0E2047] tracking-normal normal-case leading-[1.05] select-none">
+                  <span className="block" style={{ marginLeft: "-0.076em" }}>
+                    <InlineEditableText
+                      as="span"
+                      value={line1}
+                      isEditable={isEditable}
+                      onChange={(val) => {
+                        if (onUpdateField) {
+                          onUpdateField("heading", `${val}\n${line2}`);
+                        }
+                      }}
+                      placeholder="The Signature"
+                    />
+                  </span>
+                  <span className="block mt-1 sm:mt-2" style={{ marginLeft: "-0.244em" }}>
+                    <InlineEditableText
+                      as="span"
+                      value={line2}
+                      isEditable={isEditable}
+                      onChange={(val) => {
+                        if (onUpdateField) {
+                          onUpdateField("heading", `${line1}\n${val}`);
+                        }
+                      }}
+                      placeholder="Of the Sea"
+                    />
+                    <span className="inline-block ml-3 sm:ml-4 -translate-y-1 sm:-translate-y-2 align-middle">
+                      <svg
+                        viewBox="0 0 32 14"
+                        className="w-6 h-3 sm:w-8 sm:h-4 md:w-9 md:h-4.5 text-[#0E2047]/80"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M2 4.5 C 5 1.8, 8 1.8, 11 4.5 C 14 7.2, 17 7.2, 20 4.5 C 23 1.8, 26 1.8, 30 4.5" />
+                        <path d="M2 9.5 C 5 6.8, 8 6.8, 11 9.5 C 14 12.2, 17 12.2, 20 9.5 C 23 6.8, 26 6.8, 30 9.5" />
+                      </svg>
+                    </span>
                   </span>
                 </h2>
               </div>
 
-              <div className="text-xs sm:text-[13px] font-sans font-semibold uppercase tracking-[0.28em] text-[#0E2047]/75 pt-6 sm:pt-8">
+              <div className="text-xs sm:text-[13px] font-sans font-semibold uppercase tracking-[0.28em] text-[#C6A155] pt-6 sm:pt-8">
                 <InlineEditableText
                   as="span"
                   value={eyebrow || "ASMARATY FLEET"}
