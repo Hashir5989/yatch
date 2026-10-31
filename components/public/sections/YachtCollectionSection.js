@@ -241,31 +241,33 @@ export default function YachtCollectionSection({
                     />
                   </span>
                   <span className="block mt-1 sm:mt-2" style={{ marginLeft: "-0.244em" }}>
-                    <InlineEditableText
-                      as="span"
-                      value={line2}
-                      isEditable={isEditable}
-                      onChange={(val) => {
-                        if (onUpdateField) {
-                          onUpdateField("heading", `${line1}\n${val}`);
-                        }
-                      }}
-                      placeholder="Of the Sea"
-                    />
-                    <span className="inline-block ml-3 sm:ml-4 -translate-y-1 sm:-translate-y-2 align-middle">
-                      <svg
-                        viewBox="0 0 32 14"
-                        className="w-6 h-3 sm:w-8 sm:h-4 md:w-9 md:h-4.5 text-[#0E2047]/80"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M2 4.5 C 5 1.8, 8 1.8, 11 4.5 C 14 7.2, 17 7.2, 20 4.5 C 23 1.8, 26 1.8, 30 4.5" />
-                        <path d="M2 9.5 C 5 6.8, 8 6.8, 11 9.5 C 14 12.2, 17 12.2, 20 9.5 C 23 6.8, 26 6.8, 30 9.5" />
-                      </svg>
+                    <span className="relative inline-block">
+                      <InlineEditableText
+                        as="span"
+                        value={line2}
+                        isEditable={isEditable}
+                        onChange={(val) => {
+                          if (onUpdateField) {
+                            onUpdateField("heading", `${line1}\n${val}`);
+                          }
+                        }}
+                        placeholder="Of the Sea"
+                      />
+                      <span className="absolute right-0 top-[82%] sm:top-[85%] md:top-[87%] translate-x-1 pointer-events-none select-none">
+                        <svg
+                          viewBox="0 0 32 14"
+                          className="w-5 h-2.5 sm:w-7 sm:h-3.5 md:w-8 md:h-4 text-[#0E2047]/80"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M2 4.5 C 5 1.8, 8 1.8, 11 4.5 C 14 7.2, 17 7.2, 20 4.5 C 23 1.8, 26 1.8, 30 4.5" />
+                          <path d="M2 9.5 C 5 6.8, 8 6.8, 11 9.5 C 14 12.2, 17 12.2, 20 9.5 C 23 6.8, 26 6.8, 30 9.5" />
+                        </svg>
+                      </span>
                     </span>
                   </span>
                 </h2>
