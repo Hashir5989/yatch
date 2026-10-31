@@ -114,7 +114,7 @@ export default function CallToActionSection({
           </div>
         )}
 
-        <h2 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white leading-tight uppercase tracking-[0.08em] mb-4 drop-shadow-[0_3px_18px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_18px_rgba(0,0,0,0.95),_0_1px_3px_rgba(0,0,0,0.9)]">
+        <h2 className="font-sans text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-white leading-tight uppercase tracking-[0.08em] mb-4 drop-shadow-[0_3px_18px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_18px_rgba(0,0,0,0.95),_0_1px_3px_rgba(0,0,0,0.9)]">
           <InlineEditableText
             as="span"
             value={heading}
