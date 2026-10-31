@@ -261,8 +261,8 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                       +971 56 526 8126
                     </a>
                   </div>
-                  <a href="mailto:info@asmaraty.fake" className="hover:underline text-white/70">
-                    info@asmaraty.fake
+                  <a href="mailto:info@asmaraty.com" className="hover:underline text-white/70">
+                    info@asmaraty.com
                   </a>
                 </div>
               </div>

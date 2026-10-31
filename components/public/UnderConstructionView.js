@@ -179,11 +179,11 @@ export default function UnderConstructionView({
               </div>
 
               <a
-                href="mailto:info@asmaraty.fake"
+                href="mailto:info@asmaraty.com"
                 className="flex items-center gap-2 text-white hover:text-[#C6A155] transition-colors"
               >
                 <Mail className="w-3.5 h-3.5 text-[#C6A155]" />
-                <span>info@asmaraty.fake</span>
+                <span>info@asmaraty.com</span>
               </a>
 
               <div className="flex items-center gap-2">

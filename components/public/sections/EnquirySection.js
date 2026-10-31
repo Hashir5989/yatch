@@ -13,7 +13,7 @@ export default function EnquirySection({
     eyebrow = "VIP CONCIERGE & COMMISSIONS",
     heading = "Request Private Sea Trial or Shipyard Consultation",
     description = "Connect directly with our luxury yacht advisory team in the UAE. We arrange private sea trials and confidential bespoke build consultations.",
-    recipientEmail = "info@asmaraty.fake",
+    recipientEmail = "info@asmaraty.com",
     phone = "+971 56 526 8126",
     address = "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates",
   } = data;

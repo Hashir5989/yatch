@@ -129,7 +129,7 @@ export default function PublicFooter() {
                   </a>
                 </div>
                 <p className="text-[#C6A155] font-semibold pt-0.5">
-                  <a href="mailto:info@asmaraty.fake" className="hover:underline">info@asmaraty.fake</a>
+                  <a href="mailto:info@asmaraty.com" className="hover:underline">info@asmaraty.com</a>
                 </p>
               </div>
             </div>
