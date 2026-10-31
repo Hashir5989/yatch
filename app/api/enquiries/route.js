@@ -3,18 +3,42 @@ import { cookies } from "next/headers";
 import { saveEnquiryServer, getEnquiriesServer, verifySessionToken } from "@/lib/server/db";
 import { sendEnquiryEmail } from "@/lib/server/email";
 
-
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// In-memory sliding-window deduplication store (sliding 60-second window)
+const recentSubmissions = new Map();
+const DEDUPE_WINDOW_MS = 60 * 1000;
+
+function cleanupOldSubmissions() {
+  const now = Date.now();
+  for (const [key, timestamp] of recentSubmissions.entries()) {
+    if (now - timestamp > DEDUPE_WINDOW_MS) {
+      recentSubmissions.delete(key);
+    }
+  }
+}
 
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { firstName, lastName, name, email, phone, location, country, message } = body;
+    const { 
+      firstName, 
+      lastName, 
+      name, 
+      email, 
+      phone, 
+      location, 
+      country, 
+      message,
+      model,
+      yachtModel,
+      yachtName
+    } = body;
 
     const fName = (firstName || (name ? name.split(" ")[0] : "") || "").trim();
     const lName = (lastName || (name ? name.split(" ").slice(1).join(" ") : "") || "").trim();
 
-    // Server-side validation for the 7 required fields
+    // Server-side validation for required fields
     if (!fName || fName.length < 1) {
       return NextResponse.json(
         { success: false, error: "Please provide your first name." },
@@ -72,7 +96,25 @@ export async function POST(request) {
     const cleanLastName = lName.slice(0, 100);
     const cleanName = `${cleanFirstName} ${cleanLastName}`.trim();
     const cleanEmail = email.trim().toLowerCase().slice(0, 255);
+    const cleanModel = typeof (model || yachtModel || yachtName) === "string" 
+      ? (model || yachtModel || yachtName).trim().slice(0, 100) 
+      : "";
 
+    // Duplicate submission prevention
+    cleanupOldSubmissions();
+    const dedupeKey = `${cleanEmail}:${cleanMessage}`;
+    if (recentSubmissions.has(dedupeKey)) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: "Your enquiry was already received. Please wait a moment before resubmitting." 
+        },
+        { status: 429 }
+      );
+    }
+    recentSubmissions.set(dedupeKey, Date.now());
+
+    // 1. Save enquiry to database (PostgreSQL customer_enquiries or fallback JSON)
     const saved = await saveEnquiryServer({
       firstName: cleanFirstName,
       lastName: cleanLastName,
@@ -81,6 +123,7 @@ export async function POST(request) {
       phone: cleanPhone,
       location: cleanLocation,
       country: cleanCountry,
+      model: cleanModel,
       message: cleanMessage,
     });
 
@@ -88,19 +131,27 @@ export async function POST(request) {
       throw new Error("Database failed to persist enquiry record");
     }
 
-    // Attempt email notification dispatch via Hostinger SMTP
+    // 2. Dispatch Hostinger SMTP email notification to info@asmaraty.com
+    // Handled safely in try/catch so SMTP issues never discard a saved enquiry
     let emailDispatched = false;
+    let emailError = null;
+
     try {
       const emailResult = await sendEnquiryEmail(saved);
       emailDispatched = Boolean(emailResult?.success);
+      if (!emailDispatched) {
+        emailError = emailResult?.error || "Email delivery failed";
+      }
     } catch (emailErr) {
-      console.warn("[SMTP] Background email dispatch error:", emailErr.message);
+      emailError = emailErr.message;
+      console.warn("[SMTP] Background Hostinger email dispatch error:", emailErr.message);
     }
 
     return NextResponse.json({ 
       success: true, 
       enquiry: saved,
-      emailDispatched
+      emailDispatched,
+      ...(emailError ? { emailWarning: "Notification delivery pending" } : {})
     });
   } catch (err) {
     console.error("Enquiry POST API error:", err);
@@ -121,9 +172,9 @@ export async function GET() {
     }
 
     const enquiries = await getEnquiriesServer();
-    return NextResponse.json({ success: true, enquiries: enquiries || [] });
+    return NextResponse.json({ success: true, enquiries });
   } catch (err) {
     console.error("Enquiry GET API error:", err);
-    return NextResponse.json({ success: false, error: "Failed to load enquiries" }, { status: 500 });
+    return NextResponse.json({ success: false, error: "Failed to retrieve enquiries" }, { status: 500 });
   }
 }
