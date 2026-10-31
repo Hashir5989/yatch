@@ -77,17 +77,18 @@ export default function HeroBannerSection({
               muted
               playsInline
               preload="auto"
-              poster={imageUrl || "/images/live-yacht-journey.jpg"}
+              poster={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
               className="w-full h-full object-cover object-center scale-[1.01]"
+              style={{ filter: "brightness(1.08) contrast(1.05) saturate(1.12)" }}
             >
               <source src={effectiveVideoUrl} type="video/mp4" />
               <source src="/videos/asmaraty-hero-banner.mp4" type="video/mp4" />
-              <source src="/videos/whatsapp-hero-banner.mp4" type="video/mp4" />
+              <source src="/videos/gemini_generated_video_566535d6.mp4" type="video/mp4" />
               <source src="/videos/gemini_generated_video_3214e3e8.mp4" type="video/mp4" />
               <source src="/videos/hero-banner.mp4" type="video/mp4" />
               <source src="/videos/live-yacht-journey.mp4" type="video/mp4" />
               <img
-                src={imageUrl || "/images/live-yacht-journey.jpg"}
+                src={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
                 alt={imageAlt || heading}
                 className="w-full h-full object-cover object-center scale-105"
               />
@@ -100,14 +101,9 @@ export default function HeroBannerSection({
             className="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#08101C] via-[#08101C]/30 to-[#08101C]/45 pointer-events-none"></div>
-        <div 
-          className="absolute -left-[20vw] -bottom-[30vh] w-[130vw] h-[130vh] pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at 30% 72%, rgba(6, 16, 34, 0.70) 0%, rgba(6, 16, 34, 0.45) 25%, rgba(6, 16, 34, 0.20) 45%, transparent 70%)"
-          }}
-        />
-
+        {/* Crystal-clear bright daylight video with subtle bottom edge transition */}
+        <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#08101C] to-transparent pointer-events-none opacity-80" />
+        
         {/* Change Background Media Button when in Edit Mode */}
         {isEditable && onOpenMediaPicker && (
           <div className="absolute top-6 right-6 z-30 flex items-center gap-2 pointer-events-auto">
