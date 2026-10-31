@@ -104,13 +104,30 @@ export default function EnquirySection({
 
           <div className="space-y-6 pt-4 border-t border-[#182C4B]">
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 bg-[#0E2047] border border-[#1E345A] flex items-center justify-center text-[#C6A155] flex-shrink-0">
-                <Phone className="w-5 h-5" />
+              <div className="w-10 h-10 bg-[#0E2047] border border-[#1E345A] flex items-center justify-center gap-1.5 flex-shrink-0">
+                <a
+                  href={`tel:${(phone || "+971 56 526 8126").replace(/\s+/g, '')}`}
+                  className="text-[#C6A155] hover:opacity-80 transition-opacity"
+                  title="Direct Phone Call"
+                  aria-label="Call +971 56 526 8126"
+                >
+                  <Phone className="w-4 h-4" />
+                </a>
+                <a
+                  href={`https://wa.me/${(phone || "+971 56 526 8126").replace(/[^0-9]/g, '')}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#25D366] hover:opacity-80 transition-opacity"
+                  title="Chat on WhatsApp"
+                  aria-label="WhatsApp +971 56 526 8126"
+                >
+                  <WhatsAppIcon className="w-4 h-4 fill-current" />
+                </a>
               </div>
               <div>
-                <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">Direct Concierge Phone</div>
-                <div className="text-sm text-white font-medium mt-0.5">
-                  <a href={`tel:${(phone || "+971 56 526 8126").replace(/\s+/g, '')}`} className="hover:text-[#C6A155] transition-colors font-mono">
+                <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">Direct Phone & WhatsApp</div>
+                <div className="text-sm text-white font-medium mt-0.5 flex flex-wrap items-center gap-3">
+                  <a href={`tel:${(phone || "+971 56 526 8126").replace(/\s+/g, '')}`} className="hover:text-[#C6A155] transition-colors font-mono font-medium">
                     <InlineEditableText
                       as="span"
                       value={phone || "+971 56 526 8126"}
@@ -119,25 +136,14 @@ export default function EnquirySection({
                       placeholder="+971 56 526 8126"
                     />
                   </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 bg-[#0E2047] border border-[#1E345A] flex items-center justify-center text-[#25D366] flex-shrink-0">
-                <WhatsAppIcon className="w-5 h-5 fill-current" />
-              </div>
-              <div>
-                <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">WhatsApp Concierge</div>
-                <div className="text-sm text-white font-medium mt-0.5">
                   <a
                     href={`https://wa.me/${(phone || "+971 56 526 8126").replace(/[^0-9]/g, '')}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#25D366] transition-colors font-mono flex items-center gap-1.5"
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-[#25D366]/15 border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366] hover:text-[#08101C] text-[11px] font-sans font-semibold tracking-wider uppercase transition-all rounded-xs"
                   >
-                    <span>{phone || "+971 56 526 8126"}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#25D366]" />
+                    <span>Chat WhatsApp</span>
+                    <ArrowUpRight className="w-3 h-3" />
                   </a>
                 </div>
               </div>

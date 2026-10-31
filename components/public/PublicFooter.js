@@ -105,18 +105,29 @@ export default function PublicFooter() {
               <p>RASHIDIA 1</p>
               <p>AJMAN, United Arab Emirates</p>
               <div className="pt-2 space-y-1.5">
-                <p>
-                  <a href="tel:+971565268126" className="text-white hover:text-[#C6A155] transition-colors inline-flex items-center gap-1.5 font-medium">
+                <div className="flex items-center gap-2 font-medium text-white">
+                  <a
+                    href="tel:+971565268126"
+                    className="text-[#C6A155] hover:opacity-80 transition-opacity"
+                    title="Direct Phone Call"
+                    aria-label="Call +971 56 526 8126"
+                  >
                     <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
-                    <span className="font-mono">Tel: +971 56 526 8126</span>
                   </a>
-                </p>
-                <p>
-                  <a href="https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet." target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#25D366] transition-colors inline-flex items-center gap-1.5 font-medium">
-                    <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366] fill-current" />
-                    <span className="font-mono">WhatsApp: +971 56 526 8126</span>
+                  <a
+                    href="https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#25D366] hover:opacity-80 transition-opacity"
+                    title="Chat on WhatsApp"
+                    aria-label="WhatsApp +971 56 526 8126"
+                  >
+                    <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
                   </a>
-                </p>
+                  <a href="tel:+971565268126" className="hover:text-[#C6A155] font-mono transition-colors">
+                    +971 56 526 8126
+                  </a>
+                </div>
                 <p className="text-[#C6A155] font-semibold pt-0.5">
                   <a href="mailto:info@asmaraty.fake" className="hover:underline">info@asmaraty.fake</a>
                 </p>
