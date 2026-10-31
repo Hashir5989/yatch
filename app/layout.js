@@ -1,6 +1,5 @@
 import { Cormorant_Garamond, Montserrat, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import WhatsAppConcierge from "@/components/public/WhatsAppConcierge";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -47,7 +46,6 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full bg-[#080B10] text-[#E8EAEE] font-sans selection:bg-[#C6A155] selection:text-black antialiased">
         {children}
-        <WhatsAppConcierge />
       </body>
     </html>
   );
