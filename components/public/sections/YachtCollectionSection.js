@@ -216,46 +216,39 @@ export default function YachtCollectionSection({
      ------------------------------------------------------------- */
   if (layoutStyle === "fleet_feature") {
     return (
-      <section className="py-20 sm:py-28 bg-white text-[#0E2047] border-b border-[#0E2047]/10" id="the-fleet">
+      <section className="py-14 sm:py-20 lg:py-24 bg-[#FAF8F5] text-[#0E2047] border-y border-[#E2D9CC]" id="the-fleet">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
-            {/* Left Column: Official Dark Logo + Eyebrow + Huge Title */}
-            <div className="lg:col-span-5 space-y-4">
-              <div className="mb-4 sm:mb-6">
-                <AsmaratyLogo
-                  variant="full"
-                  tone="dark"
-                  href={null}
-                  imgClassName="h-12 sm:h-14 md:h-16"
-                />
-              </div>
-              <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+            {/* Left Column: Signature Cursive Heading + Eyebrow Underneath */}
+            <div className="lg:col-span-5 space-y-3 sm:space-y-4">
+              <h2 className="font-signature text-6xl sm:text-7xl md:text-8xl lg:text-[84px] xl:text-[96px] font-normal text-[#0E2047] tracking-normal normal-case leading-[1.05] select-none whitespace-pre-line">
                 <InlineEditableText
                   as="span"
-                  value={eyebrow || "ASMARATY MODELS"}
-                  isEditable={isEditable}
-                  onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
-                  placeholder="ASMARATY MODELS..."
-                />
-              </div>
-              <h2 className="font-signature text-5xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[86px] font-normal text-[#0E2047] tracking-normal normal-case leading-[1.08] select-none whitespace-pre-line">
-                <InlineEditableText
-                  as="span"
-                  value={heading || "The Signature\nOf the Sea"}
+                  value={heading || "The Signature\nOf the Sea ≈"}
                   isEditable={isEditable}
                   onChange={(val) => onUpdateField && onUpdateField("heading", val)}
-                  placeholder="The Signature Of the Sea..."
+                  placeholder="The Signature\nOf the Sea ≈"
                   multiline={true}
                 />
               </h2>
+
+              <div className="text-xs sm:text-[13px] font-sans font-semibold uppercase tracking-[0.28em] text-[#0E2047]/75 pt-1">
+                <InlineEditableText
+                  as="span"
+                  value={eyebrow || "ASMARATY FLEET"}
+                  isEditable={isEditable}
+                  onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
+                  placeholder="ASMARATY FLEET..."
+                />
+              </div>
             </div>
 
             {/* Right Column: Narrative + Action Button */}
-            <div className="lg:col-span-7 space-y-6 lg:pl-4">
-              <p className="text-base sm:text-lg text-[#0E2047]/80 font-normal leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
+            <div className="lg:col-span-7 space-y-6 lg:pl-6">
+              <p className="text-[15px] sm:text-base md:text-[17px] text-[#0E2047]/85 font-normal leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
                 <InlineEditableText
                   as="span"
-                  value={description || "ASMARATY offers a versatile range of models based on the same core ideas: lightweight composite construction, sharp hull shapes, and well-utilized deck space. From the AS 68 to the AS 100, each boat is designed to provide a confident, efficient, and enjoyable driving experience."}
+                  value={description || "ASMARATY brings a distinct personality to the water, unified by an emphasis on contemporary aesthetics, generous living spaces, and thoughtful on-board comfort. Built on a shared passion for design, craftsmanship, and life at sea, our yachts are created to be as rewarding to spend time aboard as they are to admire from the shore."}
                   isEditable={isEditable}
                   onChange={(val) => onUpdateField && onUpdateField("description", val)}
                   placeholder="Enter fleet narrative..."
@@ -264,10 +257,10 @@ export default function YachtCollectionSection({
               </p>
 
               {buttonText && (
-                <div className="pt-2">
+                <div className="pt-1">
                   <InlineButtonEditor
-                    text={buttonText}
-                    url={buttonUrl}
+                    text={buttonText || "DISCOVER OUR STORY"}
+                    url={buttonUrl || "/about"}
                     isEditable={isEditable}
                     onSave={(newText, newUrl) => {
                       if (onUpdateField) {
@@ -275,7 +268,7 @@ export default function YachtCollectionSection({
                         onUpdateField("buttonUrl", newUrl);
                       }
                     }}
-                    className="saxdor-btn-navy-outline !h-[52px] !px-8 cursor-pointer"
+                    className="inline-flex items-center justify-center h-[46px] sm:h-[50px] px-8 text-xs font-semibold tracking-[0.2em] uppercase border border-[#0E2047] text-[#0E2047] bg-transparent hover:bg-[#0E2047] hover:text-white transition-colors duration-200 cursor-pointer"
                   />
                 </div>
               )}
