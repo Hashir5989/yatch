@@ -100,22 +100,22 @@ export default function CallToActionSection({
         )}
       </div>
 
-      {/* Floating Transparent Content (No Dark Box Container - Video Fully Visible) */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-12 py-24 sm:py-32 w-full">
+      {/* Floating Transparent Content (No Dark Box Container - Yacht Background Fully Visible) */}
+      <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 py-16 sm:py-24 w-full">
         {eyebrow && (
-          <div className="mb-4">
+          <div className="mb-3">
             <InlineEditableText
               as="span"
               value={eyebrow}
               isEditable={isEditable}
               onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
-              className="text-xs sm:text-sm font-sans font-semibold uppercase tracking-[0.28em] text-[#F3D389] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_12px_rgba(0,0,0,0.95)]"
+              className="text-xs sm:text-xs font-sans font-semibold uppercase tracking-[0.28em] text-[#F3D389] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_12px_rgba(0,0,0,0.95)]"
               placeholder="EYEBROW..."
             />
           </div>
         )}
 
-        <h2 className="font-sans text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white leading-tight uppercase tracking-[0.04em] mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] [text-shadow:_0_3px_24px_rgba(0,0,0,0.95),_0_1px_4px_rgba(0,0,0,0.9)]">
+        <h2 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white leading-tight uppercase tracking-[0.08em] mb-4 drop-shadow-[0_3px_18px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_18px_rgba(0,0,0,0.95),_0_1px_3px_rgba(0,0,0,0.9)]">
           <InlineEditableText
             as="span"
             value={heading}
@@ -127,7 +127,7 @@ export default function CallToActionSection({
         </h2>
 
         {description && (
-          <p className="text-sm sm:text-base md:text-lg text-white font-medium max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_14px_rgba(0,0,0,0.95)] saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
+          <p className="text-xs sm:text-sm md:text-base text-white/90 font-normal max-w-xl mx-auto mb-8 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] [text-shadow:_0_2px_12px_rgba(0,0,0,0.95)] saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
             <InlineEditableText
               as="span"
               value={description}
