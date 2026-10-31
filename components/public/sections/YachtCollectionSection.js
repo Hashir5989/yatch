@@ -473,7 +473,7 @@ export default function YachtCollectionSection({
                             <img
                               src={model.mainImage || model.primaryImage || "/images/hero-yacht.jpg"}
                               alt={model.name}
-                              className={`w-full h-full ${model.slug === 'g77' ? 'object-contain' : 'object-cover'} object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]`}
+                              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                             />
                           </div>
                         </Link>
@@ -652,7 +652,7 @@ export default function YachtCollectionSection({
                 <img
                   src={yacht.mainImage}
                   alt={yacht.name}
-                  className={`w-full h-full ${yacht.slug === 'g77' ? 'object-contain' : 'object-cover'} object-center group-hover:scale-[1.02] transition-transform duration-700`}
+                  className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
                 />
                 <div className="absolute top-3 left-3 bg-[#08101C]/80 px-2.5 py-1 text-[10px] uppercase tracking-wider text-[#C6A155] font-semibold border border-[#C6A155]/30">
                   {yacht.category}
