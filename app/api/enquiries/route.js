@@ -154,9 +154,9 @@ export async function POST(request) {
       ...(emailError ? { emailWarning: "Notification delivery pending" } : {})
     });
   } catch (err) {
-    console.error("Enquiry POST API error:", err);
+    console.error("Enquiry POST API error:", err.message, err.stack);
     return NextResponse.json(
-      { success: false, error: "Failed to submit enquiry. Please try again or contact us directly." },
+      { success: false, error: err.message || "Failed to submit enquiry. Please try again or contact us directly." },
       { status: 500 }
     );
   }
