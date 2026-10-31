@@ -109,13 +109,35 @@ export default function EnquirySection({
               <div>
                 <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">Direct Concierge Phone</div>
                 <div className="text-sm text-white font-medium mt-0.5">
-                  <InlineEditableText
-                    as="span"
-                    value={phone}
-                    isEditable={isEditable}
-                    onChange={(val) => onUpdateField && onUpdateField("phone", val)}
-                    placeholder="+971 6 ..."
-                  />
+                  <a href={`tel:${(phone || "+971 56 526 8126").replace(/\s+/g, '')}`} className="hover:text-[#C6A155] transition-colors font-mono">
+                    <InlineEditableText
+                      as="span"
+                      value={phone || "+971 56 526 8126"}
+                      isEditable={isEditable}
+                      onChange={(val) => onUpdateField && onUpdateField("phone", val)}
+                      placeholder="+971 56 526 8126"
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-[#0E2047] border border-[#1E345A] flex items-center justify-center text-[#25D366] flex-shrink-0">
+                <WhatsAppIcon className="w-5 h-5 fill-current" />
+              </div>
+              <div>
+                <div className="saxdor-eyebrow text-[10px] uppercase tracking-[0.2em] text-[#8E9EAF] font-bold">WhatsApp Concierge</div>
+                <div className="text-sm text-white font-medium mt-0.5">
+                  <a
+                    href={`https://wa.me/${(phone || "+971 56 526 8126").replace(/[^0-9]/g, '')}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#25D366] transition-colors font-mono flex items-center gap-1.5"
+                  >
+                    <span>{phone || "+971 56 526 8126"}</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#25D366]" />
+                  </a>
                 </div>
               </div>
             </div>

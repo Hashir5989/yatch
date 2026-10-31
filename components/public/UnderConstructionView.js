@@ -17,6 +17,7 @@ import {
 import PublicNavbar from "./PublicNavbar";
 import PublicFooter from "./PublicFooter";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
+import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 
 export default function UnderConstructionView({
   pageTitle = "Page Under Construction",
@@ -110,7 +111,23 @@ export default function UnderConstructionView({
           )}
 
           {/* Primary Action Buttons */}
-          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2 w-full max-w-xl mx-auto">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2 w-full max-w-2xl mx-auto">
+            <a
+              href="https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="saxdor-btn-solid !h-[48px] sm:!h-[50px] !px-6 sm:!px-8 text-xs font-bold inline-flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto text-center !bg-[#25D366] !text-[#08101C] !border-[#25D366] hover:!bg-[#20bd5a] transition-all"
+            >
+              <WhatsAppIcon className="w-4 h-4 fill-current" />
+              <span>CHAT ON WHATSAPP</span>
+            </a>
+            <a
+              href="tel:+971565268126"
+              className="saxdor-btn-navy-outline !h-[48px] sm:!h-[50px] !px-6 sm:!px-8 text-xs font-bold text-white border-white/20 hover:border-[#C6A155] inline-flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto text-center"
+            >
+              <Phone className="w-4 h-4 text-[#C6A155]" />
+              <span>CALL CONCIERGE</span>
+            </a>
             <Link
               href="/"
               className="saxdor-btn-solid !h-[48px] sm:!h-[50px] !px-6 sm:!px-8 text-xs font-bold inline-flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto text-center"
@@ -148,16 +165,36 @@ export default function UnderConstructionView({
               Our bespoke shipyard representatives in the United Arab Emirates are available for private consultations, custom commissions, and sea trial arrangements.
             </p>
 
-            {/* Shipyard Direct Contact */}
+            {/* Shipyard Direct Contact: Tel & WhatsApp both standard */}
             <div className="pt-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-[#9DAAB8]">
-              <div className="flex items-center gap-2">
+              <a
+                href="tel:+971565268126"
+                className="flex items-center gap-2 text-white hover:text-[#C6A155] transition-colors"
+                title="Call ASMARATY Concierge"
+              >
                 <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
-                <span className="text-white">+971 56 526 8126</span>
-              </div>
-              <div className="flex items-center gap-2">
+                <span className="font-mono">Tel: +971 56 526 8126</span>
+              </a>
+
+              <a
+                href="https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-white hover:text-[#25D366] transition-colors"
+                title="Message on WhatsApp"
+              >
+                <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366] fill-current" />
+                <span className="font-mono">WhatsApp: +971 56 526 8126</span>
+              </a>
+
+              <a
+                href="mailto:info@asmaraty.fake"
+                className="flex items-center gap-2 text-white hover:text-[#C6A155] transition-colors"
+              >
                 <Mail className="w-3.5 h-3.5 text-[#C6A155]" />
-                <span className="text-white">info@asmaraty.fake</span>
-              </div>
+                <span>info@asmaraty.fake</span>
+              </a>
+
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#C6A155]" />
                 <span>UAE Headquarters</span>

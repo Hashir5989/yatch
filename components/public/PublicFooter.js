@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Anchor, ArrowUpRight, Shield, Award, Compass, Sparkles } from "lucide-react";
+import { Anchor, ArrowUpRight, Shield, Award, Compass, Sparkles, Phone } from "lucide-react";
+import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 
 export default function PublicFooter() {
@@ -99,12 +100,27 @@ export default function PublicFooter() {
             <h4 className="saxdor-eyebrow text-xs font-bold text-white uppercase tracking-[0.18em]">
               Headquarters
             </h4>
-            <div className="space-y-1.5 text-xs text-[#8E9EAF] leading-relaxed">
+            <div className="space-y-2 text-xs text-[#8E9EAF] leading-relaxed">
               <p className="text-white font-semibold tracking-wide">AL SHAALI MARINE</p>
               <p>RASHIDIA 1</p>
               <p>AJMAN, United Arab Emirates</p>
-              <p className="text-white pt-2 font-medium">Tel: +971 56 526 8126</p>
-              <p className="text-[#C6A155] font-semibold">info@asmaraty.fake</p>
+              <div className="pt-2 space-y-1.5">
+                <p>
+                  <a href="tel:+971565268126" className="text-white hover:text-[#C6A155] transition-colors inline-flex items-center gap-1.5 font-medium">
+                    <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
+                    <span className="font-mono">Tel: +971 56 526 8126</span>
+                  </a>
+                </p>
+                <p>
+                  <a href="https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet." target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#25D366] transition-colors inline-flex items-center gap-1.5 font-medium">
+                    <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366] fill-current" />
+                    <span className="font-mono">WhatsApp: +971 56 526 8126</span>
+                  </a>
+                </p>
+                <p className="text-[#C6A155] font-semibold pt-0.5">
+                  <a href="mailto:info@asmaraty.fake" className="hover:underline">info@asmaraty.fake</a>
+                </p>
+              </div>
             </div>
           </div>
         </div>

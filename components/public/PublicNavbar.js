@@ -11,12 +11,14 @@ import {
   ArrowUpRight,
   ChevronRight,
   Compass,
+  Phone,
   Ship,
   Layers
 } from "lucide-react";
 import { getAllPages, getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
+import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 
 export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -235,11 +237,21 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                 <p className="text-[11px] text-white/60">
                   RASHIDIA 1, AJMAN, United Arab Emirates
                 </p>
-                <div className="pt-2 flex flex-wrap items-center gap-4 text-[#C6A155]">
-                  <a href="tel:+971565268126" className="hover:underline font-mono">
-                    +971 56 526 8126
+                <div className="pt-2 flex flex-wrap items-center gap-4 text-xs">
+                  <a href="tel:+971565268126" className="hover:underline font-mono flex items-center gap-1.5 text-white hover:text-[#C6A155] transition-colors">
+                    <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
+                    <span>Tel: +971 56 526 8126</span>
                   </a>
-                  <a href="mailto:info@asmaraty.fake" className="hover:underline">
+                  <a
+                    href="https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline font-mono flex items-center gap-1.5 text-[#25D366] hover:text-white transition-colors"
+                  >
+                    <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
+                    <span>WhatsApp: +971 56 526 8126</span>
+                  </a>
+                  <a href="mailto:info@asmaraty.fake" className="hover:underline text-white/70">
                     info@asmaraty.fake
                   </a>
                 </div>
