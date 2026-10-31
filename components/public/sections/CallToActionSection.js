@@ -20,12 +20,11 @@ export default function CallToActionSection({
     secondaryButtonText = "",
     secondaryButtonUrl = "/contact",
     guaranteeText = "",
-    imageUrl = "/images/start-your-journey-bg.jpg",
     videoUrl = ""
   } = data;
 
-  const activeImage = imageUrl && imageUrl.trim() !== ""
-    ? imageUrl
+  const activeImage = (data?.imageUrl && data.imageUrl.trim() !== "")
+    ? data.imageUrl
     : "/images/start-your-journey-bg.jpg";
 
   const activeVideo = videoUrl && videoUrl.trim() !== "" ? videoUrl : null;
