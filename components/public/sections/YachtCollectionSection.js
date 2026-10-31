@@ -319,6 +319,19 @@ export default function YachtCollectionSection({
         }`} 
         id="fleet"
       >
+        {/* ASMARATY Luxury Wings Watermark Monogram Pattern (Section Background) */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-0 select-none"
+          style={{
+            backgroundImage: "url('/images/asmaraty-wings-pattern.svg')",
+            backgroundRepeat: "repeat",
+            backgroundPosition: "center top",
+            backgroundSize: "220px 120px",
+            opacity: isDark ? 0.04 : 0.08,
+          }}
+          aria-hidden="true"
+        />
+
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
           {/* Section Header: Centered on Screen */}
           <div className={`max-w-4xl mx-auto text-center space-y-4 pb-16 sm:pb-24 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
