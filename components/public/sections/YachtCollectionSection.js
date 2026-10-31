@@ -312,76 +312,83 @@ export default function YachtCollectionSection({
 
     return (
       <section 
-        className={`py-20 sm:py-28 lg:py-32 relative overflow-hidden ${
+        className={`relative overflow-hidden ${
           isDark 
             ? "bg-[#08101C] text-[#E8EEF5] border-t border-b border-white/10" 
             : "bg-white text-[#0E2047] border-b border-[#0E2047]/10"
         }`} 
         id="fleet"
       >
-        {/* ASMARATY Luxury Wings Watermark Monogram Pattern (Section Background) */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-0 select-none"
-          style={{
-            backgroundImage: "url('/images/asmaraty-wings-pattern.svg')",
-            backgroundRepeat: "repeat",
-            backgroundPosition: "center top",
-            backgroundSize: "220px 120px",
-            opacity: isDark ? 0.04 : 0.08,
-          }}
-          aria-hidden="true"
-        />
+        {/* Header Hero Area with ASMARATY Wings Luxury Watermark (ends at button) */}
+        <div className={`relative overflow-hidden pt-20 sm:pt-28 pb-16 sm:pb-24 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
+          {/* ASMARATY Luxury Wings Watermark Pattern - strictly inside header area */}
+          <div 
+            className="absolute inset-0 pointer-events-none z-0 select-none"
+            style={{
+              backgroundImage: "url('/images/asmaraty-wings-pattern.svg')",
+              backgroundRepeat: "repeat",
+              backgroundPosition: "center top",
+              backgroundSize: "220px 120px",
+              opacity: isDark ? 0.04 : 0.08,
+            }}
+            aria-hidden="true"
+          />
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
-          {/* Section Header: Centered on Screen */}
-          <div className={`max-w-4xl mx-auto text-center space-y-4 pb-16 sm:pb-24 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
-            <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
-              <InlineEditableText
-                as="span"
-                value={eyebrow || "ASMARATY SIGNATURE FLEET"}
-                isEditable={isEditable}
-                onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
-                placeholder="EYEBROW..."
-              />
-            </div>
-            <h2 className={`font-serif text-3xl sm:text-5xl lg:text-6xl font-normal uppercase tracking-[0.03em] leading-tight ${isDark ? "text-white" : "text-[#0E2047]"}`}>
-              <InlineEditableText
-                as="span"
-                value={heading || "OUR SUPERYACHT COLLECTION"}
-                isEditable={isEditable}
-                onChange={(val) => onUpdateField && onUpdateField("heading", val)}
-                placeholder="HEADING..."
-              />
-            </h2>
-            {description && (
-              <p className={`text-sm sm:text-base font-normal leading-relaxed max-w-2xl mx-auto ${isDark ? "text-white/70" : "text-[#0E2047]/75"}`}>
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
+            {/* Section Header: Centered on Screen */}
+            <div className="max-w-4xl mx-auto text-center space-y-4">
+              <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
                 <InlineEditableText
                   as="span"
-                  value={description}
+                  value={eyebrow || "ASMARATY SIGNATURE FLEET"}
                   isEditable={isEditable}
-                  onChange={(val) => onUpdateField && onUpdateField("description", val)}
-                  placeholder="Description..."
-                  multiline={true}
+                  onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
+                  placeholder="EYEBROW..."
                 />
-              </p>
-            )}
+              </div>
+              <h2 className={`font-serif text-3xl sm:text-5xl lg:text-6xl font-normal uppercase tracking-[0.03em] leading-tight ${isDark ? "text-white" : "text-[#0E2047]"}`}>
+                <InlineEditableText
+                  as="span"
+                  value={heading || "OUR SUPERYACHT COLLECTION"}
+                  isEditable={isEditable}
+                  onChange={(val) => onUpdateField && onUpdateField("heading", val)}
+                  placeholder="HEADING..."
+                />
+              </h2>
+              {description && (
+                <p className={`text-sm sm:text-base font-normal leading-relaxed max-w-2xl mx-auto ${isDark ? "text-white/70" : "text-[#0E2047]/75"}`}>
+                  <InlineEditableText
+                    as="span"
+                    value={description}
+                    isEditable={isEditable}
+                    onChange={(val) => onUpdateField && onUpdateField("description", val)}
+                    placeholder="Description..."
+                    multiline={true}
+                  />
+                </p>
+              )}
 
-            {/* Catchy Action Button redirecting to collection listing page */}
-            <div className="pt-4 flex justify-center">
-              <InlineButtonEditor
-                text={buttonText || "DISCOVER THE COMPLETE FLEET"}
-                url={buttonUrl || "/yachts"}
-                isEditable={isEditable}
-                onSave={(newText, newUrl) => {
-                  if (onUpdateField) {
-                    onUpdateField("buttonText", newText);
-                    onUpdateField("buttonUrl", newUrl);
-                  }
-                }}
-                className={`${isDark ? "saxdor-btn-outline" : "saxdor-btn-navy-outline"} !h-[52px] !px-8 cursor-pointer`}
-              />
+              {/* Catchy Action Button redirecting to collection listing page */}
+              <div className="pt-4 flex justify-center">
+                <InlineButtonEditor
+                  text={buttonText || "DISCOVER THE COMPLETE FLEET"}
+                  url={buttonUrl || "/yachts"}
+                  isEditable={isEditable}
+                  onSave={(newText, newUrl) => {
+                    if (onUpdateField) {
+                      onUpdateField("buttonText", newText);
+                      onUpdateField("buttonUrl", newUrl);
+                    }
+                  }}
+                  className={`${isDark ? "saxdor-btn-outline" : "saxdor-btn-navy-outline"} !h-[52px] !px-8 cursor-pointer`}
+                />
+              </div>
             </div>
           </div>
+        </div>
+
+        {/* Yacht Showcase Models Area (Clean background without watermark) */}
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-16 sm:pt-20 lg:pt-24 pb-20 sm:pb-28 lg:pb-32 relative z-10">
 
           {/* Empty State */}
           {showcaseModels.length === 0 ? (
