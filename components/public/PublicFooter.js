@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Anchor, ArrowUpRight, Shield, Award, Compass, Sparkles } from "lucide-react";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
-import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 
 export default function PublicFooter() {
   return (
@@ -106,18 +105,6 @@ export default function PublicFooter() {
               <p>AJMAN, United Arab Emirates</p>
               <p className="text-white pt-2 font-medium">Tel: +971 56 526 8126</p>
               <p className="text-[#C6A155] font-semibold">info@asmaraty.fake</p>
-              <div className="pt-2">
-                <a
-                  href={`https://wa.me/971565268126?text=${encodeURIComponent("Hello ASMARATY, I would like to enquire about your yacht fleet.")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-[#25D366] hover:text-white transition-colors font-medium group"
-                >
-                  <WhatsAppIcon className="w-3.5 h-3.5 fill-current group-hover:scale-110 transition-transform" />
-                  <span>WhatsApp Concierge</span>
-                  <ArrowUpRight className="w-3 h-3 text-[#25D366]/70 group-hover:text-white" />
-                </a>
-              </div>
             </div>
           </div>
         </div>

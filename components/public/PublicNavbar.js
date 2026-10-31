@@ -17,7 +17,6 @@ import {
 import { getAllPages, getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
-import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 
 export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -242,15 +241,6 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                   </a>
                   <a href="mailto:info@asmaraty.fake" className="hover:underline">
                     info@asmaraty.fake
-                  </a>
-                  <a
-                    href={`https://wa.me/971565268126?text=${encodeURIComponent("Hello ASMARATY, I would like to enquire about your luxury yacht fleet.")}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-[#25D366] hover:underline font-semibold"
-                  >
-                    <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
-                    <span>WhatsApp</span>
                   </a>
                 </div>
               </div>

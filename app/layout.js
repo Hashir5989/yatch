@@ -37,8 +37,6 @@ export const metadata = {
   },
 };
 
-import { Suspense } from "react";
-import WhatsAppConcierge from "@/components/public/WhatsAppConcierge";
 
 export default function RootLayout({ children }) {
   return (
@@ -48,9 +46,6 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full bg-[#080B10] text-[#E8EAEE] font-sans selection:bg-[#C6A155] selection:text-black antialiased">
         {children}
-        <Suspense fallback={null}>
-          <WhatsAppConcierge />
-        </Suspense>
       </body>
     </html>
   );
