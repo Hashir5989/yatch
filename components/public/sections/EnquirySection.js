@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Send, CheckCircle2, Phone, Mail, MapPin, Shield } from "lucide-react";
+import { Send, CheckCircle2, Phone, Mail, MapPin, Shield, ArrowUpRight } from "lucide-react";
 import InlineEditableText from "@/components/cms/InlineEditableText";
+import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 
 export default function EnquirySection({
   data = {},
