@@ -14,9 +14,11 @@ export default function HomePage() {
   });
 
   useEffect(() => {
-    // Read any locally updated content from storage immediately after hydration
+    // Read any locally updated content from storage after hydration
     const local = getPageBySlug("/");
-    if (local) setPage(local);
+    if (local) {
+      queueMicrotask(() => setPage(local));
+    }
 
     // Dynamic sync from server database API so all admin changes show live on the frontend
     syncPagesFromServer().then((synced) => {

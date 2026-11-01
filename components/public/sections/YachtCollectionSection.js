@@ -178,9 +178,16 @@ export default function YachtCollectionSection({
     })
     .slice(0, limit || 8);
 
-  const gallerySlides = data.interiorSlides && data.interiorSlides.length > 0
+  const rawSlides = data.interiorSlides && data.interiorSlides.length > 0
     ? data.interiorSlides
     : DEFAULT_INTERIOR_SLIDES;
+
+  const gallerySlides = rawSlides.filter((slide) => {
+    if (!slide) return false;
+    if (slide.id === "interior-g50-flybridge-helm") return false;
+    if (typeof slide.image === "string" && slide.image.includes("g50-flybridge-helm")) return false;
+    return true;
+  });
 
   // Auto-rotate slider in gallery mode when not editing
   useEffect(() => {

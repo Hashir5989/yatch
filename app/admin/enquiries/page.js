@@ -46,7 +46,29 @@ export default function AdminEnquiriesScreen() {
   };
 
   useEffect(() => {
-    fetchEnquiries();
+    let isMounted = true;
+    (async () => {
+      try {
+        const res = await fetch("/api/enquiries");
+        const data = await res.json();
+        if (!isMounted) return;
+        if (data.success) {
+          setEnquiries(data.enquiries || []);
+          if (data.enquiries.length > 0 && !selectedEnquiry) {
+            setSelectedEnquiry(data.enquiries[0]);
+          }
+        } else {
+          setError(data.error || "Failed to load enquiries");
+        }
+      } catch (err) {
+        if (isMounted) setError("Network error fetching enquiries");
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    })();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const filteredEnquiries = enquiries.filter((enq) => {
