@@ -41,8 +41,8 @@ export default function PublicFooter() {
             <ul className="space-y-2.5 text-xs">
               <li>
                 <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between group">
-                  <span className="group-hover:translate-x-0.5 transition-transform text-[#DFBA73] font-medium">G100</span>
-                  <span className="text-[9px] bg-[#C6A155] text-[#08101C] px-1.5 py-0.5 font-bold tracking-widest uppercase">Flagship</span>
+                  <span className="group-hover:translate-x-0.5 transition-transform">G100</span>
+                  <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Superyacht</span>
                 </Link>
               </li>
               <li>
