@@ -18,6 +18,10 @@ export default function EnquirySection({
     address = "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates",
   } = data;
 
+  const safeRecipientEmail = (!recipientEmail || recipientEmail.includes(".fake"))
+    ? "info@asmaraty.com"
+    : recipientEmail;
+
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -158,7 +162,7 @@ export default function EnquirySection({
                 <div className="text-sm text-[#C6A155] font-medium mt-0.5">
                   <InlineEditableText
                     as="span"
-                    value={recipientEmail}
+                    value={safeRecipientEmail}
                     isEditable={isEditable}
                     onChange={(val) => onUpdateField && onUpdateField("recipientEmail", val)}
                     placeholder="vip@..."
