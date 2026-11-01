@@ -347,101 +347,141 @@ export default function YachtCollectionSection({
 
     return (
       <section 
-        className={`py-20 sm:py-28 lg:py-32 relative overflow-hidden ${
+        className={`${
           isDark 
             ? "bg-[#08101C] text-[#E8EEF5] border-t border-b border-white/10" 
             : "bg-white text-[#0E2047] border-b border-[#0E2047]/10"
-        }`} 
+        } relative overflow-hidden`} 
         id="fleet"
       >
-        {/* ASMARATY Luxury Wings Watermark Monogram Pattern (Section Background) */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-0 select-none"
-          style={{
-            backgroundImage: "url('/images/asmaraty-wings-pattern.svg')",
-            backgroundRepeat: "repeat",
-            backgroundPosition: "center top",
-            backgroundSize: "220px 120px",
-            opacity: isDark ? 0.04 : 0.08,
-          }}
-          aria-hidden="true"
-        />
+        {/* Section Header: Watermark background preserved ("OUR SUPERYACHT COLLECTION thsi wate rmark background dont change") */}
+        <div className={`relative overflow-hidden pt-20 sm:pt-28 lg:pt-32 pb-16 sm:pb-24 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
+          {/* ASMARATY Luxury Wings Watermark Monogram Pattern (Header Background) */}
+          <div 
+            className="absolute inset-0 pointer-events-none z-0 select-none"
+            style={{
+              backgroundImage: "url('/images/asmaraty-wings-pattern.svg')",
+              backgroundRepeat: "repeat",
+              backgroundPosition: "center top",
+              backgroundSize: "220px 120px",
+              opacity: isDark ? 0.04 : 0.08,
+            }}
+            aria-hidden="true"
+          />
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
-          {/* Section Header: Centered on Screen */}
-          <div className={`max-w-4xl mx-auto text-center space-y-4 pb-16 sm:pb-24 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
-            <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
-              <InlineEditableText
-                as="span"
-                value={eyebrow || "ASMARATY SIGNATURE FLEET"}
-                isEditable={isEditable}
-                onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
-                placeholder="EYEBROW..."
-              />
-            </div>
-            <h2 className={`font-serif text-3xl sm:text-5xl lg:text-6xl font-normal uppercase tracking-[0.03em] leading-tight ${isDark ? "text-white" : "text-[#0E2047]"}`}>
-              <InlineEditableText
-                as="span"
-                value={heading || "OUR SUPERYACHT COLLECTION"}
-                isEditable={isEditable}
-                onChange={(val) => onUpdateField && onUpdateField("heading", val)}
-                placeholder="HEADING..."
-              />
-            </h2>
-            {description && (
-              <p className={`text-sm sm:text-base font-normal leading-relaxed max-w-2xl mx-auto ${isDark ? "text-white/70" : "text-[#0E2047]/75"}`}>
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
+            <div className="max-w-4xl mx-auto text-center space-y-4">
+              <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
                 <InlineEditableText
                   as="span"
-                  value={description}
+                  value={eyebrow || "ASMARATY SIGNATURE FLEET"}
                   isEditable={isEditable}
-                  onChange={(val) => onUpdateField && onUpdateField("description", val)}
-                  placeholder="Description..."
-                  multiline={true}
+                  onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
+                  placeholder="EYEBROW..."
                 />
-              </p>
-            )}
+              </div>
+              <h2 className={`font-serif text-3xl sm:text-5xl lg:text-6xl font-normal uppercase tracking-[0.03em] leading-tight ${isDark ? "text-white" : "text-[#0E2047]"}`}>
+                <InlineEditableText
+                  as="span"
+                  value={heading || "OUR SUPERYACHT COLLECTION"}
+                  isEditable={isEditable}
+                  onChange={(val) => onUpdateField && onUpdateField("heading", val)}
+                  placeholder="HEADING..."
+                />
+              </h2>
+              {description && (
+                <p className={`text-sm sm:text-base font-normal leading-relaxed max-w-2xl mx-auto ${isDark ? "text-white/70" : "text-[#0E2047]/75"}`}>
+                  <InlineEditableText
+                    as="span"
+                    value={description}
+                    isEditable={isEditable}
+                    onChange={(val) => onUpdateField && onUpdateField("description", val)}
+                    placeholder="Description..."
+                    multiline={true}
+                  />
+                </p>
+              )}
 
-            {/* Catchy Action Button redirecting to collection listing page */}
-            <div className="pt-4 flex justify-center">
-              <InlineButtonEditor
-                text={buttonText || "DISCOVER THE COMPLETE FLEET"}
-                url={buttonUrl || "/yachts"}
-                isEditable={isEditable}
-                onSave={(newText, newUrl) => {
-                  if (onUpdateField) {
-                    onUpdateField("buttonText", newText);
-                    onUpdateField("buttonUrl", newUrl);
-                  }
-                }}
-                className={`${isDark ? "saxdor-btn-outline" : "saxdor-btn-navy-outline"} !h-[52px] !px-8 cursor-pointer`}
-              />
+              {/* Catchy Action Button redirecting to collection listing page */}
+              <div className="pt-4 flex justify-center">
+                <InlineButtonEditor
+                  text={buttonText || "DISCOVER THE COMPLETE FLEET"}
+                  url={buttonUrl || "/yachts"}
+                  isEditable={isEditable}
+                  onSave={(newText, newUrl) => {
+                    if (onUpdateField) {
+                      onUpdateField("buttonText", newText);
+                      onUpdateField("buttonUrl", newUrl);
+                    }
+                  }}
+                  className={`${isDark ? "saxdor-btn-outline" : "saxdor-btn-navy-outline"} !h-[52px] !px-8 cursor-pointer`}
+                />
+              </div>
             </div>
           </div>
+        </div>
 
-          {/* Empty State */}
-          {showcaseModels.length === 0 ? (
+        {/* Empty State */}
+        {showcaseModels.length === 0 ? (
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 py-16">
             <div className={`p-16 text-center ${isDark ? "bg-[#0A1322] border border-white/10" : "bg-neutral-50 border border-black/10"}`}>
               <p className={`text-sm ${isDark ? "text-white/70" : "text-neutral-600"}`}>
                 The ASMARATY fleet collection is currently being curated. Please explore our brand introduction or submit an enquiry to our private advisory team.
               </p>
             </div>
-          ) : (
-            /* Alternating Editorial Showcase Rows */
-            <div className={`divide-y ${isDark ? "divide-white/10" : "divide-black/10"}`}>
-              {showcaseModels.map((model, idx) => {
-                // Alternating layout:
-                // idx = 0 (1st): Text Left, Image Right
-                // idx = 1 (2nd): Image Left, Text Right
-                // idx = 2 (3rd): Text Left, Image Right
-                // idx = 3 (4th): Image Left, Text Right
-                const isEven = idx % 2 === 0;
-                const modelCategory = model.category ? `ASMARATY • ${model.category}` : "ASMARATY FLEET";
+          </div>
+        ) : (
+          /* Alternating Editorial Showcase Rows:
+             - G-100: Plain background
+             - G77: Wings watermark background
+             - G-66: Plain background
+             - G-50: Wings watermark background
+          */
+          <div className={`divide-y ${isDark ? "divide-white/10" : "divide-black/10"}`}>
+            {showcaseModels.map((model, idx) => {
+              // Alternating layout:
+              // idx = 0 (1st): Text Left, Image Right
+              // idx = 1 (2nd): Image Left, Text Right
+              // idx = 2 (3rd): Text Left, Image Right
+              // idx = 3 (4th): Image Left, Text Right
+              const isEven = idx % 2 === 0;
+              const modelCategory = model.category ? `ASMARATY • ${model.category}` : "ASMARATY FLEET";
+              
+              // Alternating wings watermark background:
+              // G100 (idx 0): plain
+              // G77 (idx 1): watermark
+              // G66 (idx 2): plain
+              // G50 (idx 3): watermark
+              const hasWingsWatermark = 
+                model.slug === "g77" || 
+                model.slug === "g50" || 
+                (model.slug !== "g100" && model.slug !== "g66" && idx % 2 === 1);
 
-                return (
-                  <div
-                    key={model.id || idx}
-                    className="py-16 sm:py-24 lg:py-28 first:pt-16 sm:first:pt-20 last:pb-0"
-                  >
+              return (
+                <div
+                  key={model.id || idx}
+                  className={`relative overflow-hidden py-16 sm:py-24 lg:py-28 ${
+                    hasWingsWatermark 
+                      ? (isDark ? "bg-[#091322]" : "bg-[#FAF9F6]/60") 
+                      : (isDark ? "bg-[#08101C]" : "bg-white")
+                  }`}
+                >
+                  {/* ASMARATY Luxury Wings Watermark Monogram Pattern (for G77, G50 / alternating models) */}
+                  {hasWingsWatermark && (
+                    <div 
+                      className="absolute inset-0 pointer-events-none z-0 select-none"
+                      style={{
+                        backgroundImage: "url('/images/asmaraty-wings-pattern.svg')",
+                        backgroundRepeat: "repeat",
+                        backgroundPosition: "center top",
+                        backgroundSize: "220px 120px",
+                        opacity: isDark ? 0.04 : 0.08,
+                      }}
+                      aria-hidden="true"
+                    />
+                  )}
+
+                  <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                       {/* Description & Button Column */}
                       <div
@@ -515,11 +555,11 @@ export default function YachtCollectionSection({
                       </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </section>
     );
   }
