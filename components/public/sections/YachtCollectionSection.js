@@ -84,13 +84,6 @@ export const DEFAULT_INTERIOR_SLIDES = [
     modelSlug: "g50"
   },
   {
-    id: "interior-g50-flybridge-helm",
-    title: "ASMARATY G-50",
-    subtitle: "Open Sky Flybridge Driver Station & Lounge",
-    image: "/images/interiors/g50-flybridge-helm.jpg",
-    modelSlug: "g50"
-  },
-  {
     id: "interior-g50-salon",
     title: "ASMARATY G-50",
     subtitle: "Sunlit Salon & Entertainment Lounge",
