@@ -31,7 +31,7 @@ export default function HeroBannerSection({
     contentAlignment = "center"
   } = data;
 
-  const effectiveVideoUrl = videoUrl || "/videos/asmaraty-promotional-banner.mp4";
+  const effectiveVideoUrl = videoUrl || "/videos/asmaraty-whatsapp-banner.mp4";
   const isCenter = contentAlignment === "center";
   const videoRef = useRef(null);
 
@@ -79,10 +79,9 @@ export default function HeroBannerSection({
               preload="auto"
               poster={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
               className="w-full h-full object-cover object-center scale-[1.01]"
-              style={{ filter: "brightness(1.05) contrast(1.05) saturate(1.10)" }}
+              style={{ filter: "brightness(1.24) contrast(1.10) saturate(1.22)" }}
             >
               <source src={effectiveVideoUrl} type="video/mp4" />
-              <source src="/videos/asmaraty-promotional-banner.mp4" type="video/mp4" />
               <source src="/videos/asmaraty-whatsapp-banner.mp4" type="video/mp4" />
               <source src="/videos/whatsapp-hero-banner.mp4" type="video/mp4" />
               <source src="/videos/gemini_generated_video_3214e3e8.mp4" type="video/mp4" />
