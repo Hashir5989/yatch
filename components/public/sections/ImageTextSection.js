@@ -162,7 +162,7 @@ export default function ImageTextSection({
                   <img
                     src={imageUrl}
                     alt={imageAlt || heading}
-                    className="w-full h-full object-contain object-center transition-transform duration-700 ease-out group-hover:scale-[1.01]"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   />
 
                   {/* Edit Photo Trigger in CMS Mode */}
