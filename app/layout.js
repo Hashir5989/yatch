@@ -1,26 +1,4 @@
-import { Cormorant_Garamond, Montserrat, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-cormorant",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  display: "swap",
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800"],
-});
 
 export const metadata = {
   title: "ASMARATY | Luxury Yachts & Boats UAE",
@@ -37,13 +15,9 @@ export const metadata = {
   },
 };
 
-
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`h-full antialiased dark ${plusJakarta.variable} ${montserrat.variable} ${cormorant.variable}`}
-    >
+    <html lang="en" className="h-full antialiased dark">
       <body className="min-h-full bg-[#080B10] text-[#E8EAEE] font-sans selection:bg-[#C6A155] selection:text-black antialiased">
         {children}
       </body>
