@@ -79,7 +79,7 @@ export default function HeroBannerSection({
               preload="auto"
               poster={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
               className="w-full h-full object-cover object-center scale-[1.01]"
-              style={{ filter: "brightness(1.24) contrast(1.10) saturate(1.22)" }}
+              style={{ filter: "brightness(1.06) contrast(1.05) saturate(1.08)" }}
             >
               <source src={effectiveVideoUrl} type="video/mp4" />
               <source src="/videos/asmaraty-whatsapp-banner.mp4" type="video/mp4" />
