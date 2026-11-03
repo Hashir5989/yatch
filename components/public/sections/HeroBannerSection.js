@@ -142,12 +142,9 @@ export default function HeroBannerSection({
       {/* Main Hero Container - Pure Full-Bleed Video Experience */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-32 pb-16 sm:pb-20 flex-1 flex flex-col justify-end items-center pointer-events-none">
         <div className="max-w-4xl text-center mx-auto">
-          {/* Visible Semantic SEO Heading */}
-          <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl font-light text-white tracking-[0.06em] uppercase leading-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
-            ASMARATY Yachts
-            <span className="block text-xs sm:text-sm md:text-base font-sans font-medium tracking-[0.28em] text-[#C6A155] uppercase mt-2 sm:mt-3 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-              Luxury Yacht Collection in UAE
-            </span>
+          {/* Accessible Heading for SEO */}
+          <h1 className="sr-only">
+            ASMARATY Yachts | Luxury Yacht Collection in UAE
           </h1>
         </div>
       </div>
