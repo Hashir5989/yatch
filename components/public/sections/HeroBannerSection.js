@@ -144,7 +144,7 @@ export default function HeroBannerSection({
         <div className="max-w-4xl text-center mx-auto">
           {/* Accessible Heading for SEO */}
           <h1 className="sr-only">
-            {heading || "ASMARATY Luxury Yachts & Boats UAE"}
+            ASMARATY Yachts | Luxury Yacht Collection in UAE
           </h1>
         </div>
       </div>

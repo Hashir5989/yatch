@@ -4,6 +4,10 @@ import AdminAuthGuard from "@/components/cms/AdminAuthGuard";
 export const metadata = {
   title: "CMS Studio | ASMARATY Luxury Yachts",
   description: "Bespoke Content Management System for ASMARATY luxury yachts, models, and pages.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function AdminLayout({ children }) {

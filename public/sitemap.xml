@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://asmaraty.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://asmaraty.com/images/yachts/g100.jpg</image:loc>
+      <image:title>ASMARATY G100 Flagship Superyacht</image:title>
+      <image:caption>ASMARATY luxury yacht cruising in Dubai UAE waters past Burj Al Arab</image:caption>
+    </image:image>
+  </url>
+</urlset>
