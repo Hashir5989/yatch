@@ -85,8 +85,9 @@ const organizationSchema = {
   foundingDate: "1979",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Dubai",
-    addressRegion: "Dubai",
+    streetAddress: "Rashidia 1",
+    addressLocality: "Ajman",
+    addressRegion: "Ajman",
     addressCountry: "AE",
   },
   sameAs: ["https://asmaraty.com"],
