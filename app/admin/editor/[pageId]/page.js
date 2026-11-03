@@ -214,14 +214,14 @@ function VisualPageEditorInner() {
     showToast("Draft saved locally");
   };
 
-  const handlePublish = () => {
+  const handlePublish = async () => {
     if (!pageId) return;
     savePageDraft(pageId, {
       sections: draftSections,
       title: pageMeta.title,
       slug: pageMeta.slug,
     });
-    const ok = publishPage(pageId);
+    const ok = await publishPage(pageId);
     if (ok) {
       setHasUnsavedChanges(false);
       const updated = getPageById(pageId);
