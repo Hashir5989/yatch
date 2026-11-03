@@ -31,7 +31,7 @@ export default function HeroBannerSection({
     contentAlignment = "center"
   } = data;
 
-  const effectiveVideoUrl = videoUrl || "/videos/asmaraty-whatsapp-banner.mp4";
+  const effectiveVideoUrl = videoUrl || "/videos/banner-home.mp4";
   const isCenter = contentAlignment === "center";
   const videoRef = useRef(null);
 
@@ -49,7 +49,7 @@ export default function HeroBannerSection({
         // Fallback: start autoplay upon first user interaction (touch/scroll/click)
         const onFirstInteraction = () => {
           if (videoRef.current) {
-            videoRef.current.play().catch(() => {});
+            videoRef.current.play().catch(() => { });
           }
           window.removeEventListener("click", onFirstInteraction);
           window.removeEventListener("touchstart", onFirstInteraction);
@@ -82,7 +82,7 @@ export default function HeroBannerSection({
               style={{ filter: "brightness(1.06) contrast(1.05) saturate(1.08)" }}
             >
               <source src={effectiveVideoUrl} type="video/mp4" />
-              <source src="/videos/asmaraty-whatsapp-banner.mp4" type="video/mp4" />
+              <source src="/videos/banner-home.mp4" type="video/mp4" />
               <source src="/videos/whatsapp-hero-banner.mp4" type="video/mp4" />
               <source src="/videos/gemini_generated_video_3214e3e8.mp4" type="video/mp4" />
               <source src="/videos/hero-banner.mp4" type="video/mp4" />
