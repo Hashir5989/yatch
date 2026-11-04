@@ -70,6 +70,11 @@ export const metadata = {
     shortcut: "/favicon.ico?v=metal",
     apple: "/apple-touch-icon.png?v=metal",
   },
+  verification: {
+    other: {
+      "msvalidate.01": "F78AE5B7BE42547C676B719F712F6B85",
+    },
+  },
 };
 
 const organizationSchema = {
