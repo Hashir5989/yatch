@@ -63,12 +63,15 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.png?v=metal", sizes: "512x512", type: "image/png" },
-      { url: "/favicon.png?v=metal", sizes: "64x64", type: "image/png" },
-      { url: "/favicon.ico?v=metal" }
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.png", sizes: "64x64", type: "image/png" },
     ],
-    shortcut: "/favicon.ico?v=metal",
-    apple: "/apple-touch-icon.png?v=metal",
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   verification: {
     other: {
