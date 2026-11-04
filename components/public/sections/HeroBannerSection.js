@@ -85,11 +85,8 @@ export default function HeroBannerSection({
               
             >
               <source src="/videos/banner-home.mp4" type="video/mp4" />
+              <source src="/videos/asmaraty-hero-banner.mp4" type="video/mp4" />
               <source src={effectiveVideoUrl} type="video/mp4" />
-              <source src="/videos/whatsapp-hero-banner.mp4" type="video/mp4" />
-              <source src="/videos/gemini_generated_video_3214e3e8.mp4" type="video/mp4" />
-              <source src="/videos/hero-banner.mp4" type="video/mp4" />
-              <source src="/videos/live-yacht-journey.mp4" type="video/mp4" />
               <img
                 src={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
                 alt={imageAlt || heading}
