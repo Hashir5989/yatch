@@ -7,7 +7,6 @@ import {
   ArrowLeft,
   ArrowUpRight,
   Anchor,
-  ShieldCheck,
   Check,
   Layers,
   Sparkles,
@@ -606,17 +605,6 @@ function G100DetailPage() {
                 </p>
                 <p>
                   Providing exceptional comfort and privacy, the reinforced hull allows in an impressive amount of natural ocean light into every cabin. The spacious full-beam Owner's cabin is fitted with a King bed, an en-suite marble bathroom, and a walk-in wardrobe, accompanied by a forward VIP stateroom and twin guest cabins.
-                </p>
-              </div>
-
-              {/* Shipyard Trust Badge */}
-              <div className="p-5 bg-[#0E131C] border border-[#C8A870]/25 rounded-none space-y-2">
-                <div className="flex items-center gap-2 text-xs text-[#E5C392] font-semibold uppercase tracking-wider">
-                  <ShieldCheck className="w-4 h-4 text-[#C8A870]" />
-                  <span>Emirati Shipbuilding Heritage (Since 1979)</span>
-                </div>
-                <p className="text-xs text-[#828F9E] leading-relaxed">
-                  Crafted by Al Shaali Marine with decades of international quality certificates and maritime pedigree, the ASMARATY G100 represents the pinnacle of luxury composite yacht manufacturing.
                 </p>
               </div>
             </div>
