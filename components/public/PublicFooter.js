@@ -101,7 +101,7 @@ export default function PublicFooter() {
               Headquarters
             </h4>
             <div className="space-y-2 text-xs text-[#8E9EAF] leading-relaxed">
-              <p className="text-white font-semibold tracking-wide">ASMARATY SHIPYARD</p>
+              <p className="text-white font-semibold tracking-wide">AL SHAALI MARINE</p>
               <p>RASHIDIA 1</p>
               <p>AJMAN, United Arab Emirates</p>
               <div className="pt-2 space-y-1.5">

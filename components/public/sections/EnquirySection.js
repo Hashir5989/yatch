@@ -15,7 +15,7 @@ export default function EnquirySection({
     description = "Connect directly with our luxury yacht advisory team in the UAE. We arrange private sea trials and confidential bespoke build consultations.",
     recipientEmail = "info@asmaraty.com",
     phone = "+971 56 526 8126",
-    address = "ASMARATY SHIPYARD, RASHIDIA 1, AJMAN, United Arab Emirates",
+    address = "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates",
   } = data;
 
   const safeRecipientEmail = (!recipientEmail || recipientEmail.includes(".fake"))

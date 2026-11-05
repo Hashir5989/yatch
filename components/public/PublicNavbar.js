@@ -232,7 +232,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
               {/* Contact Bar */}
               <div className="p-5 bg-[#0E2047]/50 border border-white/10 text-xs text-white/80 space-y-2">
                 <div className="font-semibold text-white tracking-wider uppercase text-[11px]">
-                  ASMARATY SHIPYARD
+                  AL SHAALI MARINE
                 </div>
                 <p className="text-[11px] text-white/60">
                   RASHIDIA 1, AJMAN, United Arab Emirates

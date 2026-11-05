@@ -72,7 +72,7 @@ export default function AboutPage() {
       title: "The Genesis of Arabian Boatbuilding",
       badge: "Shipyard Founding • Ajman, UAE",
       subtitle: "Pioneering Modern Composite Construction in the Gulf",
-      narrative: "In 1979, the foundations of modern yacht building in the United Arab Emirates were established at our Ajman shipyard. Pioneering the adoption of advanced fiberglass construction in the Arabian Gulf, our shipyard gave regional mariners robust vessels engineered specifically to withstand the extreme heat, salinity, and open-ocean conditions of the Arabian Sea.",
+      narrative: "In 1979, the foundations of modern yacht building in the United Arab Emirates were established through Al Shaali Marine. Pioneering the adoption of advanced fiberglass construction in the Arabian Gulf, the shipyard gave regional mariners robust vessels engineered specifically to withstand the extreme heat, salinity, and open-ocean conditions of the Arabian Sea.",
       highlights: [
         "First serial fiberglass hull production facility in the Emirates",
         "Deep-water marina slipways commissioned in Ajman",
@@ -211,17 +211,12 @@ export default function AboutPage() {
     }
   ];
 
-  // 5. Shipyard Facility Infrastructure (Certified Quality & Advanced Manufacturing)
+  // 5. Shipyard Facility Infrastructure (Inspired by Majesty Yachts & Sunseeker)
   const facilityAreas = [
     {
       icon: <Layers className="w-5 h-5 text-[#C6A155]" />,
       title: "Climate-Controlled Infusion Halls",
       desc: "Regulated temperature and humidity environments ensuring flawless vinylester resin curing and zero-void composite consolidation."
-    },
-    {
-      icon: <ShieldCheck className="w-5 h-5 text-[#C6A155]" />,
-      title: "ISO 9001 & CE Class A Ocean Standards",
-      desc: "Built to stringent ISO 9001 quality management, CE Category A Ocean classifications, and US Coast Guard safety requirements."
     },
     {
       icon: <Building2 className="w-5 h-5 text-[#C6A155]" />,
@@ -232,6 +227,11 @@ export default function AboutPage() {
       icon: <Anchor className="w-5 h-5 text-[#C6A155]" />,
       title: "Deep-Water Launch Slipways & Marina",
       desc: "Direct deep-water berths in Ajman, UAE, enabling immediate open-sea testing and commissioning for yachts up to 100 feet."
+    },
+    {
+      icon: <Cpu className="w-5 h-5 text-[#C6A155]" />,
+      title: "Avionics, Glass Helm & Electrical Lab",
+      desc: "Specialized bench-testing facilities for Garmin glass navigation arrays, digital switching, and whisper-quiet power generators."
     }
   ];
 
@@ -565,7 +565,7 @@ export default function AboutPage() {
                 <div className="relative group overflow-hidden shadow-2xl bg-[#08101C]">
                   <img
                     src="/images/asmaraty-shipyard-facility.jpg"
-                    alt="ASMARATY Luxury Yachts Shipyard Facility Ajman UAE"
+                    alt="Al Shaali Marine - ASMARATY Luxury Yachts Shipyard Facility Ajman UAE"
                     className="w-full h-[460px] sm:h-[540px] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
@@ -589,7 +589,7 @@ export default function AboutPage() {
                     Nestled along the deep-water maritime coastline of the United Arab Emirates, our shipyard spans modern construction facilities designed to handle every facet of luxury yacht manufacturing in-house.
                   </p>
                   <p>
-                    Rooted in an unbroken boatbuilding lineage established in 1979 — one of the Arabian Gulf&apos;s most respected maritime pioneers — ASMARATY draws upon four decades of proprietary mold fabrication, structural naval engineering, and offshore ocean testing.
+                    Built in collaboration with Al Shaali Marine — one of the Arabian Gulf&apos;s most respected boatbuilding pioneers established in 1979 — ASMARATY draws upon four decades of proprietary mold fabrication, structural naval engineering, and ocean testing.
                   </p>
                   <p>
                     From multi-deck superyachts up to 100 feet to high-performance open cruisers, our craftsmen, laminators, marine electricians, and interior cabinetmakers work side by side under rigorous international quality controls.
