@@ -340,160 +340,99 @@
         "id": "about-hero",
         "type": "hero_banner",
         "visible": true,
-        "eyebrow": "PIONEERING ARABIAN SHIPBUILDING \u2022 EST. 1979 \u2022 AJMAN, UAE",
-        "heading": "THE SIGNATURE OF THE SEA",
-        "subheading": "United by contemporary aesthetics, generous living spaces, and thoughtful onboard comfort, ASMARATY crafts yachts that are as rewarding to spend time aboard as they are to admire from the shore.",
-        "imageUrl": "/images/asmaraty-shipyard-facility.jpg",
-        "imageAlt": "ASMARATY Luxury Yachts Shipyard Facility Ajman UAE",
+        "eyebrow": "ABOUT US",
+        "heading": "A Legacy of Excellence on the Water",
+        "subheading": "At ASMARATY, we believe in more than just luxury \u2014 we believe in creating unforgettable journeys.",
+        "imageUrl": "/images/g100-burj-al-arab.jpg",
+        "imageAlt": "ASMARATY Luxury Yacht with Dubai Skyline",
         "videoUrl": "",
-        "primaryButtonText": "EXPLORE FLEET",
-        "primaryButtonUrl": "/yachts",
-        "secondaryButtonText": "REQUEST CONSULTATION",
-        "secondaryButtonUrl": "#enquiry-form",
+        "primaryButtonText": "Discover Our Story",
+        "primaryButtonUrl": "#story",
+        "secondaryButtonText": "",
+        "secondaryButtonUrl": "",
         "layoutStyle": "fullscreen",
         "backgroundStyle": "dark",
-        "contentAlignment": "center",
+        "contentAlignment": "left",
         "stats": [
           {
             "value": "1979",
-            "label": "Year Founded in UAE"
+            "label": "Heritage"
           },
           {
-            "value": "45+",
-            "label": "Years of Heritage"
+            "value": "UAE",
+            "label": "Home Waters"
           },
           {
-            "value": "100 FT",
-            "label": "Flagship Capability"
-          },
-          {
-            "value": "100%",
-            "label": "In-House Shipyard"
+            "value": "Excellence",
+            "label": "Our Standard"
           }
         ]
+      },
+      {
+        "id": "about-story",
+        "type": "image_text",
+        "visible": true,
+        "eyebrow": "OUR STORY",
+        "heading": "Crafting Exceptional Yachting Experiences",
+        "description": "Since 1979, ASMARATY has pioneered composite boat and high-performance yacht manufacturing across the Arabian Gulf, crafting custom naval vessels that set new standards in luxury and performance.",
+        "imageUrl": "/images/about/deck-crop.jpg",
+        "imageAlt": "ASMARATY Luxury Teak Deck at Sunset",
+        "buttonText": "Discover Our Journey",
+        "buttonUrl": "/yachts",
+        "layoutStyle": "image-right",
+        "backgroundStyle": "light",
+        "contentAlignment": "left"
       },
       {
         "id": "about-stats",
         "type": "statistics",
         "visible": true,
-        "eyebrow": "SHIPYARD CAPABILITIES & METRICS",
-        "heading": "FOUR DECADES OF ARABIAN CRAFTSMANSHIP",
-        "description": "Four decades of pioneering naval architecture, composite engineering, and bespoke superyachts.",
+        "eyebrow": "BY THE NUMBERS",
+        "heading": "Four Decades of Arabian Heritage",
+        "description": "Pioneering naval architecture, composite engineering, and bespoke luxury motor yachts.",
         "items": [
           {
             "number": "1979",
-            "label": "Year Founded in UAE",
+            "label": "Heritage",
             "suffix": ""
           },
           {
-            "number": "45+",
-            "label": "Years of Heritage",
+            "number": "UAE",
+            "label": "Home Waters",
             "suffix": ""
           },
           {
-            "number": "100",
-            "label": "Flagship Capability",
-            "suffix": "FT"
-          },
-          {
-            "number": "100%",
-            "label": "In-House Shipyard",
+            "number": "Excellence",
+            "label": "Our Standard",
             "suffix": ""
           }
         ],
-        "backgroundStyle": "dark",
+        "backgroundStyle": "light",
         "contentAlignment": "center"
       },
       {
-        "id": "about-story",
+        "id": "about-values",
         "type": "rich_text",
         "visible": true,
-        "eyebrow": "A NEW CHAPTER IN BOATBUILDING",
-        "heading": "Spacious Luxury Boating & Stylish, Intimate Cruising",
-        "content": "ASMARATY was founded on a shared passion for design, craftsmanship, and life at sea. Bringing a distinct personality to the water, our boatbuilding journey is united by an emphasis on contemporary aesthetics, generous living spaces, and thoughtful onboard comfort.\n\nWith an emphasis on spacious luxury boating and stylish, intimate cruising, our vessels feature broad proportions, expansive main deck saloons, opening sliding panoramic hardtops, and refined Italian fittings. Every model is engineered to be as rewarding to spend time aboard as it is to admire from the shore.\n\nFrom our flagship G-100 superyacht to our G-77, G-66, and G-50 models, ASMARATY continues to set new benchmarks for space, luxury, and uncompromised sea-keeping excellence.",
-        "authorName": "Naval Architecture Advisory",
-        "authorTitle": "Shipyard Director, ASMARATY UAE",
-        "backgroundStyle": "dark",
-        "contentAlignment": "left"
-      },
-      {
-        "id": "about-precinct-infusion",
-        "type": "image_text",
-        "visible": true,
-        "eyebrow": "PRECINCT 01 \u2022 COMPOSITE INFUSION",
-        "heading": "Climate-Controlled Infusion Halls",
-        "description": "Regulated temperature and humidity environments where vinylester resin and multi-axial carbon fibers are consolidated under high-vacuum pressure. This advanced process eliminates air pockets, achieves a 35% weight reduction over traditional fiberglass, and ensures whisper-quiet acoustic dampening at sea.",
-        "imageUrl": "/images/asmaraty-shipyard-facility.jpg",
-        "imageAlt": "Al Shaali Marine - ASMARATY Luxury Yachts Shipyard Facility UAE",
-        "buttonText": "TECHNICAL STANDARDS",
-        "buttonUrl": "/yachts",
-        "layoutStyle": "image-left",
-        "backgroundStyle": "dark",
-        "contentAlignment": "left"
-      },
-      {
-        "id": "about-precinct-joinery",
-        "type": "image_text",
-        "visible": true,
-        "eyebrow": "PRECINCT 02 \u2022 ARTISAN INTERIORS",
-        "heading": "Bespoke Joinery & Interior Ateliers",
-        "description": "Our private in-house atelier brings together master cabinetmakers, leather saddlers, and stonemasons. From hand-laid Burma teak and walnut veneers to aerospace honeycomb-backed Italian marbles, every interior surface is tailored to the owner's personal aesthetic.",
-        "imageUrl": "/images/interiors/g100-main-salon.jpg",
-        "imageAlt": "ASMARATY G100 bespoke saloon interior joinery",
-        "buttonText": "EXPLORE INTERIORS",
-        "buttonUrl": "/yachts",
-        "layoutStyle": "image-right",
-        "backgroundStyle": "dark",
-        "contentAlignment": "left"
-      },
-      {
-        "id": "about-fleet",
-        "type": "yacht_collection",
-        "visible": true,
-        "eyebrow": "ASMARATY FLEET",
-        "heading": "DISTINGUISHED SUPERYACHT COLLECTION",
-        "description": "Explore our expanding portfolio of bespoke motor yachts and superyachts, engineered with cutting-edge naval architecture, expansive living spaces, and peerless composite craftsmanship.",
-        "filterCategory": "all",
-        "limit": 4,
-        "layoutStyle": "four_models_showcase",
-        "backgroundStyle": "dark",
-        "contentAlignment": "center",
-        "buttonText": "VIEW ALL MODELS",
-        "buttonUrl": "/yachts"
+        "eyebrow": "OUR VALUES",
+        "heading": "Built on Trust. Driven by Passion.",
+        "content": "We are committed to delivering unparalleled quality, innovation, and personalized experiences for every client.",
+        "authorName": "ASMARATY Standards",
+        "authorTitle": "Craftsmanship \u2022 Trust & Integrity \u2022 Innovation \u2022 Personalised Experiences",
+        "backgroundStyle": "light",
+        "contentAlignment": "center"
       },
       {
         "id": "about-cta",
         "type": "call_to_action",
         "visible": true,
-        "eyebrow": "EXPERIENCE ASMARATY",
-        "heading": "Tour Our UAE Shipyard in Person",
-        "description": "We invite prospective owners and captains to tour our UAE shipyard facility, explore current builds under construction, and witness artisan craftsmanship firsthand.",
-        "primaryButtonText": "BOOK SHIPYARD TOUR",
-        "primaryButtonUrl": "#enquiry-form",
-        "secondaryButtonText": "DOWNLOAD FLEET BROCHURE",
-        "secondaryButtonUrl": "/yachts",
-        "imageUrl": "/images/asmaraty-shared-passion.jpg",
+        "eyebrow": "THE HORIZON AWAITS",
+        "heading": "Your Journey Begins Here",
+        "description": "Explore our exclusive yacht collection and experience the ASMARATY difference.",
+        "primaryButtonText": "Explore Our Collection",
+        "primaryButtonUrl": "/yachts",
+        "imageUrl": "/images/yachts/g100-sunset.jpg",
         "layoutStyle": "cinematic-full",
-        "backgroundStyle": "navy",
-        "contentAlignment": "center"
-      },
-      {
-        "id": "about-enquiry",
-        "type": "enquiry_section",
-        "visible": true,
-        "eyebrow": "VIP MARITIME CONCIERGE",
-        "heading": "REQUEST SHIPYARD CONSULTATION & PRIVATE SEA TRIAL",
-        "description": "Connect directly with our luxury yacht advisory team. We arrange private sea trials for the ASMARATY fleet, shipyard walkthroughs, and confidential bespoke build consultations.",
-        "recipientEmail": "info@asmaraty.com",
-        "phone": "+971 56 526 8126",
-        "address": "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates",
-        "yachtOptions": [
-          "G-100 Super Yacht (100ft)",
-          "G-77 Luxury Yacht (77ft)",
-          "G-66 Luxury Yacht (66ft)",
-          "G-50 Luxury Motor Yacht (50ft)",
-          "Custom Bespoke Commission"
-        ],
         "backgroundStyle": "dark",
         "contentAlignment": "left"
       }
