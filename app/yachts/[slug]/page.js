@@ -441,21 +441,12 @@ function G100DetailPage() {
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 pb-12 sm:pb-16 w-full pt-32 sm:pt-40">
             <div className="max-w-3xl space-y-6">
               {/* Official Metallic Winged Insignia Emblem */}
-              <div className="flex items-center gap-4">
+              <div>
                 <img
                   src="/images/yachts/g100/2.png"
                   alt="ASMARATY G100 Insignia Emblem"
                   className="h-12 sm:h-16 w-auto object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
                 />
-                <div className="h-8 w-[1px] bg-white/20"></div>
-                <div className="space-y-0.5">
-                  <span className="text-[10px] sm:text-[11px] uppercase tracking-luxury text-[#E5C392] font-semibold block">
-                    Al Shaali Marine
-                  </span>
-                  <span className="text-[11px] sm:text-xs text-[#9DAAB8] tracking-wider block">
-                    UAE Shipbuilding Heritage Since 1979
-                  </span>
-                </div>
               </div>
 
               {/* Title & Tagline */}
