@@ -26,7 +26,9 @@ import {
   Waves,
   Zap,
   Building2,
-  Cpu
+  Cpu,
+  FileText,
+  Check
 } from "lucide-react";
 import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
@@ -36,8 +38,7 @@ import { getPageBySlug, syncPagesFromServer } from "@/lib/cmsStore";
 
 export default function AboutPage() {
   const [page, setPage] = useState(() => getPageBySlug("/about"));
-  const [activeDecade, setActiveDecade] = useState(0);
-  const [activeMaterial, setActiveMaterial] = useState(0);
+  const [activePrecinct, setActivePrecinct] = useState(0);
 
   useEffect(() => {
     syncPagesFromServer().then((synced) => {
@@ -56,7 +57,7 @@ export default function AboutPage() {
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
   }, []);
 
-  // 1. Key Shipyard Stats (Inspired by Riva & Sunseeker)
+  // 1. Core Shipyard Key Stats (DMYC Style Key Metrics Bar)
   const stats = [
     { value: "1979", label: "Year Founded in UAE", desc: "Four decades of pioneering Arabian composite boatbuilding" },
     { value: "45+", label: "Years of Heritage", desc: "Unbroken lineage of naval architecture & maritime craft" },
@@ -64,182 +65,154 @@ export default function AboutPage() {
     { value: "100%", label: "In-House Shipyard", desc: "Direct shipyard dialogue from sketch to open-ocean sea trial" }
   ];
 
-  // 2. Interactive Decades Timeline (Inspired by Sanlorenzo & Riva Heritage)
-  const decades = [
+  // 2. Shipyard Precincts & Facilities (Matching DMYC "Our Marinas" Card Grid)
+  const precincts = [
     {
-      period: "1979 — 1989",
-      shortYear: "1979",
-      title: "The Genesis of Arabian Boatbuilding",
-      badge: "Shipyard Founding • Ajman, UAE",
-      subtitle: "Pioneering Modern Composite Construction in the Gulf",
-      narrative: "In 1979, the foundations of modern yacht building in the United Arab Emirates were established through Al Shaali Marine. Pioneering the adoption of advanced fiberglass construction in the Arabian Gulf, the shipyard gave regional mariners robust vessels engineered specifically to withstand the extreme heat, salinity, and open-ocean conditions of the Arabian Sea.",
-      highlights: [
-        "First serial fiberglass hull production facility in the Emirates",
-        "Deep-water marina slipways commissioned in Ajman",
-        "Direct collaboration with regional fishing & maritime fleets"
+      id: "infusion",
+      title: "Climate-Controlled Composite Infusion Halls",
+      subtitle: "Precision Vacuum Lamination Facility",
+      tagline: "100% Void-Free • Multi-Axial Carbon & Glass",
+      description: "Regulated temperature and humidity environments where vinylester resin and multi-axial carbon fibers are consolidated under high-vacuum pressure. This advanced process eliminates air pockets, achieves a 35% weight reduction over traditional fiberglass, and ensures whisper-quiet acoustic dampening at sea.",
+      specs: [
+        { label: "Infusion Technology", val: "Vacuum Resin Consolidation" },
+        { label: "Structural Longevity", val: "Osmosis-Resistant Vinylester" },
+        { label: "Acoustic Metric", val: "Whisper-Quiet Dampening" },
+        { label: "Weight Savings", val: "35% Hull Mass Reduction" }
       ],
-      metric: "1st Generation",
-      metricLabel: "Composite Hulls in UAE",
-      image: "/images/a77-journey-vintage.jpg"
+      image: "/images/asmaraty-shipyard-facility.jpg",
+      badge: "Precinct 01"
     },
     {
-      period: "1990 — 2005",
-      shortYear: "1990s",
-      title: "The Composite Engineering Revolution",
-      badge: "Naval Architecture Expansion",
-      subtitle: "Introduction of Multi-Axial Composites & Global Standards",
-      narrative: "Transitioning into the modern luxury era, our naval architects introduced multi-axial fiberglass laminates, vinylester resins, and computational weight optimization. The shipyard expanded its engineering atelier to construct ocean-going cruisers compliant with stringent international CE Category A and RINA maritime standards.",
-      highlights: [
-        "Deployment of multi-axial laminates for superior impact strength",
-        "Introduction of long-range ocean hull forms with reduced draft",
-        "Expansion into international export markets across the GCC & Europe"
+      id: "joinery",
+      title: "Bespoke Joinery & Interior Ateliers",
+      subtitle: "Artisan Marine Cabinetmaking & Marble Studio",
+      tagline: "Burma Teak • Italian Calacatta • Full-Grain Leather",
+      description: "Our private in-house atelier brings together master cabinetmakers, leather saddlers, and stonemasons. From hand-laid parquet flooring and bookmatched walnut veneers to aerospace honeycomb-backed Italian marbles, every interior surface is tailored to the owner's personal aesthetic.",
+      specs: [
+        { label: "Timber Curation", val: "Hand-Laid Burma Teak & Walnut" },
+        { label: "Stone Engineering", val: "Weight-Compensated Italian Marble" },
+        { label: "Saddlery", val: "UV & Salt-Resistant Marine Leather" },
+        { label: "Craftsman Tolerance", val: "Sub-Millimeter Joinery Precision" }
       ],
-      metric: "CE Class A",
-      metricLabel: "Ocean-Going Certification",
-      image: "/images/asmaraty-racing-yacht-journey.jpg"
+      image: "/images/interiors/g100-main-salon.jpg",
+      badge: "Precinct 02"
     },
     {
-      period: "2006 — 2018",
-      shortYear: "2006",
-      title: "The G-Class Flybridge Architectural Era",
-      badge: "Modern Flybridge Fleet",
-      subtitle: "Harmonizing Panoramic Glass with Aerodynamic Silhouettes",
-      narrative: "Recognizing that contemporary yacht owners seek expansive social spaces and seamless connection with the sea, ASMARATY developed the G-Class line. Characterized by wide-beam flybridges, flush main salon entries, and integrated glass cockpit bridges, this generation redefined Arabian motor yacht elegance.",
-      highlights: [
-        "Unveiling of the G-50 Sports Cruiser and G-66 Flybridge models",
-        "Glass-cockpit helm integration with Garmin navigation avionics",
-        "Handcrafted in-house marine joinery and panoramic salon glazing"
+      id: "marina",
+      title: "Deep-Water Launch Slipways & Marina Basin",
+      subtitle: "Private Sea Trials & Commissioning Berths",
+      tagline: "Direct Arabian Gulf Access • 100 FT Berthing",
+      description: "Located along the deep-water maritime coastline of Ajman, UAE, our private launch marina accommodates multi-deck superyachts up to 100 feet. Yachts move directly from final assembly to deep-water berths for rigorous propulsion stress-testing and open-sea trials.",
+      specs: [
+        { label: "Berth Capacity", val: "Vessels up to 100 FT / 30.5 M" },
+        { label: "Water Access", val: "Direct Deep-Water Channel to Sea" },
+        { label: "Testing Basin", val: "High-Speed Dynamic Testing" },
+        { label: "Handover Facility", val: "VIP Private Marina Pier" }
       ],
-      metric: "G-Class",
-      metricLabel: "Flybridge Fleet Launch",
-      image: "/images/a77-journey-bg.jpg"
+      image: "/images/asmaraty-shared-passion.jpg",
+      badge: "Precinct 03"
     },
     {
-      period: "2019 — Present",
-      shortYear: "Present",
-      title: "The Bespoke Superyacht Age",
-      badge: "Flagship G-100 & Bespoke Ateliers",
-      subtitle: "100% Vacuum Resin Infusion & Private Owner Commissions",
-      narrative: "Today, ASMARATY represents the pinnacle of bespoke yacht manufacturing in the United Arab Emirates. With our flagship 100-foot G-100 tri-deck superyacht, 100% void-free vacuum resin infusion, and direct owner collaboration, each yacht is an individualized work of art crafted for captains and maritime connoisseurs worldwide.",
-      highlights: [
-        "100 ft multi-deck flagship capability with ocean-crossing range",
-        "100% void-free vacuum infusion composite construction",
-        "Tailor-made owner bespoke commissioning program"
+      id: "avionics",
+      title: "Glass Cockpit Bridge & Marine Electronics Lab",
+      subtitle: "Integrated Garmin Navigation & Power Management",
+      tagline: "Fly-By-Wire • Digital Switching • Radar Arrays",
+      description: "Modern yachting demands effortless command. Our electrical engineers pre-wire, integrate, and bench-test Garmin glass helm touchscreens, fly-by-wire joystick controls, FLIR thermal night-vision sensors, and digital circuit breaker systems before vessel launch.",
+      specs: [
+        { label: "Navigation Suite", val: "Garmin Glass Bridge Multi-Displays" },
+        { label: "Vessel Control", val: "Integrated Digital Switching" },
+        { label: "Safety Systems", val: "Dual Radar & Thermal Night Vision" },
+        { label: "Auxiliary Power", val: "Whisper-Quiet Marine Generators" }
       ],
-      metric: "100 FT",
-      metricLabel: "Bespoke Flagship Capability",
-      image: "/images/g100-flagship.jpg"
+      image: "/images/interiors/g100-helm-station.jpg",
+      badge: "Precinct 04"
     }
   ];
 
-  // 3. Tactile Materials Showcase (Inspired by Ferretti, Riva & Azimut Ateliers)
-  const materials = [
+  // 3. Exclusive Shipyard Benefits & Standards (Matching DMYC 6-card Icon Grid)
+  const benefits = [
     {
-      id: "teak",
-      name: "Burma Teak Marine Decking",
-      category: "Exterior Carpentry",
-      origin: "Hand-Selected Marine Hardwood",
-      description: "Carefully seasoned natural teak planks, hand-laid and rubber-caulked across swim platforms, flybridges, and side-decks. Rich in natural oils, it resists intense solar radiation and saltwater while providing velvety barefoot grip.",
-      attributes: ["Hand-Caulked Joints", "Quarter-Sawn Grain", "High Salt & UV Resilience"],
-      image: "/images/interiors/g50-flybridge-helm.jpg"
+      icon: <Award className="w-6 h-6 text-[#C6A155]" />,
+      number: "01",
+      title: "ISO 9001 & CE Class A Standards",
+      desc: "All vessels engineered and built in strict accordance with ISO 9001 quality management, CE Category A Ocean classifications, and US Coast Guard safety requirements."
     },
     {
-      id: "marble",
-      name: "Weight-Compensated Italian Marbles",
-      category: "Stateroom & Bar Ateliers",
-      origin: "Carrara & Nero Marquina, Italy",
-      description: "Authentic Calacatta Gold and Nero Marquina slabs precision-sliced to thin veneers and bonded onto aerospace-grade aluminum honeycomb backing. Delivers the palatial grandeur of solid stone with zero weight penalty on vessel performance.",
-      attributes: ["Aerospace Honeycomb Backing", "Zero Speed Penalty", "Seamless Bookmatched Veins"],
-      image: "/images/interiors/g100-master-suite.jpg"
+      icon: <ShieldCheck className="w-6 h-6 text-[#C6A155]" />,
+      number: "02",
+      title: "Vacuum-Infused Composites",
+      desc: "Advanced multi-axial glass and carbon fiber reinforcements consolidated under high-vacuum with vinylester resin, ensuring zero voiding and maximum structural rigidity."
     },
     {
-      id: "leather",
-      name: "Full-Grain Saddle-Stitched Leathers",
-      category: "Helm & Salon Upholstery",
-      origin: "Tuscan Marine Tanneries",
-      description: "Supple, drum-dyed full-grain leather treated with specialized hydrophobic, salt-mist, and UV-inhibiting coatings. Hand-stitched by our master saddlers onto helm steering consoles, ergonomic captain chairs, and salon headboards.",
-      attributes: ["Drum-Dyed Full Grain", "Hydrophobic UV Treatment", "Artisan Twin-Needle Stitching"],
-      image: "/images/interiors/g100-helm-station.jpg"
+      icon: <Compass className="w-6 h-6 text-[#C6A155]" />,
+      number: "03",
+      title: "Direct Shipyard Dialogue",
+      desc: "Every commission is deeply personal. Owners collaborate directly with our senior naval architects and master builders from preliminary sketches to maiden voyage."
     },
     {
-      id: "steel",
-      name: "Marine Grade 316L Stainless Steel & Titanium",
-      category: "Architectural Metalwork",
-      origin: "In-House Metallurgy Atelier",
-      description: "All deck cleats, stanchions, handrails, swim ladders, and signature wing emblems are fabricated from high-grade 316L marine stainless steel, hand-buffed to a mirror reflection that defies coastal oxidation.",
-      attributes: ["Electropolished 316L Alloy", "Corrosion-Proof Salt Mirror", "In-House TIG Welded"],
-      image: "/images/interiors/g100-main-salon.jpg"
+      icon: <Clock className="w-6 h-6 text-[#C6A155]" />,
+      number: "04",
+      title: "45+ Years Maritime Heritage",
+      desc: "Four decades of continuous Arabian boatbuilding innovation, proprietary mold fabrication, and open-ocean seakeeping optimization since 1979."
+    },
+    {
+      icon: <Sparkles className="w-6 h-6 text-[#C6A155]" />,
+      number: "05",
+      title: "100% In-House Atelier",
+      desc: "Cabinetry, joinery, upholstery, electrical engineering, and composite infusion executed by our own dedicated master craftsmen under unified quality controls."
+    },
+    {
+      icon: <Anchor className="w-6 h-6 text-[#C6A155]" />,
+      number: "06",
+      title: "White-Glove Sea Trials & Handover",
+      desc: "Comprehensive offshore sea trials in the Arabian Gulf verifying every mechanical and navigational system, followed by full captain orientation and celebration."
     }
   ];
 
-  // 4. The 5-Step Owner Commissioning Process (Inspired by Sanlorenzo Tailor-Made & Riva)
+  // 4. The 5-Step Owner Commissioning Process (Matching DMYC Step Roadmap)
   const commissionSteps = [
     {
       number: "01",
-      phase: "The Preliminary Vision",
+      phase: "Phase I",
       title: "Direct Architectural Dialogue",
-      desc: "Every ASMARATY commission begins with a private conversation. Prospective owners meet directly with our chief naval architects to define hull scale, layout flow, lifestyle requirements, and ocean-cruising intentions.",
-      badge: "Week 01 — 04"
+      desc: "Owners meet directly with our chief naval architects to define vessel dimensions, deck layout flow, cabin arrangements, and lifestyle amenities.",
+      timeline: "Week 01 — 04"
     },
     {
       number: "02",
-      phase: "Hydrodynamic Engineering",
-      title: "CFD Modeling & Hull Optimization",
-      desc: "Our engineering bureau runs computational fluid dynamics simulations on hull geometry, propeller pitch, and weight distribution to balance fuel efficiency, top speed, and offshore wave-slicing stability.",
-      badge: "Week 04 — 08"
+      phase: "Phase II",
+      title: "CFD Hydrodynamic Simulation",
+      desc: "Computational fluid dynamics simulations optimize the deadrise, spray rails, and propulsion packages for fuel economy, top speed, and seakeeping stability.",
+      timeline: "Week 04 — 08"
     },
     {
       number: "03",
-      phase: "Artisan Material Curation",
-      title: "Bespoke Interior Atelier",
-      desc: "Owners hand-select timber veneers, Italian marbles, lighting architectures, and upholstery leathers inside our shipyard atelier, creating a private ocean sanctuary tailored to their individual aesthetics.",
-      badge: "Week 08 — 14"
+      phase: "Phase III",
+      title: "Atelier Material Selection",
+      desc: "Hand-selection of rare veneers, bookmatched Italian marbles, lighting architectures, and supple leathers inside our private shipyard material atelier.",
+      timeline: "Week 08 — 14"
     },
     {
       number: "04",
-      phase: "Precision Shipyard Craft",
-      title: "Vacuum Infusion & Assembly",
-      desc: "Within our climate-controlled Ajman halls, multi-axial composite laminates are vacuum infused with vinylester resin. Craftsmen fit custom cabinetry, hydraulic systems, and Garmin glass bridge electronics.",
-      badge: "Week 14 — Handover"
+      phase: "Phase IV",
+      title: "Vacuum Infusion & Craft",
+      desc: "Execution of vacuum resin infusion in climate-controlled bays, followed by precision joinery installation, digital switching, and mechanical rigging.",
+      timeline: "Week 14 — Handover"
     },
     {
       number: "05",
-      phase: "Sea Trials & Delivery",
-      title: "Open-Water Handover & Maiden Voyage",
-      desc: "Prior to delivery, every vessel undergoes extensive sea trials in the Arabian Gulf. All mechanical, electrical, and navigation systems are stress-tested before a formal handover ceremony and maiden voyage.",
-      badge: "Delivery Day"
+      phase: "Phase V",
+      title: "Open-Water Sea Trials & Handover",
+      desc: "Stress-testing in Arabian Gulf open waters, captain certification, and a formal private maiden voyage handover ceremony.",
+      timeline: "Delivery Day"
     }
   ];
 
-  // 5. Shipyard Facility Infrastructure (Inspired by Majesty Yachts & Sunseeker)
-  const facilityAreas = [
-    {
-      icon: <Layers className="w-5 h-5 text-[#C6A155]" />,
-      title: "Climate-Controlled Infusion Halls",
-      desc: "Regulated temperature and humidity environments ensuring flawless vinylester resin curing and zero-void composite consolidation."
-    },
-    {
-      icon: <Building2 className="w-5 h-5 text-[#C6A155]" />,
-      title: "In-House Joinery & Cabinetmaking Atelier",
-      desc: "Master woodworkers handcrafting bookmatched veneers, teak decks, and bespoke architectural cabinetry with millimeter precision."
-    },
-    {
-      icon: <Anchor className="w-5 h-5 text-[#C6A155]" />,
-      title: "Deep-Water Launch Slipways & Marina",
-      desc: "Direct deep-water berths in Ajman, UAE, enabling immediate open-sea testing and commissioning for yachts up to 100 feet."
-    },
-    {
-      icon: <Cpu className="w-5 h-5 text-[#C6A155]" />,
-      title: "Avionics, Glass Helm & Electrical Lab",
-      desc: "Specialized bench-testing facilities for Garmin glass navigation arrays, digital switching, and whisper-quiet power generators."
-    }
-  ];
-
-  // 6. Curated Fleet Showcase (Inspired by Riva & Sanlorenzo)
-  const fleetOverview = [
+  // 5. Fleet Collection Cards (Matching DMYC Vessel Capabilities)
+  const fleetCollection = [
     {
       model: "ASMARATY G-100",
-      category: "Flagship Superyacht",
+      tag: "Flagship Superyacht",
       length: "100 FT / 30.5 M",
       speed: "35 Knots",
       guests: "12 Guests",
@@ -249,7 +222,7 @@ export default function AboutPage() {
     },
     {
       model: "ASMARATY G-77",
-      category: "Luxury Ocean Cruiser",
+      tag: "Luxury Ocean Cruiser",
       length: "77 FT / 23.5 M",
       speed: "32 Knots",
       guests: "10 Guests",
@@ -259,7 +232,7 @@ export default function AboutPage() {
     },
     {
       model: "ASMARATY G-66",
-      category: "Flybridge Yacht",
+      tag: "Flybridge Yacht",
       length: "66 FT / 20.1 M",
       speed: "34 Knots",
       guests: "8 Guests",
@@ -269,7 +242,7 @@ export default function AboutPage() {
     },
     {
       model: "ASMARATY G-50",
-      category: "Sports Cruiser",
+      tag: "Sports Cruiser",
       length: "50 FT / 15.2 M",
       speed: "38 Knots",
       guests: "6 Guests",
@@ -285,22 +258,22 @@ export default function AboutPage() {
 
       <main className="flex-1">
         {/* =========================================================
-            1. CINEMATIC HERO SECTION (Inspired by Riva & Sanlorenzo)
-               Features Coordinates, Brand Crest, Grand Serif Typography
+            1. CINEMATIC HERO SECTION (DMYC Style Hero)
+               Full-width backdrop, gold badge, headline, and actions
            ========================================================= */}
-        <section className="relative min-h-[90vh] sm:min-h-[94vh] flex flex-col justify-center items-center overflow-hidden bg-[#080B10]">
-          {/* Background Shipyard Facility Photo with Dark Vignette */}
+        <section className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center items-center overflow-hidden bg-[#080B10]">
+          {/* Background Shipyard Photo with Vignette Gradient */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <img
               src="/images/asmaraty-shipyard-facility.jpg"
-              alt="ASMARATY Shipyard Facility Ajman UAE"
+              alt="ASMARATY Luxury Yachts Shipyard Facility Ajman UAE"
               className="w-full h-full object-cover object-center scale-105 filter brightness-[0.34] contrast-[1.18]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#08101C] via-[#08101C]/60 to-[#08101C]/85" />
             <div className="absolute inset-0 bg-radial-vignette opacity-80" />
           </div>
 
-          {/* ASMARATY Monogram Watermark Pattern Overlay */}
+          {/* ASMARATY Monogram Pattern Overlay */}
           <div 
             className="absolute inset-0 pointer-events-none z-[1] select-none opacity-[0.04]"
             style={{
@@ -318,64 +291,62 @@ export default function AboutPage() {
               <AsmaratyLogo variant="emblem" tone="light" className="h-11 sm:h-14 opacity-95 hover:opacity-100 transition-opacity" priority />
             </div>
 
-            {/* GPS Coordinates & Origin Badge (Signature Superyacht Section Pattern) */}
-            <div className="inline-flex items-center gap-2 sm:gap-3 text-[11px] sm:text-xs uppercase tracking-[0.28em] text-[#C6A155] font-sans font-medium">
-              <span className="w-6 sm:w-10 h-[1px] bg-[#C6A155]/80" />
-              25°25&apos;08&quot;N 55°30&apos;14&quot;E • AJMAN, UNITED ARAB EMIRATES
-              <span className="w-6 sm:w-10 h-[1px] bg-[#C6A155]/80" />
+            {/* DMYC-Style Top Eyebrow Badge */}
+            <div className="inline-flex items-center gap-2 sm:gap-3 text-[11px] sm:text-xs uppercase tracking-[0.28em] text-[#C6A155] font-sans font-semibold">
+              <span className="w-6 sm:w-10 h-[1.5px] bg-[#C6A155]" />
+              PIONEERING ARABIAN SHIPBUILDING • EST. 1979 • AJMAN, UAE
+              <span className="w-6 sm:w-10 h-[1.5px] bg-[#C6A155]" />
             </div>
 
             {/* Grand Architectural Headline */}
-            <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[78px] font-normal leading-[1.06] text-white tracking-[0.02em]">
+            <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-normal leading-[1.06] text-white tracking-[0.02em]">
               The Architecture of <br className="hidden sm:inline" />
               <span className="italic font-normal">Maritime Distinction</span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg md:text-xl text-white/80 font-light leading-relaxed max-w-3xl mx-auto font-sans">
-              Where four decades of master boatbuilding heritage converge with vacuum composite engineering, panoramic ocean living, and the bespoke visions of discerning yacht owners.
+              Where four decades of master boatbuilding heritage converge with vacuum composite engineering, panoramic ocean living, and bespoke yachts crafted for the open sea.
             </p>
 
             {/* Action Buttons */}
             <div className="pt-6 sm:pt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-5">
               <a
-                href="#heritage-timeline"
+                href="#shipyard-precincts"
                 className="inline-flex items-center justify-center h-[52px] px-8 text-xs font-semibold tracking-[0.2em] uppercase bg-[#C6A155] text-black hover:bg-[#DFBA73] transition-colors shadow-lg shadow-[#C6A155]/20 cursor-pointer"
               >
-                Explore Shipyard Heritage
+                Explore Shipyard Precincts
                 <ChevronRight className="w-4 h-4 ml-2" />
               </a>
               <Link
                 href="/yachts"
                 className="inline-flex items-center justify-center h-[52px] px-8 text-xs font-semibold tracking-[0.2em] uppercase border border-white/25 text-white bg-white/5 hover:bg-white/10 hover:border-white/50 transition-colors cursor-pointer"
               >
-                Explore Fleet Collection
+                View Fleet Collection
               </Link>
             </div>
           </div>
 
-          {/* Quick Chapter Navigation Ribbon */}
+          {/* DMYC-Style Quick Section Anchors Ribbon */}
           <div className="relative z-10 w-full border-t border-white/10 bg-[#08101C]/85 backdrop-blur-md py-4">
             <div className="max-w-7xl mx-auto px-6 sm:px-12 flex flex-wrap items-center justify-center gap-5 sm:gap-9 text-[11px] sm:text-xs font-sans tracking-[0.18em] uppercase text-white/60">
-              <a href="#philosophy" className="hover:text-[#C6A155] transition-colors">I. Philosophy</a>
+              <a href="#philosophy" className="hover:text-[#C6A155] transition-colors">Philosophy</a>
               <span className="text-white/20">•</span>
-              <a href="#heritage-timeline" className="hover:text-[#C6A155] transition-colors">II. Heritage Timeline</a>
+              <a href="#shipyard-precincts" className="hover:text-[#C6A155] transition-colors">Shipyard Precincts</a>
               <span className="text-white/20">•</span>
-              <a href="#shipyard-facilities" className="hover:text-[#C6A155] transition-colors">III. Shipyard</a>
+              <a href="#standards-benefits" className="hover:text-[#C6A155] transition-colors">Standards & Benefits</a>
               <span className="text-white/20">•</span>
-              <a href="#naval-architecture" className="hover:text-[#C6A155] transition-colors">IV. Engineering</a>
+              <a href="#commission-journey" className="hover:text-[#C6A155] transition-colors">Bespoke Process</a>
               <span className="text-white/20">•</span>
-              <a href="#materials-atelier" className="hover:text-[#C6A155] transition-colors">V. Materials</a>
+              <a href="#fleet-collection" className="hover:text-[#C6A155] transition-colors">Fleet Collection</a>
               <span className="text-white/20">•</span>
-              <a href="#commission-journey" className="hover:text-[#C6A155] transition-colors">VI. Custom Process</a>
-              <span className="text-white/20">•</span>
-              <a href="#fleet-dossier" className="hover:text-[#C6A155] transition-colors">VII. Fleet</a>
+              <a href="#shipyard-enquiry" className="hover:text-[#C6A155] transition-colors">Enquiry Concierge</a>
             </div>
           </div>
         </section>
 
         {/* =========================================================
-            2. HERITAGE STATS BANNER (Inspired by Sunseeker & Riva)
+            2. KEY METRICS BAR (DMYC Style 4-Point Stat Strip)
            ========================================================= */}
         <section className="py-14 sm:py-16 bg-[#0B1424] border-b border-white/10 relative">
           <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
@@ -398,15 +369,15 @@ export default function AboutPage() {
         </section>
 
         {/* =========================================================
-            3. CHAPTER I: THE SHIPYARD PHILOSOPHY (Editorial Layout)
+            3. PHILOSOPHY & STORY OVERVIEW (Editorial Split)
            ========================================================= */}
         <section id="philosophy" className="py-20 sm:py-28 lg:py-32 bg-white text-[#0E2047] relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               {/* Left Column: Narrative & Philosophy */}
               <div className="lg:col-span-6 space-y-6">
-                <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
-                  CHAPTER I • OUR PHILOSOPHY
+                <div className="text-xs sm:text-sm font-sans font-semibold uppercase tracking-[0.24em] text-[#C6A155]">
+                  OUR PHILOSOPHY • THE SHIPYARD STORY
                 </div>
                 <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight text-[#0E2047] tracking-[0.02em]">
                   A Shared Passion for <br />
@@ -452,357 +423,212 @@ export default function AboutPage() {
         </section>
 
         {/* =========================================================
-            4. CHAPTER II: INTERACTIVE HERITAGE TIMELINE (Decades Slider)
-               (Signature Design Section of Sanlorenzo, Riva & Feadship)
+            4. SHIPYARD PRECINCTS & FACILITIES (DMYC "Our Marinas" Section)
+               Card Grid with Interactive Detail Modal / Tabs
            ========================================================= */}
-        <section id="heritage-timeline" className="py-20 sm:py-28 lg:py-32 bg-[#08101C] text-white relative overflow-hidden border-t border-b border-white/10">
-          {/* Wings watermark background */}
-          <div 
-            className="absolute inset-0 pointer-events-none z-0 select-none opacity-[0.04]"
-            style={{
-              backgroundImage: "url('/images/asmaraty-wings-pattern.svg')",
-              backgroundRepeat: "repeat",
-              backgroundPosition: "center top",
-              backgroundSize: "220px 120px",
-            }}
-            aria-hidden="true"
-          />
-
+        <section id="shipyard-precincts" className="py-20 sm:py-28 lg:py-32 bg-[#08101C] text-white relative overflow-hidden border-t border-b border-white/10">
           <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
-            <div className="max-w-3xl mx-auto text-center space-y-4 mb-14 sm:mb-18">
-              <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
-                CHAPTER II • DECADES OF DISTINCTION
+            <div className="max-w-3xl mx-auto text-center space-y-4 mb-16 sm:mb-20">
+              <div className="text-xs sm:text-sm font-sans font-semibold uppercase tracking-[0.24em] text-[#C6A155]">
+                SHIPYARD INFRASTRUCTURE
               </div>
               <h2 className="font-serif text-3xl sm:text-5xl font-normal uppercase tracking-[0.03em] text-white">
-                The Heritage Timeline
+                Our Shipyard Precincts
               </h2>
               <p className="text-sm sm:text-base text-white/70 font-light leading-relaxed">
-                An unbroken lineage of Arabian boatbuilding innovation, tracing our evolution from pioneer fiberglass workshops in 1979 to multi-deck superyachts.
+                Explore the specialized manufacturing divisions that power ASMARATY yacht construction along the deep-water coast of Ajman, UAE.
               </p>
 
-              {/* Interactive Decade Tabs */}
-              <div className="pt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-                {decades.map((dec, idx) => (
+              {/* Precinct Quick Selector Tabs */}
+              <div className="pt-6 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+                {precincts.map((precinct, idx) => (
                   <button
                     key={idx}
                     type="button"
-                    onClick={() => setActiveDecade(idx)}
+                    onClick={() => setActivePrecinct(idx)}
                     className={`px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] transition-all duration-300 border cursor-pointer ${
-                      activeDecade === idx
+                      activePrecinct === idx
                         ? "bg-[#C6A155] text-black border-[#C6A155] shadow-lg shadow-[#C6A155]/20"
                         : "bg-white/5 text-white/70 border-white/10 hover:border-white/30 hover:text-white"
                     }`}
                   >
-                    {dec.period}
+                    {precinct.badge} • {precinct.title.split(" ")[0]} {precinct.title.split(" ")[1]}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Active Decade Editorial Display Card */}
-            <div className="bg-[#0B1526]/80 border border-white/10 p-6 sm:p-10 lg:p-12 shadow-2xl backdrop-blur-sm">
+            {/* Active Precinct Featured Showcase (DMYC Detailed Marina Layout) */}
+            <div className="bg-[#0B1526]/85 border border-white/10 p-6 sm:p-10 lg:p-12 shadow-2xl backdrop-blur-sm mb-16">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                {/* Left: Historic Visual */}
-                <div className="lg:col-span-6 relative group overflow-hidden bg-black/40 border border-white/10">
+                {/* Left: Precinct Photo */}
+                <div className="lg:col-span-6 relative group overflow-hidden bg-black border border-white/10 shadow-xl">
                   <div className="aspect-[16/11] relative overflow-hidden">
                     <img
-                      src={decades[activeDecade].image}
-                      alt={decades[activeDecade].title}
+                      src={precincts[activePrecinct].image}
+                      alt={precincts[activePrecinct].title}
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
                   </div>
                   <div className="absolute top-4 left-4 bg-[#C6A155] text-black text-[11px] font-bold px-3 py-1 uppercase tracking-wider shadow">
-                    {decades[activeDecade].shortYear}
+                    {precincts[activePrecinct].badge}
                   </div>
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white/80">
-                    <span className="font-mono text-[#C6A155]">{decades[activeDecade].metric}</span>
-                    <span className="text-white/60">{decades[activeDecade].metricLabel}</span>
+                  <div className="absolute bottom-4 left-4 right-4 text-xs text-white/90 bg-black/60 backdrop-blur-sm p-3 border border-white/10">
+                    <span className="text-[#C6A155] font-semibold block uppercase tracking-wider">{precincts[activePrecinct].tagline}</span>
                   </div>
                 </div>
 
-                {/* Right: Narrative & Milestone Details */}
+                {/* Right: Precinct Capabilities & Technical Specifications */}
                 <div className="lg:col-span-6 space-y-6">
                   <div>
                     <span className="text-xs uppercase tracking-[0.2em] text-[#C6A155] font-semibold block mb-2">
-                      {decades[activeDecade].badge}
+                      {precincts[activePrecinct].subtitle}
                     </span>
                     <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white leading-tight">
-                      {decades[activeDecade].title}
+                      {precincts[activePrecinct].title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-white/60 font-light mt-1 italic">
-                      {decades[activeDecade].subtitle}
-                    </p>
                   </div>
 
                   <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-light text-justify" style={{ textJustify: "inter-word" }}>
-                    {decades[activeDecade].narrative}
+                    {precincts[activePrecinct].description}
                   </p>
 
-                  <div className="space-y-2.5 pt-2 border-t border-white/10">
-                    {decades[activeDecade].highlights.map((item, hIdx) => (
-                      <div key={hIdx} className="flex items-start gap-2.5 text-xs text-white/90">
-                        <CheckCircle2 className="w-4 h-4 text-[#C6A155] shrink-0 mt-0.5" />
-                        <span>{item}</span>
+                  {/* 4 Technical Specification Pills */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-white/10">
+                    {precincts[activePrecinct].specs.map((item, sIdx) => (
+                      <div key={sIdx} className="p-3 bg-white/5 border border-white/10 rounded-sm">
+                        <span className="text-[10px] uppercase tracking-wider text-white/50 block font-semibold">{item.label}</span>
+                        <span className="text-xs font-semibold text-[#C6A155] mt-0.5 block">{item.val}</span>
                       </div>
                     ))}
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* =========================================================
-            5. CHAPTER III: THE UAE SHIPYARD & FACILITIES BLUEPRINT
-               (Signature Design Section of Gulf Craft & Sunseeker)
-           ========================================================= */}
-        <section id="shipyard-facilities" className="py-20 sm:py-28 lg:py-32 bg-[#FAF8F5] text-[#0E2047] relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-              {/* Left Column: Shipyard Photo */}
-              <div className="lg:col-span-6 order-2 lg:order-1">
-                <div className="relative group overflow-hidden shadow-2xl bg-[#08101C]">
-                  <img
-                    src="/images/asmaraty-shipyard-facility.jpg"
-                    alt="Al Shaali Marine - ASMARATY Luxury Yachts Shipyard Facility Ajman UAE"
-                    className="w-full h-[460px] sm:h-[540px] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute bottom-6 left-6 right-6 p-4 rounded bg-[#08101C]/85 backdrop-blur-md border border-white/10 text-white text-xs">
-                    <span className="font-semibold text-[#C6A155] uppercase tracking-wider block">Shipyard Infrastructure</span>
-                    Direct deep-water marina berths & climate-controlled composite lamination halls in Ajman, UAE.
+                  <div className="pt-2">
+                    <a
+                      href="#shipyard-enquiry"
+                      className="inline-flex items-center text-xs font-semibold tracking-wider text-[#C6A155] hover:text-white transition-colors"
+                    >
+                      <span>Inquire About Facility Tours</span>
+                      <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                    </a>
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Right Column: Shipyard Capabilities Narrative & Infrastructure Grid */}
-              <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
-                <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
-                  CHAPTER III • SHIPYARD EXCELLENCE
-                </div>
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight text-[#0E2047] tracking-[0.02em]">
-                  Where Masterpieces Take Form
-                </h2>
-                <div className="space-y-4 text-sm sm:text-base text-[#0E2047]/80 leading-relaxed font-normal text-justify" style={{ textJustify: "inter-word" }}>
-                  <p>
-                    Nestled along the deep-water maritime coastline of the United Arab Emirates, our shipyard spans modern construction facilities designed to handle every facet of luxury yacht manufacturing in-house.
-                  </p>
-                  <p>
-                    Built in collaboration with Al Shaali Marine — one of the Arabian Gulf&apos;s most respected boatbuilding pioneers established in 1979 — ASMARATY draws upon four decades of proprietary mold fabrication, structural naval engineering, and ocean testing.
-                  </p>
-                  <p>
-                    From multi-deck superyachts up to 100 feet to high-performance open cruisers, our craftsmen, laminators, marine electricians, and interior cabinetmakers work side by side under rigorous international quality controls.
-                  </p>
-                </div>
-
-                {/* Infrastructure Metric Grid */}
-                <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {facilityAreas.map((area, idx) => (
-                    <div key={idx} className="p-4 bg-white border border-[#0E2047]/10 shadow-sm space-y-1.5">
-                      <div className="flex items-center gap-2">
-                        {area.icon}
-                        <h4 className="font-serif text-sm font-semibold text-[#0E2047]">{area.title}</h4>
-                      </div>
-                      <p className="text-xs text-[#0E2047]/70 leading-relaxed font-light">{area.desc}</p>
+            {/* 4-Card Overview Grid of All Precincts (DMYC Card Pattern) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {precincts.map((item, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setActivePrecinct(idx)}
+                  className={`p-6 rounded bg-[#0E1A2E]/70 border transition-all duration-300 flex flex-col justify-between group shadow-lg cursor-pointer ${
+                    activePrecinct === idx
+                      ? "border-[#C6A155] ring-1 ring-[#C6A155]/40"
+                      : "border-white/10 hover:border-white/30"
+                  }`}
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-semibold text-[#C6A155] uppercase tracking-wider">
+                        {item.badge}
+                      </span>
+                      <span className="text-xs font-mono text-white/40">0{idx + 1}</span>
                     </div>
-                  ))}
-                </div>
 
-                <div className="pt-4">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center justify-center h-[50px] px-8 text-xs font-semibold tracking-[0.2em] uppercase bg-[#C6A155] text-black hover:bg-[#DFBA73] transition-colors cursor-pointer shadow-md"
-                  >
-                    Request Shipyard Tour
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
+                    <h4 className="font-serif text-lg font-normal text-white leading-snug">
+                      {item.title}
+                    </h4>
+
+                    <p className="text-xs text-white/60 leading-relaxed font-light line-clamp-3">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-white/10 mt-6 flex items-center justify-between text-xs text-[#C6A155] group-hover:translate-x-1 transition-transform">
+                    <span>View Specifications</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* =========================================================
-            6. CHAPTER IV: NAVAL ARCHITECTURE & COMPOSITE SCIENCE
-               (Signature Design Section of Wally & Sanlorenzo)
+            5. EXCLUSIVE SHIPYARD STANDARDS & BENEFITS (DMYC 6-Grid)
+               Clean 6-Card Icon Grid Highlighting Seakeeping & Build Quality
            ========================================================= */}
-        <section id="naval-architecture" className="py-20 sm:py-28 lg:py-32 bg-[#091322] text-white relative overflow-hidden border-t border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-              {/* Left Column: Engineering Narrative */}
-              <div className="lg:col-span-6 space-y-6">
-                <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
-                  CHAPTER IV • NAVAL ENGINEERING
-                </div>
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight text-white tracking-[0.02em]">
-                  Advanced Vacuum-Infused Composites
-                </h2>
-                <div className="space-y-4 text-sm sm:text-base text-white/80 leading-relaxed font-normal text-justify" style={{ textJustify: "inter-word" }}>
-                  <p>
-                    Every ASMARATY yacht is conceived from the water up. Utilizing multi-axial glass fiber reinforcements, carbon fiber structural bulkheads, and high-performance vinylester resins processed via advanced vacuum resin infusion, our hulls achieve exceptional structural rigidity.
-                  </p>
-                  <p>
-                    By precisely controlling the resin-to-fiber ratio, vacuum infusion eliminates air voids, minimizes overall hull displacement without sacrificing strength, and yields extraordinary acoustic dampening so cruising is whisper-quiet.
-                  </p>
-                  <p>
-                    Combined with sharp bow entries, spray rails, and wide chines, our naval hulls plane cleanly, slice through choppy waves with minimal slamming, and deliver superior fuel economy across extended cruising ranges.
-                  </p>
-                </div>
-
-                {/* Technical highlights */}
-                <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10">
-                  <div className="space-y-1">
-                    <div className="font-serif text-2xl sm:text-3xl font-light text-[#C6A155]">35%</div>
-                    <div className="text-[11px] uppercase tracking-wider text-white/70 font-semibold">Weight Reduction</div>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="font-serif text-2xl sm:text-3xl font-light text-[#C6A155]">100%</div>
-                    <div className="text-[11px] uppercase tracking-wider text-white/70 font-semibold">Void-Free Infusion</div>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="font-serif text-2xl sm:text-3xl font-light text-[#C6A155]">Whisper</div>
-                    <div className="text-[11px] uppercase tracking-wider text-white/70 font-semibold">Acoustic Dampening</div>
-                  </div>
-                </div>
-
-                <div className="pt-4">
-                  <Link
-                    href="/yachts/g100"
-                    className="inline-flex items-center justify-center h-[50px] px-8 text-xs font-semibold tracking-[0.2em] uppercase border border-[#C6A155] text-[#C6A155] hover:bg-[#C6A155] hover:text-black transition-colors cursor-pointer"
-                  >
-                    Explore Flagship G-100 Dossier
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Right Column: Flagship G100 past Burj Al Arab */}
-              <div className="lg:col-span-6">
-                <div className="relative group overflow-hidden shadow-2xl bg-[#08101C] border border-white/10">
-                  <img
-                    src="/images/yachts/g100.jpg"
-                    alt="ASMARATY G100 Superyacht cruising past Burj Al Arab in Dubai"
-                    className="w-full h-[460px] sm:h-[540px] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute bottom-6 left-6 right-6 p-4 rounded bg-[#08101C]/85 backdrop-blur-md border border-white/10 text-white text-xs">
-                    <span className="font-semibold text-[#C6A155] uppercase tracking-wider block">Flagship G-100 Superyacht</span>
-                    100 ft multi-deck naval architecture cruising the Arabian Gulf past Burj Al Arab.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================
-            7. CHAPTER V: THE ATELIER — NOBLE MATERIALS PALETTE
-               (Signature Design Section of Riva, Ferretti & Azimut)
-           ========================================================= */}
-        <section id="materials-atelier" className="py-20 sm:py-28 lg:py-32 bg-white text-[#0E2047] relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="max-w-3xl mx-auto text-center space-y-4 mb-14 sm:mb-18">
-              <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
-                CHAPTER V • TACTILE CRAFTSMANSHIP
-              </div>
-              <h2 className="font-serif text-3xl sm:text-5xl font-normal leading-tight text-[#0E2047]">
-                Materials of the Atelier
-              </h2>
-              <p className="text-sm sm:text-base text-[#0E2047]/75 font-normal leading-relaxed">
-                The essence of superyacht luxury lives in the tactile touch. From seasoned Burma teak to aerospace-compensated Italian marbles, inspect the materials curated by our in-house ateliers.
-              </p>
-
-              {/* Material Tab Buttons */}
-              <div className="pt-6 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-                {materials.map((mat, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setActiveMaterial(idx)}
-                    className={`px-5 py-2 text-xs font-semibold uppercase tracking-[0.16em] transition-all duration-300 border cursor-pointer ${
-                      activeMaterial === idx
-                        ? "bg-[#0E2047] text-white border-[#0E2047] shadow"
-                        : "bg-[#F7F5F0] text-[#0E2047]/70 border-[#0E2047]/15 hover:border-[#0E2047]/40 hover:text-[#0E2047]"
-                    }`}
-                  >
-                    {mat.name.split(" ")[0]} {mat.name.split(" ")[1]}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Active Material Feature Box */}
-            <div className="bg-[#FAF9F6] border border-[#0E2047]/10 p-6 sm:p-10 lg:p-12 shadow-xl">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                <div className="lg:col-span-6 relative aspect-[16/11] overflow-hidden shadow-lg bg-black">
-                  <img
-                    src={materials[activeMaterial].image}
-                    alt={materials[activeMaterial].name}
-                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out hover:scale-105"
-                  />
-                  <div className="absolute top-4 left-4 bg-[#C6A155] text-black text-[11px] font-bold px-3 py-1 uppercase tracking-wider shadow">
-                    {materials[activeMaterial].category}
-                  </div>
-                </div>
-
-                <div className="lg:col-span-6 space-y-5">
-                  <div className="space-y-1">
-                    <span className="text-xs uppercase tracking-[0.2em] text-[#C6A155] font-semibold block">
-                      {materials[activeMaterial].origin}
-                    </span>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#0E2047]">
-                      {materials[activeMaterial].name}
-                    </h3>
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-[#0E2047]/80 leading-relaxed font-normal text-justify" style={{ textJustify: "inter-word" }}>
-                    {materials[activeMaterial].description}
-                  </p>
-
-                  <div className="pt-2 border-t border-[#0E2047]/10 space-y-2">
-                    <span className="text-[11px] uppercase tracking-wider text-[#0E2047]/60 font-semibold block">
-                      Atelier Craftsmanship Highlights:
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {materials[activeMaterial].attributes.map((attr, aIdx) => (
-                        <span key={aIdx} className="inline-flex items-center px-3 py-1 bg-white text-xs text-[#0E2047] border border-[#0E2047]/15 rounded-full font-medium">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#C6A155] mr-1.5" />
-                          {attr}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================
-            8. CHAPTER VI: THE 5-STEP BESPOKE COMMISSION JOURNEY
-               (Signature Design Section of Sanlorenzo Tailor-Made & Riva)
-           ========================================================= */}
-        <section id="commission-journey" className="py-20 sm:py-28 lg:py-32 bg-[#08101C] text-white relative overflow-hidden border-t border-b border-white/10">
+        <section id="standards-benefits" className="py-20 sm:py-28 lg:py-32 bg-white text-[#0E2047] relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
             <div className="max-w-3xl mx-auto text-center space-y-4 mb-16 sm:mb-20">
-              <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
-                CHAPTER VI • TAILOR-MADE PROCESS
+              <div className="text-xs sm:text-sm font-sans font-semibold uppercase tracking-[0.24em] text-[#C6A155]">
+                BENEFITS & EXCELLENCE
               </div>
-              <h2 className="font-serif text-3xl sm:text-5xl font-normal uppercase tracking-[0.03em] text-white">
-                The Owner Commission Journey
+              <h2 className="font-serif text-3xl sm:text-5xl font-normal leading-tight text-[#0E2047]">
+                The ASMARATY Standard
               </h2>
-              <p className="text-sm sm:text-base text-white/70 font-light leading-relaxed">
-                From the first sketch to the maiden voyage, every ASMARATY build is a personal collaboration between the owner and our senior naval engineers.
+              <p className="text-sm sm:text-base text-[#0E2047]/75 font-normal leading-relaxed">
+                Six foundational principles and manufacturing assurances built into every luxury motor yacht produced at our shipyard.
               </p>
             </div>
 
-            {/* 5-Step Process Timeline Cards */}
+            {/* 6-Card Icon Grid (DMYC Berthing Benefits Layout) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {benefits.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="p-8 rounded bg-[#FAF9F6] border border-[#0E2047]/10 hover:border-[#C6A155]/50 transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-md"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="p-3 rounded bg-white border border-[#0E2047]/10 group-hover:border-[#C6A155]/40 transition-colors shadow-sm">
+                        {item.icon}
+                      </div>
+                      <span className="font-serif text-2xl font-light text-[#0E2047]/30 group-hover:text-[#C6A155] transition-colors">
+                        {item.number}
+                      </span>
+                    </div>
+
+                    <h3 className="font-serif text-xl font-normal text-[#0E2047]">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-[#0E2047]/75 leading-relaxed font-normal">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================
+            6. BESPOKE OWNER COMMISSIONING PROCESS (DMYC Process Roadmap)
+               5-Step Sequential Journey from Sketch to Maiden Handover
+           ========================================================= */}
+        <section id="commission-journey" className="py-20 sm:py-28 lg:py-32 bg-[#091322] text-white relative overflow-hidden border-t border-b border-white/10">
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
+            <div className="max-w-3xl mx-auto text-center space-y-4 mb-16 sm:mb-20">
+              <div className="text-xs sm:text-sm font-sans font-semibold uppercase tracking-[0.24em] text-[#C6A155]">
+                TAILOR-MADE COMMISSIONING
+              </div>
+              <h2 className="font-serif text-3xl sm:text-5xl font-normal uppercase tracking-[0.03em] text-white">
+                The Commission Journey
+              </h2>
+              <p className="text-sm sm:text-base text-white/70 font-light leading-relaxed">
+                From preliminary design dialogue to open-water sea trials, every build is an individualized partnership.
+              </p>
+            </div>
+
+            {/* 5-Step Process Timeline */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
               {commissionSteps.map((step, idx) => (
                 <div
                   key={idx}
-                  className="p-6 rounded bg-[#0E1A2E]/70 border border-white/10 hover:border-[#C6A155]/40 transition-all duration-300 flex flex-col justify-between group shadow-lg"
+                  className="p-6 rounded bg-[#0E1A2E]/80 border border-white/10 hover:border-[#C6A155]/40 transition-all duration-300 flex flex-col justify-between group shadow-lg"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
@@ -810,7 +636,7 @@ export default function AboutPage() {
                         {step.number}
                       </span>
                       <span className="text-[10px] font-mono uppercase tracking-wider text-white/50 px-2 py-0.5 border border-white/10 rounded">
-                        {step.badge}
+                        {step.timeline}
                       </span>
                     </div>
 
@@ -829,7 +655,7 @@ export default function AboutPage() {
                   </div>
 
                   <div className="pt-4 border-t border-white/10 mt-6 flex items-center justify-between text-[11px] text-white/40 group-hover:text-[#C6A155] transition-colors">
-                    <span>Phase {step.number}</span>
+                    <span>Step {step.number}</span>
                     <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
@@ -839,25 +665,24 @@ export default function AboutPage() {
         </section>
 
         {/* =========================================================
-            9. CHAPTER VII: CURATED FLEET COLLECTION DOSSIER
-               (Signature Design Section of World-Class Yacht Builders)
+            7. CURATED FLEET COLLECTION (DMYC Vessel Capabilities Grid)
            ========================================================= */}
-        <section id="fleet-dossier" className="py-20 sm:py-28 lg:py-32 bg-[#0B1424] text-white relative overflow-hidden border-t border-b border-white/10">
+        <section id="fleet-collection" className="py-20 sm:py-28 lg:py-32 bg-[#0B1424] text-white relative overflow-hidden border-t border-b border-white/10">
           <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
             <div className="max-w-3xl mx-auto text-center space-y-4 mb-16 sm:mb-20">
-              <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
-                CHAPTER VII • THE FLEET
+              <div className="text-xs sm:text-sm font-sans font-semibold uppercase tracking-[0.24em] text-[#C6A155]">
+                THE FLEET COLLECTION
               </div>
               <h2 className="font-serif text-3xl sm:text-5xl font-normal uppercase tracking-[0.03em] text-white">
                 Engineered for the Open Sea
               </h2>
               <p className="text-sm sm:text-base text-white/70 font-light leading-relaxed">
-                Explore our signature fleet models, each embodying the unique balance of contemporary design and maritime engineering.
+                Explore our signature fleet models, each embodying the unique balance of contemporary naval architecture and ocean-going luxury.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-              {fleetOverview.map((item, idx) => (
+              {fleetCollection.map((item, idx) => (
                 <div
                   key={idx}
                   className="group bg-[#0E1A2D] border border-white/10 hover:border-[#C6A155]/50 transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-xl"
@@ -870,7 +695,7 @@ export default function AboutPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0E1A2D] via-transparent to-transparent opacity-80 pointer-events-none" />
                     <div className="absolute top-4 left-4 bg-[#08101C]/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#C6A155] border border-[#C6A155]/30">
-                      {item.category}
+                      {item.tag}
                     </div>
                   </div>
 
@@ -897,7 +722,7 @@ export default function AboutPage() {
                         href={`/yachts/${item.slug}`}
                         className="inline-flex items-center text-xs font-semibold tracking-wider text-[#C6A155] hover:text-white transition-colors group-hover:translate-x-1 duration-200"
                       >
-                        Explore Model
+                        Explore Model Dossier
                         <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                       </Link>
                     </div>
@@ -919,9 +744,10 @@ export default function AboutPage() {
         </section>
 
         {/* =========================================================
-            10. VIP MARITIME CONCIERGE & SHIPYARD TOUR INVITATION (CTA)
+            8. VIP MARITIME CONCIERGE & SHIPYARD ENQUIRY (DMYC Enquiry Form Style)
+               Direct Contact, WhatsApp, Phone, and Appointment Booking
            ========================================================= */}
-        <section className="py-20 sm:py-28 bg-[#080B10] text-white relative overflow-hidden border-t border-white/10">
+        <section id="shipyard-enquiry" className="py-20 sm:py-28 bg-[#080B10] text-white relative overflow-hidden border-t border-white/10">
           <div className="max-w-5xl mx-auto px-6 sm:px-12 lg:px-16 text-center relative z-10 space-y-6">
             {/* ASMARATY Wings Emblem */}
             <div className="flex justify-center mb-2">
@@ -930,7 +756,7 @@ export default function AboutPage() {
 
             <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.24em] text-[#C6A155] font-sans font-semibold">
               <span className="w-6 h-[1.5px] bg-[#C6A155]" />
-              VIP MARITIME CONCIERGE
+              VIP MARITIME CONCIERGE & SHIPYARD VISIT
               <span className="w-6 h-[1.5px] bg-[#C6A155]" />
             </div>
 
