@@ -74,7 +74,7 @@ export default function CmsSidebar({ currentUser }) {
                 </div>
                 <div className="overflow-hidden">
                   <span className="text-[11px] font-medium text-white block truncate">
-                    {currentUser?.email || "admin@asmaraty.ae"}
+                    {currentUser?.email || "admin@asmaraty.com"}
                   </span>
                   <span className="text-[9px] uppercase tracking-wider text-[#C5A880] block">
                     {currentUser?.role || "Administrator"}

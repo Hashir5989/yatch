@@ -22,7 +22,7 @@ export default function AdminLoginPage() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/admin";
 
-  const [email, setEmail] = useState("admin@asmaraty.ae");
+  const [email, setEmail] = useState("admin@asmaraty.com");
   const [password, setPassword] = useState("Asmaraty#2026");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@asmaraty.ae"
+                  placeholder="admin@asmaraty.com"
                   className="w-full pl-10 pr-4 py-3 bg-[#070A0F] border border-[#1B2738] text-white text-xs focus:outline-none focus:border-[#C6A155] transition-colors rounded-none"
                 />
                 <Mail className="w-4 h-4 text-white/40 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -177,7 +177,7 @@ export default function AdminLoginPage() {
               </button>
             </div>
             <div className="font-mono text-[11px] text-white/80 space-y-1 bg-black/40 p-2.5 rounded border border-white/5">
-              <div>Email: <strong className="text-white">admin@asmaraty.com</strong> (or .ae)</div>
+              <div>Email: <strong className="text-white">admin@asmaraty.com</strong></div>
               <div>Password: <strong className="text-white">Asmaraty#2026</strong></div>
             </div>
             <p className="text-[10px] text-white/50 leading-relaxed">
