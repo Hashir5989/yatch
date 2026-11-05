@@ -15,6 +15,21 @@ export async function generateMetadata({ params }) {
   const slug = resolvedParams?.slug;
   const canonicalSlug = slug === "as-77" || slug === "as77" ? "g77" : slug === "g55" ? "g50" : slug;
 
+  if (slug === "g100") {
+    return {
+      title: "ASMARATY G100 Super Yacht | 100ft Tri-Deck Flagship | ASMARATY UAE",
+      description:
+        "Explore the ASMARATY G100 — an iconic 100-foot tri-deck luxury superyacht engineered in the UAE by Al Shaali Marine. Discover authentic specifications, 3D GA deck plans, staterooms, twin MTU engines, and official brochure.",
+      robots: {
+        index: true,
+        follow: true,
+      },
+      alternates: {
+        canonical: "https://asmaraty.com/yachts/g100",
+      },
+    };
+  }
+
   return {
     title: "Yacht Specification Dossier | ASMARATY Luxury Yachts",
     description:
