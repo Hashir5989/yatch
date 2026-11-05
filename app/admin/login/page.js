@@ -159,17 +159,29 @@ export default function AdminLoginPage() {
           </form>
 
           {/* Credentials Helper Pill */}
-          <div className="p-4 bg-[#0E1522] border border-[#C6A155]/20 text-xs space-y-2">
-            <div className="flex items-center gap-1.5 text-[10px] font-semibold text-[#C6A155] uppercase tracking-wider">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Default Evaluation Credentials</span>
+          <div className="p-4 bg-[#0E1522] border border-[#C6A155]/25 text-xs space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 text-[10px] font-semibold text-[#C6A155] uppercase tracking-wider">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Client Access Credentials</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail("admin@asmaraty.com");
+                  setPassword("Asmaraty#2026");
+                }}
+                className="text-[10px] uppercase tracking-wider text-[#C6A155] hover:text-white underline cursor-pointer"
+              >
+                Auto-Fill
+              </button>
             </div>
-            <div className="font-mono text-[11px] text-white/80 space-y-0.5">
-              <div>Email: <strong className="text-white">admin@asmaraty.ae</strong></div>
+            <div className="font-mono text-[11px] text-white/80 space-y-1 bg-black/40 p-2.5 rounded border border-white/5">
+              <div>Email: <strong className="text-white">admin@asmaraty.com</strong> (or .ae)</div>
               <div>Password: <strong className="text-white">Asmaraty#2026</strong></div>
             </div>
-            <p className="text-[10px] text-white/40">
-              Credentials can be updated in Admin Settings once logged in.
+            <p className="text-[10px] text-white/50 leading-relaxed">
+              Your client can sign in with these credentials to modify pages, yacht listings, and settings. Credentials can also be customized inside Settings.
             </p>
           </div>
         </div>

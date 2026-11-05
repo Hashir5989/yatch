@@ -12,7 +12,10 @@ import {
   Globe, 
   Mail, 
   Phone, 
-  MapPin 
+  MapPin,
+  Lock,
+  KeyRound,
+  AlertCircle
 } from "lucide-react";
 import CmsHeader from "@/components/cms/CmsHeader";
 import { 
@@ -25,6 +28,14 @@ export default function AdminSettingsScreen() {
   const [settings, setSettings] = useState(() => getSiteSettings());
   const [toastMessage, setToastMessage] = useState(null);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+
+  // Password Update State
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [pwdLoading, setPwdLoading] = useState(false);
+  const [pwdError, setPwdError] = useState(null);
+  const [pwdSuccess, setPwdSuccess] = useState(null);
 
   useEffect(() => {
     const handleUpdate = () => setSettings(getSiteSettings());
@@ -41,6 +52,48 @@ export default function AdminSettingsScreen() {
     e.preventDefault();
     saveSiteSettings(settings);
     showToast("Settings saved successfully");
+  };
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    setPwdError(null);
+    setPwdSuccess(null);
+
+    if (newPassword.length < 6) {
+      setPwdError("New password must be at least 6 characters.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPwdError("New password and confirm password do not match.");
+      return;
+    }
+
+    setPwdLoading(true);
+    try {
+      const res = await fetch("/api/auth/password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setPwdError(data.error || "Failed to update password. Verify current password.");
+        setPwdLoading(false);
+        return;
+      }
+
+      setPwdSuccess("Administrator password updated successfully!");
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      showToast("Password updated successfully");
+      setPwdLoading(false);
+    } catch (err) {
+      setPwdError("Network error while updating password.");
+      setPwdLoading(false);
+    }
   };
 
   const handleReset = () => {
@@ -206,6 +259,96 @@ export default function AdminSettingsScreen() {
             >
               <Save className="w-4 h-4" />
               <span>Save System Settings</span>
+            </button>
+          </div>
+        </form>
+
+        {/* Client / Administrator Password Management */}
+        <form onSubmit={handlePasswordChange} className="bg-[#0A0D15] p-6 sm:p-8 rounded-sm border border-[#1A2230] space-y-6 text-xs">
+          <div className="border-b border-white/5 pb-4 flex items-center justify-between">
+            <div>
+              <div className="flex items-center gap-2 text-white font-serif text-lg font-medium">
+                <Lock className="w-4 h-4 text-[#C5A880]" />
+                <h2>Administrator Password & Security</h2>
+              </div>
+              <p className="text-xs text-[#7A8798] mt-0.5">
+                Update client login credentials for accessing the ASMARATY CMS Studio.
+              </p>
+            </div>
+            <span className="text-[10px] font-mono uppercase px-2 py-0.5 bg-[#121A28] text-[#C5A880] border border-[#C5A880]/30 rounded">
+              PBKDF2 Secured
+            </span>
+          </div>
+
+          {pwdError && (
+            <div className="p-3 bg-rose-950/40 border border-rose-700/60 text-xs text-rose-200 flex items-start gap-2.5 rounded-sm">
+              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+              <span>{pwdError}</span>
+            </div>
+          )}
+
+          {pwdSuccess && (
+            <div className="p-3 bg-emerald-950/40 border border-emerald-700/60 text-xs text-emerald-200 flex items-start gap-2.5 rounded-sm">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <span>{pwdSuccess}</span>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-[10px] uppercase tracking-wider text-[#9DAAB8] mb-1.5 font-semibold">
+                Current Password
+              </label>
+              <input
+                type="password"
+                required
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="Current password"
+                className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[10px] uppercase tracking-wider text-[#9DAAB8] mb-1.5 font-semibold">
+                New Password
+              </label>
+              <input
+                type="password"
+                required
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Min. 6 characters"
+                className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[10px] uppercase tracking-wider text-[#9DAAB8] mb-1.5 font-semibold">
+                Confirm New Password
+              </label>
+              <input
+                type="password"
+                required
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Re-enter new password"
+                className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
+              />
+            </div>
+          </div>
+
+          <div className="pt-2 flex items-center justify-between">
+            <p className="text-[10px] text-[#7A8798]">
+              Default evaluation password is <code className="text-[#C5A880]">Asmaraty#2026</code>
+            </p>
+            <button
+              type="submit"
+              disabled={pwdLoading}
+              className="btn-gold px-6 py-2.5 text-xs font-semibold rounded-sm tracking-wider flex items-center gap-2 disabled:opacity-50"
+            >
+              <KeyRound className="w-4 h-4" />
+              <span>{pwdLoading ? "Updating..." : "Update Password"}</span>
             </button>
           </div>
         </form>
