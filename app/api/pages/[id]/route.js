@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { getPageByIdServer, savePageServer, deletePageServer } from "@/lib/server/db";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
 
 export async function GET(req, { params }) {
   try {
