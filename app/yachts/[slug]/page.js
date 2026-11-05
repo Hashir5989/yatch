@@ -23,6 +23,7 @@ import {
 import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 import UnderConstructionView from "@/components/public/UnderConstructionView";
+import G77DetailPage from "@/components/public/yacht-details/G77DetailPage";
 import { getYachtBySlug, syncYachtsFromServer } from "@/lib/cmsStore";
 
 /**
@@ -1032,6 +1033,11 @@ function YachtDetailPageInner() {
   // If this is the G100 model, display the full-scale luxury showcase
   if (slug === "g100") {
     return <G100DetailPage />;
+  }
+
+  // If this is the G77 model, display the dedicated luxury showcase
+  if (slug === "g77" || slug === "as-77" || slug === "as77") {
+    return <G77DetailPage />;
   }
 
   // If Under Construction flag is active and this is NOT G100, show Under Construction

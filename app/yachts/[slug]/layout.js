@@ -30,6 +30,21 @@ export async function generateMetadata({ params }) {
     };
   }
 
+  if (slug === "g77" || slug === "as-77" || slug === "as77") {
+    return {
+      title: "ASMARATY G77 Luxury Yacht | 78ft Three-Deck Masterpiece | ASMARATY UAE",
+      description:
+        "Explore the ASMARATY G77 — an elegant 78-foot three-deck luxury yacht engineered in the UAE by ASMARATY. Discover authentic specifications, 3D GA deck plans, 4+2 staterooms, and expansive flybridge terrace.",
+      robots: {
+        index: true,
+        follow: true,
+      },
+      alternates: {
+        canonical: "https://asmaraty.com/yachts/g77",
+      },
+    };
+  }
+
   return {
     title: "Yacht Specification Dossier | ASMARATY Luxury Yachts",
     description:
