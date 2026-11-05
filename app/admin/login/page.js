@@ -48,9 +48,8 @@ export default function AdminLoginPage() {
         return;
       }
 
-      // Success: redirect to target admin page
-      router.push(redirect);
-      router.refresh();
+      // Success: hard redirect to target admin page to ensure fresh cookie transmission
+      window.location.href = redirect || "/admin";
     } catch (err) {
       setError("Network or server connection error. Please try again.");
       setLoading(false);

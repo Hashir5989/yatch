@@ -26,9 +26,13 @@ export async function POST(request) {
     const token = createSessionToken(user);
     const cookieStore = await cookies();
 
+    // Determine if request is over HTTPS (respects proxy headers on EC2 / Hostinger)
+    const proto = request.headers.get("x-forwarded-proto");
+    const isHttps = proto === "https" || request.nextUrl.protocol === "https:";
+
     cookieStore.set("asm_admin_session", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: isHttps,
       sameSite: "lax",
       path: "/",
       maxAge: 7 * 24 * 60 * 60, // 7 days
