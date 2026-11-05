@@ -8,12 +8,9 @@ import {
   ArrowUpRight,
   Anchor,
   ShieldCheck,
-  Award,
   Check,
   Layers,
   Sparkles,
-  Mail,
-  Phone,
   ZoomIn,
   X,
   Download,
@@ -21,10 +18,7 @@ import {
   Maximize2,
   ChevronRight,
   ChevronLeft,
-  Calendar,
-  MapPin,
   Sliders,
-  Wind,
   FileText
 } from "lucide-react";
 import PublicNavbar from "@/components/public/PublicNavbar";
@@ -363,18 +357,6 @@ function G100DetailPage() {
   const [galleryFilter, setGalleryFilter] = useState("All");
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  // VIP Booking Form State
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    preferredDate: "",
-    location: "Dubai Harbour Marina",
-    inquiryType: "Private Sea Trial",
-    notes: ""
-  });
-  const [formSubmitted, setFormSubmitted] = useState(false);
-
   // Filter gallery items
   const filteredGallery = galleryFilter === "All"
     ? G100_GALLERY
@@ -388,11 +370,6 @@ function G100DetailPage() {
   };
   const nextLightbox = () => {
     setLightboxIndex((prev) => (prev < filteredGallery.length - 1 ? prev + 1 : 0));
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    setFormSubmitted(true);
   };
 
   const activeDeck = DECK_PLANS.find((d) => d.id === activeDeckTab) || DECK_PLANS[0];
@@ -484,13 +461,13 @@ function G100DetailPage() {
 
               {/* Action Buttons */}
               <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
-                <a
-                  href="#consultation-booking"
+                <Link
+                  href="/contact"
                   className="saxdor-btn-solid !h-[52px] px-8 text-xs font-semibold tracking-wider rounded-none inline-flex items-center gap-2"
                 >
                   <span>Book Private Viewing</span>
                   <ArrowUpRight className="w-4 h-4" />
-                </a>
+                </Link>
 
                 <a
                   href="/documents/asmaraty-g100-brochure.pdf"
@@ -958,174 +935,26 @@ function G100DetailPage() {
           </div>
         </section>
 
-        {/* Private Consultation & Sea Trial Booking Form */}
-        <section id="consultation-booking" className="py-20 sm:py-28 bg-[#0C121B] border-t border-[#1C2533]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-              {/* Left Column: Direct Shipyard Contact & Info */}
-              <div className="lg:col-span-5 space-y-8">
-                <div className="space-y-3">
-                  <span className="text-xs uppercase tracking-luxury text-[#C8A870] font-medium block">
-                    PRIVATE VIEWINGS & SEA TRIALS
-                  </span>
-                  <h2 className="font-serif text-3xl sm:text-5xl font-light text-white leading-tight">
-                    Schedule a Private Viewing of the G100
-                  </h2>
-                  <p className="text-sm text-[#9DAAB8] font-light leading-relaxed">
-                    We coordinate confidential dockside viewings and sea trials departing from Dubai Harbour Marina and the Al Shaali Marine Shipyard in Ajman for qualified prospective owners and yacht management representatives.
-                  </p>
-                </div>
-
-                {/* Direct Shipyard Information */}
-                <div className="space-y-4 pt-4 border-t border-white/10 text-xs">
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-none bg-[#17202C] border border-[#C8A870]/30 flex items-center justify-center text-[#C8A870] flex-shrink-0 mt-0.5">
-                      <MapPin className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-white font-medium uppercase tracking-wider">Shipyard Complex & Marina</p>
-                      <p className="text-[#828F9E] mt-0.5 font-light">
-                        Al Shaali Marine, New Industrial Area P.O. Box 787, Ajman / Dubai Marina, UAE
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-none bg-[#17202C] border border-[#C8A870]/30 flex items-center justify-center text-[#C8A870] flex-shrink-0 mt-0.5">
-                      <Phone className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-white font-medium uppercase tracking-wider">Direct Shipyard Inquiries</p>
-                      <a href="tel:+97167436443" className="text-[#C8A870] hover:text-white transition-colors mt-0.5 block font-mono text-sm">
-                        +971 6 743 6443
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-none bg-[#17202C] border border-[#C8A870]/30 flex items-center justify-center text-[#C8A870] flex-shrink-0 mt-0.5">
-                      <Mail className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-white font-medium uppercase tracking-wider">Official Inquiries & Orders</p>
-                      <a href="mailto:info@alshaalimarine.com" className="text-[#C8A870] hover:text-white transition-colors mt-0.5 block font-mono">
-                        info@alshaalimarine.com
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Interactive Consultation Booking Form */}
-              <div className="lg:col-span-7">
-                <div className="bg-[#0E131C] border border-white/10 p-8 sm:p-10 space-y-6">
-                  {formSubmitted ? (
-                    <div className="py-12 text-center space-y-4">
-                      <div className="w-16 h-16 rounded-full bg-[#C8A870]/10 border border-[#C8A870] flex items-center justify-center text-[#C8A870] mx-auto">
-                        <Check className="w-8 h-8" />
-                      </div>
-                      <h3 className="font-serif text-2xl text-white">Viewing Request Received</h3>
-                      <p className="text-sm text-[#9DAAB8] max-w-md mx-auto leading-relaxed">
-                        Thank you for your interest in the ASMARATY G100 Super Yacht. An ASMARATY naval representative will contact you within 24 hours to coordinate your confidential sea trial and dossier handover.
-                      </p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleFormSubmit} className="space-y-4">
-                      <div className="border-b border-white/5 pb-3">
-                        <h3 className="font-serif text-xl sm:text-2xl text-white font-light">
-                          Request Confidential Consultation
-                        </h3>
-                        <p className="text-xs text-[#828F9E] mt-1">
-                          Please complete the dossier form below. All requests are handled under strict non-disclosure.
-                        </p>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1.5">
-                          <label className="text-[11px] uppercase tracking-luxury text-[#9DAAB8] block">
-                            Full Name *
-                          </label>
-                          <input
-                            type="text"
-                            required
-                            value={formData.fullName}
-                            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                            placeholder="Lord / Lady / Captain / Mr. / Ms."
-                            className="w-full bg-[#080B10] border border-white/10 px-4 py-3 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#C8A870]"
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <label className="text-[11px] uppercase tracking-luxury text-[#9DAAB8] block">
-                            Email Address *
-                          </label>
-                          <input
-                            type="email"
-                            required
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            placeholder="client@luxuryestate.com"
-                            className="w-full bg-[#080B10] border border-white/10 px-4 py-3 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#C8A870]"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1.5">
-                          <label className="text-[11px] uppercase tracking-luxury text-[#9DAAB8] block">
-                            Phone / WhatsApp *
-                          </label>
-                          <input
-                            type="tel"
-                            required
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            placeholder="+971 50 000 0000"
-                            className="w-full bg-[#080B10] border border-white/10 px-4 py-3 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#C8A870]"
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <label className="text-[11px] uppercase tracking-luxury text-[#9DAAB8] block">
-                            Preferred Viewing Location
-                          </label>
-                          <select
-                            value={formData.location}
-                            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                            className="w-full bg-[#080B10] border border-white/10 px-4 py-3 text-xs text-white focus:outline-none focus:border-[#C8A870]"
-                          >
-                            <option value="Dubai Harbour Marina">Dubai Harbour Marina, UAE</option>
-                            <option value="Al Shaali Marine Shipyard Ajman">Al Shaali Marine Shipyard, Ajman</option>
-                            <option value="Monaco / Mediterranean">Monaco / Mediterranean Sea</option>
-                            <option value="Virtual VIP Naval Presentation">Virtual VIP Presentation (Zoom/Teams)</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] uppercase tracking-luxury text-[#9DAAB8] block">
-                          Bespoke Inquiries & Custom Specifications
-                        </label>
-                        <textarea
-                          rows={4}
-                          value={formData.notes}
-                          onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                          placeholder="Tell us about your cruising preferences, required stateroom layout, custom stabilization, or delivery schedule..."
-                          className="w-full bg-[#080B10] border border-white/10 px-4 py-3 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#C8A870] resize-none"
-                        ></textarea>
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="w-full saxdor-btn-solid !h-[52px] text-xs font-semibold tracking-wider rounded-none inline-flex items-center justify-center gap-2 mt-2"
-                      >
-                        <span>Submit Private Viewing Request</span>
-                        <ArrowUpRight className="w-4 h-4" />
-                      </button>
-                    </form>
-                  )}
-                </div>
-              </div>
+        {/* Private Viewings & Sea Trials CTA Banner */}
+        <section className="py-20 sm:py-24 bg-[#0C121B] border-t border-[#1C2533] text-center">
+          <div className="max-w-3xl mx-auto px-4 sm:px-8 space-y-6">
+            <span className="text-xs uppercase tracking-luxury text-[#C8A870] font-medium block">
+              PRIVATE VIEWINGS & SEA TRIALS
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl font-light text-white">
+              Experience the ASMARATY G100 in Dubai
+            </h2>
+            <p className="text-sm sm:text-base text-[#9DAAB8] font-light max-w-xl mx-auto leading-relaxed">
+              Contact our team to arrange a confidential private sea trial or discuss bespoke specifications for the ASMARATY G100.
+            </p>
+            <div className="pt-2 flex justify-center">
+              <Link
+                href="/contact"
+                className="saxdor-btn-solid !h-[54px] px-10 text-xs font-semibold tracking-wider rounded-none inline-flex items-center gap-2"
+              >
+                <span>Contact Us</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </section>
