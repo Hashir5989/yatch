@@ -630,3 +630,4 @@ export default function UniversalYachtDetailView({ data }) {
     </div>
   );
 }
+
