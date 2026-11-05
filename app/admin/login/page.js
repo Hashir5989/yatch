@@ -22,8 +22,8 @@ export default function AdminLoginPage() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/admin";
 
-  const [email, setEmail] = useState("admin@asmaraty.com");
-  const [password, setPassword] = useState("Asmaraty#2026");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -157,33 +157,6 @@ export default function AdminLoginPage() {
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
-
-          {/* Credentials Helper Pill */}
-          <div className="p-4 bg-[#0E1522] border border-[#C6A155]/25 text-xs space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-[10px] font-semibold text-[#C6A155] uppercase tracking-wider">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Client Access Credentials</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail("admin@asmaraty.com");
-                  setPassword("Asmaraty#2026");
-                }}
-                className="text-[10px] uppercase tracking-wider text-[#C6A155] hover:text-white underline cursor-pointer"
-              >
-                Auto-Fill
-              </button>
-            </div>
-            <div className="font-mono text-[11px] text-white/80 space-y-1 bg-black/40 p-2.5 rounded border border-white/5">
-              <div>Email: <strong className="text-white">admin@asmaraty.com</strong></div>
-              <div>Password: <strong className="text-white">Asmaraty#2026</strong></div>
-            </div>
-            <p className="text-[10px] text-white/50 leading-relaxed">
-              Your client can sign in with these credentials to modify pages, yacht listings, and settings. Credentials can also be customized inside Settings.
-            </p>
-          </div>
         </div>
       </main>
 

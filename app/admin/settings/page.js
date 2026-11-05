@@ -340,7 +340,7 @@ export default function AdminSettingsScreen() {
 
           <div className="pt-2 flex items-center justify-between">
             <p className="text-[10px] text-[#7A8798]">
-              Default evaluation password is <code className="text-[#C5A880]">Asmaraty#2026</code>
+              Ensure your new password contains at least 6 characters.
             </p>
             <button
               type="submit"
