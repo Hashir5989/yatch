@@ -24,13 +24,21 @@ import {
 import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 import UnderConstructionView from "@/components/public/UnderConstructionView";
-import { getYachtBySlug, getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
+import { getYachtBySlug, syncYachtsFromServer } from "@/lib/cmsStore";
 
 /**
  * Under Construction Flag:
  * Per user instruction, only G100 detail page is active; all other yacht slugs show Under Construction.
  */
 const IS_UNDER_CONSTRUCTION = true;
+
+// Auto-changing Hero Background Images
+const HERO_IMAGES = [
+  { src: "/images/yachts/g100/0.jpg", label: "Burj Al Arab Daylight" },
+  { src: "/images/yachts/g100/5.jpg", label: "Dubai Marina Sunset" },
+  { src: "/images/yachts/g100/37.jpg", label: "Atlantis The Royal" },
+  { src: "/images/yachts/g100/43.jpg", label: "Ain Dubai Night Illumination" }
+];
 
 // Original G100 Curated Photography Gallery
 const G100_GALLERY = [
@@ -338,14 +346,16 @@ const SPEC_CATEGORIES = [
 ];
 
 function G100DetailPage() {
-  // Active Hero Background
-  const heroImages = [
-    { src: "/images/yachts/g100/0.jpg", label: "Burj Al Arab Daylight" },
-    { src: "/images/yachts/g100/5.jpg", label: "Dubai Marina Sunset" },
-    { src: "/images/yachts/g100/37.jpg", label: "Atlantis The Royal" },
-    { src: "/images/yachts/g100/43.jpg", label: "Ain Dubai Night Illumination" }
-  ];
+  // Auto-changing Hero Background Index
   const [activeHeroIdx, setActiveHeroIdx] = useState(0);
+
+  // Smooth Auto-changing Banner Interval
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveHeroIdx((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Deck Plan Interactive State
   const [activeDeckTab, setActiveDeckTab] = useState("flybridge");
@@ -408,15 +418,20 @@ function G100DetailPage() {
           </div>
         </section>
 
-        {/* Hero Section */}
+        {/* Hero Section with Auto-Changing Crossfade Background */}
         <section className="relative min-h-[85vh] lg:min-h-[92vh] flex flex-col justify-end overflow-hidden">
-          {/* Background Image Carousel */}
+          {/* Background Images with Silky Crossfade Transition */}
           <div className="absolute inset-0 bg-[#080B10]">
-            <img
-              src={heroImages[activeHeroIdx].src}
-              alt={heroImages[activeHeroIdx].label}
-              className="w-full h-full object-cover object-center transition-all duration-1000 scale-[1.01]"
-            />
+            {HERO_IMAGES.map((img, idx) => (
+              <img
+                key={img.src}
+                src={img.src}
+                alt={img.label}
+                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out scale-[1.01] ${
+                  activeHeroIdx === idx ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
+              />
+            ))}
             {/* Dark & Gold Vignette Gradients */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-[#080B10]/40 to-transparent pointer-events-none"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-[#080B10]/85 via-[#080B10]/30 to-transparent pointer-events-none"></div>
@@ -436,7 +451,7 @@ function G100DetailPage() {
                 <div className="h-8 w-[1px] bg-white/20"></div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] sm:text-[11px] uppercase tracking-luxury text-[#E5C392] font-semibold block">
-                    Al Shaali Marine Shipyard
+                    Al Shaali Marine
                   </span>
                   <span className="text-[11px] sm:text-xs text-[#9DAAB8] tracking-wider block">
                     UAE Shipbuilding Heritage Since 1979
@@ -488,28 +503,28 @@ function G100DetailPage() {
               </div>
             </div>
 
-            {/* Hero Background Selector Pills */}
-            <div className="mt-10 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
-                <span className="text-[#828F9E] text-[11px] uppercase tracking-wider mr-2 hidden sm:inline">
-                  Vessel Perspectives:
-                </span>
-                {heroImages.map((img, idx) => (
+            {/* Auto-Slide Indicator Dots (Clean & Minimal) */}
+            <div className="mt-10 pt-6 border-t border-white/10 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {HERO_IMAGES.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveHeroIdx(idx)}
-                    className={`px-3 py-1.5 text-xs transition-all border ${
+                    aria-label={img.label}
+                    title={img.label}
+                    className={`h-1.5 transition-all duration-500 rounded-full ${
                       activeHeroIdx === idx
-                        ? "bg-[#C8A870] text-[#080B10] font-semibold border-[#C8A870]"
-                        : "bg-[#0A0D14]/80 text-[#C9D2DF] border-white/10 hover:border-white/30"
+                        ? "w-8 bg-[#C8A870]"
+                        : "w-2 bg-white/30 hover:bg-white/60"
                     }`}
-                  >
-                    {img.label}
-                  </button>
+                  />
                 ))}
+                <span className="ml-3 text-[11px] text-[#828F9E] font-mono">
+                  0{activeHeroIdx + 1} / 0{HERO_IMAGES.length}
+                </span>
               </div>
 
-              <div className="text-right text-[11px] text-[#828F9E] tracking-wider uppercase hidden md:block">
+              <div className="text-right text-[11px] text-[#828F9E] tracking-wider uppercase hidden sm:block">
                 Flagship Superyacht • 30.48 Metres • GRP Composite
               </div>
             </div>
@@ -598,10 +613,10 @@ function G100DetailPage() {
               <div className="p-5 bg-[#0E131C] border border-[#C8A870]/25 rounded-none space-y-2">
                 <div className="flex items-center gap-2 text-xs text-[#E5C392] font-semibold uppercase tracking-wider">
                   <ShieldCheck className="w-4 h-4 text-[#C8A870]" />
-                  <span>Al Shaali Marine Shipbuilding Heritage (Est. 1979)</span>
+                  <span>Emirati Shipbuilding Heritage (Since 1979)</span>
                 </div>
                 <p className="text-xs text-[#828F9E] leading-relaxed">
-                  Established by Abdullah Al Shaali in 1979, the shipyard has pioneered composite boat manufacturing in the Middle East. With decades of international quality certificates and maritime pedigree, the G100 represents the pinnacle of Emirati naval craft.
+                  Crafted by Al Shaali Marine with decades of international quality certificates and maritime pedigree, the ASMARATY G100 represents the pinnacle of luxury composite yacht manufacturing.
                 </p>
               </div>
             </div>
@@ -952,7 +967,7 @@ function G100DetailPage() {
                 href="/contact"
                 className="saxdor-btn-solid !h-[54px] px-10 text-xs font-semibold tracking-wider rounded-none inline-flex items-center gap-2"
               >
-                <span>Contact Us</span>
+                <span>Contact Us for Private Viewing</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
