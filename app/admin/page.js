@@ -24,7 +24,8 @@ import {
   getAllPages, 
   createPage, 
   duplicatePage, 
-  deletePage 
+  deletePage,
+  syncPagesFromServer 
 } from "@/lib/cmsStore";
 
 export default function AdminPagesScreen() {
@@ -44,6 +45,12 @@ export default function AdminPagesScreen() {
   };
 
   useEffect(() => {
+    syncPagesFromServer().then((synced) => {
+      if (synced && Array.isArray(synced)) {
+        setPages(synced);
+      }
+    });
+
     const handleUpdate = () => loadPages();
     window.addEventListener("asm-cms-change", handleUpdate);
     return () => window.removeEventListener("asm-cms-change", handleUpdate);

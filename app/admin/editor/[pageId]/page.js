@@ -61,6 +61,7 @@ function VisualPageEditorInner() {
     return draft?.hasUnpublishedChanges || false;
   });
   const [toastMessage, setToastMessage] = useState(null);
+  const [isPublishing, setIsPublishing] = useState(false);
 
   // Viewport Device Switcher
   const [viewportMode, setViewportMode] = useState("desktop"); // desktop, tablet, mobile
@@ -71,13 +72,58 @@ function VisualPageEditorInner() {
   const [mediaPickerConfig, setMediaPickerConfig] = useState({ isOpen: false, sectionId: null, field: null, currentUrl: "" });
   const [activeDrawerSection, setActiveDrawerSection] = useState(null);
 
-  // Check Page Validity
+  // Sync Latest Page Data From Server on Mount
   useEffect(() => {
     if (!pageId) return;
-    const page = getPageById(pageId);
-    if (!page) {
-      router.push("/admin");
+    let isMounted = true;
+
+    async function loadLatestPage() {
+      try {
+        const res = await fetch(`/api/pages/${encodeURIComponent(pageId)}?t=${Date.now()}`, {
+          cache: "no-store",
+          headers: { "Cache-Control": "no-cache" },
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.success && data?.page && isMounted) {
+            const serverPage = data.page;
+            // Also keep local pages store fresh
+            const pages = getPageById(pageId) ? [serverPage] : [];
+
+            // Check if user has an active unpublished local draft
+            const draft = getPageDraft(pageId);
+            if (!draft || !draft.hasUnpublishedChanges) {
+              setPageMeta(serverPage);
+              setDraftSections(serverPage.sections || []);
+              setSelectedSectionId((prev) => prev || serverPage.sections?.[0]?.id || null);
+              setHasUnsavedChanges(false);
+            } else {
+              setPageMeta(serverPage);
+            }
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn("Could not fetch page from server:", err);
+      }
+
+      // Fallback check
+      if (isMounted) {
+        const localPage = getPageById(pageId);
+        if (!localPage) {
+          router.push("/admin");
+        } else {
+          setPageMeta(localPage);
+        }
+      }
     }
+
+    loadLatestPage();
+
+    return () => {
+      isMounted = false;
+    };
   }, [pageId, router]);
 
   const showToast = (msg) => {
@@ -214,19 +260,29 @@ function VisualPageEditorInner() {
     showToast("Draft saved locally");
   };
 
-  const handlePublish = () => {
-    if (!pageId) return;
-    savePageDraft(pageId, {
-      sections: draftSections,
-      title: pageMeta.title,
-      slug: pageMeta.slug,
-    });
-    const ok = publishPage(pageId);
-    if (ok) {
-      setHasUnsavedChanges(false);
-      const updated = getPageById(pageId);
-      setPageMeta(updated);
-      showToast("Published to live website!");
+  const handlePublish = async () => {
+    if (!pageId || !pageMeta || isPublishing) return;
+    setIsPublishing(true);
+    try {
+      savePageDraft(pageId, {
+        sections: draftSections,
+        title: pageMeta.title,
+        slug: pageMeta.slug,
+      });
+      const ok = await publishPage(pageId);
+      if (ok) {
+        setHasUnsavedChanges(false);
+        const updated = getPageById(pageId);
+        if (updated) setPageMeta(updated);
+        showToast("Published to live website!");
+      } else {
+        showToast("Error publishing page");
+      }
+    } catch (err) {
+      console.error("Error publishing page:", err);
+      showToast("Publish failed: " + err.message);
+    } finally {
+      setIsPublishing(false);
     }
   };
 
@@ -381,10 +437,11 @@ function VisualPageEditorInner() {
           {/* Publish Changes */}
           <button
             onClick={handlePublish}
-            className="btn-gold px-4 py-1.5 rounded-sm text-xs font-semibold tracking-wider flex items-center gap-1.5 shadow-md"
+            disabled={isPublishing}
+            className="btn-gold px-4 py-1.5 rounded-sm text-xs font-semibold tracking-wider flex items-center gap-1.5 shadow-md disabled:opacity-50"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Publish</span>
+            <Sparkles className={`w-3.5 h-3.5 ${isPublishing ? "animate-spin" : ""}`} />
+            <span>{isPublishing ? "Publishing..." : "Publish"}</span>
           </button>
         </div>
       </header>
