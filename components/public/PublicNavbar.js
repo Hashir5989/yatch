@@ -70,7 +70,6 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
 
   const navLinks = [
     { label: "Fleet", href: "/yachts" },
-    { label: "About Us", href: "/about" },
     { label: "News & Events", href: "/news" },
     { label: "VIP Concierge", href: "/contact" },
   ];
@@ -211,7 +210,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                   {[
-                    { label: "About Us", href: "/about" },
+                    { label: "Fleet", href: "/yachts" },
                     { label: "News", href: "/news" },
                     { label: "Contact Us", href: "/contact" },
                     { label: "Bespoke Yacht Commissions", href: "/#enquiry-form" },

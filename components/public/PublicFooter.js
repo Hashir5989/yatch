@@ -78,11 +78,6 @@ export default function PublicFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
                 <Link href="/news" className="hover:text-white transition-colors">
                   News & Boat Shows
                 </Link>
