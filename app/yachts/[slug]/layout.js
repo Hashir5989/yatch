@@ -45,6 +45,21 @@ export async function generateMetadata({ params }) {
     };
   }
 
+  if (slug === "g66" || slug === "g-66" || slug === "as-66" || slug === "as66") {
+    return {
+      title: "ASMARATY G66 Luxury Yacht | 66ft Flybridge Cruiser | ASMARATY UAE",
+      description:
+        "Explore the ASMARATY G66 — a 66-foot high-performance luxury flybridge yacht engineered in the UAE. Discover authentic specifications, 3D GA deck plans, 4+2 staterooms, twin Volvo inboards, and expansive flybridge terrace.",
+      robots: {
+        index: true,
+        follow: true,
+      },
+      alternates: {
+        canonical: "https://asmaraty.com/yachts/g66",
+      },
+    };
+  }
+
   return {
     title: "Yacht Specification Dossier | ASMARATY Luxury Yachts",
     description:
