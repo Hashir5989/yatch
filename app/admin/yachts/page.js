@@ -537,6 +537,15 @@ export default function YachtManagementScreen() {
               <option value="draft">Drafts ({yachts.filter(y => y.status === "draft").length})</option>
             </select>
 
+            {/* In-Line Visual Editor Button */}
+            <Link
+              href="/admin/yachts/editor"
+              className="px-4 py-2 text-xs font-semibold rounded bg-[#0E1F35] hover:bg-[#152B4A] text-[#DFBA73] border border-[#C6A155]/60 hover:border-[#DFBA73] transition-all inline-flex items-center gap-2 tracking-wider font-sans shadow-lg cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 text-[#C6A155]" />
+              <span>In-Line Visual Editor</span>
+            </Link>
+
             {/* Add Yacht Button */}
             <button
               type="button"
@@ -765,7 +774,17 @@ export default function YachtManagementScreen() {
 
                   {/* Card Action Footer */}
                   <div className="p-5 pt-0 flex flex-wrap items-center gap-2 border-t border-white/5 mt-4">
-                    {/* Edit Model */}
+                    {/* Visual In-Line WYSIWYG Editor */}
+                    <Link
+                      href={`/admin/yachts/editor?slug=${yacht.slug}`}
+                      className="py-2 px-3 rounded bg-[#0E1F35] hover:bg-[#C6A155] hover:text-[#080B10] text-[#DFBA73] border border-[#C6A155]/40 text-xs font-semibold tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow"
+                      title="Visual in-line editor like home page"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Visual Edit</span>
+                    </Link>
+
+                    {/* Edit Model Dossier Form */}
                     <button
                       type="button"
                       onClick={() => handleOpenEdit(yacht)}

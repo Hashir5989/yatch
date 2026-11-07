@@ -356,23 +356,59 @@ export default function SectionQuickDrawer({
           </div>
         )}
 
-        {/* Layout Orientation */}
+        {/* Layout Orientation / Variations */}
         {section.layoutStyle !== undefined && (
           <div>
             <label className="block text-[10px] uppercase tracking-wider text-[#8A96A6] mb-1 font-semibold">
               Layout Variation
             </label>
+            {section.type === "yacht_collection" ? (
+              <select
+                value={section.layoutStyle || "four_models_showcase"}
+                onChange={(e) => onUpdateSection({ layoutStyle: e.target.value })}
+                className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2838] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
+              >
+                <option value="yacht_detail">Yacht Detail Dossier & In-Line Editor (Default: G100 with Model Dropdown)</option>
+                <option value="four_models_showcase">Alternating 4 Models Showcase (Editorial Narrative)</option>
+                <option value="fleet_feature">Signature Split Fleet Feature (Pure White)</option>
+                <option value="model_gallery">Interior Dissolve Model Slider (Dark)</option>
+                <option value="grid">Full Fleet Series Catalog Grid</option>
+              </select>
+            ) : (
+              <select
+                value={section.layoutStyle}
+                onChange={(e) => onUpdateSection({ layoutStyle: e.target.value })}
+                className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2838] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
+              >
+                <option value="image-left">Image Left / Content Right</option>
+                <option value="image-right">Image Right / Content Left</option>
+                <option value="fullscreen">Fullscreen Hero</option>
+                <option value="split">Split 50 / 50</option>
+                <option value="grid-3">3-Column Grid</option>
+              </select>
+            )}
+          </div>
+        )}
+
+        {/* Yacht Detail Model Selector (When section is yacht_collection with yacht_detail) */}
+        {section.type === "yacht_collection" && section.layoutStyle === "yacht_detail" && (
+          <div className="p-3 bg-[#090D14] border border-[#C5A880]/40 rounded-sm space-y-2">
+            <label className="block text-[10px] uppercase tracking-wider text-[#C5A880] font-semibold">
+              Default Vessel Model
+            </label>
             <select
-              value={section.layoutStyle}
-              onChange={(e) => onUpdateSection({ layoutStyle: e.target.value })}
-              className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2838] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
+              value={section.selectedYachtSlug || "g100"}
+              onChange={(e) => onUpdateSection({ selectedYachtSlug: e.target.value })}
+              className="w-full px-3 py-2 bg-[#121822] border border-[#232F42] rounded-sm text-xs text-[#DFBA73] font-semibold focus:outline-none focus:border-[#C5A880]"
             >
-              <option value="image-left">Image Left / Content Right</option>
-              <option value="image-right">Image Right / Content Left</option>
-              <option value="fullscreen">Fullscreen Hero</option>
-              <option value="split">Split 50 / 50</option>
-              <option value="grid-3">3-Column Grid</option>
+              <option value="g100">ASMARATY G-100 (100 FT • Flagship)</option>
+              <option value="g77">ASMARATY G77 (77 FT • Tri-Deck)</option>
+              <option value="g66">ASMARATY G-66 (66 FT • Flybridge)</option>
+              <option value="g50">ASMARATY G-50 (50 FT • Express)</option>
             </select>
+            <p className="text-[10px] text-[#7A8798]">
+              The section provides a dropdown above to switch between models while editing inline.
+            </p>
           </div>
         )}
 

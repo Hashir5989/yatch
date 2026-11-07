@@ -16,10 +16,15 @@ import {
   ChevronLeft,
   Sliders,
   X,
-  MessageCircle
+  MessageCircle,
+  Image as ImageIcon,
+  Plus,
+  Trash2,
+  Edit3
 } from "lucide-react";
 import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
+import InlineEditableText from "@/components/cms/InlineEditableText";
 
 // Icon mapping helper for narrative cards
 const ICON_MAP = {
@@ -29,7 +34,13 @@ const ICON_MAP = {
   Compass: Compass
 };
 
-export default function UniversalYachtDetailView({ data }) {
+export default function UniversalYachtDetailView({
+  data,
+  isEditable = false,
+  onUpdateField = null,
+  onOpenMediaPicker = null,
+  showNavAndFooter = true,
+}) {
   if (!data) return null;
 
   // Auto-changing Hero Background Index
@@ -81,7 +92,7 @@ export default function UniversalYachtDetailView({ data }) {
 
   return (
     <div className="min-h-screen bg-[#080B10] text-[#E8EAEE] selection:bg-[#C8A870] selection:text-[#080B10]">
-      <PublicNavbar />
+      {showNavAndFooter && <PublicNavbar />}
 
       <main>
         {/* Top Breadcrumb & Status Ribbon */}
@@ -98,7 +109,13 @@ export default function UniversalYachtDetailView({ data }) {
             <div className="flex items-center gap-4">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-[#C8A870]/10 border border-[#C8A870]/30 text-[#E5C392] text-[11px] uppercase tracking-wider font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C8A870] animate-pulse"></span>
-                {data.badge || "Official Fleet Model"}
+                <InlineEditableText
+                  as="span"
+                  value={data.badge || "Official Fleet Model"}
+                  isEditable={isEditable}
+                  onChange={(val) => onUpdateField && onUpdateField("badge", val)}
+                  placeholder="Official Fleet Model"
+                />
               </span>
 
               {data.brochureUrl && (
@@ -108,20 +125,28 @@ export default function UniversalYachtDetailView({ data }) {
                   className="hidden sm:inline-flex items-center gap-1.5 text-[#C8A870] hover:text-white transition-colors text-xs font-medium"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>{data.brochureLabel || "Brochure (PDF)"}</span>
+                  <span>
+                    <InlineEditableText
+                      as="span"
+                      value={data.brochureLabel || "Brochure (PDF)"}
+                      isEditable={isEditable}
+                      onChange={(val) => onUpdateField && onUpdateField("brochureLabel", val)}
+                      placeholder="Brochure (PDF)"
+                    />
+                  </span>
                 </a>
               )}
             </div>
           </div>
         </section>
 
-        {/* Hero Section with Auto-Changing Crossfade Background (No Manual Buttons) */}
+        {/* Hero Section with Auto-Changing Crossfade Background */}
         <section className="relative min-h-[85vh] lg:min-h-[92vh] flex flex-col justify-end overflow-hidden">
           {/* Background Images with Silky Crossfade Transition */}
           <div className="absolute inset-0 bg-[#080B10]">
             {(data.heroImages || []).map((img, idx) => (
               <img
-                key={img.src}
+                key={img.src || idx}
                 src={img.src}
                 alt={img.label}
                 className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out scale-[1.01] ${
@@ -140,12 +165,22 @@ export default function UniversalYachtDetailView({ data }) {
             <div className="max-w-3xl space-y-6">
               {/* Official Metallic Winged Insignia Emblem */}
               {data.insigniaSrc && (
-                <div>
+                <div className="relative inline-block group/insignia">
                   <img
                     src={data.insigniaSrc}
                     alt={`${data.fullName} Insignia Emblem`}
                     className="h-12 sm:h-16 w-auto object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
                   />
+                  {isEditable && onOpenMediaPicker && (
+                    <button
+                      type="button"
+                      onClick={() => onOpenMediaPicker("insigniaSrc", data.insigniaSrc)}
+                      className="opacity-0 group-hover/insignia:opacity-100 transition-opacity absolute -top-2 -right-2 px-2.5 py-1 bg-[#0E1522]/95 text-[#DFBA73] border border-[#C8A870] text-[10px] uppercase font-mono flex items-center gap-1 shadow-2xl cursor-pointer"
+                    >
+                      <ImageIcon className="w-3 h-3" />
+                      <span>Change Emblem</span>
+                    </button>
+                  )}
                 </div>
               )}
 
@@ -154,17 +189,37 @@ export default function UniversalYachtDetailView({ data }) {
                 <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-white leading-[1.05] tracking-tight">
                   ASMARATY{" "}
                   <span className="font-sans font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#FFFFFF] via-[#E5C392] to-[#C8A870]">
-                    {data.modelNumber}
+                    <InlineEditableText
+                      as="span"
+                      value={data.modelNumber}
+                      isEditable={isEditable}
+                      onChange={(val) => onUpdateField && onUpdateField("modelNumber", val)}
+                      placeholder="Model..."
+                    />
                   </span>
                 </h1>
                 <p className="mt-3 text-lg sm:text-2xl text-[#E0E6EF] font-light max-w-2xl leading-relaxed">
-                  {data.tagline}
+                  <InlineEditableText
+                    as="span"
+                    value={data.tagline}
+                    isEditable={isEditable}
+                    onChange={(val) => onUpdateField && onUpdateField("tagline", val)}
+                    placeholder="Enter vessel tagline..."
+                    multiline={true}
+                  />
                 </p>
               </div>
 
               {/* Key Highlights Subtitle */}
               <p className="text-xs sm:text-sm text-[#9DAAB8] font-light max-w-xl leading-relaxed">
-                {data.description}
+                <InlineEditableText
+                  as="span"
+                  value={data.description}
+                  isEditable={isEditable}
+                  onChange={(val) => onUpdateField && onUpdateField("description", val)}
+                  placeholder="Enter vessel description..."
+                  multiline={true}
+                />
               </p>
 
               {/* Action Buttons */}
@@ -225,10 +280,30 @@ export default function UniversalYachtDetailView({ data }) {
                 <span className="ml-3 text-[11px] text-[#828F9E] font-mono">
                   0{activeHeroIdx + 1} / 0{data.heroImages?.length || 1}
                 </span>
+
+                {isEditable && onOpenMediaPicker && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const cur = data.heroImages?.[activeHeroIdx]?.src || "";
+                      onOpenMediaPicker(`heroImages[${activeHeroIdx}].src`, cur);
+                    }}
+                    className="ml-3 px-2 py-0.5 bg-[#0E1522] border border-[#C8A870]/60 text-[#DFBA73] text-[10px] font-mono flex items-center gap-1 hover:bg-[#C8A870] hover:text-[#080B10] transition-colors"
+                  >
+                    <ImageIcon className="w-3 h-3" />
+                    <span>Change Current Slide</span>
+                  </button>
+                )}
               </div>
 
               <div className="text-right text-[11px] text-[#828F9E] tracking-wider uppercase hidden sm:block">
-                {data.summaryLine}
+                <InlineEditableText
+                  as="span"
+                  value={data.summaryLine}
+                  isEditable={isEditable}
+                  onChange={(val) => onUpdateField && onUpdateField("summaryLine", val)}
+                  placeholder="Summary Line..."
+                />
               </div>
             </div>
           </div>
@@ -240,13 +315,47 @@ export default function UniversalYachtDetailView({ data }) {
             {(data.keyMetrics || []).map((metric, idx) => (
               <div
                 key={idx}
-                className={`space-y-1 ${idx > 0 ? "sm:border-l sm:border-white/5" : ""}`}
+                className={`space-y-1 ${idx > 0 ? "sm:border-l sm:border-white/5" : ""} ${isEditable ? "p-1 hover:bg-white/[0.03] transition-colors" : ""}`}
               >
                 <span className="text-[10px] sm:text-[11px] uppercase tracking-luxury text-[#828F9E] block">
-                  {metric.label}
+                  <InlineEditableText
+                    as="span"
+                    value={metric.label}
+                    isEditable={isEditable}
+                    onChange={(val) => {
+                      const updated = [...(data.keyMetrics || [])];
+                      updated[idx] = { ...updated[idx], label: val };
+                      onUpdateField && onUpdateField("keyMetrics", updated);
+                    }}
+                    placeholder="Metric Label"
+                  />
                 </span>
-                <p className="font-serif text-xl sm:text-2xl text-white font-medium">{metric.main}</p>
-                <span className="text-[11px] text-[#C8A870] font-mono block">{metric.sub}</span>
+                <p className="font-serif text-xl sm:text-2xl text-white font-medium">
+                  <InlineEditableText
+                    as="span"
+                    value={metric.main}
+                    isEditable={isEditable}
+                    onChange={(val) => {
+                      const updated = [...(data.keyMetrics || [])];
+                      updated[idx] = { ...updated[idx], main: val };
+                      onUpdateField && onUpdateField("keyMetrics", updated);
+                    }}
+                    placeholder="Value"
+                  />
+                </p>
+                <span className="text-[11px] text-[#C8A870] font-mono block">
+                  <InlineEditableText
+                    as="span"
+                    value={metric.sub}
+                    isEditable={isEditable}
+                    onChange={(val) => {
+                      const updated = [...(data.keyMetrics || [])];
+                      updated[idx] = { ...updated[idx], sub: val };
+                      onUpdateField && onUpdateField("keyMetrics", updated);
+                    }}
+                    placeholder="Sub-label"
+                  />
+                </span>
               </div>
             ))}
           </div>
@@ -258,16 +367,48 @@ export default function UniversalYachtDetailView({ data }) {
             <div className="lg:col-span-6 space-y-6">
               <div className="space-y-2">
                 <span className="text-xs uppercase tracking-luxury text-[#C8A870] font-medium block">
-                  {data.narrative?.eyebrow || "AT A GLANCE • ARCHITECTURAL NARRATIVE"}
+                  <InlineEditableText
+                    as="span"
+                    value={data.narrative?.eyebrow || "AT A GLANCE • ARCHITECTURAL NARRATIVE"}
+                    isEditable={isEditable}
+                    onChange={(val) =>
+                      onUpdateField &&
+                      onUpdateField("narrative", { ...(data.narrative || {}), eyebrow: val })
+                    }
+                    placeholder="EYEBROW..."
+                  />
                 </span>
                 <h2 className="font-serif text-3xl sm:text-5xl font-light text-white leading-tight">
-                  {data.narrative?.headline || "Crafted for Unrivaled Luxury on the Water"}
+                  <InlineEditableText
+                    as="span"
+                    value={data.narrative?.headline || "Crafted for Unrivaled Luxury on the Water"}
+                    isEditable={isEditable}
+                    onChange={(val) =>
+                      onUpdateField &&
+                      onUpdateField("narrative", { ...(data.narrative || {}), headline: val })
+                    }
+                    placeholder="HEADLINE..."
+                  />
                 </h2>
               </div>
 
               <div className="space-y-4 text-sm sm:text-base text-[#9DAAB8] font-light leading-relaxed">
                 {(data.narrative?.paragraphs || []).map((p, idx) => (
-                  <p key={idx}>{p}</p>
+                  <p key={idx}>
+                    <InlineEditableText
+                      as="span"
+                      value={p}
+                      isEditable={isEditable}
+                      multiline={true}
+                      onChange={(val) => {
+                        const paras = [...(data.narrative?.paragraphs || [])];
+                        paras[idx] = val;
+                        onUpdateField &&
+                          onUpdateField("narrative", { ...(data.narrative || {}), paragraphs: paras });
+                      }}
+                      placeholder="Story paragraph..."
+                    />
+                  </p>
                 ))}
               </div>
             </div>
@@ -284,9 +425,34 @@ export default function UniversalYachtDetailView({ data }) {
                     <div className="w-10 h-10 rounded-none bg-[#17202C] border border-[#C8A870]/30 flex items-center justify-center text-[#C8A870]">
                       <IconComponent className="w-5 h-5" />
                     </div>
-                    <h3 className="font-serif text-lg text-white font-medium">{card.title}</h3>
+                    <h3 className="font-serif text-lg text-white font-medium">
+                      <InlineEditableText
+                        as="span"
+                        value={card.title}
+                        isEditable={isEditable}
+                        onChange={(val) => {
+                          const cards = [...(data.narrative?.cards || [])];
+                          cards[idx] = { ...cards[idx], title: val };
+                          onUpdateField &&
+                            onUpdateField("narrative", { ...(data.narrative || {}), cards });
+                        }}
+                        placeholder="Feature title..."
+                      />
+                    </h3>
                     <p className="text-xs text-[#828F9E] leading-relaxed font-light">
-                      {card.description}
+                      <InlineEditableText
+                        as="span"
+                        value={card.description}
+                        isEditable={isEditable}
+                        multiline={true}
+                        onChange={(val) => {
+                          const cards = [...(data.narrative?.cards || [])];
+                          cards[idx] = { ...cards[idx], description: val };
+                          onUpdateField &&
+                            onUpdateField("narrative", { ...(data.narrative || {}), cards });
+                        }}
+                        placeholder="Feature description..."
+                      />
                     </p>
                   </div>
                 );
@@ -336,11 +502,38 @@ export default function UniversalYachtDetailView({ data }) {
                       Deck Layout Specification
                     </span>
                     <h3 className="font-serif text-2xl sm:text-3xl text-white font-light mt-0.5">
-                      {activeDeck.name} — <span className="text-[#E5C392]">{activeDeck.subtitle}</span>
+                      {activeDeck.name} —{" "}
+                      <span className="text-[#E5C392]">
+                        <InlineEditableText
+                          as="span"
+                          value={activeDeck.subtitle}
+                          isEditable={isEditable}
+                          onChange={(val) => {
+                            const decks = (data.deckPlans || []).map((d) =>
+                              d.id === activeDeck.id ? { ...d, subtitle: val } : d
+                            );
+                            onUpdateField && onUpdateField("deckPlans", decks);
+                          }}
+                          placeholder="Subtitle..."
+                        />
+                      </span>
                     </h3>
                   </div>
 
                   <div className="flex items-center gap-3">
+                    {isEditable && onOpenMediaPicker && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onOpenMediaPicker(`deckPlan_${activeDeck.id}`, activeDeck.image3D)
+                        }
+                        className="saxdor-btn-outline !h-[42px] px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center gap-2 border-[#C8A870]/60 text-[#DFBA73] hover:bg-[#C8A870] hover:text-[#080B10]"
+                      >
+                        <ImageIcon className="w-3.5 h-3.5" />
+                        <span>Change 3D Cutaway</span>
+                      </button>
+                    )}
+
                     <a
                       href={activeDeck.image3D}
                       target="_blank"
@@ -362,7 +555,18 @@ export default function UniversalYachtDetailView({ data }) {
                   />
                   <div className="mt-4 text-center">
                     <p className="text-xs text-[#828F9E] tracking-wider font-mono">
-                      {activeDeck.caption}
+                      <InlineEditableText
+                        as="span"
+                        value={activeDeck.caption}
+                        isEditable={isEditable}
+                        onChange={(val) => {
+                          const decks = (data.deckPlans || []).map((d) =>
+                            d.id === activeDeck.id ? { ...d, caption: val } : d
+                          );
+                          onUpdateField && onUpdateField("deckPlans", decks);
+                        }}
+                        placeholder="Deck Caption..."
+                      />
                     </p>
                   </div>
                 </div>
@@ -381,8 +585,24 @@ export default function UniversalYachtDetailView({ data }) {
                         <div className="w-5 h-5 rounded-none bg-[#C8A870]/10 border border-[#C8A870]/30 flex items-center justify-center text-[#C8A870] flex-shrink-0 mt-0.5">
                           <Check className="w-3 h-3" />
                         </div>
-                        <span className="text-xs text-[#C9D2DF] font-light leading-relaxed">
-                          {feat}
+                        <span className="text-xs text-[#C9D2DF] font-light leading-relaxed flex-1">
+                          <InlineEditableText
+                            as="span"
+                            value={feat}
+                            isEditable={isEditable}
+                            onChange={(val) => {
+                              const decks = (data.deckPlans || []).map((d) => {
+                                if (d.id === activeDeck.id) {
+                                  const feats = [...(d.features || [])];
+                                  feats[idx] = val;
+                                  return { ...d, features: feats };
+                                }
+                                return d;
+                              });
+                              onUpdateField && onUpdateField("deckPlans", decks);
+                            }}
+                            placeholder="Deck feature..."
+                          />
                         </span>
                       </div>
                     ))}
@@ -446,10 +666,44 @@ export default function UniversalYachtDetailView({ data }) {
                 >
                   <div className="sm:col-span-5 text-[#8E9EAF] uppercase tracking-wider font-medium flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#C8A870]/40"></span>
-                    <span>{item.label}</span>
+                    <span>
+                      <InlineEditableText
+                        as="span"
+                        value={item.label}
+                        isEditable={isEditable}
+                        onChange={(val) => {
+                          const cats = (data.specCategories || []).map((c) => {
+                            if (c.id === activeSpec.id) {
+                              const specs = [...(c.specs || [])];
+                              specs[idx] = { ...specs[idx], label: val };
+                              return { ...c, specs };
+                            }
+                            return c;
+                          });
+                          onUpdateField && onUpdateField("specCategories", cats);
+                        }}
+                        placeholder="Spec label..."
+                      />
+                    </span>
                   </div>
                   <div className="sm:col-span-7 text-white font-medium sm:text-right font-mono text-sm">
-                    {item.value}
+                    <InlineEditableText
+                      as="span"
+                      value={item.value}
+                      isEditable={isEditable}
+                      onChange={(val) => {
+                        const cats = (data.specCategories || []).map((c) => {
+                          if (c.id === activeSpec.id) {
+                            const specs = [...(c.specs || [])];
+                            specs[idx] = { ...specs[idx], value: val };
+                            return { ...c, specs };
+                          }
+                          return c;
+                        });
+                        onUpdateField && onUpdateField("specCategories", cats);
+                      }}
+                      placeholder="Spec value..."
+                    />
                   </div>
                 </div>
               ))}
@@ -473,8 +727,29 @@ export default function UniversalYachtDetailView({ data }) {
                 </p>
               </div>
 
-              {/* Gallery Filter Buttons */}
-              <div className="flex flex-wrap gap-2 text-xs">
+              {/* Gallery Filter Buttons & Add Photo Button */}
+              <div className="flex flex-wrap items-center gap-2 text-xs">
+                {isEditable && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newPhoto = {
+                        id: `photo-${Date.now()}`,
+                        src: "/images/yachts/g100/0.jpg",
+                        title: "New Yacht Visual",
+                        category: "Exterior",
+                        description: `Official shipyard visual for ${data.fullName}.`,
+                      };
+                      const updated = [newPhoto, ...(data.gallery || [])];
+                      onUpdateField && onUpdateField("gallery", updated);
+                    }}
+                    className="px-3.5 py-1.5 bg-[#C8A870] text-[#080B10] font-semibold uppercase tracking-wider flex items-center gap-1.5 hover:bg-[#DFBA73] transition-colors cursor-pointer mr-2 shadow-lg"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Add Photo</span>
+                  </button>
+                )}
+
                 {(data.galleryCategories || ["All"]).map((cat) => (
                   <button
                     key={cat}
@@ -495,7 +770,7 @@ export default function UniversalYachtDetailView({ data }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredGallery.map((item, idx) => (
                 <div
-                  key={item.id}
+                  key={item.id || idx}
                   onClick={() => openLightbox(idx)}
                   className="group relative h-72 sm:h-80 bg-[#080B10] border border-white/10 overflow-hidden cursor-pointer hover:border-[#C8A870]/50 transition-all"
                 >
@@ -507,15 +782,52 @@ export default function UniversalYachtDetailView({ data }) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
 
+                  {/* Replace Photo Button for Editor */}
+                  {isEditable && onOpenMediaPicker && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpenMediaPicker(`gallery_${item.id}`, item.src);
+                      }}
+                      className="absolute top-3 right-3 px-2.5 py-1 bg-[#080B10]/90 text-[#DFBA73] border border-[#C8A870]/60 text-[10px] font-mono flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-xl"
+                    >
+                      <ImageIcon className="w-3 h-3" />
+                      <span>Replace</span>
+                    </button>
+                  )}
+
                   <div className="absolute bottom-0 inset-x-0 p-5 space-y-1">
                     <span className="text-[10px] uppercase tracking-luxury text-[#C8A870] font-mono block">
                       {item.category}
                     </span>
                     <h3 className="font-serif text-base text-white font-medium group-hover:text-[#E5C392] transition-colors">
-                      {item.title}
+                      <InlineEditableText
+                        as="span"
+                        value={item.title}
+                        isEditable={isEditable}
+                        onChange={(val) => {
+                          const updated = (data.gallery || []).map((g) =>
+                            g.id === item.id ? { ...g, title: val } : g
+                          );
+                          onUpdateField && onUpdateField("gallery", updated);
+                        }}
+                        placeholder="Photo title..."
+                      />
                     </h3>
                     <p className="text-xs text-[#9DAAB8] line-clamp-1 font-light">
-                      {item.description}
+                      <InlineEditableText
+                        as="span"
+                        value={item.description}
+                        isEditable={isEditable}
+                        onChange={(val) => {
+                          const updated = (data.gallery || []).map((g) =>
+                            g.id === item.id ? { ...g, description: val } : g
+                          );
+                          onUpdateField && onUpdateField("gallery", updated);
+                        }}
+                        placeholder="Photo caption..."
+                      />
                     </p>
                   </div>
                 </div>
@@ -524,7 +836,7 @@ export default function UniversalYachtDetailView({ data }) {
           </div>
         </section>
 
-        {/* Private Viewing Call to Action Section (Redirects directly to /contact) */}
+        {/* Private Viewing Call to Action Section */}
         <section className="py-20 sm:py-28 max-w-7xl mx-auto px-4 sm:px-8">
           <div className="relative overflow-hidden bg-gradient-to-r from-[#0E131C] via-[#141C2A] to-[#0E131C] border border-[#C8A870]/30 p-8 sm:p-14 text-center space-y-6">
             <div className="space-y-3 max-w-2xl mx-auto">
@@ -626,7 +938,7 @@ export default function UniversalYachtDetailView({ data }) {
         </div>
       )}
 
-      <PublicFooter />
+      {showNavAndFooter && <PublicFooter />}
     </div>
   );
 }

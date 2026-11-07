@@ -29,7 +29,8 @@ export default function CmsSidebar({ currentUser }) {
 
   const menuItems = [
     { label: "Pages & Sections", href: "/admin", icon: Layers, exact: true },
-    { label: "Yacht Models", href: "/admin/yachts", icon: Anchor },
+    { label: "Yacht Models", href: "/admin/yachts", icon: Anchor, exact: true },
+    { label: "Visual Yacht Editor", href: "/admin/yachts/editor", icon: Sparkles },
     { label: "News & Updates", href: "/admin/news", icon: Newspaper },
     { label: "Customer Enquiries", href: "/admin/enquiries", icon: Mail },
     { label: "Media Library", href: "/admin/media", icon: Images },

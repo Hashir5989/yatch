@@ -20,8 +20,10 @@ import {
   Maximize2,
   CheckCircle2
 } from "lucide-react";
-import { getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
+import { getAllYachts, syncYachtsFromServer, saveYachtAsync } from "@/lib/cmsStore";
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
+import { getYachtShowcaseData, mergeYachtWithShowcase } from "@/lib/data/yachtShowcaseData";
+import UniversalYachtDetailView from "@/components/public/yacht-details/UniversalYachtDetailView";
 import InlineEditableText from "@/components/cms/InlineEditableText";
 import InlineButtonEditor from "@/components/cms/InlineButtonEditor";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
@@ -128,6 +130,13 @@ export default function YachtCollectionSection({
   const [selectedModelIndex, setSelectedModelIndex] = useState(0);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
   const [showAllModels, setShowAllModels] = useState(false);
+  const [selectedYachtSlug, setSelectedYachtSlug] = useState(data.selectedYachtSlug || "g100");
+
+  useEffect(() => {
+    if (data.selectedYachtSlug) {
+      setSelectedYachtSlug(data.selectedYachtSlug);
+    }
+  }, [data.selectedYachtSlug]);
 
   useEffect(() => {
     // Dynamic sync from authoritative server content source after hydration
@@ -210,6 +219,118 @@ export default function YachtCollectionSection({
       enquiryElem.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  /* -------------------------------------------------------------
+     MODE 0: Full Yacht Detail Dossier & In-Line Model Editor
+     Default: G-100 detail page with dropdown model switcher above
+     ------------------------------------------------------------- */
+  if (layoutStyle === "yacht_detail") {
+    const allAvailableYachts = yachts.length > 0 ? yachts : DEFAULT_YACHTS;
+    const cmsYacht =
+      allAvailableYachts.find((y) => y.slug === selectedYachtSlug) ||
+      allAvailableYachts[0] ||
+      DEFAULT_YACHTS[0];
+    const staticShowcase =
+      getYachtShowcaseData(selectedYachtSlug) || getYachtShowcaseData("g100");
+    const detailedYachtData = mergeYachtWithShowcase(cmsYacht, staticShowcase);
+
+    return (
+      <section
+        className="relative bg-[#080B10] text-[#E8EAEE] border-t border-b border-white/10"
+        id={`yacht-detail-${data.id || "section"}`}
+      >
+        {/* Luxury Top Bar with Model Dropdown Above Detail View */}
+        <div className="bg-[#070A0F] border-b border-[#C6A155]/40 py-3.5 px-4 sm:px-8 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-30 shadow-2xl backdrop-blur-md">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-none bg-[#C6A155]/15 border border-[#C6A155]/50 flex items-center justify-center text-[#DFBA73]">
+              <Anchor className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono uppercase tracking-widest text-[#C6A155] font-bold">
+                  Yacht Model Dossier & In-Line Editor
+                </span>
+                {isEditable ? (
+                  <span className="px-2 py-0.5 text-[9px] font-mono uppercase bg-emerald-950/90 text-emerald-300 border border-emerald-600/60">
+                    Live In-Line Edit Active
+                  </span>
+                ) : (
+                  <span className="px-2 py-0.5 text-[9px] font-mono uppercase bg-[#C6A155]/20 text-[#DFBA73] border border-[#C6A155]/40">
+                    Interactive Showcase
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-[#8E9AA8] font-light hidden sm:block">
+                Switch yacht model in dropdown to view or edit full specifications, 3D GA deck plans, and gallery below.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <label
+              htmlFor={`yacht-model-select-${data.id || "main"}`}
+              className="text-xs uppercase tracking-luxury text-[#E8EAEE] font-medium hidden sm:inline-block"
+            >
+              Select Vessel Model:
+            </label>
+            <div className="relative">
+              <select
+                id={`yacht-model-select-${data.id || "main"}`}
+                value={selectedYachtSlug}
+                onChange={(e) => {
+                  const newSlug = e.target.value;
+                  setSelectedYachtSlug(newSlug);
+                  if (onUpdateField) {
+                    onUpdateField("selectedYachtSlug", newSlug);
+                  }
+                }}
+                className="px-4 py-2 bg-[#0E1522] border border-[#C6A155] text-[#DFBA73] font-serif text-sm font-semibold rounded-none focus:outline-none focus:ring-2 focus:ring-[#C6A155] cursor-pointer shadow-xl pr-8"
+              >
+                {allAvailableYachts.map((y) => (
+                  <option key={y.slug} value={y.slug} className="bg-[#080B10] text-white">
+                    {y.name || y.fullName} ({y.length || y.specs?.lengthOverall || "Bespoke"})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Yacht Detail Page Rendered Below Dropdown */}
+        <UniversalYachtDetailView
+          data={detailedYachtData}
+          isEditable={isEditable}
+          showNavAndFooter={false}
+          onUpdateField={async (field, val) => {
+            const currentYacht =
+              allAvailableYachts.find((y) => y.slug === selectedYachtSlug) || cmsYacht;
+            const updated = {
+              ...detailedYachtData,
+              ...currentYacht,
+              [field]: val,
+            };
+            if (field === "keyMetrics") {
+              updated.keyMetrics = val;
+              const loaMetric = val.find(
+                (m) =>
+                  m.label?.toLowerCase().includes("length") ||
+                  m.label?.toLowerCase().includes("loa")
+              );
+              if (loaMetric && loaMetric.main) {
+                updated.length = loaMetric.main;
+                updated.specsSnapshot = {
+                  ...(updated.specsSnapshot || {}),
+                  loa: loaMetric.main,
+                };
+              }
+            }
+            await saveYachtAsync(updated);
+          }}
+          onOpenMediaPicker={onOpenMediaPicker}
+        />
+      </section>
+    );
+  }
 
   /* -------------------------------------------------------------
      MODE 1: Saxdor Signature 'The Fleet' Pure White Split Feature

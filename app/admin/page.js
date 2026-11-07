@@ -175,6 +175,16 @@ export default function AdminPagesScreen() {
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Visual Yacht Dossier In-Line Editor */}
+            <Link
+              href="/admin/yachts/editor"
+              className="px-3.5 py-2 text-xs font-semibold rounded bg-[#0E1F35] hover:bg-[#152B4A] text-[#DFBA73] border border-[#C6A155]/60 hover:border-[#DFBA73] transition-all inline-flex items-center gap-2 tracking-wider font-sans shadow-lg cursor-pointer"
+              title="Open in-line yacht model visual editor"
+            >
+              <Sparkles className="w-4 h-4 text-[#C6A155]" />
+              <span className="hidden sm:inline">Visual Yacht Editor</span>
+            </Link>
+
             {/* Search */}
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#5E6A7A]" />
