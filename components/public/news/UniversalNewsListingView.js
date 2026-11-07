@@ -17,6 +17,14 @@ import { getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 import UpcomingEventSection from "@/components/public/news/UpcomingEventSection";
 
+const NEWS_CATEGORIES = [
+  { id: "all", label: "ALL NEWS" },
+  { id: "boat-shows", label: "BOAT SHOWS", category: "Boat Shows" },
+  { id: "fleet-launches", label: "FLEET LAUNCHES", category: "Fleet Launches" },
+  { id: "innovations", label: "INNOVATIONS", category: "Innovations" },
+  { id: "shipyard-news", label: "SHIPYARD NEWS", category: "Shipyard News" },
+];
+
 function formatDateParts(dateStr) {
   if (!dateStr) return { day: "01", monthYear: "NOV 2026" };
   const d = new Date(dateStr);
@@ -31,6 +39,7 @@ function formatDateParts(dateStr) {
 export default function UniversalNewsListingView() {
   const [articles, setArticles] = useState(() => getAllArticles(true));
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [visibleCount, setVisibleCount] = useState(6);
 
   useEffect(() => {
@@ -48,7 +57,7 @@ export default function UniversalNewsListingView() {
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
   }, []);
 
-  // Filter for the main News Articles Grid (Pure news articles)
+  // Filter for the main News Articles Grid (Pure news articles + category + search)
   const filteredArticles = useMemo(() => {
     return articles.filter((art) => {
       const isPublished = art.status === "published";
@@ -57,9 +66,16 @@ export default function UniversalNewsListingView() {
       const matchesSearch = !query || 
         art.title?.toLowerCase().includes(query) ||
         art.excerpt?.toLowerCase().includes(query);
-      return isPublished && isNewsArticle && matchesSearch;
+
+      const activeCat = NEWS_CATEGORIES.find((c) => c.id === selectedCategory);
+      const matchesCategory = 
+        !activeCat || 
+        activeCat.id === "all" || 
+        (art.category && art.category.toLowerCase() === activeCat.category?.toLowerCase());
+
+      return isPublished && isNewsArticle && matchesSearch && matchesCategory;
     });
-  }, [articles, searchQuery]);
+  }, [articles, searchQuery, selectedCategory]);
 
   const displayedArticles = filteredArticles.slice(0, visibleCount);
   const hasMore = visibleCount < filteredArticles.length;
@@ -116,17 +132,19 @@ export default function UniversalNewsListingView() {
       </section>
 
       {/* -------------------------------------------------------------
-          2. SEARCH CONTROL STRIP
+          2. SEARCH CONTROL STRIP (Category tabs removed per user design)
           ------------------------------------------------------------- */}
-      <section className="sticky top-[73px] z-30 bg-[#080B10]/95 backdrop-blur-md border-b border-white/10 py-4">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs font-mono text-white/60">
+      <section className="sticky top-[73px] z-30 bg-[#080B10]/95 backdrop-blur-md border-b border-white/10 py-3 sm:py-4">
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C6A155]" />
-            <span className="uppercase tracking-[0.2em] text-[#DFBA73] font-semibold">Latest Maritime Press</span>
+            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#DFBA73]">
+              All Press & Shipyard Dispatches
+            </span>
           </div>
 
           {/* Search Input */}
-          <div className="relative w-full sm:w-80">
+          <div className="relative w-full sm:w-80 flex-shrink-0">
             <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40" />
             <input
               type="text"
@@ -141,7 +159,7 @@ export default function UniversalNewsListingView() {
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-xs"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-xs cursor-pointer"
               >
                 ✕
               </button>
@@ -162,7 +180,9 @@ export default function UniversalNewsListingView() {
                 LATEST PRESS & EXHIBITIONS
               </span>
               <h2 className="font-serif text-2xl sm:text-3xl text-white font-normal uppercase tracking-wide">
-                All News Articles
+                {selectedCategory === "all"
+                  ? "All News Articles"
+                  : (NEWS_CATEGORIES.find((c) => c.id === selectedCategory)?.category || "Articles")}
               </h2>
             </div>
             <span className="text-xs font-mono text-white/50">
@@ -178,15 +198,18 @@ export default function UniversalNewsListingView() {
                 No Articles Found
               </h3>
               <p className="text-sm text-white/60 mb-6">
-                No published news matches your current filter or search criteria.
+                {selectedCategory !== "all"
+                  ? `No published articles currently found in "${NEWS_CATEGORIES.find((c) => c.id === selectedCategory)?.category}".`
+                  : "No published news matches your current search criteria."}
               </p>
               <button
                 onClick={() => {
+                  setSelectedCategory("all");
                   setSearchQuery("");
                 }}
-                className="saxdor-btn-solid !h-[42px] px-6 text-xs font-bold uppercase tracking-wider"
+                className="saxdor-btn-solid !h-[42px] px-6 text-xs font-bold uppercase tracking-wider cursor-pointer"
               >
-                Reset Search
+                Reset Filters
               </button>
             </div>
           ) : (

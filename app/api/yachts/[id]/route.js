@@ -19,7 +19,7 @@ export async function PUT(request, { params }) {
     return NextResponse.json({ success: true, yacht: saved });
   } catch (err) {
     console.error("Yacht PUT API error:", err);
-    return NextResponse.json({ success: false, error: "Failed to update yacht" }, { status: 500 });
+    return NextResponse.json({ success: false, error: err.message || "Failed to update yacht" }, { status: 400 });
   }
 }
 

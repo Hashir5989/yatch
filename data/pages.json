@@ -236,41 +236,55 @@
     "slug": "/yachts",
     "template": "fleet_catalog",
     "status": "published",
-    "lastModified": "2026-11-07T06:43:37.437Z",
+    "lastModified": "2026-11-07T16:12:57.853Z",
     "sections": [
       {
         "id": "yachts-hero",
         "type": "hero_banner",
         "visible": true,
-        "eyebrow": "THE ASMARATY COLLECTION",
-        "heading": "THE FLEET OF DISTINCTION",
-        "subheading": "From the flagship G-100 superyacht to our dynamic G-66, G-50, and G77 luxury yacht models, explore custom naval vessels built to transcend expectations.",
+        "eyebrow": "The Official ASMARATY Fleet",
+        "heading": "The Fleet of Distinction",
+        "subheading": "Handcrafted composite superyachts and luxury motor yachts engineered in the United Arab Emirates since 1979. Each vessel unites naval precision, sunlit panoramic architecture, and bespoke master craftsmanship.",
         "imageUrl": "/images/yachts/g100/0.jpg",
-        "imageAlt": "ASMARATY Flagship G100 cruising in Dubai waters",
-        "videoUrl": "/videos/live-yacht-journey.mp4",
-        "primaryButtonText": "Filter Models",
-        "primaryButtonUrl": "#fleet-grid",
-        "secondaryButtonText": "Request Price List",
-        "secondaryButtonUrl": "/contact",
-        "layoutStyle": "fullscreen",
-        "backgroundStyle": "dark",
-        "contentAlignment": "center",
+        "imageAlt": "ASMARATY Luxury Yacht Fleet",
+        "videoUrl": "",
+        "primaryButtonText": "Explore Models",
+        "primaryButtonUrl": "#fleet-catalog",
+        "primaryButton": {
+          "label": "Explore Models",
+          "url": "#fleet-catalog",
+          "type": "anchor",
+          "target": "_self",
+          "visible": true,
+          "style": "solid-gold"
+        },
+        "showModelPills": false,
+        "secondaryButtonText": "Compare Specs Matrix",
+        "secondaryButtonUrl": "#comparison-matrix",
+        "secondaryButton": {
+          "label": "Compare Specs Matrix",
+          "url": "#comparison-matrix",
+          "type": "anchor",
+          "target": "_self",
+          "visible": false,
+          "style": "outline-white"
+        },
         "stats": [
           {
-            "value": "100 FT",
-            "label": "Flagship G-100"
+            "value": "50–100 FT",
+            "label": "Fleet Length Span"
           },
           {
             "value": "3,200 HP",
-            "label": "Peak Power"
+            "label": "Peak Propulsion Power"
           },
           {
             "value": "4 Classes",
-            "label": "Yacht Series"
+            "label": "Distinct Naval Series"
           },
           {
-            "value": "45+ YRS",
-            "label": "Shipyard Heritage"
+            "value": "1979",
+            "label": "Shipyard Heritage (45+ Yrs)"
           }
         ]
       },
@@ -278,52 +292,117 @@
         "id": "yachts-grid",
         "type": "yacht_collection",
         "visible": true,
-        "eyebrow": "CATALOGUE",
-        "heading": "Explore All Yacht Series",
-        "description": "Click any model to view comprehensive technical specifications, engine options, interior layouts, and bespoke customization packages.",
+        "eyebrow": "CATALOGUE DOSSIER",
+        "heading": "Explore the Models",
+        "description": "",
         "filterCategory": "all",
-        "limit": 12,
-        "layoutStyle": "grid",
-        "backgroundStyle": "dark",
-        "contentAlignment": "center",
-        "buttonText": "View Complete Fleet",
-        "buttonUrl": "#fleet"
+        "categories": [
+          {
+            "id": "all",
+            "label": "All Fleet (4)"
+          },
+          {
+            "id": "superyacht",
+            "label": "Superyachts"
+          },
+          {
+            "id": "three-deck",
+            "label": "Three-Deck Cruisers"
+          },
+          {
+            "id": "flybridge",
+            "label": "Flybridge Cruisers"
+          },
+          {
+            "id": "motor-yacht",
+            "label": "Motor Yachts"
+          }
+        ],
+        "primaryButtonText": "Explore Dossier",
+        "brochureButtonText": "Brochure (PDF)",
+        "consultationButtonText": "Book Private Sea Trial / Consultation",
+        "consultationButtonUrl": "/contact"
+      },
+      {
+        "id": "yachts-matrix",
+        "type": "comparison_matrix",
+        "visible": true,
+        "eyebrow": "TECHNICAL SPECIFICATIONS",
+        "heading": "Side-by-Side Fleet Comparison",
+        "description": "Compare naval dimensions, propulsion packages, accommodations, and engineering across all four ASMARATY yacht models.",
+        "dimensions": [
+          "Length Overall (LOA)",
+          "Waterline Length (LWL)",
+          "Maximum Beam",
+          "Draft at Full Load",
+          "Displacement",
+          "Propulsion Power",
+          "Staterooms & Accommodations",
+          "Sleeping Berths / Passenger Capacity",
+          "Fuel Tank Capacity",
+          "Freshwater Capacity",
+          "Hull & Deck Construction"
+        ]
       },
       {
         "id": "yachts-custom",
         "type": "image_text",
         "visible": true,
-        "eyebrow": "CUSTOM BESPOKE COMMISSIONS",
+        "eyebrow": "CUSTOM COMMISSIONS • SHIPYARD HERITAGE",
         "heading": "Every Vessel Tailored to Your Vision",
-        "description": "At ASMARATY, no two yachts leaving our shipyard are identical. Owners participate in every design milestone — selecting rare book-matched marbles, hand-stitched leathers, audio-visual layouts, and custom tender arrangements.",
         "quote": "“A yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.”",
+        "description": "At ASMARATY, no two vessels leaving our shipyard facility are identical. From selecting book-matched Italian marbles and bespoke marine leather finishes to custom audio-visual installations and private tender arrangements, our master shipwrights partner with owners throughout every stage of the build.",
         "imageUrl": "/images/interiors/g100-main-salon.jpg",
-        "imageAlt": "Al Shaali Marine - ASMARATY Luxury Yachts Shipyard Facility UAE",
-        "buttonText": "Discuss a Custom Build",
+        "imageAlt": "ASMARATY Custom Craftsmanship",
+        "badgeText": "Shipyard Facility • Ajman, UAE — Over 45 years of continuous marine craftsmanship by Al Shaali Marine.",
+        "stats": [
+          {
+            "value": "100%",
+            "label": "Bespoke Interior Options"
+          },
+          {
+            "value": "UAE",
+            "label": "Direct Shipyard Direct Access"
+          }
+        ],
+        "buttonText": "Discuss a Custom Commission",
         "buttonUrl": "/contact",
-        "layoutStyle": "image-right",
-        "backgroundStyle": "white",
-        "contentAlignment": "left"
+        "primaryButton": {
+          "label": "Discuss a Custom Commission",
+          "url": "/contact",
+          "type": "internal",
+          "target": "_self",
+          "visible": true,
+          "style": "solid-gold"
+        }
       },
       {
-        "id": "yachts-enquiry",
-        "type": "enquiry_section",
+        "id": "yachts-concierge",
+        "type": "call_to_action",
         "visible": true,
-        "eyebrow": "VIP ENQUIRIES",
-        "heading": "Request Private Fleet Consultation & Pricing",
-        "description": "Connect directly with our luxury yacht advisory team in the UAE. We arrange private sea trials, confidential bespoke build consultations, and VIP shipyard walkthroughs.",
-        "recipientEmail": "info@asmaraty.com",
-        "phone": "+971 56 526 8126",
-        "address": "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates",
-        "yachtOptions": [
-          "ASMARATY G-100 Super Yacht (100 FT)",
-          "ASMARATY G77 Luxury Yacht (78 FT)",
-          "ASMARATY G-66 Luxury Yacht (66 FT)",
-          "ASMARATY G-50 Luxury Motor Yacht (50 FT)",
-          "Custom Bespoke Commission"
-        ],
-        "backgroundStyle": "dark",
-        "contentAlignment": "left"
+        "eyebrow": "VIP CONCIERGE & ADVISORY",
+        "heading": "Begin Your Voyage With ASMARATY",
+        "description": "Whether you wish to arrange a private sea trial, commission a bespoke naval build, or request confidential fleet pricing, our yacht advisory team in the UAE is at your service.",
+        "primaryButtonText": "Contact Us",
+        "primaryButtonUrl": "/contact",
+        "primaryButton": {
+          "label": "Contact Us",
+          "url": "/contact",
+          "type": "internal",
+          "target": "_self",
+          "visible": true,
+          "style": "solid-gold"
+        },
+        "secondaryButtonText": "WhatsApp VIP Concierge",
+        "secondaryButtonUrl": "https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20am%20inquiring%20about%20your%20yacht%20fleet.",
+        "secondaryButton": {
+          "label": "WhatsApp VIP Concierge",
+          "url": "https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20am%20inquiring%20about%20your%20yacht%20fleet.",
+          "type": "external",
+          "target": "_blank",
+          "visible": true,
+          "style": "whatsapp"
+        }
       }
     ]
   },
@@ -333,7 +412,7 @@
     "slug": "/about",
     "template": "heritage_craft",
     "status": "published",
-    "lastModified": "2026-04-08T09:45:00.000Z",
+    "lastModified": "2026-11-07T12:00:00.000Z",
     "sections": [
       {
         "id": "about-hero",
@@ -343,15 +422,15 @@
         "heading": "A Legacy of Excellence on the Water",
         "subheading": "At ASMARATY, we believe in more than just luxury — we believe in creating unforgettable journeys.",
         "imageUrl": "/images/g100-burj-al-arab.jpg",
-        "imageAlt": "ASMARATY Luxury Yacht with Dubai Skyline",
+        "imageAlt": "ASMARATY Flagship Yacht Dubai",
         "videoUrl": "",
-        "primaryButtonText": "Discover Our Story",
+        "primaryButtonText": "Discover Our Journey",
         "primaryButtonUrl": "#story",
-        "secondaryButtonText": "",
-        "secondaryButtonUrl": "",
+        "secondaryButtonText": "Explore Fleet",
+        "secondaryButtonUrl": "/yachts",
         "layoutStyle": "fullscreen",
         "backgroundStyle": "dark",
-        "contentAlignment": "left",
+        "contentAlignment": "center",
         "stats": [
           {
             "value": "1979",
@@ -365,7 +444,23 @@
             "value": "Excellence",
             "label": "Our Standard"
           }
-        ]
+        ],
+        "primaryButton": {
+          "label": "Discover Our Journey",
+          "url": "#story",
+          "type": "anchor",
+          "target": "_self",
+          "visible": true,
+          "style": "solid-gold"
+        },
+        "secondaryButton": {
+          "label": "Explore Fleet",
+          "url": "/yachts",
+          "type": "internal",
+          "target": "_self",
+          "visible": true,
+          "style": "outline-white"
+        }
       },
       {
         "id": "about-story",
@@ -374,19 +469,29 @@
         "eyebrow": "OUR STORY",
         "heading": "Crafting Exceptional Yachting Experiences",
         "description": "Since 1979, ASMARATY has pioneered composite boat and high-performance yacht manufacturing across the Arabian Gulf, crafting custom naval vessels that set new standards in luxury and performance.",
-        "imageUrl": "/images/about/deck-crop.jpg",
-        "imageAlt": "ASMARATY Luxury Teak Deck at Sunset",
+        "quote": "“A yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.”",
+        "imageUrl": "/images/asmaraty-four-yachts-journey.jpg",
+        "imageAlt": "ASMARATY Fleet Formation Cruising Arabian Gulf",
         "buttonText": "Discover Our Journey",
-        "buttonUrl": "/yachts",
+        "buttonUrl": "/contact",
         "layoutStyle": "image-right",
         "backgroundStyle": "light",
-        "contentAlignment": "left"
+        "contentAlignment": "left",
+        "badgeText": "UAE Naval Heritage • Since 1979",
+        "primaryButton": {
+          "label": "Discover Our Journey",
+          "url": "/contact",
+          "type": "internal",
+          "target": "_self",
+          "visible": true,
+          "style": "solid-gold"
+        }
       },
       {
         "id": "about-stats",
         "type": "statistics",
         "visible": true,
-        "eyebrow": "BY THE NUMBERS",
+        "eyebrow": "HERITAGE IN NUMBERS",
         "heading": "Four Decades of Arabian Heritage",
         "description": "Pioneering naval architecture, composite engineering, and bespoke luxury motor yachts.",
         "items": [
@@ -406,34 +511,73 @@
             "suffix": ""
           }
         ],
-        "backgroundStyle": "light",
+        "backgroundStyle": "dark",
         "contentAlignment": "center"
       },
       {
         "id": "about-values",
-        "type": "rich_text",
+        "type": "values_pillars",
         "visible": true,
         "eyebrow": "OUR VALUES",
         "heading": "Built on Trust. Driven by Passion.",
-        "content": "We are committed to delivering unparalleled quality, innovation, and personalized experiences for every client.",
-        "authorName": "ASMARATY Standards",
-        "authorTitle": "Craftsmanship • Trust & Integrity • Innovation • Personalised Experiences",
-        "backgroundStyle": "light",
-        "contentAlignment": "center"
+        "description": "We are committed to delivering unparalleled quality, innovation, and personalized experiences for every client.",
+        "pillars": [
+          {
+            "id": "val-1",
+            "title": "Craftsmanship",
+            "desc": "Meticulously crafted yachts for the ultimate experience.",
+            "icon": "Gem",
+            "visible": true
+          },
+          {
+            "id": "val-2",
+            "title": "Trust & Integrity",
+            "desc": "A relationship built on transparency and reliability.",
+            "icon": "ShieldCheck",
+            "visible": true
+          },
+          {
+            "id": "val-3",
+            "title": "Innovation",
+            "desc": "Constantly evolving for a better tomorrow.",
+            "icon": "Waves",
+            "visible": true
+          },
+          {
+            "id": "val-4",
+            "title": "Personalised Experiences",
+            "desc": "Tailored journeys, designed around you.",
+            "icon": "Users",
+            "visible": true
+          }
+        ]
       },
       {
         "id": "about-cta",
         "type": "call_to_action",
         "visible": true,
-        "eyebrow": "THE HORIZON AWAITS",
+        "eyebrow": "PRIVATE COMMISSIONS",
         "heading": "Your Journey Begins Here",
         "description": "Explore our exclusive yacht collection and experience the ASMARATY difference.",
         "primaryButtonText": "Explore Our Collection",
         "primaryButtonUrl": "/yachts",
-        "imageUrl": "/images/yachts/g100-sunset.jpg",
+        "secondaryButtonText": "Download Fleet Catalog",
+        "secondaryButtonUrl": "/yachts",
+        "guaranteeText": "Direct consultation with Chief Naval Architect • Strict Discretion Assured",
+        "imageUrl": "/images/a77-journey-bg.jpg",
+        "videoUrl": "/videos/live-yacht-journey.mp4",
         "layoutStyle": "cinematic-full",
-        "backgroundStyle": "dark",
-        "contentAlignment": "left"
+        "backgroundStyle": "navy",
+        "contentAlignment": "center",
+        "primaryButton": {
+          "label": "Explore Our Collection",
+          "url": "/yachts",
+          "type": "internal",
+          "target": "_self",
+          "visible": true,
+          "style": "solid-gold"
+        },
+        "imageAlt": "ASMARATY Superyacht Cruising Open Ocean"
       }
     ]
   },
@@ -479,7 +623,8 @@
             "value": "100%",
             "label": "Custom Bespoke"
           }
-        ]
+        ],
+        "showCategoryFilter": false
       },
       {
         "id": "news-article-1",
@@ -573,7 +718,7 @@
         "address": "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates",
         "yachtOptions": [
           "ASMARATY G-100 Super Yacht (100 FT • Flagship)",
-          "ASMARATY G77 Luxury Yacht (78 FT • Three-Deck)",
+          "ASMARATY G77 Luxury Yacht (77 FT • Three-Deck)",
           "ASMARATY G-66 Luxury Yacht (66 FT • Flybridge)",
           "ASMARATY G-50 Luxury Motor Yacht (50 FT • Flybridge)",
           "All Fleet Inquiry & Price List"

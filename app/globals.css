@@ -412,3 +412,13 @@ button.saxdor-btn-navy-solid {
   will-change: transform, opacity;
 }
 
+/* Hide scrollbar for clean tab strips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+

@@ -11,6 +11,9 @@ import RichTextSection from "./sections/RichTextSection";
 import StatisticsSection from "./sections/StatisticsSection";
 import CallToActionSection from "./sections/CallToActionSection";
 import EnquirySection from "./sections/EnquirySection";
+import ShipyardTimelineSection from "./sections/ShipyardTimelineSection";
+import LeadershipTeamSection from "./sections/LeadershipTeamSection";
+import ValuesPillarsSection from "./sections/ValuesPillarsSection";
 import { 
   EyeOff, 
   Eye, 
@@ -83,6 +86,12 @@ export default function SectionRenderer({
         return <CallToActionSection {...commonProps} />;
       case "enquiry_section":
         return <EnquirySection {...commonProps} />;
+      case "timeline":
+        return <ShipyardTimelineSection {...commonProps} />;
+      case "leadership_team":
+        return <LeadershipTeamSection {...commonProps} />;
+      case "values_pillars":
+        return <ValuesPillarsSection {...commonProps} />;
       default:
         return (
           <div className="py-12 px-6 bg-[#121722] text-center text-xs text-[#8A96A6] border border-dashed border-white/10">

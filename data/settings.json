@@ -2,13 +2,122 @@
   "siteTitle": "ASMARATY | Luxury Yachts & Boats UAE",
   "announcementText": "Discover the ASMARATY Luxury Fleet — The Signature of the Sea",
   "announcementEnabled": true,
-  "contactEmail": "info@asmaraty.com",
+  "companyName": "AL SHAALI MARINE",
+  "shipyardAddress": "RASHIDIA 1, AJMAN, United Arab Emirates",
   "contactPhone": "+971 56 526 8126",
+  "contactEmail": "info@asmaraty.com",
   "whatsappNumber": "+971 56 526 8126",
-  "shipyardAddress": "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates",
+  "operatingHours": "Monday – Saturday: 08:00 – 18:00 GST\nSunday: Private VIP Appointments Only",
+  "googleMapsUrl": "https://maps.google.com/?q=Al+Shaali+Marine+Ajman+UAE",
+  "header": {
+    "menuLabel": "Menu",
+    "ctaButton": {
+      "label": "Contact Us",
+      "url": "/contact",
+      "type": "internal",
+      "target": "_self",
+      "visible": true,
+      "style": "solid-gold"
+    }
+  },
+  "drawer": {
+    "fleetHeading": "The Fleet Collection",
+    "fleetViewAllText": "View All",
+    "fleetViewAllUrl": "/yachts",
+    "navHeading": "Shipyard & Company",
+    "navLinks": [
+      {
+        "id": "nav-fleet",
+        "label": "Fleet",
+        "url": "/yachts",
+        "type": "internal",
+        "target": "_self",
+        "visible": true
+      },
+      {
+        "id": "nav-about",
+        "label": "About Us",
+        "url": "/about",
+        "type": "internal",
+        "target": "_self",
+        "visible": true
+      },
+      {
+        "id": "nav-news",
+        "label": "News",
+        "url": "/news",
+        "type": "internal",
+        "target": "_self",
+        "visible": true
+      },
+      {
+        "id": "nav-contact",
+        "label": "Contact Us",
+        "url": "/contact",
+        "type": "internal",
+        "target": "_self",
+        "visible": true
+      }
+    ],
+    "ctaText": "Experience bespoke nautical engineering",
+    "ctaButton": {
+      "label": "Book Sea Trial",
+      "url": "/contact",
+      "type": "internal",
+      "target": "_self",
+      "visible": true,
+      "style": "solid-gold"
+    }
+  },
+  "footer": {
+    "brandEyebrow": "Yachts • United Arab Emirates",
+    "brandDescription": "Since 1979, ASMARATY has pioneered composite boat and high-performance yacht manufacturing across the Arabian Gulf, crafting custom naval vessels where architectural clarity meets endurance at sea.",
+    "trustBadge1": "Certified Yachts",
+    "trustBadge2": "45+ Years Heritage",
+    "fleetHeading": "The Fleet",
+    "experienceHeading": "Experience",
+    "experienceLinks": [
+      {
+        "id": "exp-collections",
+        "label": "All Collections",
+        "url": "/yachts",
+        "type": "internal",
+        "target": "_self",
+        "visible": true
+      },
+      {
+        "id": "exp-about",
+        "label": "About Us",
+        "url": "/about",
+        "type": "internal",
+        "target": "_self",
+        "visible": true
+      },
+      {
+        "id": "exp-news",
+        "label": "News & Boat Shows",
+        "url": "/news",
+        "type": "internal",
+        "target": "_self",
+        "visible": true
+      },
+      {
+        "id": "exp-trial",
+        "label": "Book Sea Trial",
+        "url": "/contact",
+        "type": "internal",
+        "target": "_self",
+        "visible": true
+      }
+    ],
+    "hqHeading": "Headquarters",
+    "copyrightText": "© 2026 ASMARATY LLC. All rights reserved.",
+    "tagline": "Official Shipyard & Luxury Naval Architecture UAE"
+  },
   "socialLinks": {
-    "instagram": "https://instagram.com/asmaraty",
-    "youtube": "https://youtube.com/asmaraty",
-    "linkedin": "https://linkedin.com/company/asmaraty"
+    "instagram": "",
+    "youtube": "",
+    "linkedin": "",
+    "whatsapp": "https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet."
   }
 }

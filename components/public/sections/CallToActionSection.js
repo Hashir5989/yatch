@@ -140,13 +140,27 @@ export default function CallToActionSection({
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full max-w-md mx-auto">
           <InlineButtonEditor
+            config={{
+              label: primaryButtonText || "VISIT THE FLEET",
+              url: primaryButtonUrl || "#fleet",
+              type: data.primaryButtonType,
+              target: data.primaryButtonTarget,
+              visible: data.primaryButtonVisible !== false,
+              style: data.primaryButtonStyle || "outline-white"
+            }}
             text={primaryButtonText || "VISIT THE FLEET"}
             url={primaryButtonUrl || "#fleet"}
             isEditable={isEditable}
-            onSave={(newText, newUrl) => {
+            onSave={(newText, newUrl, updatedConfig) => {
               if (onUpdateField) {
                 onUpdateField("primaryButtonText", newText);
                 onUpdateField("primaryButtonUrl", newUrl);
+                if (updatedConfig) {
+                  onUpdateField("primaryButtonType", updatedConfig.type);
+                  onUpdateField("primaryButtonTarget", updatedConfig.target);
+                  onUpdateField("primaryButtonVisible", updatedConfig.visible);
+                  onUpdateField("primaryButtonStyle", updatedConfig.style);
+                }
               }
             }}
             className="saxdor-btn-outline !border-white/90 !text-white hover:!bg-white hover:!text-[#08101C] !bg-black/25 backdrop-blur-md !h-[50px] sm:!h-[54px] !px-8 sm:!px-10 !text-xs !tracking-[0.18em] !font-semibold !shadow-[0_8px_24px_rgba(0,0,0,0.75)] w-full sm:w-auto text-center cursor-pointer"
@@ -154,13 +168,27 @@ export default function CallToActionSection({
 
           {secondaryButtonText && (
             <InlineButtonEditor
+              config={{
+                label: secondaryButtonText,
+                url: secondaryButtonUrl || "/contact",
+                type: data.secondaryButtonType,
+                target: data.secondaryButtonTarget,
+                visible: data.secondaryButtonVisible !== false,
+                style: data.secondaryButtonStyle || "outline-white"
+              }}
               text={secondaryButtonText}
               url={secondaryButtonUrl || "/contact"}
               isEditable={isEditable}
-              onSave={(newText, newUrl) => {
+              onSave={(newText, newUrl, updatedConfig) => {
                 if (onUpdateField) {
                   onUpdateField("secondaryButtonText", newText);
                   onUpdateField("secondaryButtonUrl", newUrl);
+                  if (updatedConfig) {
+                    onUpdateField("secondaryButtonType", updatedConfig.type);
+                    onUpdateField("secondaryButtonTarget", updatedConfig.target);
+                    onUpdateField("secondaryButtonVisible", updatedConfig.visible);
+                    onUpdateField("secondaryButtonStyle", updatedConfig.style);
+                  }
                 }
               }}
               className="saxdor-btn-outline !h-[50px] sm:!h-[54px] !px-8 sm:!px-10 !text-xs !tracking-[0.18em] !border-white/80 !text-white hover:!bg-white hover:!text-[#08101C] !bg-black/30 backdrop-blur-md !shadow-[0_8px_24px_rgba(0,0,0,0.75)] w-full sm:w-auto text-center"

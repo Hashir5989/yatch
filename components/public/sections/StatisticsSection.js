@@ -66,7 +66,13 @@ export default function StatisticsSection({
         )}
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className={`grid gap-6 ${
+          items.length === 3
+            ? "grid-cols-1 md:grid-cols-3 max-w-5xl mx-auto"
+            : items.length === 2
+            ? "grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto"
+            : "grid-cols-2 lg:grid-cols-4"
+        }`}>
           {items.map((stat, idx) => (
             <div
               key={idx}

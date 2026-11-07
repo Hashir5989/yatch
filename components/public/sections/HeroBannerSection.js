@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react";
 import { ArrowRight, Image as ImageIcon } from "lucide-react";
 import InlineEditableText from "@/components/cms/InlineEditableText";
-import InlineButtonEditor from "@/components/cms/InlineButtonEditor";
+import UniversalButton from "@/components/public/UniversalButton";
 
 export default function HeroBannerSection({
   data = {},
@@ -31,16 +31,16 @@ export default function HeroBannerSection({
     contentAlignment = "center"
   } = data;
 
-  const effectiveVideoUrl =
-    videoUrl === "/videos/asmaraty-whatsapp-banner.mp4" || !videoUrl
-      ? "/videos/banner-home.mp4"
-      : videoUrl;
-  const isCenter = contentAlignment === "center";
+  const isHomeHero = data.id === "home-hero";
+  const effectiveVideoUrl = isHomeHero
+    ? (videoUrl && videoUrl !== "/videos/asmaraty-whatsapp-banner.mp4" ? videoUrl : "/videos/banner-home.mp4")
+    : (videoUrl && videoUrl.trim() !== "" ? videoUrl : null);
+
   const videoRef = useRef(null);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !effectiveVideoUrl) return;
 
     video.defaultMuted = true;
     video.muted = true;
@@ -81,8 +81,7 @@ export default function HeroBannerSection({
               playsInline
               preload="auto"
               poster={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
-              className="w-full h-full object-cover object-center "
-              
+              className="w-full h-full object-cover object-center"
             >
               <source src="/videos/banner-home.mp4" type="video/mp4" />
               <source src="/videos/asmaraty-hero-banner.mp4" type="video/mp4" />
@@ -95,15 +94,19 @@ export default function HeroBannerSection({
             </video>
           </div>
         ) : (
-          <img
-            src={imageUrl}
-            alt={imageAlt || heading}
-            className="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out"
-          />
+          <div className="relative w-full h-full">
+            <img
+              src={imageUrl || "/images/g100-burj-al-arab.jpg"}
+              alt={imageAlt || heading}
+              className="w-full h-full object-cover object-center scale-105 filter brightness-[0.82] contrast-[1.08] transition-transform duration-1000 ease-out"
+            />
+            {/* Ambient luxury gradients for typographic clarity on non-video heroes */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/95 via-[#070D18]/65 to-transparent sm:via-[#070D18]/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#070D18]/90 via-transparent to-black/40" />
+          </div>
         )}
         {/* Crystal-clear bright daylight video with subtle bottom edge transition */}
         <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#08101C] to-transparent pointer-events-none opacity-80" />
-
 
         {/* Change Background Media Button when in Edit Mode */}
         {isEditable && onOpenMediaPicker && (
@@ -112,7 +115,7 @@ export default function HeroBannerSection({
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                onOpenMediaPicker("videoUrl", effectiveVideoUrl);
+                onOpenMediaPicker("videoUrl", effectiveVideoUrl || "");
               }}
               className="px-3.5 py-2 rounded-full bg-[#080B10]/90 backdrop-blur-md text-[#C5A880] border border-[#C5A880]/50 hover:bg-[#C5A880] hover:text-[#080B10] text-xs font-medium flex items-center gap-2 shadow-xl transition-all"
               title="Replace Hero Background Video"
@@ -136,14 +139,95 @@ export default function HeroBannerSection({
         )}
       </div>
 
-      {/* Main Hero Container - Pure Full-Bleed Video Experience */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-32 pb-16 sm:pb-20 flex-1 flex flex-col justify-end items-center pointer-events-none">
-        <div className="max-w-4xl text-center mx-auto">
-          {/* Accessible Heading for SEO */}
-          <h1 className="sr-only">
-            ASMARATY Yachts | Luxury Yacht Collection in UAE
-          </h1>
-        </div>
+      {/* Main Hero Container */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-32 pb-16 sm:pb-24 flex-1 flex flex-col justify-end pointer-events-none">
+        {isHomeHero ? (
+          <div className="max-w-4xl text-center mx-auto">
+            {/* Accessible Heading for Home SEO */}
+            <h1 className="sr-only">
+              ASMARATY Yachts | Luxury Yacht Collection in UAE
+            </h1>
+          </div>
+        ) : (
+          <div className="max-w-3xl pointer-events-auto">
+            {/* Eyebrow with gold accent line */}
+            {eyebrow && (
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] text-[#C6A155] font-semibold">
+                  <InlineEditableText
+                    as="span"
+                    value={eyebrow}
+                    isEditable={isEditable}
+                    onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
+                    placeholder="ABOUT US"
+                  />
+                </span>
+                <span className="w-16 h-[1.5px] bg-[#C6A155]/80" />
+              </div>
+            )}
+
+            {/* Semantic Luxury H1 */}
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-[62px] text-white font-normal leading-[1.12] tracking-tight">
+              <InlineEditableText
+                as="span"
+                value={heading}
+                isEditable={isEditable}
+                onChange={(val) => onUpdateField && onUpdateField("heading", val)}
+                placeholder="Hero Heading"
+                multiline={true}
+              />
+            </h1>
+
+            {/* Lead Narrative / Subheading */}
+            {subheading && (
+              <p className="text-base sm:text-lg text-[#D0D9E4] font-light leading-relaxed mt-6 mb-8 max-w-xl">
+                <InlineEditableText
+                  as="span"
+                  value={subheading}
+                  isEditable={isEditable}
+                  onChange={(val) => onUpdateField && onUpdateField("subheading", val)}
+                  placeholder="Hero Subheading or Description"
+                  multiline={true}
+                />
+              </p>
+            )}
+
+            {/* Buttons Row with UniversalButton */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <UniversalButton
+                config={data.primaryButton}
+                fallbackLabel={primaryButtonText || "Discover Our Journey"}
+                fallbackUrl={primaryButtonUrl || "#story"}
+                fallbackStyle="solid-gold"
+                isEditable={isEditable}
+                onSave={(updatedBtn) => {
+                  if (onUpdateField) {
+                    onUpdateField("primaryButton", updatedBtn);
+                    onUpdateField("primaryButtonText", updatedBtn.label);
+                    onUpdateField("primaryButtonUrl", updatedBtn.url);
+                  }
+                }}
+              />
+              <UniversalButton
+                config={data.secondaryButton}
+                fallbackLabel={secondaryButtonText || "Explore Fleet"}
+                fallbackUrl={secondaryButtonUrl || "/yachts"}
+                fallbackStyle="outline-white"
+                isEditable={isEditable}
+                onSave={(updatedBtn) => {
+                  if (onUpdateField) {
+                    onUpdateField("secondaryButton", updatedBtn);
+                    onUpdateField("secondaryButtonText", updatedBtn.label);
+                    onUpdateField("secondaryButtonUrl", updatedBtn.url);
+                  }
+                }}
+              />
+            </div>
+
+            {/* Gold decorative bar */}
+            <div className="w-20 h-[2px] bg-[#C6A155] mt-8" />
+          </div>
+        )}
       </div>
 
       {/* Optional Stats Bar (omitted on clean Saxdor hero) */}

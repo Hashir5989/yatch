@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { getSettingsServer, saveSettingsServer } from "@/lib/server/db";
+import { cookies } from "next/headers";
+import { getSettingsServer, saveSettingsServer, verifySessionToken } from "@/lib/server/db";
 
 export async function GET() {
   try {
@@ -13,6 +14,13 @@ export async function GET() {
 
 export async function PUT(req) {
   try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("asm_admin_session")?.value;
+
+    if (!token || !verifySessionToken(token)) {
+      return NextResponse.json({ success: false, error: "Unauthorized. Admin login required." }, { status: 401 });
+    }
+
     const body = await req.json();
     const updated = await saveSettingsServer(body);
     return NextResponse.json({ success: true, settings: updated });

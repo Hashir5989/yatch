@@ -24,16 +24,19 @@ export default function ImageTextSection({
   } = data;
 
   const isImageRight = layoutStyle !== "image-left";
-  const isWhite = backgroundStyle === "white";
+  const isLight = backgroundStyle === "white" || backgroundStyle === "light";
+  const isWhite = isLight;
   const isVideo = layoutStyle === "video";
   const isSplitTextOnly = layoutStyle === "split_text_only";
 
+  const bgClass = backgroundStyle === "light"
+    ? "bg-[#FAF8F5] text-[#0A121E] border-b border-[#E8E2D5]"
+    : isLight
+    ? "bg-white text-[#0E2047] border-b border-[#0E2047]/10"
+    : "bg-[#08101C] text-[#E8EEF5] border-t border-b border-white/10";
+
   return (
-    <section className={`py-20 sm:py-28 relative overflow-hidden ${
-      isWhite 
-        ? "bg-white text-[#0E2047] border-b border-[#0E2047]/10" 
-        : "bg-[#08101C] text-[#E8EEF5] border-t border-b border-white/10"
-    }`}>
+    <section className={`py-20 sm:py-28 relative overflow-hidden ${bgClass}`}>
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
         {/* Layout Style: Split Text Only (e.g. Our Expanding Model Range) */}
         {isSplitTextOnly ? (
@@ -73,13 +76,27 @@ export default function ImageTextSection({
               {buttonText && (
                 <div className="pt-2">
                   <InlineButtonEditor
+                    config={{
+                      label: buttonText,
+                      url: buttonUrl,
+                      type: data.buttonType,
+                      target: data.buttonTarget,
+                      visible: data.buttonVisible !== false,
+                      style: data.buttonStyle || (isWhite ? "outline-gold" : "solid-gold")
+                    }}
                     text={buttonText}
                     url={buttonUrl}
                     isEditable={isEditable}
-                    onSave={(newText, newUrl) => {
+                    onSave={(newText, newUrl, updatedConfig) => {
                       if (onUpdateField) {
                         onUpdateField("buttonText", newText);
                         onUpdateField("buttonUrl", newUrl);
+                        if (updatedConfig) {
+                          onUpdateField("buttonType", updatedConfig.type);
+                          onUpdateField("buttonTarget", updatedConfig.target);
+                          onUpdateField("buttonVisible", updatedConfig.visible);
+                          onUpdateField("buttonStyle", updatedConfig.style);
+                        }
                       }
                     }}
                     className={isWhite ? "saxdor-btn-navy-outline !h-[52px] !px-8" : "saxdor-btn-solid !h-[52px] !px-8"}
@@ -140,13 +157,27 @@ export default function ImageTextSection({
               {buttonText && (
                 <div className="pt-2">
                   <InlineButtonEditor
+                    config={{
+                      label: buttonText,
+                      url: buttonUrl,
+                      type: data.buttonType,
+                      target: data.buttonTarget,
+                      visible: data.buttonVisible !== false,
+                      style: data.buttonStyle || (isWhite ? "outline-gold" : "solid-gold")
+                    }}
                     text={buttonText}
                     url={buttonUrl}
                     isEditable={isEditable}
-                    onSave={(newText, newUrl) => {
+                    onSave={(newText, newUrl, updatedConfig) => {
                       if (onUpdateField) {
                         onUpdateField("buttonText", newText);
                         onUpdateField("buttonUrl", newUrl);
+                        if (updatedConfig) {
+                          onUpdateField("buttonType", updatedConfig.type);
+                          onUpdateField("buttonTarget", updatedConfig.target);
+                          onUpdateField("buttonVisible", updatedConfig.visible);
+                          onUpdateField("buttonStyle", updatedConfig.style);
+                        }
                       }
                     }}
                     className={isWhite ? "saxdor-btn-navy-outline !h-[52px] !px-8" : "saxdor-btn-solid !h-[52px] !px-8"}
@@ -181,12 +212,27 @@ export default function ImageTextSection({
                   )}
                 </div>
               ) : (
-                <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden border border-[#0E2047]/10 group shadow-xl bg-gray-100">
+                <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden border border-[#0E2047]/10 group shadow-xl bg-gray-100 rounded-sm">
                   <img
                     src={imageUrl}
                     alt={imageAlt || heading}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
+                  {/* Floating Heritage Badge */}
+                  {data.badgeText && (
+                    <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-[#0B1523]/85 backdrop-blur-md border border-[#C6A155]/30 px-4 py-2 rounded-full flex items-center gap-2.5 shadow-lg z-20">
+                      <span className="w-2 h-2 rounded-full bg-[#C6A155] animate-pulse" />
+                      <span className="text-[10px] sm:text-[11px] uppercase tracking-widest text-[#FAF8F5] font-semibold">
+                        <InlineEditableText
+                          as="span"
+                          value={data.badgeText}
+                          isEditable={isEditable}
+                          onChange={(val) => onUpdateField && onUpdateField("badgeText", val)}
+                          placeholder="Badge Text..."
+                        />
+                      </span>
+                    </div>
+                  )}
                   {isEditable && onOpenMediaPicker && (
                     <button
                       type="button"

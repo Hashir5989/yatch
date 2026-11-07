@@ -13,7 +13,11 @@ import {
   ChevronDown,
   Sparkles,
   Sliders,
-  Link2
+  Link2,
+  Plus,
+  Users,
+  Award,
+  Calendar
 } from "lucide-react";
 
 export default function SectionQuickDrawer({
@@ -459,6 +463,476 @@ export default function SectionQuickDrawer({
                 </div>
               </div>
             )}
+          </div>
+        )}
+        {/* =========================================================
+            TIMELINE MILESTONES REPEATER (FOR TIMELINE SECTIONS)
+           ========================================================= */}
+        {section.type === "timeline" && (
+          <div className="p-4 bg-[#0A0E15] border border-white/10 rounded space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-white/10">
+              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#C5A880]">
+                Shipyard Milestones ({section.timelineItems?.length || 0})
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  const current = Array.isArray(section.timelineItems) ? [...section.timelineItems] : [];
+                  current.push({
+                    id: "tl-" + Date.now(),
+                    year: "2026",
+                    heading: "New Shipyard Milestone",
+                    description: "Describe this milestone in ASMARATY naval heritage...",
+                    image: "/images/asmaraty-shipyard-facility.jpg",
+                    imageAlt: "Shipyard milestone",
+                    visible: true
+                  });
+                  onUpdateSection({ timelineItems: current });
+                }}
+                className="px-2.5 py-1 text-[10px] font-semibold bg-[#C5A880]/20 text-[#DFBA73] border border-[#C5A880]/40 flex items-center gap-1 cursor-pointer"
+              >
+                <Plus className="w-3 h-3" />
+                <span>Add Milestone</span>
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {(section.timelineItems || []).map((item, idx) => (
+                <div key={item.id || idx} className="p-3 bg-[#080B10] border border-white/10 rounded-sm space-y-2">
+                  <div className="flex items-center justify-between pb-1 border-b border-white/5">
+                    <span className="text-[10px] font-mono text-[#C5A880]">#{idx + 1} • {item.year || "Year"}</span>
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        disabled={idx === 0}
+                        onClick={() => {
+                          const items = [...section.timelineItems];
+                          const temp = items[idx];
+                          items[idx] = items[idx - 1];
+                          items[idx - 1] = temp;
+                          onUpdateSection({ timelineItems: items });
+                        }}
+                        className="p-1 text-white/40 hover:text-white disabled:opacity-20 cursor-pointer"
+                        title="Move Up"
+                      >
+                        <ChevronUp className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        disabled={idx === section.timelineItems.length - 1}
+                        onClick={() => {
+                          const items = [...section.timelineItems];
+                          const temp = items[idx];
+                          items[idx] = items[idx + 1];
+                          items[idx + 1] = temp;
+                          onUpdateSection({ timelineItems: items });
+                        }}
+                        className="p-1 text-white/40 hover:text-white disabled:opacity-20 cursor-pointer"
+                        title="Move Down"
+                      >
+                        <ChevronDown className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const items = [...section.timelineItems];
+                          items[idx] = { ...items[idx], visible: items[idx].visible === false ? true : false };
+                          onUpdateSection({ timelineItems: items });
+                        }}
+                        className={`p-1 cursor-pointer ${item.visible !== false ? "text-emerald-400" : "text-white/30"}`}
+                        title={item.visible !== false ? "Visible" : "Hidden"}
+                      >
+                        {item.visible !== false ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const items = [...section.timelineItems];
+                          items.splice(idx, 1);
+                          onUpdateSection({ timelineItems: items });
+                        }}
+                        className="p-1 text-rose-400 hover:text-rose-200 cursor-pointer"
+                        title="Delete milestone"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Year / Era</label>
+                      <input
+                        type="text"
+                        value={item.year || ""}
+                        onChange={(e) => {
+                          const items = [...section.timelineItems];
+                          items[idx] = { ...items[idx], year: e.target.value };
+                          onUpdateSection({ timelineItems: items });
+                        }}
+                        className="w-full px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs"
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Milestone Heading</label>
+                      <input
+                        type="text"
+                        value={item.heading || ""}
+                        onChange={(e) => {
+                          const items = [...section.timelineItems];
+                          items[idx] = { ...items[idx], heading: e.target.value };
+                          onUpdateSection({ timelineItems: items });
+                        }}
+                        className="w-full px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Description</label>
+                    <textarea
+                      rows={2}
+                      value={item.description || ""}
+                      onChange={(e) => {
+                        const items = [...section.timelineItems];
+                        items[idx] = { ...items[idx], description: e.target.value };
+                        onUpdateSection({ timelineItems: items });
+                      }}
+                      className="w-full px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs resize-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Milestone Image</label>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={item.image || ""}
+                        onChange={(e) => {
+                          const items = [...section.timelineItems];
+                          items[idx] = { ...items[idx], image: e.target.value };
+                          onUpdateSection({ timelineItems: items });
+                        }}
+                        className="flex-1 px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => onOpenMediaPicker(`timelineItems[${idx}].image`, item.image)}
+                        className="px-2 py-1 bg-[#1A2230] text-[#C5A880] text-[10px] border border-[#2A374C] flex items-center gap-1 cursor-pointer"
+                      >
+                        <ImageIcon className="w-3 h-3" />
+                        <span>Media</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================
+            LEADERSHIP TEAM REPEATER (FOR LEADERSHIP SECTIONS)
+           ========================================================= */}
+        {section.type === "leadership_team" && (
+          <div className="p-4 bg-[#0A0E15] border border-white/10 rounded space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-white/10">
+              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#C5A880]">
+                Executive Members ({section.members?.length || 0})
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  const current = Array.isArray(section.members) ? [...section.members] : [];
+                  current.push({
+                    id: "exec-" + Date.now(),
+                    name: "Executive Name",
+                    role: "Designation / Role",
+                    bio: "Professional biography and naval architecture background...",
+                    photo: "/images/asmaraty-shipyard-facility.jpg",
+                    photoAlt: "Executive photograph",
+                    visible: true
+                  });
+                  onUpdateSection({ members: current });
+                }}
+                className="px-2.5 py-1 text-[10px] font-semibold bg-[#C5A880]/20 text-[#DFBA73] border border-[#C5A880]/40 flex items-center gap-1 cursor-pointer"
+              >
+                <Plus className="w-3 h-3" />
+                <span>Add Member</span>
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {(section.members || []).map((m, idx) => (
+                <div key={m.id || idx} className="p-3 bg-[#080B10] border border-white/10 rounded-sm space-y-2">
+                  <div className="flex items-center justify-between pb-1 border-b border-white/5">
+                    <span className="text-[10px] font-mono text-[#C5A880]">#{idx + 1} • {m.name || "Member"}</span>
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        disabled={idx === 0}
+                        onClick={() => {
+                          const members = [...section.members];
+                          const temp = members[idx];
+                          members[idx] = members[idx - 1];
+                          members[idx - 1] = temp;
+                          onUpdateSection({ members });
+                        }}
+                        className="p-1 text-white/40 hover:text-white disabled:opacity-20 cursor-pointer"
+                      >
+                        <ChevronUp className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        disabled={idx === section.members.length - 1}
+                        onClick={() => {
+                          const members = [...section.members];
+                          const temp = members[idx];
+                          members[idx] = members[idx + 1];
+                          members[idx + 1] = temp;
+                          onUpdateSection({ members });
+                        }}
+                        className="p-1 text-white/40 hover:text-white disabled:opacity-20 cursor-pointer"
+                      >
+                        <ChevronDown className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const members = [...section.members];
+                          members[idx] = { ...members[idx], visible: members[idx].visible === false ? true : false };
+                          onUpdateSection({ members });
+                        }}
+                        className={`p-1 cursor-pointer ${m.visible !== false ? "text-emerald-400" : "text-white/30"}`}
+                      >
+                        {m.visible !== false ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const members = [...section.members];
+                          members.splice(idx, 1);
+                          onUpdateSection({ members });
+                        }}
+                        className="p-1 text-rose-400 hover:text-rose-200 cursor-pointer"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Full Name</label>
+                      <input
+                        type="text"
+                        value={m.name || ""}
+                        onChange={(e) => {
+                          const members = [...section.members];
+                          members[idx] = { ...members[idx], name: e.target.value };
+                          onUpdateSection({ members });
+                        }}
+                        className="w-full px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Role / Designation</label>
+                      <input
+                        type="text"
+                        value={m.role || ""}
+                        onChange={(e) => {
+                          const members = [...section.members];
+                          members[idx] = { ...members[idx], role: e.target.value };
+                          onUpdateSection({ members });
+                        }}
+                        className="w-full px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Biography</label>
+                    <textarea
+                      rows={2}
+                      value={m.bio || ""}
+                      onChange={(e) => {
+                        const members = [...section.members];
+                        members[idx] = { ...members[idx], bio: e.target.value };
+                        onUpdateSection({ members });
+                      }}
+                      className="w-full px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs resize-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Photograph URL</label>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={m.photo || ""}
+                        onChange={(e) => {
+                          const members = [...section.members];
+                          members[idx] = { ...members[idx], photo: e.target.value };
+                          onUpdateSection({ members });
+                        }}
+                        className="flex-1 px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => onOpenMediaPicker(`members[${idx}].photo`, m.photo)}
+                        className="px-2 py-1 bg-[#1A2230] text-[#C5A880] text-[10px] border border-[#2A374C] flex items-center gap-1 cursor-pointer"
+                      >
+                        <ImageIcon className="w-3 h-3" />
+                        <span>Media</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================
+            VALUES PILLARS REPEATER (FOR VALUES SECTIONS)
+           ========================================================= */}
+        {section.type === "values_pillars" && (
+          <div className="p-4 bg-[#0A0E15] border border-white/10 rounded space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-white/10">
+              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#C5A880]">
+                Values Pillars ({section.pillars?.length || 0})
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  const current = Array.isArray(section.pillars) ? [...section.pillars] : [];
+                  current.push({
+                    id: "val-" + Date.now(),
+                    title: "New Value Pillar",
+                    desc: "Describe this core standard or brand value...",
+                    icon: "Gem",
+                    visible: true
+                  });
+                  onUpdateSection({ pillars: current });
+                }}
+                className="px-2.5 py-1 text-[10px] font-semibold bg-[#C5A880]/20 text-[#DFBA73] border border-[#C5A880]/40 flex items-center gap-1 cursor-pointer"
+              >
+                <Plus className="w-3 h-3" />
+                <span>Add Pillar</span>
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {(section.pillars || []).map((p, idx) => (
+                <div key={p.id || idx} className="p-3 bg-[#080B10] border border-white/10 rounded-sm space-y-2">
+                  <div className="flex items-center justify-between pb-1 border-b border-white/5">
+                    <span className="text-[10px] font-mono text-[#C5A880]">#{idx + 1} • {p.title || "Pillar"}</span>
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        disabled={idx === 0}
+                        onClick={() => {
+                          const pillars = [...section.pillars];
+                          const temp = pillars[idx];
+                          pillars[idx] = pillars[idx - 1];
+                          pillars[idx - 1] = temp;
+                          onUpdateSection({ pillars });
+                        }}
+                        className="p-1 text-white/40 hover:text-white disabled:opacity-20 cursor-pointer"
+                      >
+                        <ChevronUp className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        disabled={idx === section.pillars.length - 1}
+                        onClick={() => {
+                          const pillars = [...section.pillars];
+                          const temp = pillars[idx];
+                          pillars[idx] = pillars[idx + 1];
+                          pillars[idx + 1] = temp;
+                          onUpdateSection({ pillars });
+                        }}
+                        className="p-1 text-white/40 hover:text-white disabled:opacity-20 cursor-pointer"
+                      >
+                        <ChevronDown className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const pillars = [...section.pillars];
+                          pillars[idx] = { ...pillars[idx], visible: pillars[idx].visible === false ? true : false };
+                          onUpdateSection({ pillars });
+                        }}
+                        className={`p-1 cursor-pointer ${p.visible !== false ? "text-emerald-400" : "text-white/30"}`}
+                      >
+                        {p.visible !== false ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const pillars = [...section.pillars];
+                          pillars.splice(idx, 1);
+                          onUpdateSection({ pillars });
+                        }}
+                        className="p-1 text-rose-400 hover:text-rose-200 cursor-pointer"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="col-span-2">
+                      <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Title</label>
+                      <input
+                        type="text"
+                        value={p.title || ""}
+                        onChange={(e) => {
+                          const pillars = [...section.pillars];
+                          pillars[idx] = { ...pillars[idx], title: e.target.value };
+                          onUpdateSection({ pillars });
+                        }}
+                        className="w-full px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Icon</label>
+                      <select
+                        value={p.icon || "Gem"}
+                        onChange={(e) => {
+                          const pillars = [...section.pillars];
+                          pillars[idx] = { ...pillars[idx], icon: e.target.value };
+                          onUpdateSection({ pillars });
+                        }}
+                        className="w-full px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs"
+                      >
+                        <option value="Gem">Gem (Craft)</option>
+                        <option value="ShieldCheck">Shield (Trust)</option>
+                        <option value="Waves">Waves (Innovation)</option>
+                        <option value="Users">Users (Personal)</option>
+                        <option value="Sparkles">Sparkles (Luxury)</option>
+                        <option value="Anchor">Anchor (Heritage)</option>
+                        <option value="Award">Award (Excellence)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[9px] uppercase tracking-wider text-[#7A8798] mb-0.5">Description</label>
+                    <textarea
+                      rows={2}
+                      value={p.desc || ""}
+                      onChange={(e) => {
+                        const pillars = [...section.pillars];
+                        pillars[idx] = { ...pillars[idx], desc: e.target.value };
+                        onUpdateSection({ pillars });
+                      }}
+                      className="w-full px-2 py-1 bg-[#121822] border border-[#232F42] text-xs text-white rounded-xs resize-none"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

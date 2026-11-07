@@ -445,7 +445,7 @@ export default function UniversalContactView() {
                       className="w-full bg-[#080B10] border border-white/15 focus:border-[#C6A155] px-4 py-3 text-sm text-white focus:outline-none"
                     >
                       <option value="ASMARATY G-100 Super Yacht (100 FT • Flagship)">ASMARATY G-100 Super Yacht (100 FT • Tri-Deck Flagship)</option>
-                      <option value="ASMARATY G77 Luxury Yacht (78 FT • Three-Deck)">ASMARATY G77 Luxury Yacht (78 FT • Three-Deck Cruiser)</option>
+                      <option value="ASMARATY G77 Luxury Yacht (77 FT • Three-Deck)">ASMARATY G77 Luxury Yacht (77 FT • Three-Deck Cruiser)</option>
                       <option value="ASMARATY G-66 Luxury Yacht (66 FT • Flybridge)">ASMARATY G-66 Luxury Yacht (66 FT • Flybridge Cruiser)</option>
                       <option value="ASMARATY G-50 Luxury Motor Yacht (50 FT • Motor Yacht)">ASMARATY G-50 Luxury Motor Yacht (50 FT • Flybridge)</option>
                       <option value="All Fleet Inquiry & Price List">General Fleet Inquiry & Price List</option>

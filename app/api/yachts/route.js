@@ -38,6 +38,6 @@ export async function POST(request) {
     return NextResponse.json({ success: true, yacht: saved });
   } catch (err) {
     console.error("Yachts POST API error:", err);
-    return NextResponse.json({ success: false, error: "Failed to create yacht" }, { status: 500 });
+    return NextResponse.json({ success: false, error: err.message || "Failed to create yacht" }, { status: 400 });
   }
 }

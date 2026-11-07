@@ -15,7 +15,10 @@ import {
   TrendingUp, 
   Compass, 
   Mail,
-  Search
+  Search,
+  Clock,
+  Users,
+  Shield
 } from "lucide-react";
 import { SECTION_TEMPLATES } from "@/lib/data/sectionTemplates";
 
@@ -31,6 +34,9 @@ const ICON_MAP = {
   TrendingUp,
   Compass,
   Mail,
+  Clock,
+  Users,
+  Shield,
 };
 
 export default function SectionLibraryModal({ isOpen, onClose, onAddSection }) {
@@ -40,10 +46,11 @@ export default function SectionLibraryModal({ isOpen, onClose, onAddSection }) {
   if (!isOpen) return null;
 
   const categories = [
-    { id: "all", label: "All Sections (11)" },
+    { id: "all", label: `All Sections (${SECTION_TEMPLATES.length})` },
     { id: "Hero & Headers", label: "Hero & Headers" },
     { id: "Showcase & Media", label: "Showcase & Media" },
     { id: "Content & Editorial", label: "Content & Editorial" },
+    { id: "Story & Heritage", label: "Story & Heritage" },
     { id: "Interactive & Forms", label: "Interactive & Forms" },
   ];
 

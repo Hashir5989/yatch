@@ -15,7 +15,13 @@ import {
   Ship,
   Layers
 } from "lucide-react";
-import { getAllPages, getAllYachts, syncYachtsFromServer } from "@/lib/cmsStore";
+import { 
+  getAllPages, 
+  getAllYachts, 
+  syncYachtsFromServer,
+  getSiteSettings,
+  syncSettingsFromServer 
+} from "@/lib/cmsStore";
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
@@ -24,6 +30,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [panelMenuOpen, setPanelMenuOpen] = useState(false);
   const [yachts, setYachts] = useState(() => DEFAULT_YACHTS.filter((y) => y.status === "published"));
+  const [settings, setSettings] = useState(() => getSiteSettings());
   const pathname = usePathname();
 
   // Derive target pageId to edit in visual builder directly without cascading setState
@@ -52,8 +59,14 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
       }
     });
 
+    // Dynamic sync for site settings and navigation menus
+    syncSettingsFromServer().then((syncedSettings) => {
+      if (syncedSettings) setSettings(syncedSettings);
+    });
+
     const handleUpdate = () => {
       setYachts(getAllYachts().filter((y) => y.status === "published"));
+      setSettings(getSiteSettings());
     };
     window.addEventListener("asm-cms-change", handleUpdate);
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
@@ -100,7 +113,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                 <path d="M7.5 24H26.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"/>
               </svg>
               <span className="hidden sm:inline text-xs font-bold tracking-[0.2em] uppercase text-white/90 group-hover:text-[#C6A155]">
-                Menu
+                {settings.header?.menuLabel || "Menu"}
               </span>
             </button>
           </div>
@@ -114,15 +127,21 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
             />
           </div>
 
-          {/* Right Action: Contact Us CTA Button */}
-          <div className="flex items-center justify-end flex-1 z-10">
-            <Link
-              href="/contact"
-              className="saxdor-btn-solid !h-[36px] sm:!h-[42px] !min-h-0 !min-w-0 !px-4 sm:!px-6 !text-[11px] sm:!text-xs font-bold rounded-none whitespace-nowrap"
-            >
-              Contact Us
-            </Link>
-          </div>
+          {/* Right Action: Header CTA Button (Manageable from CMS) */}
+          {settings.header?.ctaButton?.visible !== false ? (
+            <div className="flex items-center justify-end flex-1 z-10">
+              <Link
+                href={settings.header?.ctaButton?.url || "/contact"}
+                target={settings.header?.ctaButton?.target || "_self"}
+                rel={settings.header?.ctaButton?.target === "_blank" ? "noopener noreferrer" : undefined}
+                className="saxdor-btn-solid !h-[36px] sm:!h-[42px] !min-h-0 !min-w-0 !px-4 sm:!px-6 !text-[11px] sm:!text-xs font-bold rounded-none whitespace-nowrap"
+              >
+                {settings.header?.ctaButton?.label || "Contact Us"}
+              </Link>
+            </div>
+          ) : (
+            <div className="flex-1" />
+          )}
         </div>
       </header>
 
@@ -160,14 +179,14 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
               <div>
                 <div className="flex items-center justify-between mb-4 pb-2 border-b border-white/10">
                   <span className="text-xs uppercase tracking-[0.22em] text-[#C6A155] font-semibold">
-                    The Fleet Collection
+                    {settings.drawer?.fleetHeading || "The Fleet Collection"}
                   </span>
                   <Link
-                    href="/yachts"
+                    href={settings.drawer?.fleetViewAllUrl || "/yachts"}
                     onClick={() => setPanelMenuOpen(false)}
                     className="text-[11px] text-white/60 hover:text-white uppercase tracking-wider flex items-center gap-1 font-medium"
                   >
-                    <span>View All</span>
+                    <span>{settings.drawer?.fleetViewAllText || "View All"}</span>
                     <ChevronRight className="w-3.5 h-3.5 text-[#C6A155]" />
                   </Link>
                 </div>
@@ -204,82 +223,88 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                 </div>
               </div>
 
-              {/* Main Navigation Links */}
+              {/* Main Navigation Links (Manageable via CMS) */}
               <div>
                 <span className="text-xs uppercase tracking-[0.22em] text-[#C6A155] font-semibold block mb-3 pb-2 border-b border-white/10">
-                  Shipyard & Company
+                  {settings.drawer?.navHeading || "Shipyard & Company"}
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-                  {[
-                    { label: "Fleet", href: "/yachts" },
-                    { label: "About Us", href: "/about" },
-                    { label: "News", href: "/news" },
-                    { label: "Contact Us", href: "/contact" },
-                  ].map((item, idx) => (
-                    <Link
-                      key={idx}
-                      href={item.href}
-                      onClick={() => setPanelMenuOpen(false)}
-                      className="py-2.5 px-3 bg-[#08101C] hover:bg-[#0E2047] border border-white/5 text-white/90 hover:text-white text-xs uppercase tracking-wider font-semibold transition-all flex items-center justify-between group"
-                    >
-                      <span>{item.label}</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-[#C6A155] opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </Link>
-                  ))}
+                  {(settings.drawer?.navLinks || [])
+                    .filter((item) => item.visible !== false)
+                    .map((item, idx) => (
+                      <Link
+                        key={item.id || idx}
+                        href={item.url || item.href || "/"}
+                        target={item.target || "_self"}
+                        rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                        onClick={() => setPanelMenuOpen(false)}
+                        className="py-2.5 px-3 bg-[#08101C] hover:bg-[#0E2047] border border-white/5 text-white/90 hover:text-white text-xs uppercase tracking-wider font-semibold transition-all flex items-center justify-between group"
+                      >
+                        <span>{item.label}</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-[#C6A155] opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </Link>
+                    ))}
                 </div>
               </div>
 
-              {/* Contact Bar */}
+              {/* Contact Bar (Dynamic from Global Settings) */}
               <div className="p-5 bg-[#0E2047]/50 border border-white/10 text-xs text-white/80 space-y-2">
                 <div className="font-semibold text-white tracking-wider uppercase text-[11px]">
-                  AL SHAALI MARINE
+                  {settings.companyName || "AL SHAALI MARINE"}
                 </div>
                 <p className="text-[11px] text-white/60">
-                  RASHIDIA 1, AJMAN, United Arab Emirates
+                  {settings.shipyardAddress || "RASHIDIA 1, AJMAN, United Arab Emirates"}
                 </p>
                 <div className="pt-2 flex flex-wrap items-center gap-4 text-xs">
                   <div className="flex items-center gap-2">
                     <a
-                      href="tel:+971565268126"
+                      href={`tel:${(settings.contactPhone || "+971 56 526 8126").replace(/\s+/g, '')}`}
                       className="text-[#C6A155] hover:opacity-80 transition-opacity"
                       title="Direct Phone Call"
-                      aria-label="Call +971 56 526 8126"
+                      aria-label={`Call ${settings.contactPhone || "+971 56 526 8126"}`}
                     >
                       <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
                     </a>
                     <a
-                      href="https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet."
+                      href={`https://wa.me/${(settings.whatsappNumber || "+971 56 526 8126").replace(/[^0-9]/g, '')}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#25D366] hover:opacity-80 transition-opacity"
                       title="Chat on WhatsApp"
-                      aria-label="WhatsApp +971 56 526 8126"
+                      aria-label="WhatsApp"
                     >
                       <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
                     </a>
-                    <a href="tel:+971565268126" className="hover:underline font-mono text-white hover:text-[#C6A155] transition-colors">
-                      +971 56 526 8126
+                    <a 
+                      href={`tel:${(settings.contactPhone || "+971 56 526 8126").replace(/\s+/g, '')}`} 
+                      className="hover:underline font-mono text-white hover:text-[#C6A155] transition-colors"
+                    >
+                      {settings.contactPhone || "+971 56 526 8126"}
                     </a>
                   </div>
-                  <a href="mailto:info@asmaraty.com" className="hover:underline text-white/70">
-                    info@asmaraty.com
+                  <a href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`} className="hover:underline text-white/70">
+                    {settings.contactEmail || "info@asmaraty.com"}
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Drawer Footer CTA */}
+            {/* Drawer Footer CTA (Manageable from CMS) */}
             <div className="p-6 border-t border-white/10 bg-[#08101C] flex items-center justify-between">
               <span className="text-[11px] text-white/50 tracking-wider">
-                Experience bespoke nautical engineering
+                {settings.drawer?.ctaText || "Experience bespoke nautical engineering"}
               </span>
-              <Link
-                href="/contact"
-                onClick={() => setPanelMenuOpen(false)}
-                className="saxdor-btn-solid !h-[44px] !min-h-[44px] !min-w-0 !px-7 !text-xs rounded-none"
-              >
-                Book Sea Trial
-              </Link>
+              {settings.drawer?.ctaButton?.visible !== false && (
+                <Link
+                  href={settings.drawer?.ctaButton?.url || "/contact"}
+                  target={settings.drawer?.ctaButton?.target || "_self"}
+                  rel={settings.drawer?.ctaButton?.target === "_blank" ? "noopener noreferrer" : undefined}
+                  onClick={() => setPanelMenuOpen(false)}
+                  className="saxdor-btn-solid !h-[44px] !min-h-[44px] !min-w-0 !px-7 !text-xs rounded-none"
+                >
+                  {settings.drawer?.ctaButton?.label || "Book Sea Trial"}
+                </Link>
+              )}
             </div>
           </div>
         </div>
