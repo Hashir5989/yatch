@@ -448,7 +448,6 @@ export default function UniversalContactView() {
                       <option value="ASMARATY G77 Luxury Yacht (78 FT • Three-Deck)">ASMARATY G77 Luxury Yacht (78 FT • Three-Deck Cruiser)</option>
                       <option value="ASMARATY G-66 Luxury Yacht (66 FT • Flybridge)">ASMARATY G-66 Luxury Yacht (66 FT • Flybridge Cruiser)</option>
                       <option value="ASMARATY G-50 Luxury Motor Yacht (50 FT • Motor Yacht)">ASMARATY G-50 Luxury Motor Yacht (50 FT • Flybridge)</option>
-                      <option value="Custom Bespoke Commission (UAE Shipyard)">Custom Bespoke Commission (UAE Shipyard Build)</option>
                       <option value="All Fleet Inquiry & Price List">General Fleet Inquiry & Price List</option>
                     </select>
                   </div>
@@ -466,7 +465,6 @@ export default function UniversalContactView() {
                       <option value="Private Sea Trial">Book Private Sea Trial (Dubai / Ajman)</option>
                       <option value="Shipyard Walkthrough">Schedule VIP Shipyard Walkthrough</option>
                       <option value="Purchase Consultation">New Build Purchase & Specifications Consultation</option>
-                      <option value="Bespoke Commissioning">Custom Interior Architecture & Commissioning</option>
                       <option value="Brochure & Price List Request">Brochure & Specification Dossier Request</option>
                     </select>
                   </div>
