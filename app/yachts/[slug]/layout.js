@@ -32,7 +32,10 @@ export async function generateStaticParams() {
   }
 }
 
+export const instant = false;
+
 export async function generateMetadata({ params }) {
+  "use cache";
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
   if (!slug) {

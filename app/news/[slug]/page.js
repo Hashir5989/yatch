@@ -22,6 +22,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
+  "use cache";
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
   if (!slug) {
