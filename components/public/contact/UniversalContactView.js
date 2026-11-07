@@ -2,19 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock, 
-  Send, 
-  CheckCircle2, 
-  ArrowRight, 
-  ArrowUpRight, 
-  ShieldCheck, 
-  Compass, 
-  Anchor, 
-  Sparkles, 
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Send,
+  CheckCircle2,
+  ArrowRight,
+  ArrowUpRight,
+  ShieldCheck,
+  Compass,
+  Anchor,
+  Sparkles,
   Ship,
   HelpCircle,
   Calendar,
@@ -613,7 +613,7 @@ export default function UniversalContactView() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-              
+
               {/* Floating Address Overlay Card */}
               <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-md p-5 bg-[#080B10]/95 backdrop-blur-md border border-[#C6A155]/40 shadow-2xl">
                 <div className="flex items-start gap-3">
