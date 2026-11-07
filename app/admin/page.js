@@ -111,10 +111,19 @@ export default function AdminPagesScreen() {
     setNewSlug(generated);
   };
 
+  // Dedicated modules (Yacht Models, News & Updates, Customer Enquiries/Contact)
+  // are managed in their own dedicated admin sections and excluded from general Pages & Sections table
+  const EXCLUDED_PAGE_SLUGS = ["/yachts", "/news", "/contact"];
+  const EXCLUDED_PAGE_IDS = ["page-yachts", "page-news", "page-contact"];
+
   const filteredPages = pages.filter((p) => {
+    if (!p) return false;
+    if (EXCLUDED_PAGE_SLUGS.includes(p.slug) || EXCLUDED_PAGE_IDS.includes(p.id)) {
+      return false;
+    }
     return (
-      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.slug.toLowerCase().includes(searchQuery.toLowerCase())
+      (p.title || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (p.slug || "").toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
 

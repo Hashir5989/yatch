@@ -115,7 +115,8 @@ export default function AdminLoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@asmaraty.com"
+                  placeholder="Enter administrator email"
+                  autoComplete="username"
                   className="w-full pl-10 pr-4 py-3 bg-[#070A0F] border border-[#1B2738] text-white text-xs focus:outline-none focus:border-[#C6A155] transition-colors rounded-none"
                 />
                 <Mail className="w-4 h-4 text-white/40 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -132,7 +133,8 @@ export default function AdminLoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••••••"
+                  placeholder="Enter administrator password"
+                  autoComplete="current-password"
                   className="w-full pl-10 pr-10 py-3 bg-[#070A0F] border border-[#1B2738] text-white text-xs focus:outline-none focus:border-[#C6A155] transition-colors rounded-none"
                 />
                 <Lock className="w-4 h-4 text-white/40 absolute left-3.5 top-1/2 -translate-y-1/2" />

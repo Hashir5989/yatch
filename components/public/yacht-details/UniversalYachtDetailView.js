@@ -25,6 +25,7 @@ import {
 import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 import InlineEditableText from "@/components/cms/InlineEditableText";
+import InlineButtonEditor from "@/components/cms/InlineButtonEditor";
 
 // Icon mapping helper for narrative cards
 const ICON_MAP = {
@@ -103,7 +104,18 @@ export default function UniversalYachtDetailView({
               <span>/</span>
               <Link href="/yachts" className="hover:text-white transition-colors">Fleet</Link>
               <span>/</span>
-              <span className="text-[#C8A870] font-medium">{data.fullName}</span>
+              <span className="text-[#C8A870] font-medium">
+                <InlineEditableText
+                  as="span"
+                  value={data.fullName || data.name}
+                  isEditable={isEditable}
+                  onChange={(val) => {
+                    onUpdateField && onUpdateField("fullName", val);
+                    onUpdateField && onUpdateField("name", val);
+                  }}
+                  placeholder="Vessel Full Name"
+                />
+              </span>
             </div>
 
             <div className="flex items-center gap-4">
@@ -118,24 +130,20 @@ export default function UniversalYachtDetailView({
                 />
               </span>
 
-              {data.brochureUrl && (
-                <a
-                  href={data.brochureUrl}
-                  download
-                  className="hidden sm:inline-flex items-center gap-1.5 text-[#C8A870] hover:text-white transition-colors text-xs font-medium"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>
-                    <InlineEditableText
-                      as="span"
-                      value={data.brochureLabel || "Brochure (PDF)"}
-                      isEditable={isEditable}
-                      onChange={(val) => onUpdateField && onUpdateField("brochureLabel", val)}
-                      placeholder="Brochure (PDF)"
-                    />
-                  </span>
-                </a>
-              )}
+              {/* Brochure Button in Ribbon - 100% Inline Editable */}
+              <InlineButtonEditor
+                text={data.brochureLabel || "Brochure (PDF)"}
+                url={data.brochureUrl || "/contact"}
+                isEditable={isEditable}
+                onSave={(newText, newUrl) => {
+                  onUpdateField && onUpdateField("brochureLabel", newText);
+                  onUpdateField && onUpdateField("brochureUrl", newUrl);
+                }}
+                className="hidden sm:inline-flex items-center gap-1.5 text-[#C8A870] hover:text-white transition-colors text-xs font-medium cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>{data.brochureLabel || "Brochure (PDF)"}</span>
+              </InlineButtonEditor>
             </div>
           </div>
         </section>
@@ -187,7 +195,13 @@ export default function UniversalYachtDetailView({
               {/* Title & Tagline */}
               <div>
                 <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-white leading-[1.05] tracking-tight">
-                  ASMARATY{" "}
+                  <InlineEditableText
+                    as="span"
+                    value={data.brandPrefix || "ASMARATY"}
+                    isEditable={isEditable}
+                    onChange={(val) => onUpdateField && onUpdateField("brandPrefix", val)}
+                    placeholder="ASMARATY"
+                  />{" "}
                   <span className="font-sans font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#FFFFFF] via-[#E5C392] to-[#C8A870]">
                     <InlineEditableText
                       as="span"
@@ -222,55 +236,62 @@ export default function UniversalYachtDetailView({
                 />
               </p>
 
-              {/* Action Buttons */}
+              {/* Action Buttons: 100% Inline Editable (Label, URL, Style) */}
               <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
-                <Link
-                  href="/contact"
-                  className="saxdor-btn-solid !h-[52px] px-8 text-xs font-semibold tracking-wider rounded-none inline-flex items-center gap-2"
+                <InlineButtonEditor
+                  text={data.heroPrimaryButtonText || "Book Private Viewing"}
+                  url={data.heroPrimaryButtonUrl || "/contact"}
+                  isEditable={isEditable}
+                  onSave={(newText, newUrl) => {
+                    onUpdateField && onUpdateField("heroPrimaryButtonText", newText);
+                    onUpdateField && onUpdateField("heroPrimaryButtonUrl", newUrl);
+                  }}
+                  className="saxdor-btn-solid !h-[52px] px-8 text-xs font-semibold tracking-wider rounded-none inline-flex items-center gap-2 cursor-pointer"
                 >
-                  <span>Book Private Viewing</span>
+                  <span>{data.heroPrimaryButtonText || "Book Private Viewing"}</span>
                   <ArrowUpRight className="w-4 h-4" />
-                </Link>
+                </InlineButtonEditor>
 
-                {data.brochureUrl ? (
-                  <a
-                    href={data.brochureUrl}
-                    download
-                    className="saxdor-btn-outline !h-[52px] px-6 text-xs font-medium tracking-wider rounded-none inline-flex items-center gap-2 bg-[#080B10]/60 backdrop-blur-sm"
-                  >
-                    <Download className="w-4 h-4 text-[#C8A870]" />
-                    <span>Download Brochure (PDF)</span>
-                  </a>
-                ) : (
-                  <Link
-                    href="/contact"
-                    className="saxdor-btn-outline !h-[52px] px-6 text-xs font-medium tracking-wider rounded-none inline-flex items-center gap-2 bg-[#080B10]/60 backdrop-blur-sm"
-                  >
-                    <Download className="w-4 h-4 text-[#C8A870]" />
-                    <span>Request Full Brochure</span>
-                  </Link>
-                )}
-
-                <a
-                  href="#deck-plans"
-                  className="text-xs uppercase tracking-luxury text-[#E5C392] hover:text-white px-4 py-3 transition-colors inline-flex items-center gap-2"
+                <InlineButtonEditor
+                  text={data.brochureLabel || "Download Brochure (PDF)"}
+                  url={data.brochureUrl || "/contact"}
+                  isEditable={isEditable}
+                  onSave={(newText, newUrl) => {
+                    onUpdateField && onUpdateField("brochureLabel", newText);
+                    onUpdateField && onUpdateField("brochureUrl", newUrl);
+                  }}
+                  className="saxdor-btn-outline !h-[52px] px-6 text-xs font-medium tracking-wider rounded-none inline-flex items-center gap-2 bg-[#080B10]/60 backdrop-blur-sm cursor-pointer"
                 >
-                  <span>Explore 3D Deck Plans</span>
+                  <Download className="w-4 h-4 text-[#C8A870]" />
+                  <span>{data.brochureLabel || "Download Brochure (PDF)"}</span>
+                </InlineButtonEditor>
+
+                <InlineButtonEditor
+                  text={data.deckPlansButtonText || "Explore 3D Deck Plans"}
+                  url={data.deckPlansButtonUrl || "#deck-plans"}
+                  isEditable={isEditable}
+                  onSave={(newText, newUrl) => {
+                    onUpdateField && onUpdateField("deckPlansButtonText", newText);
+                    onUpdateField && onUpdateField("deckPlansButtonUrl", newUrl);
+                  }}
+                  className="text-xs uppercase tracking-luxury text-[#E5C392] hover:text-white px-4 py-3 transition-colors inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <span>{data.deckPlansButtonText || "Explore 3D Deck Plans"}</span>
                   <ChevronRight className="w-3.5 h-3.5" />
-                </a>
+                </InlineButtonEditor>
               </div>
             </div>
 
-            {/* Auto-Slide Indicator Dots (Clean & Minimal) */}
-            <div className="mt-10 pt-6 border-t border-white/10 flex items-center justify-between">
-              <div className="flex items-center gap-2">
+            {/* Auto-Slide Indicator Dots & Slide Management */}
+            <div className="mt-10 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-2">
                 {(data.heroImages || []).map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveHeroIdx(idx)}
                     aria-label={img.label}
                     title={img.label}
-                    className={`h-1.5 transition-all duration-500 rounded-full ${
+                    className={`h-1.5 transition-all duration-500 rounded-full cursor-pointer ${
                       activeHeroIdx === idx
                         ? "w-8 bg-[#C8A870]"
                         : "w-2 bg-white/30 hover:bg-white/60"
@@ -281,18 +302,56 @@ export default function UniversalYachtDetailView({
                   0{activeHeroIdx + 1} / 0{data.heroImages?.length || 1}
                 </span>
 
-                {isEditable && onOpenMediaPicker && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const cur = data.heroImages?.[activeHeroIdx]?.src || "";
-                      onOpenMediaPicker(`heroImages[${activeHeroIdx}].src`, cur);
-                    }}
-                    className="ml-3 px-2 py-0.5 bg-[#0E1522] border border-[#C8A870]/60 text-[#DFBA73] text-[10px] font-mono flex items-center gap-1 hover:bg-[#C8A870] hover:text-[#080B10] transition-colors"
-                  >
-                    <ImageIcon className="w-3 h-3" />
-                    <span>Change Current Slide</span>
-                  </button>
+                {/* Hero Slide In-Line Controls */}
+                {isEditable && (
+                  <div className="flex items-center gap-1.5 ml-4">
+                    {onOpenMediaPicker && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const cur = data.heroImages?.[activeHeroIdx]?.src || "";
+                          onOpenMediaPicker(`heroImages[${activeHeroIdx}].src`, cur);
+                        }}
+                        className="px-2.5 py-1 bg-[#0E1522] border border-[#C8A870]/60 text-[#DFBA73] text-[10px] font-mono flex items-center gap-1 hover:bg-[#C8A870] hover:text-[#080B10] transition-colors cursor-pointer"
+                        title="Replace photo for this active slide"
+                      >
+                        <ImageIcon className="w-3 h-3" />
+                        <span>Change Photo</span>
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const slides = [...(data.heroImages || [])];
+                        slides.push({
+                          src: "/images/yachts/g100/0.jpg",
+                          label: `${data.fullName || "Vessel"} Daylight View`,
+                        });
+                        onUpdateField && onUpdateField("heroImages", slides);
+                        setActiveHeroIdx(slides.length - 1);
+                      }}
+                      className="px-2 py-1 bg-white/10 hover:bg-white/20 text-white text-[10px] font-mono flex items-center gap-1 transition-colors cursor-pointer"
+                      title="Add a new slide to hero carousel"
+                    >
+                      <Plus className="w-3 h-3" />
+                      <span>Add Slide</span>
+                    </button>
+                    {(data.heroImages || []).length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const slides = [...(data.heroImages || [])];
+                          slides.splice(activeHeroIdx, 1);
+                          onUpdateField && onUpdateField("heroImages", slides);
+                          setActiveHeroIdx(Math.max(0, activeHeroIdx - 1));
+                        }}
+                        className="p-1 text-rose-400 hover:text-rose-200 hover:bg-rose-950/40 rounded-xs transition-colors cursor-pointer"
+                        title="Delete this slide"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
 
@@ -534,15 +593,21 @@ export default function UniversalYachtDetailView({
                       </button>
                     )}
 
-                    <a
-                      href={activeDeck.image3D}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="saxdor-btn-outline !h-[42px] px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center gap-2"
+                    <InlineButtonEditor
+                      text="View Full Resolution"
+                      url={activeDeck.image3D}
+                      isEditable={isEditable}
+                      onSave={(newText, newUrl) => {
+                        const decks = (data.deckPlans || []).map((d) =>
+                          d.id === activeDeck.id ? { ...d, image3D: newUrl } : d
+                        );
+                        onUpdateField && onUpdateField("deckPlans", decks);
+                      }}
+                      className="saxdor-btn-outline !h-[42px] px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center gap-2 cursor-pointer"
                     >
                       <Maximize2 className="w-3.5 h-3.5 text-[#C8A870]" />
                       <span>View Full Resolution</span>
-                    </a>
+                    </InlineButtonEditor>
                   </div>
                 </div>
 
@@ -573,14 +638,38 @@ export default function UniversalYachtDetailView({
 
                 {/* Key Highlights for this Deck */}
                 <div className="space-y-4">
-                  <h4 className="text-xs uppercase tracking-luxury text-[#C8A870] font-semibold">
-                    Key Deck Appointments & Features
-                  </h4>
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <h4 className="text-xs uppercase tracking-luxury text-[#C8A870] font-semibold">
+                      Key Deck Appointments & Features
+                    </h4>
+                    {isEditable && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const decks = (data.deckPlans || []).map((d) => {
+                            if (d.id === activeDeck.id) {
+                              return {
+                                ...d,
+                                features: [...(d.features || []), "New premium deck feature / appointment"],
+                              };
+                            }
+                            return d;
+                          });
+                          onUpdateField && onUpdateField("deckPlans", decks);
+                        }}
+                        className="px-2.5 py-1 bg-[#C8A870]/20 hover:bg-[#C8A870]/40 text-[#DFBA73] border border-[#C8A870]/50 text-[10px] font-mono flex items-center gap-1 cursor-pointer transition-colors"
+                      >
+                        <Plus className="w-3 h-3" />
+                        <span>Add Deck Feature</span>
+                      </button>
+                    )}
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     {(activeDeck.features || []).map((feat, idx) => (
                       <div
                         key={idx}
-                        className="p-3.5 bg-[#0A0D14] border border-white/5 flex items-start gap-3"
+                        className="p-3.5 bg-[#0A0D14] border border-white/5 flex items-start gap-3 group/feat"
                       >
                         <div className="w-5 h-5 rounded-none bg-[#C8A870]/10 border border-[#C8A870]/30 flex items-center justify-center text-[#C8A870] flex-shrink-0 mt-0.5">
                           <Check className="w-3 h-3" />
@@ -604,6 +693,25 @@ export default function UniversalYachtDetailView({
                             placeholder="Deck feature..."
                           />
                         </span>
+                        {isEditable && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const decks = (data.deckPlans || []).map((d) => {
+                                if (d.id === activeDeck.id) {
+                                  const feats = (d.features || []).filter((_, fIdx) => fIdx !== idx);
+                                  return { ...d, features: feats };
+                                }
+                                return d;
+                              });
+                              onUpdateField && onUpdateField("deckPlans", decks);
+                            }}
+                            className="text-rose-400 hover:text-rose-200 opacity-60 hover:opacity-100 p-0.5 transition-opacity cursor-pointer"
+                            title="Delete feature"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -647,22 +755,46 @@ export default function UniversalYachtDetailView({
           {/* Active Specification Table Grid */}
           {activeSpec && (
             <div className="bg-[#0E131C] border border-white/10 divide-y divide-white/5">
-              <div className="p-4 sm:p-6 bg-[#0A0D14] flex items-center justify-between">
+              <div className="p-4 sm:p-6 bg-[#0A0D14] flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <Sliders className="w-4 h-4 text-[#C8A870]" />
                   <h3 className="font-serif text-xl sm:text-2xl text-white font-light">
                     {activeSpec.title}
                   </h3>
                 </div>
-                <span className="text-xs text-[#828F9E] font-mono uppercase tracking-wider">
-                  Certified Shipyard Matrix
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-[#828F9E] font-mono uppercase tracking-wider hidden sm:inline">
+                    Certified Shipyard Matrix
+                  </span>
+                  {isEditable && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const cats = (data.specCategories || []).map((c) => {
+                          if (c.id === activeSpec.id) {
+                            const specs = [
+                              ...(c.specs || []),
+                              { label: "New Specification Parameter", value: "Standard / Custom" },
+                            ];
+                            return { ...c, specs };
+                          }
+                          return c;
+                        });
+                        onUpdateField && onUpdateField("specCategories", cats);
+                      }}
+                      className="px-2.5 py-1 bg-[#C8A870]/20 hover:bg-[#C8A870]/40 text-[#DFBA73] border border-[#C8A870]/50 text-[10px] font-mono flex items-center gap-1 cursor-pointer transition-colors"
+                    >
+                      <Plus className="w-3 h-3" />
+                      <span>Add Spec Row</span>
+                    </button>
+                  )}
+                </div>
               </div>
 
               {(activeSpec.specs || []).map((item, idx) => (
                 <div
                   key={idx}
-                  className="grid grid-cols-1 sm:grid-cols-12 p-4 sm:p-5 text-xs hover:bg-[#121824] transition-colors gap-2"
+                  className="grid grid-cols-1 sm:grid-cols-12 p-4 sm:p-5 text-xs hover:bg-[#121824] transition-colors gap-2 items-center group/spec"
                 >
                   <div className="sm:col-span-5 text-[#8E9EAF] uppercase tracking-wider font-medium flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#C8A870]/40"></span>
@@ -686,7 +818,7 @@ export default function UniversalYachtDetailView({
                       />
                     </span>
                   </div>
-                  <div className="sm:col-span-7 text-white font-medium sm:text-right font-mono text-sm">
+                  <div className="sm:col-span-7 text-white font-medium sm:text-right font-mono text-sm flex items-center justify-between sm:justify-end gap-3">
                     <InlineEditableText
                       as="span"
                       value={item.value}
@@ -704,6 +836,25 @@ export default function UniversalYachtDetailView({
                       }}
                       placeholder="Spec value..."
                     />
+                    {isEditable && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const cats = (data.specCategories || []).map((c) => {
+                            if (c.id === activeSpec.id) {
+                              const specs = (c.specs || []).filter((_, sIdx) => sIdx !== idx);
+                              return { ...c, specs };
+                            }
+                            return c;
+                          });
+                          onUpdateField && onUpdateField("specCategories", cats);
+                        }}
+                        className="text-rose-400 hover:text-rose-200 opacity-60 hover:opacity-100 p-1 cursor-pointer transition-opacity"
+                        title="Delete specification row"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -782,19 +933,37 @@ export default function UniversalYachtDetailView({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
 
-                  {/* Replace Photo Button for Editor */}
-                  {isEditable && onOpenMediaPicker && (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onOpenMediaPicker(`gallery_${item.id}`, item.src);
-                      }}
-                      className="absolute top-3 right-3 px-2.5 py-1 bg-[#080B10]/90 text-[#DFBA73] border border-[#C8A870]/60 text-[10px] font-mono flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-xl"
-                    >
-                      <ImageIcon className="w-3 h-3" />
-                      <span>Replace</span>
-                    </button>
+                  {/* Gallery In-Line Controls */}
+                  {isEditable && (
+                    <div className="absolute top-3 inset-x-3 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const updated = (data.gallery || []).filter((g) => g.id !== item.id);
+                          onUpdateField && onUpdateField("gallery", updated);
+                        }}
+                        className="px-2 py-1 bg-rose-950/90 text-rose-300 border border-rose-500/50 text-[10px] font-mono flex items-center gap-1 hover:bg-rose-900 transition-colors shadow-xl cursor-pointer"
+                        title="Delete photo"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                        <span>Delete</span>
+                      </button>
+
+                      {onOpenMediaPicker && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onOpenMediaPicker(`gallery_${item.id}`, item.src);
+                          }}
+                          className="px-2.5 py-1 bg-[#080B10]/90 text-[#DFBA73] border border-[#C8A870]/60 text-[10px] font-mono flex items-center gap-1 hover:bg-[#C8A870] hover:text-[#080B10] transition-colors shadow-xl cursor-pointer"
+                        >
+                          <ImageIcon className="w-3 h-3" />
+                          <span>Replace</span>
+                        </button>
+                      )}
+                    </div>
                   )}
 
                   <div className="absolute bottom-0 inset-x-0 p-5 space-y-1">
@@ -841,34 +1010,69 @@ export default function UniversalYachtDetailView({
           <div className="relative overflow-hidden bg-gradient-to-r from-[#0E131C] via-[#141C2A] to-[#0E131C] border border-[#C8A870]/30 p-8 sm:p-14 text-center space-y-6">
             <div className="space-y-3 max-w-2xl mx-auto">
               <span className="text-xs uppercase tracking-[0.25em] text-[#C8A870] font-semibold block">
-                PRIVATE VIEWINGS & SEA TRIALS
+                <InlineEditableText
+                  as="span"
+                  value={data.ctaBadge || "PRIVATE VIEWINGS & SEA TRIALS"}
+                  isEditable={isEditable}
+                  onChange={(val) => onUpdateField && onUpdateField("ctaBadge", val)}
+                  placeholder="CTA Badge..."
+                />
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl text-white font-light">
-                Schedule a Private Viewing of the {data.modelNumber}
+                <InlineEditableText
+                  as="span"
+                  value={data.ctaHeadline || `Schedule a Private Viewing of the ${data.modelNumber || "Vessel"}`}
+                  isEditable={isEditable}
+                  onChange={(val) => onUpdateField && onUpdateField("ctaHeadline", val)}
+                  placeholder="CTA Headline..."
+                />
               </h2>
               <p className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed">
-                We coordinate confidential dockside viewings and sea trials departing from Dubai Harbour Marina for qualified prospective owners and yacht management representatives.
+                <InlineEditableText
+                  as="span"
+                  value={
+                    data.ctaDescription ||
+                    "We coordinate confidential dockside viewings and sea trials departing from Dubai Harbour Marina for qualified prospective owners and yacht management representatives."
+                  }
+                  isEditable={isEditable}
+                  multiline={true}
+                  onChange={(val) => onUpdateField && onUpdateField("ctaDescription", val)}
+                  placeholder="CTA description text..."
+                />
               </p>
             </div>
 
             <div className="pt-2 flex flex-wrap justify-center items-center gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#C8A870] hover:bg-[#D4B67F] text-black font-semibold text-xs uppercase tracking-luxury transition-all shadow-lg hover:shadow-[#C8A870]/20"
+              <InlineButtonEditor
+                text={data.ctaPrimaryButtonText || "REQUEST PRIVATE VIEWING / CONSULTATION"}
+                url={data.ctaPrimaryButtonUrl || "/contact"}
+                isEditable={isEditable}
+                onSave={(newText, newUrl) => {
+                  onUpdateField && onUpdateField("ctaPrimaryButtonText", newText);
+                  onUpdateField && onUpdateField("ctaPrimaryButtonUrl", newUrl);
+                }}
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#C8A870] hover:bg-[#D4B67F] text-black font-semibold text-xs uppercase tracking-luxury transition-all shadow-lg hover:shadow-[#C8A870]/20 cursor-pointer"
               >
-                <span>REQUEST PRIVATE VIEWING / CONSULTATION</span>
+                <span>{data.ctaPrimaryButtonText || "REQUEST PRIVATE VIEWING / CONSULTATION"}</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </Link>
+              </InlineButtonEditor>
 
-              <a
-                href={`https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20request%20a%20private%20viewing%20for%20the%20${data.modelNumber}%20yacht.`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#25D366] font-medium text-xs uppercase tracking-luxury transition-all"
+              <InlineButtonEditor
+                text={data.ctaWhatsappButtonText || "CHAT ON WHATSAPP"}
+                url={
+                  data.ctaWhatsappButtonUrl ||
+                  `https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20request%20a%20private%20viewing%20for%20the%20${data.modelNumber || "yacht"}%20yacht.`
+                }
+                isEditable={isEditable}
+                onSave={(newText, newUrl) => {
+                  onUpdateField && onUpdateField("ctaWhatsappButtonText", newText);
+                  onUpdateField && onUpdateField("ctaWhatsappButtonUrl", newUrl);
+                }}
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#25D366] font-medium text-xs uppercase tracking-luxury transition-all cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>CHAT ON WHATSAPP</span>
-              </a>
+                <span>{data.ctaWhatsappButtonText || "CHAT ON WHATSAPP"}</span>
+              </InlineButtonEditor>
             </div>
           </div>
         </section>
