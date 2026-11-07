@@ -13,7 +13,14 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
-  const canonicalSlug = slug === "as-77" || slug === "as77" ? "g77" : slug === "g55" ? "g50" : slug;
+  const canonicalSlug =
+    slug === "as-77" || slug === "as77"
+      ? "g77"
+      : slug === "g55" || slug === "g-50" || slug === "as-50" || slug === "as50"
+      ? "g50"
+      : slug === "g-66" || slug === "as-66" || slug === "as66"
+      ? "g66"
+      : slug;
 
   if (slug === "g100") {
     return {
@@ -56,6 +63,21 @@ export async function generateMetadata({ params }) {
       },
       alternates: {
         canonical: "https://asmaraty.com/yachts/g66",
+      },
+    };
+  }
+
+  if (slug === "g50" || slug === "g-50" || slug === "as-50" || slug === "as50" || slug === "g55") {
+    return {
+      title: "ASMARATY G50 Luxury Motor Yacht | 50ft Flybridge Cruiser | ASMARATY UAE",
+      description:
+        "Explore the ASMARATY G50 — an elegant 50-foot luxury flybridge motor yacht engineered in the UAE. Discover authentic specifications, 3D GA deck plans, 3 private staterooms, twin Cummins inboards, and official brochure.",
+      robots: {
+        index: true,
+        follow: true,
+      },
+      alternates: {
+        canonical: "https://asmaraty.com/yachts/g50",
       },
     };
   }

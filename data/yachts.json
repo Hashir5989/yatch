@@ -175,40 +175,43 @@
     "mainImage": "/images/yachts/g50.jpg",
     "primaryImage": "/images/yachts/g50.jpg",
     "gallery": [
-      "/images/yachts/g50.jpg",
-      "https://images.unsplash.com/photo-1569263979104-865ab7cd8d17?auto=format&fit=crop&w=2000&q=80",
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=2000&q=80"
+      "/images/yachts/g50/hero-01.jpg",
+      "/images/yachts/g50/hero-02.jpg",
+      "/images/yachts/g50/gallery-ext-sunset.jpg",
+      "/images/yachts/g50/gallery-salon-aft.jpg",
+      "/images/yachts/g50/gallery-master-stateroom.jpg"
     ],
     "featured": true,
     "status": "published",
     "displayOrder": 4,
     "specs": {
       "yachtType": "Pleasure boat / luxury motor yacht",
-      "hullConstruction": "Fiberglass",
+      "hullConstruction": "Hand-laid fiberglass composite",
       "hullMaterial": "Fiberglass",
-      "lengthOverall": "50 ft / 15 m",
-      "lengthWaterline": "40 ft / 12 m",
-      "maximumBeam": "15 ft / 4.5 m",
-      "beam": "15 ft / 4.5 m",
+      "lengthOverall": "50 ft / 15.00 m",
+      "lengthWaterline": "40 ft / 12.00 m",
+      "maximumBeam": "15 ft / 4.50 m",
+      "beam": "15 ft / 4.50 m",
       "draftAtFullLoad": "4 ft / 1.35 m",
-      "draft": "4 ft / 1.35 m (as listed)",
+      "draft": "4 ft / 1.35 m",
       "displacement": "15–20 tons",
       "passengerCapacity": "15 passengers",
       "fuelCapacity": "450 US gal / 1,701 L",
       "freshwaterCapacity": "100 US gal / 378 L",
-      "engines": "Twin 550 HP Cummins, or equivalent",
-      "bedrooms": "Forward Owner's Cabin + Guest Quarters",
-      "berths": "Owner & Guest Berths"
+      "engines": "2 × 550 HP Cummins Inboards (or equivalent)",
+      "bedrooms": "3 Staterooms (Master + 2 Guest Cabins)",
+      "berths": "6 Berths",
+      "headCompartments": "2 Luxury Bathrooms"
     },
     "highlights": [
       "Open-Plan Salon: Comfortable lounge seating, dedicated dining area & broad windows bringing natural light",
-      "Comfortable Accommodation: Forward owner's cabin and guest accommodation offering privacy and storage",
-      "Flybridge Living: Elevated outdoor space with comfortable seating and a second steering station",
-      "Outdoor Relaxation: Welcoming cockpit and generous deck areas for spending time with family and guests",
-      "Practical Onboard Features: Navigation equipment, integrated monitoring & optional hydraulic stern platform"
+      "Private Accommodations: Forward Queen Owner's Suite and two twin guest cabins (3 staterooms / 6 berths)",
+      "Entertainer's Flybridge: Elevated sky lounge with wrap-around seating, bimini canopy, wet bar & BBQ grill",
+      "Gourmet Galley: Corian worktops, ceramic cooktop, microwave oven, and scenic sea views",
+      "High-Performance Propulsion: Twin 550 HP Cummins inboards, closed cooling & underwater exhaust"
     ],
-    "floorplanUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+    "floorplanUrl": "/images/yachts/g50/deck-main.jpg",
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-10-26T21:00:00.000Z"
+    "updatedAt": "2026-11-07T01:30:00.000Z"
   }
 ]
