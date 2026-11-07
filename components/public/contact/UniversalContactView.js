@@ -41,7 +41,23 @@ const FAQS = [
   }
 ];
 
-export default function UniversalContactView() {
+export default function UniversalContactView({ pageData = null }) {
+  const heroSection = pageData?.sections?.find((s) => s.id === "contact-hero" || s.type === "hero_banner");
+  const enquirySection = pageData?.sections?.find((s) => s.id === "enquiry-form" || s.type === "enquiry_section");
+
+  const heroEyebrow = heroSection?.eyebrow || "VIP Maritime Concierge & Shipyard Headquarters";
+  const heroHeading = heroSection?.heading || "Contact ASMARATY";
+  const heroSubheading = heroSection?.subheading || "Connect directly with our luxury yacht advisory team in the United Arab Emirates. Schedule a private sea trial, discuss bespoke superyacht commissions, or arrange an exclusive walkthrough at our shipyard.";
+  const heroImage = heroSection?.imageUrl || "/images/yachts/g100/5.jpg";
+  const heroImageAlt = heroSection?.imageAlt || "ASMARATY Yacht Maritime Concierge";
+
+  const formEyebrow = enquirySection?.eyebrow || "DIRECT DIALOGUE";
+  const formHeading = enquirySection?.heading || "Request Private Consultation";
+  const formDescription = enquirySection?.description || "Whether you are planning to commission an ASMARATY flagship superyacht or wish to experience our dynamic flybridge cruisers firsthand, our advisory team coordinates private sea trials and confidential walkthroughs across the UAE.";
+  const contactPhone = enquirySection?.phone || "+971 56 526 8126";
+  const contactEmail = enquirySection?.recipientEmail || "info@asmaraty.com";
+  const contactAddress = enquirySection?.address || "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates";
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -108,8 +124,8 @@ export default function UniversalContactView() {
         {/* Background Image with Dark Maritime Gradient */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/yachts/g100/5.jpg"
-            alt="ASMARATY Yacht Maritime Concierge"
+            src={heroImage}
+            alt={heroImageAlt}
             className="w-full h-full object-cover object-center filter brightness-[0.5] contrast-[1.1]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-[#080B10]/75 to-[#080B10]/60" />
@@ -120,18 +136,18 @@ export default function UniversalContactView() {
           <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-[#0E1A2D]/85 border border-[#C6A155]/40 backdrop-blur-md mb-6">
             <span className="w-2 h-2 rounded-full bg-[#C6A155] animate-pulse" />
             <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.28em] text-[#DFBA73]">
-              VIP Maritime Concierge & Shipyard Headquarters
+              {heroEyebrow}
             </span>
           </div>
 
           {/* Headline */}
           <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-6 max-w-4xl">
-            Contact ASMARATY
+            {heroHeading}
           </h1>
 
           {/* Subtitle */}
           <p className="text-base sm:text-lg md:text-xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed mb-10 text-justify sm:text-center">
-            Connect directly with our luxury yacht advisory team in the United Arab Emirates. Schedule a private sea trial, discuss bespoke superyacht commissions, or arrange an exclusive walkthrough at our shipyard.
+            {heroSubheading}
           </p>
 
           {/* Action CTAs */}
@@ -314,13 +330,13 @@ export default function UniversalContactView() {
             <div className="lg:col-span-5 space-y-8">
               <div>
                 <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2">
-                  DIRECT DIALOGUE
+                  {formEyebrow}
                 </span>
                 <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-5">
-                  Request Private Consultation
+                  {formHeading}
                 </h2>
                 <p className="text-sm sm:text-base text-white/75 font-light leading-relaxed text-justify" style={{ textJustify: "inter-word" }}>
-                  Whether you are planning to commission an ASMARATY flagship superyacht or wish to experience our dynamic flybridge cruisers firsthand, our advisory team coordinates private sea trials and confidential walkthroughs across the UAE.
+                  {formDescription}
                 </p>
               </div>
 
