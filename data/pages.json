@@ -519,7 +519,7 @@
   },
   {
     "id": "page-contact",
-    "title": "Contact & Concierge",
+    "title": "Contact & VIP Concierge",
     "slug": "/contact",
     "template": "vip_concierge",
     "status": "published",
@@ -572,12 +572,12 @@
         "phone": "+971 56 526 8126",
         "address": "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates",
         "yachtOptions": [
-          "AS 100 Superyacht",
-          "Magellan 32 Explorer",
-          "AS 88 Flybridge",
-          "AS 68 Sports Cruiser",
-          "AS 45 Island Explorer",
-          "Custom Vessel Build"
+          "ASMARATY G-100 Super Yacht (100 FT • Flagship)",
+          "ASMARATY G77 Luxury Yacht (78 FT • Three-Deck)",
+          "ASMARATY G-66 Luxury Yacht (66 FT • Flybridge)",
+          "ASMARATY G-50 Luxury Motor Yacht (50 FT • Flybridge)",
+          "Custom Bespoke Commission (UAE Shipyard)",
+          "All Fleet Inquiry & Price List"
         ],
         "backgroundStyle": "dark",
         "contentAlignment": "left"
