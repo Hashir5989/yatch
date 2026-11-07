@@ -1,14 +1,11 @@
 "use client";
 
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, Gem, Waves, Users } from "lucide-react";
 import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 
 export default function AboutPage() {
-  redirect("/");
-
   const values = [
     {
       title: "Craftsmanship",

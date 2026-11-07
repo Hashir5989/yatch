@@ -15,7 +15,8 @@ import {
   ShieldAlert,
   LogOut,
   UserCheck,
-  Mail
+  Mail,
+  Newspaper
 } from "lucide-react";
 import { resetAllDemoData } from "@/lib/cmsStore";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
@@ -29,6 +30,7 @@ export default function CmsSidebar({ currentUser }) {
   const menuItems = [
     { label: "Pages & Sections", href: "/admin", icon: Layers, exact: true },
     { label: "Yacht Models", href: "/admin/yachts", icon: Anchor },
+    { label: "News & Updates", href: "/admin/news", icon: Newspaper },
     { label: "Customer Enquiries", href: "/admin/enquiries", icon: Mail },
     { label: "Media Library", href: "/admin/media", icon: Images },
     { label: "Settings & System", href: "/admin/settings", icon: Sliders },

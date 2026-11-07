@@ -55,8 +55,8 @@
         "layoutStyle": "fleet_feature",
         "backgroundStyle": "light",
         "contentAlignment": "center",
-        "buttonText": "DISCOVER THE FLEET",
-        "buttonUrl": "/yachts"
+        "buttonText": "DISCOVER OUR STORY",
+        "buttonUrl": "/about"
       },
       {
         "id": "home-four-models",

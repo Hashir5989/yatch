@@ -1,9 +1,9 @@
 export const metadata = {
-  title: "About Us | Shipyard Heritage & Naval Architecture",
+  title: "About Us | Shipyard Heritage & Naval Architecture | ASMARATY Luxury Yachts",
   description:
     "Learn about ASMARATY's four decades of shipbuilding heritage, pioneering composite marine technology, and luxury yacht manufacturing in the United Arab Emirates.",
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
   alternates: {
