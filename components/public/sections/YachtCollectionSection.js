@@ -723,24 +723,26 @@ export default function YachtCollectionSection({
               key={yacht.id}
               className="group bg-[#0E2047] border border-white/10 hover:border-[#C6A155] transition-all duration-500 flex flex-col overflow-hidden"
             >
-              <div className="relative aspect-video overflow-hidden bg-[#0A1322]">
+              <Link href={`/yachts/${yacht.slug}`} className="block relative aspect-video overflow-hidden bg-[#0A1322]">
                 <img
                   src={yacht.mainImage}
                   alt={yacht.name}
-                  className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
+                  className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-700"
                 />
                 <div className="absolute top-3 left-3 bg-[#08101C]/80 px-2.5 py-1 text-[10px] uppercase tracking-wider text-[#C6A155] font-semibold border border-[#C6A155]/30">
                   {yacht.category}
                 </div>
-              </div>
+              </Link>
 
               <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                 <div>
-                  <h3 className="font-sans text-lg font-light text-white uppercase tracking-wider">
-                    {yacht.name}
-                  </h3>
-                  <p className="text-xs text-white/50 font-mono mt-1">
-                    {[yacht.specs?.lengthOverall || yacht.length, yacht.category].filter(Boolean).join(" • ")}
+                  <Link href={`/yachts/${yacht.slug}`} className="block group/title">
+                    <h3 className="font-sans text-lg font-light text-white group-hover/title:text-[#DFBA73] uppercase tracking-wider transition-colors">
+                      {yacht.name}
+                    </h3>
+                  </Link>
+                  <p className="text-xs text-[#C6A155] font-mono mt-1">
+                    {[yacht.specs?.lengthOverall || yacht.length, yacht.specs?.engines || yacht.category].filter(Boolean).join(" • ")}
                   </p>
                   <p className="text-xs text-white/70 mt-3 line-clamp-3 leading-relaxed">
                     {yacht.description}
@@ -756,18 +758,13 @@ export default function YachtCollectionSection({
                     <span>Enquire</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </button>
-                  <a
-                    href="#fleet"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      window.dispatchEvent(new CustomEvent("asm-switch-fleet-model", { detail: { slug: yacht.slug } }));
-                      const fleetElem = document.getElementById("fleet");
-                      if (fleetElem) fleetElem.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className="text-xs text-white/60 hover:text-white uppercase tracking-wider cursor-pointer"
+                  <Link
+                    href={`/yachts/${yacht.slug}`}
+                    className="text-xs text-white/80 hover:text-[#DFBA73] uppercase tracking-wider font-semibold flex items-center gap-1 cursor-pointer transition-colors"
                   >
-                    Specs
-                  </a>
+                    <span>View Dossier</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
                 </div>
               </div>
             </div>

@@ -1,9 +1,9 @@
 export const metadata = {
-  title: "Superyacht & Luxury Fleet Collection",
+  title: "ASMARATY Luxury Yacht Fleet Catalogue | UAE Motor Yachts & Superyachts",
   description:
-    "Explore the complete ASMARATY yacht collection in the UAE, featuring the G100 flagship superyacht, G77, G66 flybridge, and G50 luxury motor yacht.",
+    "Explore the complete ASMARATY luxury yacht fleet catalogue. Discover the G100 flagship superyacht, G77 three-deck cruiser, G66 flybridge, and G50 motor yacht with authentic technical specifications, 3D deck plans, and official brochures.",
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
   alternates: {

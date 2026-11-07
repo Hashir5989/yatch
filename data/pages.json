@@ -80,7 +80,7 @@
         "eyebrow": "A PASSION FOR DESIGN & CRAFTSMANSHIP",
         "heading": "A SHARED PASSION FOR LIFE AT SEA",
         "description": "At ASMARATY, our ambition is to create yachts that deliver spacious luxury boating and stylish, intimate cruising. From our broad proportions and generous accommodations to panoramic flybridge vistas, every vessel is created to be as rewarding to spend time aboard as it is to admire from the shore.",
-        "quote": "\u201cA yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.\u201d",
+        "quote": "“A yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.”",
         "imageUrl": "/images/asmaraty-shared-passion.jpg",
         "imageAlt": "ASMARATY Luxury Yacht with illuminated emblem at sunset",
         "buttonText": "REQUEST CONSULTATION",
@@ -119,7 +119,7 @@
           {
             "id": "interior-g100-master",
             "title": "ASMARATY G-100",
-            "subtitle": "Full-Beam Owner\u2019s Master Suite",
+            "subtitle": "Full-Beam Owner’s Master Suite",
             "image": "/images/interiors/g100-master-suite.jpg",
             "modelSlug": "g100"
           },
@@ -168,7 +168,7 @@
           {
             "id": "interior-g50-cabin",
             "title": "ASMARATY G-50",
-            "subtitle": "Forward Owner\u2019s Master Stateroom",
+            "subtitle": "Forward Owner’s Master Stateroom",
             "image": "/images/interiors/g50-owner-cabin.jpg",
             "modelSlug": "g50"
           }
@@ -178,10 +178,10 @@
         "id": "home-company",
         "type": "image_text",
         "visible": true,
-        "eyebrow": "CONTEMPORARY AESTHETICS \u2022 CRAFTSMANSHIP",
+        "eyebrow": "CONTEMPORARY AESTHETICS • CRAFTSMANSHIP",
         "heading": "A NEW CHAPTER IN BOATBUILDING",
         "description": "Rooted in maritime heritage and refined modern styling, ASMARATY designs yachts that balance modern exterior lines with broad proportions, usable space, and the comforts that make longer stays at sea truly memorable.",
-        "quote": "\u201cA yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.\u201d",
+        "quote": "“A yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.”",
         "imageUrl": "/images/asmaraty-shipyard-facility.jpg",
         "imageAlt": "Al Shaali Marine - ASMARATY Luxury Yachts Shipyard Facility UAE",
         "buttonText": "VISIT OUR SHIPYARD",
@@ -221,7 +221,7 @@
         "primaryButtonUrl": "#fleet",
         "secondaryButtonText": "Download Fleet Catalog",
         "secondaryButtonUrl": "/yachts",
-        "guaranteeText": "Direct consultation with Chief Naval Architect \u2022 Strict Discretion Assured",
+        "guaranteeText": "Direct consultation with Chief Naval Architect • Strict Discretion Assured",
         "imageUrl": "/images/asmaraty-racing-yacht-journey.jpg",
         "videoUrl": "",
         "layoutStyle": "cinematic-full",
@@ -236,7 +236,7 @@
     "slug": "/yachts",
     "template": "fleet_catalog",
     "status": "published",
-    "lastModified": "2026-04-10T14:15:00.000Z",
+    "lastModified": "2026-11-07T06:43:37.437Z",
     "sections": [
       {
         "id": "yachts-hero",
@@ -245,7 +245,7 @@
         "eyebrow": "THE ASMARATY COLLECTION",
         "heading": "THE FLEET OF DISTINCTION",
         "subheading": "From the flagship G-100 superyacht to our dynamic G-66, G-50, and G77 luxury yacht models, explore custom naval vessels built to transcend expectations.",
-        "imageUrl": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=2000&q=80",
+        "imageUrl": "/images/yachts/g100/0.jpg",
         "imageAlt": "ASMARATY Flagship G100 cruising in Dubai waters",
         "videoUrl": "/videos/live-yacht-journey.mp4",
         "primaryButtonText": "Filter Models",
@@ -258,19 +258,19 @@
         "stats": [
           {
             "value": "100 FT",
-            "label": "Flagship AS 100"
+            "label": "Flagship G-100"
+          },
+          {
+            "value": "3,200 HP",
+            "label": "Peak Power"
+          },
+          {
+            "value": "4 Classes",
+            "label": "Yacht Series"
           },
           {
             "value": "45+ YRS",
             "label": "Shipyard Heritage"
-          },
-          {
-            "value": "35 KTS",
-            "label": "Max Speed"
-          },
-          {
-            "value": "100%",
-            "label": "Custom Bespoke"
           }
         ]
       },
@@ -295,9 +295,9 @@
         "visible": true,
         "eyebrow": "CUSTOM BESPOKE COMMISSIONS",
         "heading": "Every Vessel Tailored to Your Vision",
-        "description": "At ASMARATY, no two yachts leaving our shipyard are identical. Owners participate in every design milestone \u2014 selecting rare book-matched marbles, hand-stitched leathers, audio-visual layouts, and custom tender arrangements.",
-        "quote": "\u201cA yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.\u201d",
-        "imageUrl": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=80",
+        "description": "At ASMARATY, no two yachts leaving our shipyard are identical. Owners participate in every design milestone — selecting rare book-matched marbles, hand-stitched leathers, audio-visual layouts, and custom tender arrangements.",
+        "quote": "“A yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.”",
+        "imageUrl": "/images/interiors/g100-main-salon.jpg",
         "imageAlt": "Al Shaali Marine - ASMARATY Luxury Yachts Shipyard Facility UAE",
         "buttonText": "Discuss a Custom Build",
         "buttonUrl": "/contact",
@@ -316,12 +316,11 @@
         "phone": "+971 56 526 8126",
         "address": "AL SHAALI MARINE, RASHIDIA 1, AJMAN, United Arab Emirates",
         "yachtOptions": [
-          "AS 100 Superyacht",
-          "Magellan 32 Explorer",
-          "AS 88 Flybridge",
-          "AS 68 Sports Cruiser",
-          "AS 45 Island Explorer",
-          "Custom Vessel Build"
+          "ASMARATY G-100 Super Yacht (100 FT)",
+          "ASMARATY G77 Luxury Yacht (78 FT)",
+          "ASMARATY G-66 Luxury Yacht (66 FT)",
+          "ASMARATY G-50 Luxury Motor Yacht (50 FT)",
+          "Custom Bespoke Commission"
         ],
         "backgroundStyle": "dark",
         "contentAlignment": "left"
@@ -342,7 +341,7 @@
         "visible": true,
         "eyebrow": "ABOUT US",
         "heading": "A Legacy of Excellence on the Water",
-        "subheading": "At ASMARATY, we believe in more than just luxury \u2014 we believe in creating unforgettable journeys.",
+        "subheading": "At ASMARATY, we believe in more than just luxury — we believe in creating unforgettable journeys.",
         "imageUrl": "/images/g100-burj-al-arab.jpg",
         "imageAlt": "ASMARATY Luxury Yacht with Dubai Skyline",
         "videoUrl": "",
@@ -418,7 +417,7 @@
         "heading": "Built on Trust. Driven by Passion.",
         "content": "We are committed to delivering unparalleled quality, innovation, and personalized experiences for every client.",
         "authorName": "ASMARATY Standards",
-        "authorTitle": "Craftsmanship \u2022 Trust & Integrity \u2022 Innovation \u2022 Personalised Experiences",
+        "authorTitle": "Craftsmanship • Trust & Integrity • Innovation • Personalised Experiences",
         "backgroundStyle": "light",
         "contentAlignment": "center"
       },
@@ -488,8 +487,8 @@
         "visible": true,
         "eyebrow": "OFFICIAL FLEET LAUNCH",
         "heading": "ASMARATY Introduces the New Fleet Collection",
-        "description": "ASMARATY opens an exciting new chapter in its boatbuilding journey with the debut of the G-Series and AS-Series. Combining modern exterior styling with exceptionally spacious layouts, the collection introduces a new perspective on space and luxury\u2014featuring generous staterooms, expansive saloons, wide walkaround decks, and bespoke fittings throughout.",
-        "quote": "\u201cA yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.\u201d",
+        "description": "ASMARATY opens an exciting new chapter in its boatbuilding journey with the debut of the G-Series and AS-Series. Combining modern exterior styling with exceptionally spacious layouts, the collection introduces a new perspective on space and luxury—featuring generous staterooms, expansive saloons, wide walkaround decks, and bespoke fittings throughout.",
+        "quote": "“A yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.”",
         "imageUrl": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=2000&q=80",
         "imageAlt": "Al Shaali Marine - ASMARATY Luxury Yachts Shipyard Facility UAE",
         "buttonText": "Discover the Fleet",
@@ -509,7 +508,7 @@
         "primaryButtonUrl": "/contact",
         "secondaryButtonText": "Download Fleet Catalog",
         "secondaryButtonUrl": "/yachts",
-        "guaranteeText": "Direct consultation with Chief Naval Architect \u2022 Strict Discretion Assured",
+        "guaranteeText": "Direct consultation with Chief Naval Architect • Strict Discretion Assured",
         "imageUrl": "/images/asmaraty-racing-yacht-journey.jpg",
         "videoUrl": "/videos/live-yacht-journey.mp4",
         "layoutStyle": "cinematic-full",
