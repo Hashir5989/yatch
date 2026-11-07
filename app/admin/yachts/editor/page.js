@@ -22,7 +22,6 @@ import {
 
 import UniversalYachtDetailView from "@/components/public/yacht-details/UniversalYachtDetailView";
 import MediaPickerModal from "@/components/cms/MediaPickerModal";
-import AdminAuthGuard from "@/components/cms/AdminAuthGuard";
 import { getAllYachts, syncYachtsFromServer, saveYachtAsync } from "@/lib/cmsStore";
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import { getYachtShowcaseData, mergeYachtWithShowcase } from "@/lib/data/yachtShowcaseData";
@@ -367,17 +366,15 @@ function VisualYachtEditorInner() {
 
 export default function VisualYachtEditorPage() {
   return (
-    <AdminAuthGuard>
-      <Suspense
-        fallback={
-          <div className="min-h-screen bg-[#080B10] flex items-center justify-center text-white text-xs">
-            Loading Visual Yacht Editor...
-          </div>
-        }
-      >
-        <VisualYachtEditorInner />
-      </Suspense>
-    </AdminAuthGuard>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#080B10] flex items-center justify-center text-white text-xs">
+          Loading Visual Yacht Editor...
+        </div>
+      }
+    >
+      <VisualYachtEditorInner />
+    </Suspense>
   );
 }
 

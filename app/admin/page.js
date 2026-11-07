@@ -3,29 +3,29 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { 
-  Plus, 
-  Edit3, 
-  ExternalLink, 
-  Copy, 
-  Trash2, 
-  Layers, 
-  Search, 
-  Clock, 
-  CheckCircle, 
-  AlertCircle, 
+import {
+  Plus,
+  Edit3,
+  ExternalLink,
+  Copy,
+  Trash2,
+  Layers,
+  Search,
+  Clock,
+  CheckCircle,
+  AlertCircle,
   X,
   FileText,
   Sparkles,
   ChevronRight
 } from "lucide-react";
 import CmsHeader from "@/components/cms/CmsHeader";
-import { 
-  getAllPages, 
-  createPage, 
-  duplicatePage, 
+import {
+  getAllPages,
+  createPage,
+  duplicatePage,
   deletePage,
-  syncPagesFromServer 
+  syncPagesFromServer
 } from "@/lib/cmsStore";
 
 export default function AdminPagesScreen() {
@@ -157,8 +157,8 @@ export default function AdminPagesScreen() {
 
   return (
     <div className="flex-1 flex flex-col min-h-screen bg-[#070A0F]">
-      <CmsHeader 
-        title="Pages & Sections" 
+      <CmsHeader
+        title="Pages & Sections"
         subtitle="Manage public pages, sections, content arrangements, and publishing status"
       />
 
@@ -434,11 +434,10 @@ export default function AdminPagesScreen() {
                     <label
                       key={tpl.id}
                       onClick={() => setNewTemplate(tpl.id)}
-                      className={`flex items-start gap-3 p-3 rounded-sm border cursor-pointer transition-all ${
-                        newTemplate === tpl.id
+                      className={`flex items-start gap-3 p-3 rounded-sm border cursor-pointer transition-all ${newTemplate === tpl.id
                           ? "bg-[#141C28] border-[#C5A880] ring-1 ring-[#C5A880]"
                           : "bg-[#0A0D15] border-[#1C2533] hover:border-white/20"
-                      }`}
+                        }`}
                     >
                       <input
                         type="radio"
