@@ -164,8 +164,14 @@ export default function InlineButtonEditor({
 
     return (
       <Link href={finalHref} target={resolvedTarget} rel={rel} className={className}>
-        <span>{children || label}</span>
-        {Icon && <Icon className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />}
+        {children ? (
+          <span className="inline-flex items-center justify-center gap-2">
+            {children}
+          </span>
+        ) : (
+          <span>{label}</span>
+        )}
+        {Icon && <Icon className="w-4 h-4 ml-2 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />}
       </Link>
     );
   }
@@ -190,8 +196,14 @@ export default function InlineButtonEditor({
           } transition-all cursor-pointer`}
           title="Click to manage button text, link URL, type, target, and visibility"
         >
-          <span>{children || label}</span>
-          {Icon && <Icon className="w-4 h-4 ml-2" />}
+          {children ? (
+            <span className="inline-flex items-center justify-center gap-2">
+              {children}
+            </span>
+          ) : (
+            <span>{label}</span>
+          )}
+          {Icon && <Icon className="w-4 h-4 ml-2 shrink-0" />}
 
           {/* Floating Edit Badge */}
           <span className={`absolute -top-2.5 -right-2.5 text-[#08101C] text-[9px] px-2 py-0.5 rounded-none font-bold uppercase tracking-wider flex items-center gap-1 shadow-lg border border-[#08101C] hover:scale-105 transition-transform ${

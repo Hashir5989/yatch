@@ -153,6 +153,7 @@ div.saxdor-desc-justified {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
+  gap: 0.5rem !important;
   height: 52px !important;
   min-height: 52px !important;
   min-width: 195px;
@@ -170,6 +171,19 @@ div.saxdor-desc-justified {
   outline: none;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
   white-space: nowrap;
+}
+
+/* Ensure all SVG icons inside luxury buttons stay horizontally aligned and never wrap */
+.saxdor-btn-solid svg,
+.saxdor-btn-outline svg,
+.saxdor-btn-navy-outline svg,
+.saxdor-btn-navy-solid svg,
+.btn-gold svg,
+.btn-luxury-outline svg {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
 }
 
 /* Fluid Mobile Scaling for Rectangular Box Buttons */

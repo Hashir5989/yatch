@@ -139,9 +139,9 @@ export default function UniversalYachtDetailView({
                   onUpdateField && onUpdateField("brochureLabel", newText);
                   onUpdateField && onUpdateField("brochureUrl", newUrl);
                 }}
-                className="hidden sm:inline-flex items-center gap-1.5 text-[#C8A870] hover:text-white transition-colors text-xs font-medium cursor-pointer"
+                className="hidden sm:inline-flex items-center justify-center gap-1.5 text-[#C8A870] hover:text-white transition-colors text-xs font-medium cursor-pointer"
               >
-                <Download className="w-3.5 h-3.5" />
+                <Download className="w-3.5 h-3.5 shrink-0" />
                 <span>{data.brochureLabel || "Brochure (PDF)"}</span>
               </InlineButtonEditor>
             </div>
@@ -246,10 +246,10 @@ export default function UniversalYachtDetailView({
                     onUpdateField && onUpdateField("heroPrimaryButtonText", newText);
                     onUpdateField && onUpdateField("heroPrimaryButtonUrl", newUrl);
                   }}
-                  className="saxdor-btn-solid !h-[52px] px-8 text-xs font-semibold tracking-wider rounded-none inline-flex items-center gap-2 cursor-pointer"
+                  className="saxdor-btn-solid !h-[52px] !px-8 text-xs font-semibold tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>{data.heroPrimaryButtonText || "Book Private Viewing"}</span>
-                  <ArrowUpRight className="w-4 h-4" />
+                  <ArrowUpRight className="w-4 h-4 shrink-0" />
                 </InlineButtonEditor>
 
                 <InlineButtonEditor
@@ -260,9 +260,9 @@ export default function UniversalYachtDetailView({
                     onUpdateField && onUpdateField("brochureLabel", newText);
                     onUpdateField && onUpdateField("brochureUrl", newUrl);
                   }}
-                  className="saxdor-btn-outline !h-[52px] px-6 text-xs font-medium tracking-wider rounded-none inline-flex items-center gap-2 bg-[#080B10]/60 backdrop-blur-sm cursor-pointer"
+                  className="saxdor-btn-outline !h-[52px] !px-6 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 bg-[#080B10]/60 backdrop-blur-sm cursor-pointer"
                 >
-                  <Download className="w-4 h-4 text-[#C8A870]" />
+                  <Download className="w-4 h-4 text-[#C8A870] shrink-0" />
                   <span>{data.brochureLabel || "Download Brochure (PDF)"}</span>
                 </InlineButtonEditor>
 
@@ -274,10 +274,10 @@ export default function UniversalYachtDetailView({
                     onUpdateField && onUpdateField("deckPlansButtonText", newText);
                     onUpdateField && onUpdateField("deckPlansButtonUrl", newUrl);
                   }}
-                  className="text-xs uppercase tracking-luxury text-[#E5C392] hover:text-white px-4 py-3 transition-colors inline-flex items-center gap-2 cursor-pointer"
+                  className="text-xs uppercase tracking-luxury text-[#E5C392] hover:text-white px-4 py-3 transition-colors inline-flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>{data.deckPlansButtonText || "Explore 3D Deck Plans"}</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
+                  <ChevronRight className="w-3.5 h-3.5 shrink-0" />
                 </InlineButtonEditor>
               </div>
             </div>
@@ -586,27 +586,27 @@ export default function UniversalYachtDetailView({
                         onClick={() =>
                           onOpenMediaPicker(`deckPlan_${activeDeck.id}`, activeDeck.image3D)
                         }
-                        className="saxdor-btn-outline !h-[42px] px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center gap-2 border-[#C8A870]/60 text-[#DFBA73] hover:bg-[#C8A870] hover:text-[#080B10]"
+                        className="saxdor-btn-outline !h-[42px] !min-w-0 !px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 border-[#C8A870]/60 text-[#DFBA73] hover:bg-[#C8A870] hover:text-[#080B10]"
                       >
-                        <ImageIcon className="w-3.5 h-3.5" />
+                        <ImageIcon className="w-3.5 h-3.5 shrink-0" />
                         <span>Change 3D Cutaway</span>
                       </button>
                     )}
 
                     <InlineButtonEditor
-                      text="View Full Resolution"
+                      text={activeDeck.resolutionLabel || "View Full Resolution"}
                       url={activeDeck.image3D}
                       isEditable={isEditable}
                       onSave={(newText, newUrl) => {
                         const decks = (data.deckPlans || []).map((d) =>
-                          d.id === activeDeck.id ? { ...d, image3D: newUrl } : d
+                          d.id === activeDeck.id ? { ...d, resolutionLabel: newText, image3D: newUrl } : d
                         );
                         onUpdateField && onUpdateField("deckPlans", decks);
                       }}
-                      className="saxdor-btn-outline !h-[42px] px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center gap-2 cursor-pointer"
+                      className="saxdor-btn-outline !h-[42px] !min-w-0 !px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <Maximize2 className="w-3.5 h-3.5 text-[#C8A870]" />
-                      <span>View Full Resolution</span>
+                      <Maximize2 className="w-3.5 h-3.5 text-[#C8A870] shrink-0" />
+                      <span>{activeDeck.resolutionLabel || "View Full Resolution"}</span>
                     </InlineButtonEditor>
                   </div>
                 </div>
@@ -1054,7 +1054,7 @@ export default function UniversalYachtDetailView({
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#C8A870] hover:bg-[#D4B67F] text-black font-semibold text-xs uppercase tracking-luxury transition-all shadow-lg hover:shadow-[#C8A870]/20 cursor-pointer"
               >
                 <span>{data.ctaPrimaryButtonText || "REQUEST PRIVATE VIEWING / CONSULTATION"}</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <ArrowUpRight className="w-4 h-4 shrink-0" />
               </InlineButtonEditor>
 
               <InlineButtonEditor
@@ -1070,7 +1070,7 @@ export default function UniversalYachtDetailView({
                 }}
                 className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#25D366] font-medium text-xs uppercase tracking-luxury transition-all cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4 shrink-0" />
                 <span>{data.ctaWhatsappButtonText || "CHAT ON WHATSAPP"}</span>
               </InlineButtonEditor>
             </div>

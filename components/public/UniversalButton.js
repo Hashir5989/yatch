@@ -65,9 +65,9 @@ export default function UniversalButton({
   const content = (
     <>
       <span>{children || normalized.label}</span>
-      {CustomIcon && <CustomIcon className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />}
+      {CustomIcon && <CustomIcon className="w-4 h-4 shrink-0 ml-2 transition-transform duration-300 group-hover:translate-x-1" />}
       {normalized.type === "external" && !CustomIcon && (
-        <ExternalLink className="w-3.5 h-3.5 ml-1.5 opacity-70 group-hover:opacity-100" />
+        <ExternalLink className="w-3.5 h-3.5 shrink-0 ml-1.5 opacity-70 group-hover:opacity-100" />
       )}
     </>
   );
