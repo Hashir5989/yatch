@@ -17,7 +17,7 @@ import {
   getPageById, 
   syncPagesFromServer 
 } from "@/lib/cmsStore";
-import { DEFAULT_PAGES } from "@/lib/data/defaultPages";
+import { DEFAULT_PAGES, DEFAULT_YACHTS_PAGE } from "@/lib/data/defaultPages";
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import { formatButtonHref } from "@/lib/data/buttonSchema";
 
@@ -116,7 +116,7 @@ export default function UniversalYachtCatalogView() {
 
   // Dynamic Page metadata from authoritative CMS store
   const [page, setPage] = useState(() => {
-    return DEFAULT_PAGES.find((p) => p.slug === "/yachts" || p.id === "page-yachts") || null;
+    return getPageBySlug("/yachts") || getPageById("page-yachts") || DEFAULT_YACHTS_PAGE;
   });
 
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function UniversalYachtCatalogView() {
     if (Array.isArray(localYachts) && localYachts.length > 0) {
       queueMicrotask(() => setYachts(localYachts));
     }
-    const localPage = getPageBySlug("/yachts") || getPageById("page-yachts");
+    const localPage = getPageBySlug("/yachts") || getPageById("page-yachts") || DEFAULT_YACHTS_PAGE;
     if (localPage) {
       queueMicrotask(() => setPage(localPage));
     }
@@ -146,7 +146,7 @@ export default function UniversalYachtCatalogView() {
     const handleUpdate = () => {
       const updatedYachts = getAllYachts();
       if (updatedYachts && Array.isArray(updatedYachts)) setYachts(updatedYachts);
-      const updatedPage = getPageBySlug("/yachts") || getPageById("page-yachts");
+      const updatedPage = getPageBySlug("/yachts") || getPageById("page-yachts") || DEFAULT_YACHTS_PAGE;
       if (updatedPage) setPage(updatedPage);
     };
 
@@ -155,19 +155,43 @@ export default function UniversalYachtCatalogView() {
   }, []);
 
   // Filter published yachts only; exclude drafts from public visitor site
-  const publishedYachts = (Array.isArray(yachts) ? yachts : [])
+  const rawYachtsList = Array.isArray(yachts) && yachts.length > 0 ? yachts : DEFAULT_YACHTS;
+  const publishedYachts = rawYachtsList
     .filter((y) => y.status === "published" || y.status === undefined)
     .sort((a, b) => (a.displayOrder ?? 999) - (b.displayOrder ?? 999));
 
-  // Fallback to initial verified models if store is loading
-  const effectiveModels = publishedYachts.length > 0 ? publishedYachts : FALLBACK_FLEET_MODELS;
+  // Merge each model with baseline DEFAULT_YACHTS and YACHT_SHOWCASES to ensure 100% complete specifications
+  const effectiveModels = (publishedYachts.length > 0 ? publishedYachts : FALLBACK_FLEET_MODELS).map((m) => {
+    const baseline = DEFAULT_YACHTS.find((d) => d.slug === m.slug || d.id === m.id) || {};
+    const showcase = YACHT_SHOWCASES[m.slug] || {};
+    return {
+      ...baseline,
+      ...showcase,
+      ...m,
+      fullName: m.fullName || m.name || baseline.fullName || showcase.fullName,
+      modelNumber: m.modelNumber || baseline.modelNumber || showcase.modelNumber || m.slug?.toUpperCase(),
+      badge: m.badge || baseline.badge || showcase.badge,
+      decks: m.decks || baseline.decks || showcase.decks || "Multi-Deck",
+      categoryLabel: m.categoryLabel || baseline.categoryLabel || m.category,
+      categoryKey: m.categoryKey || baseline.categoryKey || (m.category ? m.category.toLowerCase().replace(/[^a-z0-9]+/g, "-") : "superyacht"),
+      heroImage: m.heroImage || m.mainImage || baseline.heroImage || showcase.heroImages?.[0]?.src || "/images/yachts/g100/0.jpg",
+      specsSnapshot: {
+        ...(baseline.specsSnapshot || showcase.specsSnapshot || {}),
+        ...(m.specsSnapshot || m.specs || {}),
+      },
+      comparisonMatrix: {
+        ...(baseline.comparisonMatrix || baseline.specsSnapshot || showcase.specsSnapshot || {}),
+        ...(m.comparisonMatrix || m.specsSnapshot || m.specs || {}),
+      },
+    };
+  });
 
   // Extract individual sections from page-yachts with fallback
-  const heroSection = page?.sections?.find((s) => s.id === "yachts-hero" || s.type === "hero_banner");
-  const gridSection = page?.sections?.find((s) => s.id === "yachts-grid" || s.type === "yacht_collection");
-  const matrixSection = page?.sections?.find((s) => s.id === "yachts-matrix" || s.type === "comparison_matrix");
-  const customSection = page?.sections?.find((s) => s.id === "yachts-custom" || s.type === "image_text");
-  const conciergeSection = page?.sections?.find((s) => s.id === "yachts-concierge" || s.type === "call_to_action");
+  const heroSection = page?.sections?.find((s) => s.id === "yachts-hero" || s.type === "hero_banner") || DEFAULT_YACHTS_PAGE?.sections?.[0];
+  const gridSection = page?.sections?.find((s) => s.id === "yachts-grid" || s.type === "yacht_collection") || DEFAULT_YACHTS_PAGE?.sections?.[1];
+  const matrixSection = page?.sections?.find((s) => s.id === "yachts-matrix" || s.type === "comparison_matrix") || DEFAULT_YACHTS_PAGE?.sections?.[2];
+  const customSection = page?.sections?.find((s) => s.id === "yachts-custom" || s.type === "image_text") || DEFAULT_YACHTS_PAGE?.sections?.[3];
+  const conciergeSection = page?.sections?.find((s) => s.id === "yachts-concierge" || s.type === "call_to_action") || DEFAULT_YACHTS_PAGE?.sections?.[4];
 
   // Dynamic Series Filter categories
   const categories = [
