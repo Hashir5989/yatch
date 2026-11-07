@@ -3,27 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { 
-  Anchor, 
-  Compass, 
-  Sparkles, 
-  Layers, 
-  ShieldCheck, 
-  FileText, 
   Download, 
   ArrowRight, 
   ArrowUpRight, 
-  Check, 
-  ChevronRight, 
-  Gauge, 
-  BedDouble, 
-  Maximize2, 
-  Send, 
-  CheckCircle2,
-  Phone,
   Mail,
   MapPin,
-  Ship,
-  Eye
+  Phone
 } from "lucide-react";
 import { YACHT_SHOWCASES } from "@/lib/data/yachtShowcaseData";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
@@ -117,69 +102,12 @@ const CATEGORIES = [
 
 export default function UniversalYachtCatalogView() {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [selectedEnquiryModel, setSelectedEnquiryModel] = useState("All Fleet Inquiry");
 
   // Filtered models
   const filteredModels = FLEET_MODELS.filter((m) => {
     if (activeCategory === "all") return true;
     return m.categoryKey === activeCategory;
   });
-
-  // Form State
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    modelInterested: "ASMARATY G-100 Super Yacht",
-    message: "",
-  });
-
-  const handleSelectModelForEnquiry = (modelName) => {
-    setFormData((prev) => ({ ...prev, modelInterested: modelName }));
-    setSelectedEnquiryModel(modelName);
-    const formElem = document.getElementById("catalog-enquiry");
-    if (formElem) {
-      formElem.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setErrorMessage(null);
-
-    try {
-      const res = await fetch("/api/enquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
-          location: "Website Fleet Catalogue",
-          message: `[Model of Interest: ${formData.modelInterested}]\n\n${formData.message}`,
-          consentPrivacy: true,
-        }),
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        setFormSubmitted(true);
-      } else {
-        setErrorMessage(data.error || "Failed to submit enquiry. Please try again.");
-      }
-    } catch (err) {
-      console.warn("Could not submit enquiry:", err);
-      setErrorMessage("Network error. Please try again or reach out on WhatsApp.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   return (
     <div className="bg-[#080B10] text-[#E8EAEE] min-h-screen">
@@ -420,24 +348,22 @@ export default function UniversalYachtCatalogView() {
                           <span>{model.brochureLabel || "Brochure (PDF)"}</span>
                         </a>
                       ) : (
-                        <button
-                          type="button"
-                          onClick={() => handleSelectModelForEnquiry(model.fullName)}
-                          className="flex-1 min-w-[170px] saxdor-btn-outline !h-[46px] !px-5 text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73] cursor-pointer"
+                        <Link
+                          href="/contact"
+                          className="flex-1 min-w-[170px] saxdor-btn-outline !h-[46px] !px-5 text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73]"
                         >
                           <Mail className="w-3.5 h-3.5 text-[#C6A155]" />
                           <span>Request Brochure</span>
-                        </button>
+                        </Link>
                       )}
 
-                      <button
-                        type="button"
-                        onClick={() => handleSelectModelForEnquiry(model.fullName)}
-                        className="w-full text-center text-xs text-[#C6A155] hover:text-white uppercase tracking-wider font-semibold pt-2 flex items-center justify-center gap-1.5 cursor-pointer"
+                      <Link
+                        href="/contact"
+                        className="w-full text-center text-xs text-[#C6A155] hover:text-white uppercase tracking-wider font-semibold pt-2 flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
                       >
                         <span>Book Private Sea Trial / Consultation</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </button>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -655,14 +581,13 @@ export default function UniversalYachtCatalogView() {
               </div>
 
               <div className="pt-4 flex flex-wrap gap-4">
-                <button
-                  type="button"
-                  onClick={() => handleSelectModelForEnquiry("Custom Commission Consultation")}
-                  className="saxdor-btn-solid !h-[48px] !px-8 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 rounded-none cursor-pointer"
+                <Link
+                  href="/contact"
+                  className="saxdor-btn-solid !h-[48px] !px-8 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 rounded-none"
                 >
                   <span>Discuss a Custom Commission</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -690,229 +615,55 @@ export default function UniversalYachtCatalogView() {
       </section>
 
       {/* -------------------------------------------------------------
-          5. VIP FLEET ENQUIRY & CONSULTATION
+          5. VIP CONCIERGE & CONTACT REDIRECT SECTION (No inputs, redirects to /contact)
           ------------------------------------------------------------- */}
-      <section className="py-24 sm:py-32 bg-[#06090D] relative" id="catalog-enquiry">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            {/* Left Column: Direct Contacts */}
-            <div className="lg:col-span-5 space-y-8">
-              <div>
-                <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2">
-                  VIP CONCIERGE & ADVISORY
-                </span>
-                <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-4">
-                  Request Fleet Dossier or Private Consultation
-                </h2>
-                <p className="text-sm text-white/75 font-light leading-relaxed">
-                  Connect directly with our luxury yacht advisory team in the UAE. We arrange private sea trials, confidential bespoke build consultations, and VIP shipyard walkthroughs.
-                </p>
-              </div>
+      <section className="py-20 sm:py-28 bg-gradient-to-b from-[#080B10] to-[#05070A] border-t border-white/10 text-center relative overflow-hidden" id="catalog-contact">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#C6A155]/5 blur-[120px] rounded-full pointer-events-none" />
 
-              <div className="space-y-4 pt-2">
-                <div className="flex items-start gap-4 p-4 bg-[#0D1522] border border-white/10">
-                  <MapPin className="w-5 h-5 text-[#C6A155] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <span className="text-xs uppercase tracking-wider text-white/50 block font-mono">Shipyard & Headquarters</span>
-                    <span className="text-sm text-white font-medium">Al Shaali Marine, Rashidia 1, Ajman, United Arab Emirates</span>
-                  </div>
-                </div>
+        <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-12">
+          <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-3">
+            VIP CONCIERGE & ADVISORY
+          </span>
+          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-6">
+            Begin Your Voyage With ASMARATY
+          </h2>
+          <p className="text-sm sm:text-base text-white/70 font-light max-w-2xl mx-auto leading-relaxed mb-10">
+            Whether you wish to arrange a private sea trial, commission a bespoke naval build, or request confidential fleet pricing, our yacht advisory team in the UAE is at your service.
+          </p>
 
-                <div className="flex items-start gap-4 p-4 bg-[#0D1522] border border-white/10">
-                  <Phone className="w-5 h-5 text-[#C6A155] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <span className="text-xs uppercase tracking-wider text-white/50 block font-mono">Direct Advisory Line</span>
-                    <a href="tel:+971565268126" className="text-sm text-white font-medium hover:text-[#DFBA73] transition-colors">
-                      +971 56 526 8126
-                    </a>
-                  </div>
-                </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/contact"
+              className="w-full sm:w-auto saxdor-btn-solid !h-[52px] !px-10 text-xs font-bold uppercase tracking-widest inline-flex items-center justify-center gap-2.5 rounded-none shadow-2xl"
+            >
+              <span>Contact Us</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
 
-                <div className="flex items-start gap-4 p-4 bg-[#0D1522] border border-white/10">
-                  <Mail className="w-5 h-5 text-[#C6A155] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <span className="text-xs uppercase tracking-wider text-white/50 block font-mono">Confidential Inquiries</span>
-                    <a href="mailto:info@asmaraty.com" className="text-sm text-white font-medium hover:text-[#DFBA73] transition-colors">
-                      info@asmaraty.com
-                    </a>
-                  </div>
-                </div>
-              </div>
+            <a
+              href="https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20am%20inquiring%20about%20your%20yacht%20fleet."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold uppercase tracking-widest transition-all rounded-none shadow-xl"
+            >
+              <WhatsAppIcon className="w-4 h-4" />
+              <span>WhatsApp VIP Concierge</span>
+            </a>
+          </div>
 
-              {/* WhatsApp Direct Action */}
-              <div className="pt-2">
-                <a
-                  href="https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20am%20inquiring%20about%20your%20yacht%20fleet%20catalogue."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-3 px-6 py-4 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-xl"
-                >
-                  <WhatsAppIcon className="w-5 h-5" />
-                  <span>Connect on WhatsApp VIP Concierge</span>
-                </a>
-              </div>
+          {/* Quick Contact Info */}
+          <div className="pt-12 mt-12 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 sm:gap-12 text-xs text-white/60">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[#C6A155]" />
+              <span>Ajman & Dubai, United Arab Emirates</span>
             </div>
-
-            {/* Right Column: Interactive Consultation Form */}
-            <div className="lg:col-span-7 bg-[#0D1522] border border-white/10 p-8 sm:p-12 shadow-2xl">
-              {formSubmitted ? (
-                <div className="py-16 text-center space-y-4">
-                  <CheckCircle2 className="w-16 h-16 text-[#C6A155] mx-auto animate-bounce" />
-                  <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal">
-                    Enquiry Received with Priority
-                  </h3>
-                  <p className="text-sm text-white/75 max-w-md mx-auto leading-relaxed">
-                    Thank you. Our luxury yacht advisory team has logged your interest for <span className="text-[#DFBA73] font-semibold">{formData.modelInterested}</span>. A senior naval consultant will reach out confidentially within 24 hours.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setFormSubmitted(false);
-                      setFormData({
-                        firstName: "",
-                        lastName: "",
-                        email: "",
-                        phone: "",
-                        modelInterested: "ASMARATY G-100 Super Yacht",
-                        message: "",
-                      });
-                    }}
-                    className="saxdor-btn-solid !h-[42px] px-6 text-xs font-bold uppercase tracking-wider mt-4"
-                  >
-                    Submit Another Inquiry
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-6">
-                  <div>
-                    <h3 className="font-serif text-2xl text-white font-normal mb-1">
-                      Private Fleet Consultation
-                    </h3>
-                    <p className="text-xs text-white/60">
-                      Please enter your contact details and select the vessel of interest.
-                    </p>
-                  </div>
-
-                  {errorMessage && (
-                    <div className="p-4 bg-red-900/40 border border-red-500/60 text-red-200 text-xs">
-                      {errorMessage}
-                    </div>
-                  )}
-
-                  {/* Model Selection Dropdown */}
-                  <div>
-                    <label className="block text-[11px] font-mono uppercase tracking-wider text-white/70 mb-2">
-                      Vessel of Interest
-                    </label>
-                    <select
-                      value={formData.modelInterested}
-                      onChange={(e) => setFormData({ ...formData, modelInterested: e.target.value })}
-                      className="w-full bg-[#080B10] border border-white/15 focus:border-[#C6A155] px-4 py-3 text-sm text-white focus:outline-none"
-                    >
-                      <option value="ASMARATY G-100 Super Yacht">ASMARATY G-100 Super Yacht (100 FT • Flagship)</option>
-                      <option value="ASMARATY G77 Luxury Yacht">ASMARATY G77 Luxury Yacht (78 FT • Three-Deck)</option>
-                      <option value="ASMARATY G-66 Luxury Yacht">ASMARATY G-66 Luxury Yacht (66 FT • Flybridge)</option>
-                      <option value="ASMARATY G-50 Luxury Motor Yacht">ASMARATY G-50 Luxury Motor Yacht (50 FT • Motor Yacht)</option>
-                      <option value="Custom Bespoke Commission">Custom Bespoke Commission (UAE Shipyard)</option>
-                      <option value="All Fleet Inquiry">General Fleet Consultation / Price List</option>
-                    </select>
-                  </div>
-
-                  {/* Name Fields */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[11px] font-mono uppercase tracking-wider text-white/70 mb-2">
-                        First Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.firstName}
-                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                        placeholder="e.g. Alexander"
-                        className="w-full bg-[#080B10] border border-white/15 focus:border-[#C6A155] px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-mono uppercase tracking-wider text-white/70 mb-2">
-                        Last Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.lastName}
-                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                        placeholder="e.g. Sterling"
-                        className="w-full bg-[#080B10] border border-white/15 focus:border-[#C6A155] px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Email & Phone */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[11px] font-mono uppercase tracking-wider text-white/70 mb-2">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="alexander@domain.com"
-                        className="w-full bg-[#080B10] border border-white/15 focus:border-[#C6A155] px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-mono uppercase tracking-wider text-white/70 mb-2">
-                        Phone / WhatsApp *
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="+971 50 000 0000"
-                        className="w-full bg-[#080B10] border border-white/15 focus:border-[#C6A155] px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Message */}
-                  <div>
-                    <label className="block text-[11px] font-mono uppercase tracking-wider text-white/70 mb-2">
-                      Specific Requirements / Sea Trial Dates
-                    </label>
-                    <textarea
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Please share any bespoke requirements, delivery timing, or preferred dates for sea trials in Dubai..."
-                      className="w-full bg-[#080B10] border border-white/15 focus:border-[#C6A155] px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none resize-none"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="w-full saxdor-btn-solid !h-[50px] text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 rounded-none shadow-xl"
-                  >
-                    {submitting ? (
-                      <span>Sending Consultation Request...</span>
-                    ) : (
-                      <>
-                        <span>Submit Private Fleet Consultation</span>
-                        <Send className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-
-                  <p className="text-[11px] text-white/40 text-center leading-relaxed">
-                    By submitting this request, you agree to our confidential advisory privacy policy. Your information will never be shared.
-                  </p>
-                </form>
-              )}
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-[#C6A155]" />
+              <a href="tel:+971565268126" className="hover:text-white transition-colors">+971 56 526 8126</a>
+            </div>
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-[#C6A155]" />
+              <a href="mailto:info@asmaraty.com" className="hover:text-white transition-colors">info@asmaraty.com</a>
             </div>
           </div>
         </div>
