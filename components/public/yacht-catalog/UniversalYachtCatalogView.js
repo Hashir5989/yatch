@@ -6,9 +6,7 @@ import {
   Download, 
   ArrowRight, 
   ArrowUpRight, 
-  Mail,
-  MapPin,
-  Phone
+  Mail
 } from "lucide-react";
 import { YACHT_SHOWCASES } from "@/lib/data/yachtShowcaseData";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
@@ -649,22 +647,6 @@ export default function UniversalYachtCatalogView() {
               <WhatsAppIcon className="w-4 h-4" />
               <span>WhatsApp VIP Concierge</span>
             </a>
-          </div>
-
-          {/* Quick Contact Info */}
-          <div className="pt-12 mt-12 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 sm:gap-12 text-xs text-white/60">
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-[#C6A155]" />
-              <span>Ajman & Dubai, United Arab Emirates</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-[#C6A155]" />
-              <a href="tel:+971565268126" className="hover:text-white transition-colors">+971 56 526 8126</a>
-            </div>
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-[#C6A155]" />
-              <a href="mailto:info@asmaraty.com" className="hover:text-white transition-colors">info@asmaraty.com</a>
-            </div>
           </div>
         </div>
       </section>
