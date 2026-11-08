@@ -693,11 +693,11 @@ export default function YachtCollectionSection({
                           href={`/yachts/${model.slug}`}
                           className="block group overflow-hidden bg-[#0A1322] shadow-xl border border-black/5"
                         >
-                          <div className="relative aspect-video overflow-hidden bg-[#0A1322] flex items-center justify-center p-1 sm:p-2">
+                          <div className="relative aspect-video overflow-hidden bg-[#0A1322]">
                             <img
                               src={model.mainImage || model.primaryImage || "/images/hero-yacht.jpg"}
                               alt={model.name}
-                              className="w-full h-full object-contain object-center transition-opacity duration-300 group-hover:opacity-90"
+                              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                             />
                           </div>
                         </Link>
@@ -872,11 +872,11 @@ export default function YachtCollectionSection({
               key={yacht.id}
               className="group bg-[#0E2047] border border-white/10 hover:border-[#C6A155] transition-all duration-500 flex flex-col overflow-hidden"
             >
-              <Link href={`/yachts/${yacht.slug}`} className="block relative aspect-video overflow-hidden bg-[#0A1322] flex items-center justify-center p-1 sm:p-2">
+              <Link href={`/yachts/${yacht.slug}`} className="block relative aspect-video overflow-hidden bg-[#0A1322]">
                 <img
                   src={yacht.mainImage}
                   alt={yacht.name}
-                  className="w-full h-full object-contain object-center transition-opacity duration-300 group-hover:opacity-90"
+                  className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
                 />
                 <div className="absolute top-3 left-3 bg-[#08101C]/80 px-2.5 py-1 text-[10px] uppercase tracking-wider text-[#C6A155] font-semibold border border-[#C6A155]/30">
                   {yacht.category}
