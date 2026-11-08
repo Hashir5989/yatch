@@ -268,24 +268,6 @@ function YachtDetailPageInner() {
         onOpenMediaPicker={handleOpenMediaPicker}
       />
 
-      {/* Floating Toggle Button for In-Line Editing Mode */}
-      {!isInlineEditing && (
-        <div className="fixed bottom-6 right-6 z-40">
-          <button
-            type="button"
-            onClick={() => {
-              setWorkingData(baseData);
-              setIsInlineEditing(true);
-            }}
-            className="px-4 py-2.5 bg-[#0A0E17]/95 hover:bg-[#C8A870] text-[#E5C392] hover:text-[#080B10] border border-[#C8A870]/60 hover:border-[#C8A870] shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-md text-xs font-mono font-semibold uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer rounded-full"
-            title="Enable direct client in-line editing on this yacht page"
-          >
-            <Edit3 className="w-3.5 h-3.5" />
-            <span>Edit Vessel In-Line</span>
-          </button>
-        </div>
-      )}
-
       {/* Media Picker Modal for Visual Replacements */}
       <MediaPickerModal
         isOpen={mediaPickerConfig.isOpen}
