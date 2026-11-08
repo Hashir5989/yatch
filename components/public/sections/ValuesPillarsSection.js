@@ -1,6 +1,7 @@
 "use client";
 
 import { Gem, ShieldCheck, Waves, Users, Sparkles, Anchor, Award } from "lucide-react";
+import InlineEditableText from "@/components/cms/InlineEditableText";
 
 const ICON_MAP = {
   Gem: Gem,
@@ -54,6 +55,13 @@ export default function ValuesPillarsSection({
 
   const displayPillars = isEditable ? pillars : pillars.filter((p) => p.visible !== false);
 
+  const handlePillarUpdate = (idx, key, val) => {
+    if (!onUpdateField) return;
+    const next = [...pillars];
+    next[idx] = { ...next[idx], [key]: val };
+    onUpdateField("pillars", next);
+  };
+
   return (
     <section id="values" className="bg-[#FAF8F5] py-20 lg:py-28 text-[#0A121E] font-sans relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
@@ -62,18 +70,37 @@ export default function ValuesPillarsSection({
           <div className="inline-flex items-center gap-4 mb-4">
             <span className="w-12 h-[1.5px] bg-[#A68037]/60" />
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.28em] text-[#A68037] font-semibold">
-              {eyebrow}
+              <InlineEditableText
+                as="span"
+                value={eyebrow}
+                isEditable={isEditable}
+                onChange={(val) => onUpdateField && onUpdateField("eyebrow", val)}
+                placeholder="OUR VALUES"
+              />
             </span>
             <span className="w-12 h-[1.5px] bg-[#A68037]/60" />
           </div>
 
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] text-[#0A121E] font-normal tracking-tight">
-            {heading}
+            <InlineEditableText
+              as="span"
+              value={heading}
+              isEditable={isEditable}
+              onChange={(val) => onUpdateField && onUpdateField("heading", val)}
+              placeholder="Built on Trust. Driven by Passion."
+            />
           </h2>
 
           {description && (
             <p className="text-[#556375] text-sm sm:text-base font-light mt-4 max-w-2xl mx-auto leading-relaxed">
-              {description}
+              <InlineEditableText
+                as="span"
+                value={description}
+                isEditable={isEditable}
+                onChange={(val) => onUpdateField && onUpdateField("description", val)}
+                placeholder="Enter description..."
+                multiline={true}
+              />
             </p>
           )}
         </div>
@@ -93,10 +120,23 @@ export default function ValuesPillarsSection({
                   <IconComponent className="w-6 h-6 stroke-[1.5]" />
                 </div>
                 <h3 className="font-serif text-xl sm:text-[22px] font-normal text-[#0A121E] mb-2 tracking-tight">
-                  {card.title}
+                  <InlineEditableText
+                    as="span"
+                    value={card.title}
+                    isEditable={isEditable}
+                    onChange={(val) => handlePillarUpdate(idx, "title", val)}
+                    placeholder="Pillar Title"
+                  />
                 </h3>
                 <p className="text-xs sm:text-sm text-[#697787] font-light leading-relaxed max-w-xs">
-                  {card.desc}
+                  <InlineEditableText
+                    as="span"
+                    value={card.desc}
+                    isEditable={isEditable}
+                    onChange={(val) => handlePillarUpdate(idx, "desc", val)}
+                    placeholder="Pillar Description"
+                    multiline={true}
+                  />
                 </p>
               </div>
             );
@@ -106,4 +146,3 @@ export default function ValuesPillarsSection({
     </section>
   );
 }
-

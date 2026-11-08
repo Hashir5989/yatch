@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 
 import SectionRenderer from "@/components/public/SectionRenderer";
+import UniversalAboutView from "@/components/public/about/UniversalAboutView";
 import SectionLibraryModal from "@/components/cms/SectionLibraryModal";
 import MediaPickerModal from "@/components/cms/MediaPickerModal";
 import SectionQuickDrawer from "@/components/public/SectionQuickDrawer";
@@ -37,23 +38,35 @@ import {
   publishPage 
 } from "@/lib/cmsStore";
 import { SECTION_TEMPLATES } from "@/lib/data/sectionTemplates";
+import { DEFAULT_ABOUT_PAGE } from "@/lib/data/defaultPages";
 
 function VisualPageEditorInner() {
   const params = useParams();
   const router = useRouter();
   const pageId = params?.pageId;
 
+  const isAboutRoute = pageId === "page-about";
+
   // Page & Draft State
-  const [pageMeta, setPageMeta] = useState(() => (pageId ? getPageById(pageId) : null));
+  const [pageMeta, setPageMeta] = useState(() => {
+    if (!pageId) return null;
+    const p = getPageById(pageId);
+    if (!p && isAboutRoute) return DEFAULT_ABOUT_PAGE;
+    return p;
+  });
+  const isAboutPage = isAboutRoute || pageMeta?.slug === "/about";
   const [draftSections, setDraftSections] = useState(() => {
     if (!pageId) return [];
     const draft = getPageDraft(pageId);
-    return draft?.sections || [];
+    if (draft?.sections && draft.sections.length > 0) return draft.sections;
+    if (isAboutRoute) return DEFAULT_ABOUT_PAGE.sections;
+    const p = getPageById(pageId);
+    return p?.sections || [];
   });
   const [selectedSectionId, setSelectedSectionId] = useState(() => {
     if (!pageId) return null;
     const draft = getPageDraft(pageId);
-    return draft?.sections?.[0]?.id || null;
+    return draft?.sections?.[0]?.id || (isAboutRoute ? "about-hero" : null);
   });
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(() => {
     if (!pageId) return false;
@@ -88,8 +101,20 @@ function VisualPageEditorInner() {
           const data = await res.json();
           if (data?.success && data?.page && isMounted) {
             const serverPage = data.page;
-            // Also keep local pages store fresh
-            const pages = getPageById(pageId) ? [serverPage] : [];
+
+            // Ensure About Us page always has all 5 sections even if server had older 4-section data
+            if (pageId === "page-about" || serverPage.slug === "/about") {
+              const defaultAboutSecs = DEFAULT_ABOUT_PAGE.sections;
+              const existingIds = new Set((serverPage.sections || []).map((s) => s.id));
+              const missing = defaultAboutSecs.filter((s) => !existingIds.has(s.id));
+              if (missing.length > 0 || (serverPage.sections || []).length < 5) {
+                const merged = defaultAboutSecs.map((defSec) => {
+                  const existing = (serverPage.sections || []).find((s) => s.id === defSec.id || s.type === defSec.type);
+                  return existing ? { ...defSec, ...existing } : defSec;
+                });
+                serverPage.sections = merged;
+              }
+            }
 
             // Check if user has an active unpublished local draft
             const draft = getPageDraft(pageId);
@@ -110,11 +135,17 @@ function VisualPageEditorInner() {
 
       // Fallback check
       if (isMounted) {
-        const localPage = getPageById(pageId);
+        let localPage = getPageById(pageId);
+        if (!localPage && isAboutRoute) {
+          localPage = DEFAULT_ABOUT_PAGE;
+        }
         if (!localPage) {
           router.push("/admin");
         } else {
           setPageMeta(localPage);
+          if (isAboutRoute && (!draftSections || draftSections.length === 0)) {
+            setDraftSections(DEFAULT_ABOUT_PAGE.sections);
+          }
         }
       }
     }
@@ -135,9 +166,15 @@ function VisualPageEditorInner() {
 
   // Direct Inline Text Field Update (called when user types right into headings, paragraphs, buttons on the UI)
   const handleUpdateSectionField = (sectionId, fieldName, newValue) => {
-    setDraftSections((prev) =>
-      prev.map((sec) => (sec.id === sectionId ? { ...sec, [fieldName]: newValue } : sec))
-    );
+    setDraftSections((prev) => {
+      const exists = prev.some((sec) => sec.id === sectionId || sec.type === sectionId);
+      if (!exists) {
+        return [...prev, { id: sectionId, [fieldName]: newValue }];
+      }
+      return prev.map((sec) =>
+        sec.id === sectionId || sec.type === sectionId ? { ...sec, [fieldName]: newValue } : sec
+      );
+    });
     setHasUnsavedChanges(true);
   };
 
@@ -576,40 +613,50 @@ function VisualPageEditorInner() {
             )}
 
             {/* Render Actual Sections Directly Editable on the Same UI */}
-            <div className="divide-y divide-white/5">
-              {draftSections.map((section, idx) => (
-                <div key={section.id} className="relative">
-                  <SectionRenderer
-                    section={section}
-                    isSelected={section.id === selectedSectionId}
-                    onSelectSection={(id) => setSelectedSectionId(id)}
-                    isEditorPreview={false}
-                    isEditable={true}
-                    onUpdateSectionField={handleUpdateSectionField}
-                    onOpenMediaPicker={(field, url) => openMediaPicker(section.id, field, url)}
-                    onMoveSection={handleMoveSection}
-                    onDuplicateSection={handleDuplicateSection}
-                    onDeleteSection={handleDeleteSection}
-                    onToggleVisibility={handleToggleVisibility}
-                    onOpenQuickDrawer={(sec) => setActiveDrawerSection(sec)}
-                    isFirst={idx === 0}
-                    isLast={idx === draftSections.length - 1}
-                  />
+            {isAboutPage ? (
+              <UniversalAboutView
+                pageData={{ ...pageMeta, sections: draftSections }}
+                isEditable={true}
+                onUpdateSectionField={handleUpdateSectionField}
+                onOpenMediaPicker={(secId, field, url) => openMediaPicker(secId, field, url)}
+                showNavAndFooter={false}
+              />
+            ) : (
+              <div className="divide-y divide-white/5">
+                {draftSections.map((section, idx) => (
+                  <div key={section.id} className="relative">
+                    <SectionRenderer
+                      section={section}
+                      isSelected={section.id === selectedSectionId}
+                      onSelectSection={(id) => setSelectedSectionId(id)}
+                      isEditorPreview={false}
+                      isEditable={true}
+                      onUpdateSectionField={handleUpdateSectionField}
+                      onOpenMediaPicker={(field, url) => openMediaPicker(section.id, field, url)}
+                      onMoveSection={handleMoveSection}
+                      onDuplicateSection={handleDuplicateSection}
+                      onDeleteSection={handleDeleteSection}
+                      onToggleVisibility={handleToggleVisibility}
+                      onOpenQuickDrawer={(sec) => setActiveDrawerSection(sec)}
+                      isFirst={idx === 0}
+                      isLast={idx === draftSections.length - 1}
+                    />
 
-                  {/* Inline Insert Divider Between Sections */}
-                  <div className="relative group/divider h-4 -my-2 z-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                    <div className="absolute inset-x-0 h-[1px] bg-[#C5A880]/40"></div>
-                    <button
-                      onClick={() => setIsSectionLibraryOpen(true)}
-                      className="relative z-10 px-3 py-1 rounded-full bg-[#080B10] border border-[#C5A880] text-[#C5A880] text-[10px] font-medium flex items-center gap-1 shadow-lg hover:bg-[#C5A880] hover:text-[#080B10] transition-colors"
-                    >
-                      <Plus className="w-3 h-3" />
-                      <span>Insert Section Here</span>
-                    </button>
+                    {/* Inline Insert Divider Between Sections */}
+                    <div className="relative group/divider h-4 -my-2 z-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                      <div className="absolute inset-x-0 h-[1px] bg-[#C5A880]/40"></div>
+                      <button
+                        onClick={() => setIsSectionLibraryOpen(true)}
+                        className="relative z-10 px-3 py-1 rounded-full bg-[#080B10] border border-[#C5A880] text-[#C5A880] text-[10px] font-medium flex items-center gap-1 shadow-lg hover:bg-[#C5A880] hover:text-[#080B10] transition-colors"
+                      >
+                        <Plus className="w-3 h-3" />
+                        <span>Insert Section Here</span>
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </main>
       </div>
