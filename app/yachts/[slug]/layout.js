@@ -1,5 +1,12 @@
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { getYachtsServer } from "@/lib/server/db";
 import { getYachtShowcaseData, mergeYachtWithShowcase } from "@/lib/data/yachtShowcaseData";
+
+async function PrerenderMetadataMarker() {
+  await connection();
+  return null;
+}
 
 export async function generateStaticParams() {
   try {
@@ -131,5 +138,12 @@ export async function generateMetadata({ params }) {
 }
 
 export default function YachtDetailLayout({ children }) {
-  return children;
+  return (
+    <>
+      <Suspense fallback={null}>
+        <PrerenderMetadataMarker />
+      </Suspense>
+      {children}
+    </>
+  );
 }
