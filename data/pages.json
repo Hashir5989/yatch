@@ -236,7 +236,7 @@
     "slug": "/about",
     "template": "heritage_craft",
     "status": "published",
-    "lastModified": "2026-11-07T12:00:00.000Z",
+    "lastModified": "2026-11-08T09:05:57.883Z",
     "sections": [
       {
         "id": "about-hero",
@@ -388,7 +388,7 @@
         "secondaryButtonText": "Download Fleet Catalog",
         "secondaryButtonUrl": "/yachts",
         "guaranteeText": "Direct consultation with Chief Naval Architect • Strict Discretion Assured",
-        "imageUrl": "/images/a77-journey-bg.jpg",
+        "imageUrl": "/images/news/qibs-2026-asmaraty-g77-emblem-detail.jpg",
         "videoUrl": "/videos/live-yacht-journey.mp4",
         "layoutStyle": "cinematic-full",
         "backgroundStyle": "navy",
