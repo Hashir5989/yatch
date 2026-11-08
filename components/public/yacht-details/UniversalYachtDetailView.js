@@ -171,27 +171,6 @@ export default function UniversalYachtDetailView({
           {/* Hero Content */}
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 pb-12 sm:pb-16 w-full pt-32 sm:pt-40">
             <div className="max-w-3xl space-y-6">
-              {/* Official Metallic Winged Insignia Emblem */}
-              {data.insigniaSrc && (
-                <div className="relative inline-block group/insignia">
-                  <img
-                    src={data.insigniaSrc}
-                    alt={`${data.fullName} Insignia Emblem`}
-                    className="h-12 sm:h-16 w-auto object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
-                  />
-                  {isEditable && onOpenMediaPicker && (
-                    <button
-                      type="button"
-                      onClick={() => onOpenMediaPicker("insigniaSrc", data.insigniaSrc)}
-                      className="opacity-0 group-hover/insignia:opacity-100 transition-opacity absolute -top-2 -right-2 px-2.5 py-1 bg-[#0E1522]/95 text-[#DFBA73] border border-[#C8A870] text-[10px] uppercase font-mono flex items-center gap-1 shadow-2xl cursor-pointer"
-                    >
-                      <ImageIcon className="w-3 h-3" />
-                      <span>Change Emblem</span>
-                    </button>
-                  )}
-                </div>
-              )}
-
               {/* Title & Tagline */}
               <div>
                 <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-white leading-[1.05] tracking-tight">
