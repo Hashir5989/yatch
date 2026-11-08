@@ -114,6 +114,10 @@ function VisualPageEditorInner() {
                 });
                 serverPage.sections = merged;
               }
+              // Upgrade legacy hero image if still pointing to old photo
+              if (serverPage.sections?.[0]?.id === "about-hero" && (!serverPage.sections[0].imageUrl || serverPage.sections[0].imageUrl === "/images/g100-burj-al-arab.jpg")) {
+                serverPage.sections[0].imageUrl = "/images/about/asmaraty-about-hero-fireworks.jpg";
+              }
             }
 
             // Check if user has an active unpublished local draft

@@ -114,9 +114,9 @@ export default function UniversalAboutView({
             {/* Background ASMARATY Flagship Yacht */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
               <img
-                src={heroSection?.imageUrl || "/images/g100-burj-al-arab.jpg"}
-                alt={heroSection?.imageAlt || "ASMARATY Flagship Yacht Dubai"}
-                className="w-full h-full object-cover object-center scale-105 filter brightness-[0.80] contrast-[1.08]"
+                src={heroSection?.imageUrl || "/images/about/asmaraty-about-hero-fireworks.jpg"}
+                alt={heroSection?.imageAlt || "ASMARATY Fireworks Celebration Experience"}
+                className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-[1.04]"
               />
               {/* Ambient luxury gradients for typographic clarity */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/95 via-[#070D18]/65 to-transparent sm:via-[#070D18]/50" />
@@ -132,7 +132,7 @@ export default function UniversalAboutView({
                   onOpenMediaPicker(
                     heroSection?.id || "about-hero",
                     "imageUrl",
-                    heroSection?.imageUrl || "/images/g100-burj-al-arab.jpg"
+                    heroSection?.imageUrl || "/images/about/asmaraty-about-hero-fireworks.jpg"
                   );
                 }}
                 className="absolute top-6 right-6 z-30 px-3.5 py-2 rounded-full bg-[#08101C]/90 backdrop-blur-md text-[#C6A155] border border-[#C6A155]/60 hover:bg-[#C6A155] hover:text-[#08101C] text-xs font-medium flex items-center gap-2 shadow-xl transition-all pointer-events-auto"

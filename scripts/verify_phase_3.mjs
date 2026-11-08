@@ -41,7 +41,7 @@ assert(jsonAbout.sections.length === 5, `data/pages.json page-about has exactly 
 const hero = jsonAbout.sections.find((s) => s.id === "about-hero");
 assert(hero.eyebrow === "ABOUT US", "Hero eyebrow is 'ABOUT US'");
 assert(hero.heading.includes("Excellence on the Water"), "Hero heading is 'A Legacy of Excellence on the Water'");
-assert(hero.imageUrl.includes("g100-burj-al-arab.jpg"), "Hero image is '/images/g100-burj-al-arab.jpg'");
+assert(hero.imageUrl.includes("asmaraty-about-hero-fireworks.jpg"), "Hero image is '/images/about/asmaraty-about-hero-fireworks.jpg'");
 
 // 4. Verify Our Story content & Button
 const story = jsonAbout.sections.find((s) => s.id === "about-story");
