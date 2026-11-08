@@ -116,7 +116,7 @@ export default function UniversalAboutView({
               <img
                 src={heroSection?.imageUrl || "/images/about/asmaraty-about-hero-fireworks.jpg"}
                 alt={heroSection?.imageAlt || "ASMARATY Fireworks Celebration Experience"}
-                className="w-full h-full object-cover object-[center_bottom] md:object-[60%_bottom] filter brightness-[0.90] contrast-[1.04]"
+                className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.04]"
               />
               {/* Ambient luxury gradients for typographic clarity */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/90 via-[#070D18]/55 to-transparent sm:via-[#070D18]/40" />

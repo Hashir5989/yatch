@@ -98,7 +98,7 @@ export default function HeroBannerSection({
             <img
               src={imageUrl || "/images/about/asmaraty-about-hero-fireworks.jpg"}
               alt={imageAlt || heading}
-              className="w-full h-full object-cover object-[center_bottom] md:object-[60%_bottom] filter brightness-[0.90] contrast-[1.04] transition-transform duration-1000 ease-out"
+              className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.04] transition-transform duration-1000 ease-out"
             />
             {/* Ambient luxury gradients for typographic clarity on non-video heroes */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/90 via-[#070D18]/55 to-transparent sm:via-[#070D18]/40" />
