@@ -466,7 +466,7 @@ export default function UniversalAboutView({
             SECTION 5: FINAL CTA — Your Journey Begins Here
            ========================================================= */}
         {ctaSection?.visible !== false && (
-          <section id={ctaSection?.id || "about-cta"} className="relative min-h-[50vh] sm:min-h-[55vh] flex items-center overflow-hidden bg-[#070D18] group/about-cta">
+          <section id={ctaSection?.id || "about-cta"} className="relative min-h-[68vh] sm:min-h-[72vh] lg:min-h-[76vh] flex items-center overflow-hidden bg-[#070D18] group/about-cta">
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
               <img
                 src={ctaSection?.imageUrl || "/images/a77-journey-bg.jpg"}
@@ -498,7 +498,7 @@ export default function UniversalAboutView({
               </button>
             )}
 
-            <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 w-full py-20 sm:py-24">
+            <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 w-full py-28 sm:py-36">
               <div className="max-w-xl space-y-4">
                 <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-white font-normal leading-tight">
                   <InlineEditableText
