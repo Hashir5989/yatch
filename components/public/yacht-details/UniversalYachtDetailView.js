@@ -132,6 +132,13 @@ export default function UniversalYachtDetailView({
 
               {/* Brochure Button in Ribbon - 100% Inline Editable */}
               <InlineButtonEditor
+                config={{
+                  label: data.brochureLabel || "Brochure (PDF)",
+                  url: data.brochureUrl || "/contact",
+                  target: data.brochureUrl ? "_blank" : "_self",
+                  type: data.brochureUrl ? "external" : "internal",
+                  visible: true,
+                }}
                 text={data.brochureLabel || "Brochure (PDF)"}
                 url={data.brochureUrl || "/contact"}
                 isEditable={isEditable}
@@ -235,6 +242,14 @@ export default function UniversalYachtDetailView({
                 </InlineButtonEditor>
 
                 <InlineButtonEditor
+                  config={{
+                    label: data.brochureLabel || "Download Brochure (PDF)",
+                    url: data.brochureUrl || "/contact",
+                    target: data.brochureUrl ? "_blank" : "_self",
+                    type: data.brochureUrl ? "external" : "internal",
+                    visible: true,
+                    style: "outline-gold",
+                  }}
                   text={data.brochureLabel || "Download Brochure (PDF)"}
                   url={data.brochureUrl || "/contact"}
                   isEditable={isEditable}

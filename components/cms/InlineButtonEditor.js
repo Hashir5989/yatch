@@ -159,8 +159,24 @@ export default function InlineButtonEditor({
   if (!isEditable) {
     if (!visible) return null;
     const finalHref = formatButtonHref(href, type);
-    const resolvedTarget = target || (type === "external" ? "_blank" : "_self");
+    const isPdf = typeof finalHref === "string" && finalHref.toLowerCase().includes(".pdf");
+    const resolvedTarget = isPdf ? "_blank" : (target || (type === "external" ? "_blank" : "_self"));
     const rel = resolvedTarget === "_blank" ? "noopener noreferrer" : undefined;
+
+    if (isPdf) {
+      return (
+        <a href={finalHref} target="_blank" rel="noopener noreferrer" className={className}>
+          {children ? (
+            <span className="inline-flex items-center justify-center gap-2">
+              {children}
+            </span>
+          ) : (
+            <span>{label}</span>
+          )}
+          {Icon && <Icon className="w-4 h-4 ml-2 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />}
+        </a>
+      );
+    }
 
     return (
       <Link href={finalHref} target={resolvedTarget} rel={rel} className={className}>
