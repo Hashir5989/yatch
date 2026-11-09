@@ -147,7 +147,7 @@ export default function UniversalContactView({ pageData = null }) {
 
           {/* Subtitle */}
           <p 
-            className="text-xs sm:text-sm md:text-base text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-8 saxdor-desc-justified"
+            className="text-xs sm:text-sm md:text-base text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-8 saxdor-desc-justified [text-wrap:balance]"
             style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "center" }}
           >
             {heroSubheading}
@@ -231,7 +231,10 @@ export default function UniversalContactView({ pageData = null }) {
                 <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
                   Advisory Hotline
                 </h3>
-                <p className="text-xs text-white/70 leading-relaxed font-light mb-3">
+                <p 
+                  className="text-xs text-white/70 leading-relaxed font-light mb-3 text-justify saxdor-desc-justified min-h-[36px]"
+                  style={{ textAlign: "justify", textJustify: "inter-word" }}
+                >
                   Direct telephone contact for private client inquiries, vessel pricing, and sea trials.
                 </p>
                 <a
@@ -268,7 +271,10 @@ export default function UniversalContactView({ pageData = null }) {
                 <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
                   Official Email
                 </h3>
-                <p className="text-xs text-white/70 leading-relaxed font-light mb-3">
+                <p 
+                  className="text-xs text-white/70 leading-relaxed font-light mb-3 text-justify saxdor-desc-justified min-h-[36px]"
+                  style={{ textAlign: "justify", textJustify: "inter-word" }}
+                >
                   Submit detailed technical requirements, charter partnerships, or brochure requests.
                 </p>
                 <a
