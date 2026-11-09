@@ -173,7 +173,7 @@ export default function UniversalYachtDetailView({
             <div className="max-w-3xl space-y-6">
               {/* Title & Tagline */}
               <div>
-                <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-white leading-[1.05] tracking-tight">
+                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[1.1] tracking-tight">
                   <InlineEditableText
                     as="span"
                     value={data.brandPrefix || "ASMARATY"}
@@ -191,7 +191,7 @@ export default function UniversalYachtDetailView({
                     />
                   </span>
                 </h1>
-                <p className="mt-3 text-lg sm:text-2xl text-[#E0E6EF] font-light max-w-2xl leading-relaxed">
+                <p className="mt-3 text-base sm:text-xl text-[#E0E6EF] font-light max-w-2xl leading-relaxed">
                   <InlineEditableText
                     as="span"
                     value={data.tagline}
@@ -204,7 +204,10 @@ export default function UniversalYachtDetailView({
               </div>
 
               {/* Key Highlights Subtitle */}
-              <p className="text-xs sm:text-sm text-[#9DAAB8] font-light max-w-xl leading-relaxed">
+              <p 
+                className="text-xs sm:text-sm text-[#9DAAB8] font-light max-w-xl leading-relaxed text-justify"
+                style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
+              >
                 <InlineEditableText
                   as="span"
                   value={data.description}
