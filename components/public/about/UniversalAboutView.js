@@ -226,7 +226,7 @@ export default function UniversalAboutView({
                     />
                   </h2>
 
-                  <p className="text-[#556375] text-xs sm:text-sm md:text-[14px] font-light leading-relaxed">
+                  <p className="text-[#556375] text-xs sm:text-sm md:text-[14px] font-light leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
                     <InlineEditableText
                       as="span"
                       value={
@@ -510,7 +510,7 @@ export default function UniversalAboutView({
                   />
                 </h2>
 
-                <p className="text-[#D0D9E4] text-xs sm:text-sm md:text-[14px] font-light leading-relaxed pb-3">
+                <p className="text-[#D0D9E4] text-xs sm:text-sm md:text-[14px] font-light leading-relaxed pb-3 saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
                   <InlineEditableText
                     as="span"
                     value={
