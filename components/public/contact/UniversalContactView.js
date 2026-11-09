@@ -141,20 +141,23 @@ export default function UniversalContactView({ pageData = null }) {
           </div>
 
           {/* Headline */}
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-6 max-w-4xl">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-normal text-white uppercase tracking-[0.03em] leading-[1.15] mb-5 max-w-3xl">
             {heroHeading}
           </h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg md:text-xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed mb-10 text-justify sm:text-center">
+          <p 
+            className="text-xs sm:text-sm md:text-base text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-8 saxdor-desc-justified"
+            style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "center" }}
+          >
             {heroSubheading}
           </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <a
               href="#contact-form"
-              className="saxdor-btn-solid !h-[48px] !px-8 text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none shadow-xl cursor-pointer"
+              className="saxdor-btn-solid !h-[44px] !px-6 sm:!px-8 text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none shadow-xl cursor-pointer"
             >
               <span>Submit Enquiry</span>
               <ArrowRight className="w-4 h-4" />
@@ -164,7 +167,7 @@ export default function UniversalContactView({ pageData = null }) {
               href="https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20would%20like%20to%20connect%20with%20your%20advisory%20team."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-3 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold uppercase tracking-wider transition-all rounded-none shadow-xl"
+              className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 h-[44px] bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold uppercase tracking-wider transition-all rounded-none shadow-xl"
             >
               <WhatsAppIcon className="w-4 h-4" />
               <span>WhatsApp VIP Concierge</span>
@@ -172,7 +175,7 @@ export default function UniversalContactView({ pageData = null }) {
 
             <a
               href="tel:+971565268126"
-              className="saxdor-btn-outline !h-[48px] !px-8 text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73]"
+              className="saxdor-btn-outline !h-[44px] !px-6 sm:!px-8 text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73]"
             >
               <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
               <span>+971 56 526 8126</span>
@@ -196,7 +199,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#C6A155] font-semibold block mb-1">
                   SHIPYARD HEADQUARTERS
                 </span>
-                <h3 className="font-serif text-xl text-white font-normal mb-2">
+                <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
                   Al Shaali Marine
                 </h3>
                 <p className="text-xs text-white/70 leading-relaxed font-light">
@@ -225,7 +228,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#C6A155] font-semibold block mb-1">
                   DIRECT CLIENT DESK
                 </span>
-                <h3 className="font-serif text-xl text-white font-normal mb-2">
+                <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
                   Advisory Hotline
                 </h3>
                 <p className="text-xs text-white/70 leading-relaxed font-light mb-3">
@@ -233,7 +236,7 @@ export default function UniversalContactView({ pageData = null }) {
                 </p>
                 <a
                   href="tel:+971565268126"
-                  className="font-mono text-sm font-semibold text-white hover:text-[#DFBA73] block transition-colors"
+                  className="font-mono text-xs sm:text-[13px] font-semibold text-white hover:text-[#DFBA73] block transition-colors"
                 >
                   +971 56 526 8126
                 </a>
@@ -262,7 +265,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#C6A155] font-semibold block mb-1">
                   CONFIDENTIAL INQUIRIES
                 </span>
-                <h3 className="font-serif text-xl text-white font-normal mb-2">
+                <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
                   Official Email
                 </h3>
                 <p className="text-xs text-white/70 leading-relaxed font-light mb-3">
@@ -270,7 +273,7 @@ export default function UniversalContactView({ pageData = null }) {
                 </p>
                 <a
                   href="mailto:info@asmaraty.com"
-                  className="font-mono text-sm font-semibold text-white hover:text-[#DFBA73] block transition-colors"
+                  className="font-mono text-xs sm:text-[13px] font-semibold text-white hover:text-[#DFBA73] block transition-colors"
                 >
                   info@asmaraty.com
                 </a>
@@ -293,7 +296,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#C6A155] font-semibold block mb-1">
                   OFFICIAL HOURS (GST)
                 </span>
-                <h3 className="font-serif text-xl text-white font-normal mb-2">
+                <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
                   Visiting Schedule
                 </h3>
                 <div className="text-xs text-white/70 space-y-1.5 font-light">
@@ -325,50 +328,53 @@ export default function UniversalContactView({ pageData = null }) {
             {/* Left Column: Context & Concierge Promise */}
             <div className="lg:col-span-5 space-y-8">
               <div>
-                <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2">
+                <span className="text-[11px] uppercase tracking-[0.22em] text-[#C6A155] font-semibold block mb-2">
                   {formEyebrow}
                 </span>
-                <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-5">
+                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-4">
                   {formHeading}
                 </h2>
-                <p className="text-sm sm:text-base text-white/75 font-light leading-relaxed text-justify" style={{ textJustify: "inter-word" }}>
+                <p 
+                  className="text-xs sm:text-sm text-white/75 font-light leading-relaxed text-justify saxdor-desc-justified" 
+                  style={{ textAlign: "justify", textJustify: "inter-word" }}
+                >
                   {formDescription}
                 </p>
               </div>
 
               {/* Service Capabilities Checklist */}
-              <div className="space-y-4 pt-2">
-                <div className="flex items-start gap-3.5 p-4 bg-[#0D1522] border border-white/10">
+              <div className="space-y-3.5 pt-1">
+                <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-[#0D1522] border border-white/10">
                   <div className="w-8 h-8 rounded-full bg-[#C6A155]/15 border border-[#C6A155]/40 flex items-center justify-center text-[#DFBA73] flex-shrink-0 mt-0.5">
                     <Ship className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-white mb-0.5">Private Sea Trials</h4>
-                    <p className="text-xs text-white/70 leading-relaxed font-light">
+                    <h4 className="text-xs sm:text-[13px] font-semibold text-white mb-0.5">Private Sea Trials</h4>
+                    <p className="text-[11px] sm:text-xs text-white/70 leading-relaxed font-light">
                       Departing from Dubai Marina or Ajman harbor with our naval engineering team.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5 p-4 bg-[#0D1522] border border-white/10">
+                <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-[#0D1522] border border-white/10">
                   <div className="w-8 h-8 rounded-full bg-[#C6A155]/15 border border-[#C6A155]/40 flex items-center justify-center text-[#DFBA73] flex-shrink-0 mt-0.5">
                     <Building2 className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-white mb-0.5">Shipyard Walkthroughs</h4>
-                    <p className="text-xs text-white/70 leading-relaxed font-light">
+                    <h4 className="text-xs sm:text-[13px] font-semibold text-white mb-0.5">Shipyard Walkthroughs</h4>
+                    <p className="text-[11px] sm:text-xs text-white/70 leading-relaxed font-light">
                       Inspect active hull laminations, composite joinery, and engineering bays in Ajman.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5 p-4 bg-[#0D1522] border border-white/10">
+                <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-[#0D1522] border border-white/10">
                   <div className="w-8 h-8 rounded-full bg-[#C6A155]/15 border border-[#C6A155]/40 flex items-center justify-center text-[#DFBA73] flex-shrink-0 mt-0.5">
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-white mb-0.5">Bespoke Design Atelier</h4>
-                    <p className="text-xs text-white/70 leading-relaxed font-light">
+                    <h4 className="text-xs sm:text-[13px] font-semibold text-white mb-0.5">Bespoke Design Atelier</h4>
+                    <p className="text-[11px] sm:text-xs text-white/70 leading-relaxed font-light">
                       Customize 3D interior layouts, marble selections, audio-visual suites, and tender garages.
                     </p>
                   </div>
@@ -376,8 +382,8 @@ export default function UniversalContactView({ pageData = null }) {
               </div>
 
               {/* Instant WhatsApp Action */}
-              <div className="p-6 bg-[#0E1A2D]/80 border border-[#C6A155]/30 space-y-3">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-[#DFBA73] font-semibold block">
+              <div className="p-5 sm:p-6 bg-[#0E1A2D]/80 border border-[#C6A155]/30 space-y-2.5">
+                <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#DFBA73] font-semibold block">
                   FAST-TRACK VIP ACCESS
                 </span>
                 <p className="text-xs text-white/80 leading-relaxed">
@@ -387,7 +393,7 @@ export default function UniversalContactView({ pageData = null }) {
                   href="https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20am%20inquiring%20about%20your%20yacht%20fleet."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2.5 px-5 py-3 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold uppercase tracking-wider transition-all"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold uppercase tracking-wider transition-all"
                 >
                   <WhatsAppIcon className="w-4 h-4" />
                   <span>Message on WhatsApp (+971 56 526 8126)</span>
@@ -396,14 +402,14 @@ export default function UniversalContactView({ pageData = null }) {
             </div>
 
             {/* Right Column: Complete Interactive Form */}
-            <div className="lg:col-span-7 bg-[#0D1522] border border-white/10 p-8 sm:p-12 shadow-2xl">
+            <div className="lg:col-span-7 bg-[#0D1522] border border-white/10 p-6 sm:p-10 shadow-2xl">
               {formSubmitted ? (
-                <div className="py-16 text-center space-y-5">
-                  <CheckCircle2 className="w-16 h-16 text-[#C6A155] mx-auto animate-bounce" />
-                  <h3 className="font-serif text-3xl text-white font-normal">
+                <div className="py-14 text-center space-y-4">
+                  <CheckCircle2 className="w-14 h-14 text-[#C6A155] mx-auto animate-bounce" />
+                  <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal">
                     Enquiry Received with Priority
                   </h3>
-                  <p className="text-sm text-white/80 max-w-md mx-auto leading-relaxed">
+                  <p className="text-xs sm:text-sm text-white/80 max-w-md mx-auto leading-relaxed">
                     Thank you, <span className="text-[#DFBA73] font-semibold">{formData.firstName} {formData.lastName}</span>. Your consultation request regarding <span className="text-white font-medium">{formData.modelInterested}</span> has been routed directly to our senior yacht advisory team in the UAE.
                   </p>
                   <p className="text-xs text-white/60">
@@ -424,15 +430,15 @@ export default function UniversalContactView({ pageData = null }) {
                         message: "",
                       });
                     }}
-                    className="saxdor-btn-solid !h-[44px] px-8 text-xs font-bold uppercase tracking-wider mt-4"
+                    className="saxdor-btn-solid !h-[42px] px-6 text-xs font-bold uppercase tracking-wider mt-3"
                   >
                     Submit Another Inquiry
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal mb-1">
+                    <h3 className="font-serif text-xl sm:text-2xl text-white font-normal mb-1">
                       Client Consultation Form
                     </h3>
                     <p className="text-xs text-white/60">
@@ -600,14 +606,21 @@ export default function UniversalContactView({ pageData = null }) {
           ------------------------------------------------------------- */}
       <section className="py-20 sm:py-28 bg-[#06090D] border-t border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="text-[11px] uppercase tracking-[0.22em] text-[#C6A155] font-semibold block mb-2">
               LOCATION & ACCESS
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white uppercase tracking-[0.03em] mb-4">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] mb-3">
               Visit Our UAE Shipyard Facility
             </h2>
-            <p className="text-sm sm:text-base text-white/70 font-light">
+            <p 
+              className="text-xs sm:text-sm text-white/75 font-light leading-relaxed max-w-2xl mx-auto saxdor-desc-justified"
+              style={{
+                textAlign: "justify",
+                textJustify: "inter-word",
+                textAlignLast: "center"
+              }}
+            >
               Centrally located on the Ajman waterfront, within 35 minutes of Dubai International Airport (DXB). Private marina berths and helicopter arrival can be coordinated upon request.
             </p>
           </div>
@@ -627,11 +640,11 @@ export default function UniversalContactView({ pageData = null }) {
               />
 
               {/* Floating Address Overlay Card */}
-              <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-md p-5 bg-[#080B10]/95 backdrop-blur-md border border-[#C6A155]/40 shadow-2xl">
+              <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-md p-4 sm:p-5 bg-[#080B10]/95 backdrop-blur-md border border-[#C6A155]/40 shadow-2xl">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-[#C6A155] flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs uppercase tracking-wider text-[#DFBA73] font-semibold font-mono mb-1">
+                    <h4 className="text-[11px] sm:text-xs uppercase tracking-wider text-[#DFBA73] font-semibold font-mono mb-1">
                       Al Shaali Marine Shipyard
                     </h4>
                     <p className="text-xs text-white/80 leading-relaxed font-light">
@@ -659,19 +672,22 @@ export default function UniversalContactView({ pageData = null }) {
           ------------------------------------------------------------- */}
       <section className="py-20 sm:py-28 bg-[#080B10]">
         <div className="max-w-4xl mx-auto px-6 sm:px-12">
-          <div className="text-center mb-14">
-            <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2">
+          <div className="text-center mb-12">
+            <span className="text-[11px] uppercase tracking-[0.22em] text-[#C6A155] font-semibold block mb-2">
               CLIENT ASSISTANCE
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-normal text-white uppercase tracking-[0.03em] mb-4">
+            <h2 className="font-serif text-2xl sm:text-3xl font-normal text-white uppercase tracking-[0.03em] mb-3">
               Frequently Asked Questions
             </h2>
-            <p className="text-sm text-white/70 font-light">
+            <p 
+              className="text-xs sm:text-sm text-white/70 font-light max-w-xl mx-auto saxdor-desc-justified"
+              style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "center" }}
+            >
               Key details regarding private sea trials, shipyard visits, and bespoke yacht commissioning.
             </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3.5">
             {FAQS.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
@@ -682,17 +698,20 @@ export default function UniversalContactView({ pageData = null }) {
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full p-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.02] transition-colors"
+                    className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.02] transition-colors"
                   >
-                    <span className="font-serif text-base sm:text-lg text-white font-normal">
+                    <span className="font-serif text-sm sm:text-base text-white font-normal">
                       {faq.q}
                     </span>
-                    <span className={`text-[#C6A155] text-xl font-light transform transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}>
+                    <span className={`text-[#C6A155] text-lg font-light transform transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}>
                       +
                     </span>
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-6 pt-1 text-xs sm:text-sm text-white/75 font-light leading-relaxed border-t border-white/5 text-justify" style={{ textJustify: "inter-word" }}>
+                    <div 
+                      className="px-5 sm:px-6 pb-5 sm:pb-6 pt-1 text-xs sm:text-[13px] text-white/75 font-light leading-relaxed border-t border-white/5 text-justify saxdor-desc-justified" 
+                      style={{ textAlign: "justify", textJustify: "inter-word" }}
+                    >
                       {faq.a}
                     </div>
                   )}
