@@ -160,7 +160,7 @@ export default function UniversalAboutView({
                 </div>
 
                 {/* Semantic Luxury H1 */}
-                <h1 className="font-serif text-4xl sm:text-5xl lg:text-[62px] text-white font-normal leading-[1.12] tracking-tight">
+                <h1 className="font-serif text-3xl sm:text-4xl lg:text-[46px] text-white font-normal leading-[1.16] tracking-tight">
                   <InlineEditableText
                     as="span"
                     value={heroSection?.heading || "A Legacy of\nExcellence on the Water"}
@@ -172,7 +172,7 @@ export default function UniversalAboutView({
                 </h1>
 
                 {/* Lead Narrative */}
-                <p className="text-base sm:text-lg text-[#D0D9E4] font-light leading-relaxed mt-6 mb-8 max-w-xl">
+                <p className="text-xs sm:text-sm md:text-[15px] text-[#D0D9E4] font-light leading-relaxed mt-5 mb-8 max-w-xl">
                   <InlineEditableText
                     as="span"
                     value={
@@ -215,7 +215,7 @@ export default function UniversalAboutView({
                     <span className="w-14 h-[1.5px] bg-[#A68037]/60" />
                   </div>
 
-                  <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] text-[#0A121E] font-normal leading-[1.18] tracking-tight">
+                  <h2 className="font-serif text-2xl sm:text-3xl lg:text-[36px] text-[#0A121E] font-normal leading-[1.2] tracking-tight">
                     <InlineEditableText
                       as="span"
                       value={storySection?.heading || "Crafting Exceptional\nYachting Experiences"}
@@ -226,7 +226,7 @@ export default function UniversalAboutView({
                     />
                   </h2>
 
-                  <p className="text-[#556375] text-base sm:text-[17px] font-light leading-relaxed">
+                  <p className="text-[#556375] text-xs sm:text-sm md:text-[14px] font-light leading-relaxed">
                     <InlineEditableText
                       as="span"
                       value={
@@ -264,7 +264,7 @@ export default function UniversalAboutView({
                             updateField(storySection?.id || "about-story", "buttonText", newText);
                             updateField(storySection?.id || "about-story", "buttonUrl", newUrl);
                           }}
-                          className="inline-flex items-center gap-3 bg-[#0B1523] hover:bg-[#162338] text-white text-sm font-medium px-8 py-3.5 rounded-full transition-all shadow-md group"
+                          className="inline-flex items-center gap-2.5 bg-[#0B1523] hover:bg-[#162338] text-white text-xs sm:text-[13px] font-medium px-6 py-2.5 rounded-full transition-all shadow-md group"
                         />
                       ) : (
                         <Link
@@ -274,7 +274,7 @@ export default function UniversalAboutView({
                           )}
                           target={storySection?.primaryButton?.target || "_self"}
                           rel={storySection?.primaryButton?.target === "_blank" ? "noopener noreferrer" : undefined}
-                          className="inline-flex items-center gap-3 bg-[#0B1523] hover:bg-[#162338] text-white text-sm font-medium px-8 py-3.5 rounded-full transition-all shadow-md hover:shadow-xl group"
+                          className="inline-flex items-center gap-2.5 bg-[#0B1523] hover:bg-[#162338] text-white text-xs sm:text-[13px] font-medium px-6 py-2.5 rounded-full transition-all shadow-md hover:shadow-xl group"
                         >
                           <span>
                             {storySection?.primaryButton?.label || storySection?.buttonText || "Discover Our Journey"}
@@ -347,7 +347,7 @@ export default function UniversalAboutView({
               <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#D6D0C3] text-center">
                 {statItems.map((stat, idx) => (
                   <div key={idx} className="py-6 md:py-2 md:px-8">
-                    <div className="font-serif text-4xl sm:text-5xl font-normal text-[#0A121E] tracking-tight">
+                    <div className="font-serif text-3xl sm:text-4xl font-normal text-[#0A121E] tracking-tight">
                       <InlineEditableText
                         as="span"
                         value={stat.number}
@@ -356,7 +356,7 @@ export default function UniversalAboutView({
                         placeholder="1979"
                       />
                     </div>
-                    <div className="text-xs sm:text-sm text-[#667484] font-light mt-2 tracking-wide uppercase">
+                    <div className="text-[11px] sm:text-xs text-[#667484] font-light mt-1.5 tracking-wide uppercase">
                       <InlineEditableText
                         as="span"
                         value={stat.label}
@@ -394,7 +394,7 @@ export default function UniversalAboutView({
                   <span className="w-12 h-[1.5px] bg-[#A68037]/60" />
                 </div>
 
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] text-[#0A121E] font-normal tracking-tight">
+                <h2 className="font-serif text-2xl sm:text-3xl lg:text-[36px] text-[#0A121E] font-normal tracking-tight">
                   <InlineEditableText
                     as="span"
                     value={valuesSection?.heading || "Built on Trust. Driven by Passion."}
@@ -404,7 +404,7 @@ export default function UniversalAboutView({
                   />
                 </h2>
 
-                <p className="text-[#556375] text-sm sm:text-base font-light mt-4 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-[#556375] text-xs sm:text-sm font-light mt-3 max-w-2xl mx-auto leading-relaxed">
                   <InlineEditableText
                     as="span"
                     value={
@@ -435,7 +435,7 @@ export default function UniversalAboutView({
                         <div className="w-14 h-14 rounded-full bg-[#EFECE5] flex items-center justify-center mb-5 text-[#C6A155] group-hover:bg-[#0B1523] group-hover:text-[#C6A155] transition-all duration-300 shadow-sm">
                           <IconComponent className="w-6 h-6 stroke-[1.5]" />
                         </div>
-                        <h3 className="font-serif text-xl sm:text-[22px] font-normal text-[#0A121E] mb-2 tracking-tight">
+                        <h3 className="font-serif text-lg sm:text-[19px] font-normal text-[#0A121E] mb-1.5 tracking-tight">
                           <InlineEditableText
                             as="span"
                             value={card.title}
@@ -444,7 +444,7 @@ export default function UniversalAboutView({
                             placeholder="Pillar Title"
                           />
                         </h3>
-                        <p className="text-xs sm:text-sm text-[#697787] font-light leading-relaxed max-w-xs">
+                        <p className="text-[11px] sm:text-xs text-[#697787] font-light leading-relaxed max-w-xs">
                           <InlineEditableText
                             as="span"
                             value={card.desc}
@@ -500,7 +500,7 @@ export default function UniversalAboutView({
 
             <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 w-full py-28 sm:py-36">
               <div className="max-w-xl space-y-4">
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-white font-normal leading-tight">
+                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-white font-normal leading-tight">
                   <InlineEditableText
                     as="span"
                     value={ctaSection?.heading || "Your Journey Begins Here"}
@@ -510,7 +510,7 @@ export default function UniversalAboutView({
                   />
                 </h2>
 
-                <p className="text-[#D0D9E4] text-base sm:text-lg font-light leading-relaxed pb-4">
+                <p className="text-[#D0D9E4] text-xs sm:text-sm md:text-[14px] font-light leading-relaxed pb-3">
                   <InlineEditableText
                     as="span"
                     value={
@@ -548,7 +548,7 @@ export default function UniversalAboutView({
                           updateField(ctaSection?.id || "about-cta", "primaryButtonText", newText);
                           updateField(ctaSection?.id || "about-cta", "primaryButtonUrl", newUrl);
                         }}
-                        className="inline-flex items-center gap-3 bg-[#E5B869] hover:bg-[#D9AA58] text-[#0A111E] text-sm font-semibold px-8 py-4 rounded-full transition-all shadow-xl group"
+                        className="inline-flex items-center gap-2.5 bg-[#E5B869] hover:bg-[#D9AA58] text-[#0A111E] text-xs sm:text-[13px] font-semibold px-6 py-3 rounded-full transition-all shadow-xl group"
                       />
                     ) : (
                       <Link
@@ -558,7 +558,7 @@ export default function UniversalAboutView({
                         )}
                         target={ctaSection?.primaryButton?.target || "_self"}
                         rel={ctaSection?.primaryButton?.target === "_blank" ? "noopener noreferrer" : undefined}
-                        className="inline-flex items-center gap-3 bg-[#E5B869] hover:bg-[#D9AA58] text-[#0A111E] text-sm font-semibold px-8 py-4 rounded-full transition-all shadow-xl hover:shadow-2xl group"
+                        className="inline-flex items-center gap-2.5 bg-[#E5B869] hover:bg-[#D9AA58] text-[#0A111E] text-xs sm:text-[13px] font-semibold px-6 py-3 rounded-full transition-all shadow-xl hover:shadow-2xl group"
                       >
                         <span>
                           {ctaSection?.primaryButton?.label || ctaSection?.primaryButtonText || "Explore Our Collection"}

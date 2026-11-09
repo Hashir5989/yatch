@@ -245,12 +245,12 @@ export default function UniversalYachtCatalogView() {
             </div>
 
             {/* Headline */}
-            <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-normal text-white uppercase tracking-[0.03em] leading-[1.08] mb-6 max-w-5xl">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-normal text-white uppercase tracking-[0.03em] leading-[1.12] mb-5 max-w-4xl">
               {heroSection?.heading || "The Fleet of Distinction"}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg md:text-xl text-white/80 font-light max-w-3xl mx-auto leading-relaxed mb-10 text-justify sm:text-center">
+            <p className="text-xs sm:text-sm md:text-base text-white/80 font-light max-w-3xl mx-auto leading-relaxed mb-8 text-justify sm:text-center">
               {heroSection?.subheading ||
                 "Handcrafted composite superyachts and luxury motor yachts engineered in the United Arab Emirates since 1979. Each vessel unites naval precision, sunlit panoramic architecture, and bespoke master craftsmanship."}
             </p>
@@ -291,10 +291,10 @@ export default function UniversalYachtCatalogView() {
                 { value: "1979", label: "Shipyard Heritage (45+ Yrs)" }
               ]).map((stat, idx) => (
                 <div key={idx}>
-                  <div className={`font-serif text-2xl sm:text-3xl font-normal ${idx % 2 === 0 ? "text-[#DFBA73]" : "text-white"}`}>
+                  <div className={`font-serif text-xl sm:text-2xl font-normal ${idx % 2 === 0 ? "text-[#DFBA73]" : "text-white"}`}>
                     {stat.value}
                   </div>
-                  <div className="text-[11px] uppercase tracking-wider text-white/60 mt-1">
+                  <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-white/60 mt-1">
                     {stat.label}
                   </div>
                 </div>
@@ -315,7 +315,7 @@ export default function UniversalYachtCatalogView() {
               <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2">
                 {gridSection?.eyebrow || "CATALOGUE DOSSIER"}
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white uppercase tracking-[0.03em]">
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em]">
                 {gridSection?.heading || "Explore the Models"}
               </h2>
             </div>
@@ -403,20 +403,20 @@ export default function UniversalYachtCatalogView() {
 
                         {/* Model Title */}
                         <Link href={`/yachts/${model.slug}`} className="group block">
-                          <h3 className="font-serif text-3xl sm:text-4xl text-white font-normal group-hover:text-[#DFBA73] transition-colors leading-tight mb-2">
+                          <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal group-hover:text-[#DFBA73] transition-colors leading-tight mb-2">
                             {model.fullName || model.name}
                           </h3>
                         </Link>
 
                         {/* Tagline */}
                         {model.tagline && (
-                          <p className="text-xs sm:text-sm text-[#C6A155] italic font-serif leading-relaxed mb-4">
+                          <p className="text-[11px] sm:text-xs text-[#C6A155] italic font-serif leading-relaxed mb-3">
                             “{model.tagline}”
                           </p>
                         )}
 
                         {/* Narrative Description */}
-                        <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed mb-6 text-justify" style={{ textJustify: "inter-word" }}>
+                        <p className="text-[11px] sm:text-xs text-white/70 font-light leading-relaxed mb-5 text-justify" style={{ textJustify: "inter-word" }}>
                           {model.description}
                         </p>
 
@@ -424,27 +424,27 @@ export default function UniversalYachtCatalogView() {
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4 bg-[#080B10]/60 border border-white/5 mb-6">
                           <div>
                             <div className="text-[10px] uppercase tracking-wider text-white/50 font-mono">Length (LOA)</div>
-                            <div className="text-xs font-semibold text-white mt-0.5">{specs.loa || model.length || "—"}</div>
+                            <div className="text-[11px] font-semibold text-white mt-0.5">{specs.loa || model.length || "—"}</div>
                           </div>
                           <div>
                             <div className="text-[10px] uppercase tracking-wider text-white/50 font-mono">Beam</div>
-                            <div className="text-xs font-semibold text-white mt-0.5">{specs.beam || model.specs?.maximumBeam || "—"}</div>
+                            <div className="text-[11px] font-semibold text-white mt-0.5">{specs.beam || model.specs?.maximumBeam || "—"}</div>
                           </div>
                           <div>
                             <div className="text-[10px] uppercase tracking-wider text-white/50 font-mono">Propulsion</div>
-                            <div className="text-xs font-semibold text-white mt-0.5">{(specs.power?.split('(')[0] || model.specs?.engines || "—")}</div>
+                            <div className="text-[11px] font-semibold text-white mt-0.5">{(specs.power?.split('(')[0] || model.specs?.engines || "—")}</div>
                           </div>
                           <div>
                             <div className="text-[10px] uppercase tracking-wider text-white/50 font-mono">Cabins</div>
-                            <div className="text-xs font-semibold text-white mt-0.5">{specs.cabins || model.specs?.bedrooms || "—"}</div>
+                            <div className="text-[11px] font-semibold text-white mt-0.5">{specs.cabins || model.specs?.bedrooms || "—"}</div>
                           </div>
                           <div>
                             <div className="text-[10px] uppercase tracking-wider text-white/50 font-mono">Capacity</div>
-                            <div className="text-xs font-semibold text-white mt-0.5">{specs.berths || model.specs?.berths || "—"}</div>
+                            <div className="text-[11px] font-semibold text-white mt-0.5">{specs.berths || model.specs?.berths || "—"}</div>
                           </div>
                           <div>
                             <div className="text-[10px] uppercase tracking-wider text-white/50 font-mono">Fuel Tank</div>
-                            <div className="text-xs font-semibold text-white mt-0.5">{specs.fuel || model.specs?.fuelCapacity || "—"}</div>
+                            <div className="text-[11px] font-semibold text-white mt-0.5">{specs.fuel || model.specs?.fuelCapacity || "—"}</div>
                           </div>
                         </div>
                       </div>
@@ -507,10 +507,10 @@ export default function UniversalYachtCatalogView() {
               <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2">
                 {matrixSection?.eyebrow || "TECHNICAL SPECIFICATIONS"}
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white uppercase tracking-[0.03em] mb-4">
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] mb-3">
                 {matrixSection?.heading || "Side-by-Side Fleet Comparison"}
               </h2>
-              <p className="text-sm sm:text-base text-white/70 font-light">
+              <p className="text-xs sm:text-sm text-white/70 font-light">
                 {matrixSection?.description ||
                   "Compare naval dimensions, propulsion packages, accommodations, and engineering across all four ASMARATY yacht models."}
               </p>
@@ -521,18 +521,18 @@ export default function UniversalYachtCatalogView() {
               <table className="w-full text-left border-collapse min-w-[760px]">
                 <thead>
                   <tr className="border-b border-white/15 bg-[#0E1A2D]">
-                    <th className="py-5 px-6 text-xs uppercase tracking-wider text-[#DFBA73] font-semibold font-mono w-1/5">
+                    <th className="py-4 px-6 text-xs uppercase tracking-wider text-[#DFBA73] font-semibold font-mono w-1/5">
                       Specification Dimension
                     </th>
                     {effectiveModels.map((m) => (
-                      <th key={m.slug} className="py-5 px-6 text-center border-l border-white/10 w-1/5">
-                        <div className="font-serif text-lg sm:text-xl text-white font-normal">{m.modelNumber || m.slug.toUpperCase()}</div>
+                      <th key={m.slug} className="py-4 px-6 text-center border-l border-white/10 w-1/5">
+                        <div className="font-serif text-base sm:text-lg text-white font-normal">{m.modelNumber || m.slug.toUpperCase()}</div>
                         <div className="text-[10px] text-[#C6A155] uppercase tracking-wider mt-0.5">{m.categoryLabel || m.category}</div>
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/5 text-xs sm:text-sm">
+                <tbody className="divide-y divide-white/5 text-[11px] sm:text-xs">
                   <tr>
                     <td className="py-4 px-6 text-white/60 font-mono uppercase tracking-wider text-xs bg-white/[0.02]">
                       Length Overall (LOA)
@@ -695,14 +695,14 @@ export default function UniversalYachtCatalogView() {
                 <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block">
                   {customSection?.eyebrow || "CUSTOM COMMISSIONS • SHIPYARD HERITAGE"}
                 </span>
-                <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white uppercase tracking-[0.03em] leading-tight">
+                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] leading-tight">
                   {customSection?.heading || "Every Vessel Tailored to Your Vision"}
                 </h2>
-                <blockquote className="border-l-2 border-[#C6A155] pl-6 text-base sm:text-lg italic font-serif text-[#DFBA73] leading-relaxed">
+                <blockquote className="border-l-2 border-[#C6A155] pl-5 text-xs sm:text-sm md:text-[15px] italic font-serif text-[#DFBA73] leading-relaxed">
                   {customSection?.quote ||
                     "“A yacht is not simply an engineering achievement; it is an architectural sanctuary forged between sky and ocean.”"}
                 </blockquote>
-                <p className="text-sm sm:text-base text-white/75 font-light leading-relaxed text-justify" style={{ textJustify: "inter-word" }}>
+                <p className="text-xs sm:text-sm text-white/75 font-light leading-relaxed text-justify" style={{ textJustify: "inter-word" }}>
                   {customSection?.description ||
                     "At ASMARATY, no two vessels leaving our shipyard facility are identical. From selecting book-matched Italian marbles and bespoke marine leather finishes to custom audio-visual installations and private tender arrangements, our master shipwrights partner with owners throughout every stage of the build."}
                 </p>
@@ -713,10 +713,10 @@ export default function UniversalYachtCatalogView() {
                     { value: "UAE", label: "Direct Shipyard Direct Access" }
                   ]).map((stat, idx) => (
                     <div key={idx} className="p-4 bg-[#0E1A2D]/60 border border-white/5">
-                      <div className={`font-serif text-2xl font-normal ${idx === 0 ? "text-[#C6A155]" : "text-white"}`}>
+                      <div className={`font-serif text-xl font-normal ${idx === 0 ? "text-[#C6A155]" : "text-white"}`}>
                         {stat.value}
                       </div>
-                      <div className="text-xs text-white/70 mt-1">{stat.label}</div>
+                      <div className="text-[11px] text-white/70 mt-1">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -772,10 +772,10 @@ export default function UniversalYachtCatalogView() {
             <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-3">
               {conciergeSection?.eyebrow || "VIP CONCIERGE & ADVISORY"}
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-6">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-4">
               {conciergeSection?.heading || "Begin Your Voyage With ASMARATY"}
             </h2>
-            <p className="text-sm sm:text-base text-white/70 font-light max-w-2xl mx-auto leading-relaxed mb-10">
+            <p className="text-xs sm:text-sm text-white/70 font-light max-w-2xl mx-auto leading-relaxed mb-8">
               {conciergeSection?.description ||
                 "Whether you wish to arrange a private sea trial, commission a bespoke naval build, or request confidential fleet pricing, our yacht advisory team in the UAE is at your service."}
             </p>
