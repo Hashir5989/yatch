@@ -366,20 +366,6 @@ export default function UniversalYachtCatalogView() {
                           className="w-full h-full object-contain object-center transition-opacity duration-300 group-hover:opacity-90"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0D1522] via-transparent to-transparent opacity-60 lg:opacity-30" />
-                        
-                        {/* Floating Badges */}
-                        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                          {model.badge && (
-                            <span className="px-3 py-1 bg-[#080B10]/85 backdrop-blur-md border border-[#C6A155]/40 text-[#DFBA73] text-[10px] uppercase tracking-wider font-semibold">
-                              {model.badge}
-                            </span>
-                          )}
-                          {(model.categoryLabel || model.category) && (
-                            <span className="px-3 py-1 bg-[#080B10]/85 backdrop-blur-md border border-white/20 text-white/90 text-[10px] uppercase tracking-wider font-medium">
-                              {model.categoryLabel || model.category}
-                            </span>
-                          )}
-                        </div>
 
                         {/* View Showcase Hover Pill */}
                         <div className="absolute bottom-4 right-4 px-4 py-2 bg-[#080B10]/90 backdrop-blur-md border border-white/20 text-white group-hover:border-[#C6A155] group-hover:text-[#DFBA73] text-xs font-semibold uppercase tracking-wider flex items-center gap-2 transition-all">
