@@ -610,6 +610,20 @@ export default function YachtCollectionSection({
                 model.slug === "g50" || 
                 (model.slug !== "g100" && model.slug !== "g66" && idx % 2 === 1);
 
+              // Custom title overrides for home page showcase models:
+              // G77: ASMARATY G77 Luxury Yacht
+              // G66: ASMARATY G66 Luxury Yacht
+              // G50: ASMARATY G50 Luxury Motor Yacht
+              const HOME_MODEL_TITLE_MAP = {
+                g77: "ASMARATY G77 Luxury Yacht",
+                g66: "ASMARATY G66 Luxury Yacht",
+                g50: "ASMARATY G50 Luxury Motor Yacht",
+              };
+              const modelHeading =
+                data.modelTitleOverrides?.[model.slug] ||
+                HOME_MODEL_TITLE_MAP[model.slug] ||
+                model.name;
+
               return (
                 <div
                   key={model.id || idx}
@@ -656,7 +670,7 @@ export default function YachtCollectionSection({
                               ? "text-white group-hover:text-[#C6A155]" 
                               : "text-[#0E2047] group-hover:text-[#C6A155]"
                           }`}>
-                            {model.name}
+                            {modelHeading}
                           </h3>
                         </Link>
 
@@ -700,7 +714,7 @@ export default function YachtCollectionSection({
                           <div className="relative aspect-video overflow-hidden bg-[#0A1322]">
                             <img
                               src={model.mainImage || model.primaryImage || "/images/hero-yacht.jpg"}
-                              alt={model.name}
+                              alt={modelHeading}
                               className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                             />
                           </div>

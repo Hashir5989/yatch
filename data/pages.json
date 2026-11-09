@@ -71,7 +71,12 @@
         "backgroundStyle": "white",
         "contentAlignment": "center",
         "buttonText": "DISCOVER THE COMPLETE FLEET",
-        "buttonUrl": "/yachts"
+        "buttonUrl": "/yachts",
+        "modelTitleOverrides": {
+          "g77": "ASMARATY G77 Luxury Yacht",
+          "g66": "ASMARATY G66 Luxury Yacht",
+          "g50": "ASMARATY G50 Luxury Motor Yacht"
+        }
       },
       {
         "id": "home-vision",
