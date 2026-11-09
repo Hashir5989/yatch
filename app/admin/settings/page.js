@@ -431,7 +431,7 @@ export default function AdminSettingsScreen() {
                   type="text"
                   value={settings.operatingHours || ""}
                   onChange={(e) => setSettings({ ...settings, operatingHours: e.target.value })}
-                  placeholder="Monday – Saturday: 08:00 – 18:00 GST"
+                  placeholder="Saturday – Thursday: 08:00 – 17:00 GST"
                   className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
                 />
               </div>

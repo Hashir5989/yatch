@@ -298,22 +298,18 @@ export default function UniversalContactView({ pageData = null }) {
                 </h3>
                 <div className="text-xs text-white/70 space-y-1.5 font-light">
                   <div className="flex justify-between">
-                    <span>Monday – Friday:</span>
-                    <span className="text-white font-mono">08:30 – 18:30</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Saturday:</span>
-                    <span className="text-white font-mono">09:00 – 17:00</span>
+                    <span>Saturday – Thursday:</span>
+                    <span className="text-white font-mono">08:00 – 17:00</span>
                   </div>
                   <div className="flex justify-between text-white/50">
-                    <span>Sunday:</span>
-                    <span>By VIP Appointment</span>
+                    <span>Friday:</span>
+                    <span className="text-[#DFBA73] font-medium font-mono">Closed (Weekly Leave)</span>
                   </div>
                 </div>
               </div>
               <div className="text-[11px] text-[#C6A155] pt-3 border-t border-white/10 flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 flex-shrink-0" />
-                <span>Private appointments accommodated 7 days</span>
+                <span>Private appointments accommodated Saturday – Thursday</span>
               </div>
             </div>
           </div>
