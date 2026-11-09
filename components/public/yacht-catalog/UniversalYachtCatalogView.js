@@ -45,8 +45,8 @@ const FALLBACK_FLEET_MODELS = [
   },
   {
     ...YACHT_SHOWCASES.g77,
-    categoryKey: "three-deck",
-    categoryLabel: "Three-Deck Yacht",
+    categoryKey: "motor-yacht",
+    categoryLabel: "Motor Yacht",
     decks: "Three Decks",
     heroImage: "/images/yachts/g77/g77_asset_01_1672x941.jpg",
     specsSnapshot: {
@@ -65,8 +65,8 @@ const FALLBACK_FLEET_MODELS = [
   },
   {
     ...YACHT_SHOWCASES.g66,
-    categoryKey: "flybridge",
-    categoryLabel: "Flybridge Cruiser",
+    categoryKey: "motor-yacht",
+    categoryLabel: "Motor Yacht",
     decks: "Flybridge & Main Deck",
     heroImage: "/images/yachts/g66/hero-01.jpg",
     specsSnapshot: {
@@ -86,7 +86,7 @@ const FALLBACK_FLEET_MODELS = [
   {
     ...YACHT_SHOWCASES.g50,
     categoryKey: "motor-yacht",
-    categoryLabel: "Luxury Motor Yacht",
+    categoryLabel: "Motor Yacht",
     decks: "Flybridge & Main Deck",
     heroImage: "/images/yachts/g50/hero-01.jpg",
     specsSnapshot: {

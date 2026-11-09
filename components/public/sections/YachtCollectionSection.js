@@ -594,7 +594,11 @@ export default function YachtCollectionSection({
               // idx = 2 (3rd): Text Left, Image Right
               // idx = 3 (4th): Image Left, Text Right
               const isEven = idx % 2 === 0;
-              const modelCategory = model.category ? `ASMARATY • ${model.category}` : "ASMARATY FLEET";
+              // Clean category display without redundant "ASMARATY •" prefix; G77, G66, G50 classified as MOTOR YACHT
+              const rawCategory = (model.slug === "g77" || model.slug === "g66" || model.slug === "g50")
+                ? "MOTOR YACHT"
+                : (model.category ? model.category.toUpperCase().replace(/^ASMARATY\s*•?\s*/i, "") : "SUPERYACHT");
+              const modelCategory = rawCategory.trim();
               
               // Alternating wings watermark background:
               // G100 (idx 0): plain
@@ -641,13 +645,13 @@ export default function YachtCollectionSection({
                         }`}
                       >
                         {/* Eyebrow / Category */}
-                        <div className="text-xs sm:text-sm font-sans font-medium uppercase tracking-[0.24em] text-[#C6A155]">
+                        <div className="text-xs sm:text-sm font-sans font-semibold uppercase tracking-[0.24em] text-[#C6A155]">
                           {modelCategory}
                         </div>
 
-                        {/* Model Heading (Serif Typography matching Majesty / luxury editorial) */}
+                        {/* Model Heading (Modern Architectural Luxury Typography) */}
                         <Link href={`/yachts/${model.slug}`} className="block group">
-                          <h3 className={`font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.15] tracking-[0.02em] transition-colors ${
+                          <h3 className={`font-sans text-2xl sm:text-4xl lg:text-[42px] font-semibold tracking-tight leading-[1.2] transition-colors ${
                             isDark 
                               ? "text-white group-hover:text-[#C6A155]" 
                               : "text-[#0E2047] group-hover:text-[#C6A155]"

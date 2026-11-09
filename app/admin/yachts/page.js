@@ -1022,7 +1022,7 @@ export default function YachtManagementScreen() {
                             superyacht: "Superyacht",
                             "three-deck": "Three-Deck Yacht",
                             flybridge: "Flybridge Cruiser",
-                            "motor-yacht": "Luxury Motor Yacht",
+                            "motor-yacht": "Motor Yacht",
                             cruiser: "Express Cruiser",
                             offshore: "Offshore Explorer"
                           };
@@ -1038,7 +1038,7 @@ export default function YachtManagementScreen() {
                         <option value="superyacht">Superyacht</option>
                         <option value="three-deck">Three-Deck Yacht</option>
                         <option value="flybridge">Flybridge Cruiser</option>
-                        <option value="motor-yacht">Luxury Motor Yacht</option>
+                        <option value="motor-yacht">Motor Yacht</option>
                         <option value="cruiser">Express Cruiser</option>
                         <option value="offshore">Offshore Explorer</option>
                       </select>
