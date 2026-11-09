@@ -58,7 +58,7 @@ export default function UniversalYachtDetailView({
 
   // Deck Plan Interactive State
   const [activeDeckTab, setActiveDeckTab] = useState(
-    data.deckPlans && data.deckPlans.length > 0 ? data.deckPlans[0].id : "flybridge"
+    data.deckPlans && data.deckPlans.length > 0 ? data.deckPlans[0].id : "main-deck"
   );
 
   // Specs Tab State

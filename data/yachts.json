@@ -523,21 +523,6 @@
     },
     "deckPlans": [
       {
-        "id": "flybridge",
-        "name": "Flybridge Deck",
-        "subtitle": "Sky Lounge & Wet Bar",
-        "image3D": "/images/yachts/g100/30.jpg",
-        "caption": "3D Cutaway — Upper Sky Lounge, Sunbed Terraces & Secondary Helm",
-        "features": [
-          "Secondary navigation helm station with duplicate electronic engine throttles",
-          "Full service Corian wet bar with beverage refrigerator, ice maker & electric BBQ grill",
-          "Teak al-fresco dining table comfortably seating 8 guests with 360° ocean views",
-          "Spacious aft sunbathing deck with optional spa hot tub installation",
-          "Aerodynamic fiberglass radar arch with integrated high-output marine searchlight",
-          "Heavy-duty stainless-steel handrails and Burma teak stairway to aft cockpit"
-        ]
-      },
-      {
         "id": "main-deck",
         "name": "Main Deck",
         "subtitle": "Panoramic Saloon & Dining",
@@ -565,6 +550,21 @@
           "Two generous twin guest staterooms with private ensuites, hanging lockers & slatted berths",
           "Sound-insulated engine room housing twin 1,600 HP MTU engines and twin 50 kVA generators",
           "Aft crew quarters accommodating captain & 4 crew with private galley, mess & separate head"
+        ]
+      },
+      {
+        "id": "flybridge",
+        "name": "Flybridge Deck",
+        "subtitle": "Sky Lounge & Wet Bar",
+        "image3D": "/images/yachts/g100/30.jpg",
+        "caption": "3D Cutaway — Upper Sky Lounge, Sunbed Terraces & Secondary Helm",
+        "features": [
+          "Secondary navigation helm station with duplicate electronic engine throttles",
+          "Full service Corian wet bar with beverage refrigerator, ice maker & electric BBQ grill",
+          "Teak al-fresco dining table comfortably seating 8 guests with 360° ocean views",
+          "Spacious aft sunbathing deck with optional spa hot tub installation",
+          "Aerodynamic fiberglass radar arch with integrated high-output marine searchlight",
+          "Heavy-duty stainless-steel handrails and Burma teak stairway to aft cockpit"
         ]
       }
     ],
@@ -1069,21 +1069,6 @@
     },
     "deckPlans": [
       {
-        "id": "flybridge",
-        "name": "Flybridge & Bow Deck",
-        "subtitle": "Upper Helm, Al-Fresco Dining & Wet Bar",
-        "image3D": "/images/yachts/g77/g77_asset_30_1521x507.jpg",
-        "caption": "3D Cutaway — Upper Sky Lounge, Sunbed Terraces & Secondary Helm",
-        "features": [
-          "Upper helm station with dual thruster joysticks, engine monitors & GPS chart plotter",
-          "Full wet bar with marine refrigerator, stainless sink, and electric BBQ grill",
-          "Al-fresco dining table with quilted wraparound leather lounge seating",
-          "Expansive aft sunbathing area with optional spa hot tub placement",
-          "Integrated radar arch in GRP with 35 NM colour radar and remote searchlight",
-          "Forward deck with integrated double sunbeds and 40 kg anchor windlass"
-        ]
-      },
-      {
         "id": "main-deck",
         "name": "Main Deck",
         "subtitle": "Panoramic Saloon, Dining & Galley",
@@ -1111,6 +1096,21 @@
           "Two twin guest staterooms (4 berths total) with storage drawers and private ensuite heads",
           "Sound-insulated engine room with twin inboards and 28 kW sound-shielded generator",
           "Aft crew quarters accommodating captain & 2 crew with private galley, mess & separate head"
+        ]
+      },
+      {
+        "id": "flybridge",
+        "name": "Flybridge & Bow Deck",
+        "subtitle": "Upper Helm, Al-Fresco Dining & Wet Bar",
+        "image3D": "/images/yachts/g77/g77_asset_30_1521x507.jpg",
+        "caption": "3D Cutaway — Upper Sky Lounge, Sunbed Terraces & Secondary Helm",
+        "features": [
+          "Upper helm station with dual thruster joysticks, engine monitors & GPS chart plotter",
+          "Full wet bar with marine refrigerator, stainless sink, and electric BBQ grill",
+          "Al-fresco dining table with quilted wraparound leather lounge seating",
+          "Expansive aft sunbathing area with optional spa hot tub placement",
+          "Integrated radar arch in GRP with 35 NM colour radar and remote searchlight",
+          "Forward deck with integrated double sunbeds and 40 kg anchor windlass"
         ]
       }
     ],
@@ -1629,21 +1629,6 @@
     },
     "deckPlans": [
       {
-        "id": "flybridge",
-        "name": "Flybridge Deck",
-        "subtitle": "Sky Terrace, Upper Helm & Wet Bar",
-        "image3D": "/images/yachts/g66/deck-flybridge.jpg",
-        "caption": "3D Cutaway — Upper Sky Lounge, Sunbed Terraces & Secondary Helm",
-        "features": [
-          "Secondary helm console with duplicate engine controls, compass & hydraulic power steering",
-          "Full wet bar with marine sink, electric BBQ grill, and beverage refrigerator",
-          "Al-fresco teak dining table with wrap-around passenger lounge seating",
-          "Spacious aft sky terrace with sunbed cushions and optional spa hot tub placement",
-          "Integrated aerodynamic GRP radar arch with remote high-intensity searchlight",
-          "Natural teakwood flooring and safety handrails in marine-grade SS 316 stainless steel"
-        ]
-      },
-      {
         "id": "main-deck",
         "name": "Main Deck",
         "subtitle": "Panoramic Saloon, Dining & Galley",
@@ -1671,6 +1656,21 @@
           "Two twin guest staterooms (port & starboard) with dedicated ensuite bathrooms and reading lights",
           "Sound-insulated engine compartment housing twin 800 HP Volvo engines and 28 kVA generator",
           "Aft crew quarters accommodating captain & crew with 2 berths, private galley, and separate head"
+        ]
+      },
+      {
+        "id": "flybridge",
+        "name": "Flybridge Deck",
+        "subtitle": "Sky Terrace, Upper Helm & Wet Bar",
+        "image3D": "/images/yachts/g66/deck-flybridge.jpg",
+        "caption": "3D Cutaway — Upper Sky Lounge, Sunbed Terraces & Secondary Helm",
+        "features": [
+          "Secondary helm console with duplicate engine controls, compass & hydraulic power steering",
+          "Full wet bar with marine sink, electric BBQ grill, and beverage refrigerator",
+          "Al-fresco teak dining table with wrap-around passenger lounge seating",
+          "Spacious aft sky terrace with sunbed cushions and optional spa hot tub placement",
+          "Integrated aerodynamic GRP radar arch with remote high-intensity searchlight",
+          "Natural teakwood flooring and safety handrails in marine-grade SS 316 stainless steel"
         ]
       }
     ],
@@ -2168,21 +2168,6 @@
     },
     "deckPlans": [
       {
-        "id": "flybridge",
-        "name": "Flybridge Deck",
-        "subtitle": "Sky Lounge, Upper Helm & Wet Bar",
-        "image3D": "/images/yachts/g50/deck-flybridge.jpg",
-        "caption": "3D Cutaway — Upper Sky Lounge, Secondary Helm Station & Teak Terrace",
-        "features": [
-          "Secondary helm station with full engine instrumentation, compass, and rudder angle indicator",
-          "Garmin GPS chart plotter with integrated autopilot and depth sounder",
-          "Wrap-around U-shaped passenger lounge seating with central dining table",
-          "Wet bar station equipped with marine sink, beverage refrigerator, and electric BBQ grill",
-          "High-grade stainless steel windshield frame and protective SS & canvas bimini top",
-          "Natural teakwood flooring and aerodynamic GRP radar arch with navigation lights"
-        ]
-      },
-      {
         "id": "main-deck",
         "name": "Main Deck",
         "subtitle": "Panoramic Saloon, Galley & Wheelhouse",
@@ -2210,6 +2195,21 @@
           "Starboard guest stateroom with two twin berths (60×200cm each) and dedicated storage drawers",
           "Second luxury bathroom suite with Corian countertop, vanity mirror, and extractor fan",
           "Sound-insulated engine compartment housing twin 550 HP Cummins diesels and marine generator"
+        ]
+      },
+      {
+        "id": "flybridge",
+        "name": "Flybridge Deck",
+        "subtitle": "Sky Lounge, Upper Helm & Wet Bar",
+        "image3D": "/images/yachts/g50/deck-flybridge.jpg",
+        "caption": "3D Cutaway — Upper Sky Lounge, Secondary Helm Station & Teak Terrace",
+        "features": [
+          "Secondary helm station with full engine instrumentation, compass, and rudder angle indicator",
+          "Garmin GPS chart plotter with integrated autopilot and depth sounder",
+          "Wrap-around U-shaped passenger lounge seating with central dining table",
+          "Wet bar station equipped with marine sink, beverage refrigerator, and electric BBQ grill",
+          "High-grade stainless steel windshield frame and protective SS & canvas bimini top",
+          "Natural teakwood flooring and aerodynamic GRP radar arch with navigation lights"
         ]
       }
     ],
