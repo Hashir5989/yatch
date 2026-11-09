@@ -435,7 +435,11 @@ export default function UniversalYachtDetailView({
 
               <div className="space-y-4 text-sm sm:text-base text-[#9DAAB8] font-light leading-relaxed">
                 {(data.narrative?.paragraphs || []).map((p, idx) => (
-                  <p key={idx}>
+                  <p 
+                    key={idx}
+                    className="text-justify"
+                    style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
+                  >
                     <InlineEditableText
                       as="span"
                       value={p}
@@ -480,7 +484,10 @@ export default function UniversalYachtDetailView({
                         placeholder="Feature title..."
                       />
                     </h3>
-                    <p className="text-xs text-[#828F9E] leading-relaxed font-light">
+                    <p 
+                      className="text-xs text-[#828F9E] leading-relaxed font-light text-justify"
+                      style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
+                    >
                       <InlineEditableText
                         as="span"
                         value={card.description}
@@ -855,7 +862,10 @@ export default function UniversalYachtDetailView({
                 <h2 className="font-serif text-3xl sm:text-5xl font-light text-white">
                   Luxury In Every Perspective
                 </h2>
-                <p className="text-xs sm:text-sm text-[#9DAAB8] font-light">
+                <p 
+                  className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed text-justify"
+                  style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
+                >
                   Original photography showcasing exterior skyline cruises, handcrafted teak decks, master staterooms, and marble ensuite suites.
                 </p>
               </div>
@@ -1009,7 +1019,10 @@ export default function UniversalYachtDetailView({
                   placeholder="CTA Headline..."
                 />
               </h2>
-              <p className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed">
+              <p 
+                className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed text-justify"
+                style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
+              >
                 <InlineEditableText
                   as="span"
                   value={
