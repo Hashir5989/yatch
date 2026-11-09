@@ -228,7 +228,10 @@ export default function UniversalContactView({ pageData = null }) {
                 <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
                   Advisory Hotline
                 </h3>
-                <p className="text-xs text-white/70 leading-relaxed font-light mb-3 min-h-[36px]">
+                <p 
+                  className="text-xs text-white/70 leading-relaxed font-light mb-3 min-h-[36px] text-justify"
+                  style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
+                >
                   Direct telephone contact for private client inquiries, vessel pricing, and sea trials.
                 </p>
                 <a
@@ -265,7 +268,10 @@ export default function UniversalContactView({ pageData = null }) {
                 <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
                   Official Email
                 </h3>
-                <p className="text-xs text-white/70 leading-relaxed font-light mb-3 min-h-[36px]">
+                <p 
+                  className="text-xs text-white/70 leading-relaxed font-light mb-3 min-h-[36px] text-justify"
+                  style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
+                >
                   Submit detailed technical requirements, charter partnerships, or brochure requests.
                 </p>
                 <a
@@ -331,7 +337,10 @@ export default function UniversalContactView({ pageData = null }) {
                 <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-4">
                   {formHeading}
                 </h2>
-                <p className="text-xs sm:text-sm text-white/75 font-light leading-relaxed">
+                <p 
+                  className="text-xs sm:text-sm text-white/75 font-light leading-relaxed text-justify"
+                  style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
+                >
                   {formDescription}
                 </p>
               </div>
