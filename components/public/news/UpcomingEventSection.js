@@ -20,6 +20,9 @@ import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 function parseEventDateBadge(article) {
   const dates = article.eventDetails?.dates || "";
   
+  if (dates.includes("25th – 29th November") || dates.includes("25-29") || dates.includes("25") || dates.includes("Dubai Harbour")) {
+    return { day: "25 — 29", monthYear: "NOV 2026", locationShort: "DUBAI HARBOUR" };
+  }
   if (dates.includes("19th – 22nd November") || dates.includes("19-22") || dates.includes("19")) {
     return { day: "19 — 22", monthYear: "NOV 2026", locationShort: "ADNEC MARINA" };
   }
