@@ -245,12 +245,12 @@ export default function UniversalYachtCatalogView() {
             </div>
 
             {/* Headline */}
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-normal text-white uppercase tracking-[0.03em] leading-[1.12] mb-5 max-w-4xl">
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-normal text-white uppercase tracking-[0.03em] leading-[1.18] mb-4 max-w-3xl">
               {heroSection?.heading || "The Fleet of Distinction"}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-xs sm:text-sm md:text-base text-white/80 font-light max-w-3xl mx-auto leading-relaxed mb-8 text-justify sm:text-center">
+            <p className="text-xs sm:text-sm text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-6 text-center">
               {heroSection?.subheading ||
                 "Handcrafted composite superyachts and luxury motor yachts engineered in the United Arab Emirates since 1979. Each vessel unites naval precision, sunlit panoramic architecture, and bespoke master craftsmanship."}
             </p>
@@ -315,7 +315,7 @@ export default function UniversalYachtCatalogView() {
               <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2">
                 {gridSection?.eyebrow || "CATALOGUE DOSSIER"}
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em]">
+              <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-normal text-white uppercase tracking-[0.03em]">
                 {gridSection?.heading || "Explore the Models"}
               </h2>
             </div>
@@ -403,7 +403,7 @@ export default function UniversalYachtCatalogView() {
 
                         {/* Model Title */}
                         <Link href={`/yachts/${model.slug}`} className="group block">
-                          <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal group-hover:text-[#DFBA73] transition-colors leading-tight mb-2">
+                          <h3 className="font-serif text-xl sm:text-2xl text-white font-normal group-hover:text-[#DFBA73] transition-colors leading-tight mb-2">
                             {model.fullName || model.name}
                           </h3>
                         </Link>
@@ -507,7 +507,7 @@ export default function UniversalYachtCatalogView() {
               <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-2">
                 {matrixSection?.eyebrow || "TECHNICAL SPECIFICATIONS"}
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] mb-3">
+              <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-normal text-white uppercase tracking-[0.03em] mb-3">
                 {matrixSection?.heading || "Side-by-Side Fleet Comparison"}
               </h2>
               <p className="text-xs sm:text-sm text-white/70 font-light">
@@ -695,7 +695,7 @@ export default function UniversalYachtCatalogView() {
                 <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block">
                   {customSection?.eyebrow || "CUSTOM COMMISSIONS • SHIPYARD HERITAGE"}
                 </span>
-                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] leading-tight">
+                <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-normal text-white uppercase tracking-[0.03em] leading-tight">
                   {customSection?.heading || "Every Vessel Tailored to Your Vision"}
                 </h2>
                 <blockquote className="border-l-2 border-[#C6A155] pl-5 text-xs sm:text-sm md:text-[15px] italic font-serif text-[#DFBA73] leading-relaxed">
@@ -772,7 +772,7 @@ export default function UniversalYachtCatalogView() {
             <span className="text-xs uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-3">
               {conciergeSection?.eyebrow || "VIP CONCIERGE & ADVISORY"}
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-4">
+            <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-4">
               {conciergeSection?.heading || "Begin Your Voyage With ASMARATY"}
             </h2>
             <p className="text-xs sm:text-sm text-white/70 font-light max-w-2xl mx-auto leading-relaxed mb-8">

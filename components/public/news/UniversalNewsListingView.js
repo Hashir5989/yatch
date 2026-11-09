@@ -113,11 +113,11 @@ export default function UniversalNewsListingView() {
             </span>
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-6 max-w-4xl">
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-normal text-white uppercase tracking-[0.03em] leading-[1.18] mb-4 max-w-3xl">
             News & Updates
           </h1>
 
-          <p className="text-base sm:text-lg text-white/80 font-light max-w-2xl mx-auto leading-relaxed mb-6">
+          <p className="text-xs sm:text-sm text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-6">
             Follow the latest announcements, international boat show debuts, naval architecture milestones, and shipyard dispatches from ASMARATY Luxury Yachts.
           </p>
 
@@ -179,7 +179,7 @@ export default function UniversalNewsListingView() {
               <span className="text-[10px] font-mono uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-1">
                 LATEST PRESS & EXHIBITIONS
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl text-white font-normal uppercase tracking-wide">
+              <h2 className="font-serif text-xl sm:text-2xl text-white font-normal uppercase tracking-wide">
                 {selectedCategory === "all"
                   ? "All News Articles"
                   : (NEWS_CATEGORIES.find((c) => c.id === selectedCategory)?.category || "Articles")}
@@ -260,7 +260,7 @@ export default function UniversalNewsListingView() {
                       {/* Content Area */}
                       <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
                         <div>
-                          <h2 className="font-serif text-lg sm:text-xl font-normal text-white uppercase tracking-[0.02em] leading-snug line-clamp-2 group-hover:text-[#DFBA73] transition-colors mb-3">
+                          <h2 className="font-serif text-base sm:text-lg font-normal text-white uppercase tracking-[0.02em] leading-snug line-clamp-2 group-hover:text-[#DFBA73] transition-colors mb-2">
                             {article.title}
                           </h2>
                           <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed line-clamp-3">

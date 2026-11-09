@@ -160,7 +160,7 @@ export default function UniversalAboutView({
                 </div>
 
                 {/* Semantic Luxury H1 */}
-                <h1 className="font-serif text-3xl sm:text-4xl lg:text-[46px] text-white font-normal leading-[1.16] tracking-tight">
+                <h1 className="font-serif text-2xl sm:text-3xl lg:text-[40px] text-white font-normal leading-[1.18] tracking-tight">
                   <InlineEditableText
                     as="span"
                     value={heroSection?.heading || "A Legacy of\nExcellence on the Water"}
@@ -215,7 +215,7 @@ export default function UniversalAboutView({
                     <span className="w-14 h-[1.5px] bg-[#A68037]/60" />
                   </div>
 
-                  <h2 className="font-serif text-2xl sm:text-3xl lg:text-[36px] text-[#0A121E] font-normal leading-[1.2] tracking-tight">
+                  <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl text-[#0A121E] font-normal leading-[1.2] tracking-tight">
                     <InlineEditableText
                       as="span"
                       value={storySection?.heading || "Crafting Exceptional\nYachting Experiences"}
@@ -394,7 +394,7 @@ export default function UniversalAboutView({
                   <span className="w-12 h-[1.5px] bg-[#A68037]/60" />
                 </div>
 
-                <h2 className="font-serif text-2xl sm:text-3xl lg:text-[36px] text-[#0A121E] font-normal tracking-tight">
+                <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl text-[#0A121E] font-normal tracking-tight">
                   <InlineEditableText
                     as="span"
                     value={valuesSection?.heading || "Built on Trust. Driven by Passion."}
@@ -500,7 +500,7 @@ export default function UniversalAboutView({
 
             <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 w-full py-28 sm:py-36">
               <div className="max-w-xl space-y-4">
-                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-white font-normal leading-tight">
+                <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl text-white font-normal leading-tight">
                   <InlineEditableText
                     as="span"
                     value={ctaSection?.heading || "Your Journey Begins Here"}

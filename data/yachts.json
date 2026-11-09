@@ -582,9 +582,9 @@
     "fullName": "ASMARATY G77 Motor Yacht",
     "modelNumber": "G77",
     "slug": "g77",
-    "category": "Motor Yacht",
-    "categoryKey": "motor-yacht",
-    "categoryLabel": "Motor Yacht",
+    "category": "Three-Deck Yacht",
+    "categoryKey": "three-deck",
+    "categoryLabel": "Three-Deck Yacht",
     "series": "G-Series Motor Yacht",
     "decks": "Three Decks",
     "badge": "Three-Deck Masterpiece",
@@ -1120,7 +1120,7 @@
       "ogImage": "/images/yachts/g77/g77_asset_01_1672x941.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-07T16:12:57.851Z"
+    "updatedAt": "2026-11-09T13:09:06.051Z"
   },
   {
     "id": "yacht-g66",
@@ -1128,9 +1128,9 @@
     "fullName": "ASMARATY G66 Motor Yacht",
     "modelNumber": "G66",
     "slug": "g66",
-    "category": "Motor Yacht",
-    "categoryKey": "motor-yacht",
-    "categoryLabel": "Motor Yacht",
+    "category": "Flybridge Cruiser",
+    "categoryKey": "flybridge",
+    "categoryLabel": "Flybridge Cruiser",
     "series": "G-Series Motor Yacht",
     "decks": "Flybridge & Main Deck",
     "badge": "High-Performance Luxury Cruiser",
@@ -1680,7 +1680,7 @@
       "ogImage": "/images/yachts/g66/hero-01.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-07T16:12:57.851Z"
+    "updatedAt": "2026-11-09T13:10:08.616Z"
   },
   {
     "id": "yacht-g50",
@@ -2219,6 +2219,6 @@
       "ogImage": "/images/yachts/g50/hero-01.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-07T16:12:57.851Z"
+    "updatedAt": "2026-11-09T13:10:20.927Z"
   }
 ]

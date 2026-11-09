@@ -100,7 +100,7 @@ export default function UniversalNewsDetailView({ initialArticle, slug }) {
           </div>
 
           {/* Grand Centered Headline (Over the hero image, like Gulf Craft QIBS reference) */}
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal text-white uppercase tracking-[0.03em] leading-tight max-w-5xl drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)] mb-8">
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-normal text-white uppercase tracking-[0.03em] leading-[1.18] max-w-4xl drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)] mb-6">
             {heroHeadlineText}
           </h1>
 
@@ -177,19 +177,19 @@ export default function UniversalNewsDetailView({ initialArticle, slug }) {
       <article className="max-w-4xl mx-auto px-6 sm:px-12 py-16 sm:py-20 space-y-12">
         {/* Lead Excerpt Paragraph */}
         {article.excerpt && (
-          <div className="p-6 sm:p-8 bg-[#0D1522] border-l-4 border-[#C6A155] text-lg sm:text-xl text-white/90 font-light leading-relaxed">
+          <div className="p-5 sm:p-6 bg-[#0D1522] border-l-4 border-[#C6A155] text-xs sm:text-sm md:text-[15px] text-white/90 font-light leading-relaxed">
             {article.excerpt}
           </div>
         )}
 
         {/* FULL MULTI-SECTION EDITORIAL NARRATIVE */}
-        <div className="space-y-7">
+        <div className="space-y-6">
           {blocks.map((block, idx) => {
             // Check for Subheading
             if (block.startsWith("### ")) {
               return (
-                <div key={idx} className="pt-8 pb-2">
-                  <h2 className="font-serif text-2xl sm:text-3xl text-white font-normal uppercase tracking-wide pb-3 border-b border-[#C6A155]/30">
+                <div key={idx} className="pt-6 pb-2">
+                  <h2 className="font-serif text-lg sm:text-xl text-white font-normal uppercase tracking-wide pb-2 border-b border-[#C6A155]/30">
                     {block.replace(/^###\s*/, "")}
                   </h2>
                 </div>
@@ -201,7 +201,7 @@ export default function UniversalNewsDetailView({ initialArticle, slug }) {
               return (
                 <blockquote
                   key={idx}
-                  className="my-8 p-6 sm:p-8 bg-[#0E1A2D]/80 border-l-4 border-[#C6A155] text-white/90 font-serif text-lg sm:text-xl italic leading-relaxed shadow-xl relative"
+                  className="my-6 p-5 sm:p-6 bg-[#0E1A2D]/80 border-l-4 border-[#C6A155] text-white/90 font-serif text-sm sm:text-base italic leading-relaxed shadow-xl relative"
                 >
                   <Quote className="w-8 h-8 text-[#C6A155]/20 absolute top-4 right-4 pointer-events-none" />
                   <p>{block.replace(/^>\s*/, "").replace(/^"|"$/g, "")}</p>
@@ -213,9 +213,9 @@ export default function UniversalNewsDetailView({ initialArticle, slug }) {
             return (
               <p
                 key={idx}
-                className={`text-base sm:text-lg text-white/80 font-light leading-relaxed text-justify ${
+                className={`text-xs sm:text-sm text-white/80 font-light leading-relaxed text-justify ${
                   idx === 0
-                    ? "first-letter:text-5xl first-letter:font-serif first-letter:text-[#C6A155] first-letter:float-left first-letter:mr-3.5 first-letter:leading-none"
+                    ? "first-letter:text-3xl sm:first-letter:text-4xl first-letter:font-serif first-letter:text-[#C6A155] first-letter:float-left first-letter:mr-3 first-letter:leading-none"
                     : ""
                 }`}
                 style={{ textJustify: "inter-word" }}
@@ -233,7 +233,7 @@ export default function UniversalNewsDetailView({ initialArticle, slug }) {
               <span className="text-[10px] font-mono uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-1">
                 VISUAL DISPATCHES
               </span>
-              <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal uppercase tracking-wide">
+              <h3 className="font-serif text-lg sm:text-xl text-white font-normal uppercase tracking-wide">
                 Exhibition & Event Highlights
               </h3>
             </div>

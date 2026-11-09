@@ -141,12 +141,12 @@ export default function UniversalContactView({ pageData = null }) {
           </div>
 
           {/* Headline */}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-normal text-white uppercase tracking-[0.03em] leading-[1.15] mb-5 max-w-3xl">
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-normal text-white uppercase tracking-[0.03em] leading-[1.18] mb-4 max-w-3xl">
             {heroHeading}
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xs sm:text-sm md:text-base text-white/75 font-light max-w-4xl mx-auto leading-relaxed mb-8 text-center [text-wrap:balance]">
+          <p className="text-xs sm:text-sm text-white/75 font-light max-w-3xl mx-auto leading-relaxed mb-6 text-center [text-wrap:balance]">
             {heroSubheading}
           </p>
 
@@ -196,7 +196,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#C6A155] font-semibold block mb-1">
                   SHIPYARD HEADQUARTERS
                 </span>
-                <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
+                <h3 className="font-serif text-base sm:text-lg text-white font-normal mb-1.5">
                   Al Shaali Marine
                 </h3>
                 <p className="text-xs text-white/70 leading-relaxed font-light">
@@ -225,7 +225,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#C6A155] font-semibold block mb-1">
                   DIRECT CLIENT DESK
                 </span>
-                <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
+                <h3 className="font-serif text-base sm:text-lg text-white font-normal mb-1.5">
                   Advisory Hotline
                 </h3>
                 <p 
@@ -265,7 +265,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#C6A155] font-semibold block mb-1">
                   CONFIDENTIAL INQUIRIES
                 </span>
-                <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
+                <h3 className="font-serif text-base sm:text-lg text-white font-normal mb-1.5">
                   Official Email
                 </h3>
                 <p 
@@ -299,7 +299,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#C6A155] font-semibold block mb-1">
                   OFFICIAL HOURS (GST)
                 </span>
-                <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
+                <h3 className="font-serif text-base sm:text-lg text-white font-normal mb-1.5">
                   Visiting Schedule
                 </h3>
                 <div className="text-xs text-white/70 space-y-1.5 font-light">
@@ -334,7 +334,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <span className="text-[11px] uppercase tracking-[0.22em] text-[#C6A155] font-semibold block mb-2">
                   {formEyebrow}
                 </span>
-                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-4">
+                <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-3">
                   {formHeading}
                 </h2>
                 <p 
@@ -409,7 +409,7 @@ export default function UniversalContactView({ pageData = null }) {
               {formSubmitted ? (
                 <div className="py-14 text-center space-y-4">
                   <CheckCircle2 className="w-14 h-14 text-[#C6A155] mx-auto animate-bounce" />
-                  <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal">
+                  <h3 className="font-serif text-xl sm:text-2xl text-white font-normal">
                     Enquiry Received with Priority
                   </h3>
                   <p className="text-xs sm:text-sm text-white/80 max-w-md mx-auto leading-relaxed">
@@ -441,7 +441,7 @@ export default function UniversalContactView({ pageData = null }) {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <h3 className="font-serif text-xl sm:text-2xl text-white font-normal mb-1">
+                    <h3 className="font-serif text-lg sm:text-xl text-white font-normal mb-1">
                       Client Consultation Form
                     </h3>
                     <p className="text-xs text-white/60">
@@ -613,7 +613,7 @@ export default function UniversalContactView({ pageData = null }) {
             <span className="text-[11px] uppercase tracking-[0.22em] text-[#C6A155] font-semibold block mb-2">
               LOCATION & ACCESS
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] mb-3">
+            <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-normal text-white uppercase tracking-[0.03em] mb-2">
               Visit Our UAE Shipyard Facility
             </h2>
             <p className="text-xs sm:text-sm text-white/75 font-light leading-relaxed max-w-2xl mx-auto text-center [text-wrap:balance]">
@@ -672,7 +672,7 @@ export default function UniversalContactView({ pageData = null }) {
             <span className="text-[11px] uppercase tracking-[0.22em] text-[#C6A155] font-semibold block mb-2">
               CLIENT ASSISTANCE
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-normal text-white uppercase tracking-[0.03em] mb-3">
+            <h2 className="font-serif text-xl sm:text-2xl font-normal text-white uppercase tracking-[0.03em] mb-2">
               Frequently Asked Questions
             </h2>
             <p className="text-xs sm:text-sm text-white/70 font-light max-w-xl mx-auto text-center [text-wrap:balance]">

@@ -65,7 +65,7 @@ export default function UpcomingEventSection({ events = [] }) {
               <span className="w-2 h-2 rounded-full bg-[#C6A155] animate-ping" />
               <span>CALENDAR OF EXHIBITIONS & BOAT SHOWS</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-white uppercase tracking-[0.02em]">
+            <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-normal text-white uppercase tracking-[0.02em]">
               Upcoming Events & Boat Shows
             </h2>
           </div>
@@ -149,7 +149,7 @@ export default function UpcomingEventSection({ events = [] }) {
                     </div>
 
                     {/* Exhibition Title */}
-                    <h3 className="font-serif text-xl sm:text-2xl font-normal text-white uppercase tracking-[0.02em] leading-snug">
+                    <h3 className="font-serif text-lg sm:text-xl font-normal text-white uppercase tracking-[0.02em] leading-snug">
                       {exhibitionTitle}
                     </h3>
 

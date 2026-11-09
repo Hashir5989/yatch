@@ -173,7 +173,7 @@ export default function UniversalYachtDetailView({
             <div className="max-w-3xl space-y-6">
               {/* Title & Tagline */}
               <div>
-                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[1.1] tracking-tight">
+                <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-light text-white leading-[1.15] tracking-tight">
                   <InlineEditableText
                     as="span"
                     value={data.brandPrefix || "ASMARATY"}
@@ -191,7 +191,7 @@ export default function UniversalYachtDetailView({
                     />
                   </span>
                 </h1>
-                <p className="mt-3 text-base sm:text-xl text-[#E0E6EF] font-light max-w-2xl leading-relaxed">
+                <p className="mt-3 text-xs sm:text-sm md:text-base text-[#E0E6EF] font-light max-w-2xl leading-relaxed">
                   <InlineEditableText
                     as="span"
                     value={data.tagline}
@@ -419,7 +419,7 @@ export default function UniversalYachtDetailView({
                     placeholder="EYEBROW..."
                   />
                 </span>
-                <h2 className="font-serif text-3xl sm:text-5xl font-light text-white leading-tight">
+                <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-light text-white leading-tight">
                   <InlineEditableText
                     as="span"
                     value={data.narrative?.headline || "Crafted for Unrivaled Luxury on the Water"}
@@ -433,7 +433,7 @@ export default function UniversalYachtDetailView({
                 </h2>
               </div>
 
-              <div className="space-y-4 text-sm sm:text-base text-[#9DAAB8] font-light leading-relaxed">
+              <div className="space-y-4 text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed">
                 {(data.narrative?.paragraphs || []).map((p, idx) => (
                   <p 
                     key={idx}
@@ -516,7 +516,7 @@ export default function UniversalYachtDetailView({
               <span className="text-xs uppercase tracking-luxury text-[#C8A870] font-medium block">
                 GENERAL ARRANGEMENT • DECK-BY-DECK 3D CUTAWAY
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-light text-white">
+              <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-light text-white">
                 Explore the Three Expansive Decks
               </h2>
               <p className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed">
@@ -549,7 +549,7 @@ export default function UniversalYachtDetailView({
                     <span className="text-[11px] uppercase tracking-luxury text-[#C8A870] font-medium block">
                       Deck Layout Specification
                     </span>
-                    <h3 className="font-serif text-2xl sm:text-3xl text-white font-light mt-0.5">
+                    <h3 className="font-serif text-lg sm:text-xl text-white font-light mt-0.5">
                       {activeDeck.name} —{" "}
                       <span className="text-[#E5C392]">
                         <InlineEditableText
@@ -716,7 +716,7 @@ export default function UniversalYachtDetailView({
             <span className="text-xs uppercase tracking-luxury text-[#C8A870] font-medium block">
               OFFICIAL BROCHURE DATA • NAVAL ARCHITECTURE
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-light text-white">
+            <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-light text-white">
               Technical Specifications Dossier
             </h2>
             <p className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed">
@@ -747,7 +747,7 @@ export default function UniversalYachtDetailView({
               <div className="p-4 sm:p-6 bg-[#0A0D14] flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <Sliders className="w-4 h-4 text-[#C8A870]" />
-                  <h3 className="font-serif text-xl sm:text-2xl text-white font-light">
+                  <h3 className="font-serif text-lg sm:text-xl text-white font-light">
                     {activeSpec.title}
                   </h3>
                 </div>
@@ -859,7 +859,7 @@ export default function UniversalYachtDetailView({
                 <span className="text-xs uppercase tracking-luxury text-[#C8A870] font-medium block">
                   ORIGINAL SHIPYARD PORTFOLIO ({data.gallery?.length || 0} PHOTOGRAPHS)
                 </span>
-                <h2 className="font-serif text-3xl sm:text-5xl font-light text-white">
+                <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-light text-white">
                   Luxury In Every Perspective
                 </h2>
                 <p 
@@ -1010,7 +1010,7 @@ export default function UniversalYachtDetailView({
                   placeholder="CTA Badge..."
                 />
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl text-white font-light">
+              <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl text-white font-light">
                 <InlineEditableText
                   as="span"
                   value={data.ctaHeadline || `Schedule a Private Viewing of the ${data.modelNumber || "Vessel"}`}
