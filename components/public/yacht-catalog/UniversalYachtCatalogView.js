@@ -193,13 +193,20 @@ export default function UniversalYachtCatalogView() {
   const customSection = page?.sections?.find((s) => s.id === "yachts-custom" || s.type === "image_text") || DEFAULT_YACHTS_PAGE?.sections?.[3];
   const conciergeSection = page?.sections?.find((s) => s.id === "yachts-concierge" || s.type === "call_to_action") || DEFAULT_YACHTS_PAGE?.sections?.[4];
 
+  const hasLuxuryMotorYacht = effectiveModels.some((m) => {
+    const k = (m.categoryKey || "").toLowerCase();
+    const c = (m.category || m.categoryLabel || "").toLowerCase();
+    return k === "luxury-motor-yacht" || c.includes("luxury motor yacht");
+  });
+
   // Dynamic Series Filter categories
   const categories = [
     { id: "all", label: `All Fleet (${effectiveModels.length})` },
     { id: "superyacht", label: "Superyachts" },
     { id: "three-deck", label: "Three-Deck Cruisers" },
     { id: "flybridge", label: "Flybridge Cruisers" },
-    { id: "motor-yacht", label: "Motor Yachts" }
+    { id: "motor-yacht", label: "Motor Yachts" },
+    ...(hasLuxuryMotorYacht ? [{ id: "luxury-motor-yacht", label: "Luxury Motor Yachts" }] : [])
   ];
 
   // Filtered models based on category selection

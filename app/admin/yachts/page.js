@@ -210,6 +210,17 @@ export default function YachtManagementScreen() {
     cloned.deckPlans = cloned.deckPlans || [];
     cloned.seo = cloned.seo || {};
 
+    if (!cloned.categoryKey && cloned.category) {
+      const catLower = cloned.category.toLowerCase();
+      if (catLower.includes("luxury motor yacht")) cloned.categoryKey = "luxury-motor-yacht";
+      else if (catLower.includes("three-deck") || catLower.includes("three deck") || catLower.includes("tri-deck")) cloned.categoryKey = "three-deck";
+      else if (catLower.includes("flybridge")) cloned.categoryKey = "flybridge";
+      else if (catLower.includes("motor yacht") || catLower.includes("motor-yacht")) cloned.categoryKey = "motor-yacht";
+      else if (catLower.includes("cruiser")) cloned.categoryKey = "cruiser";
+      else if (catLower.includes("offshore")) cloned.categoryKey = "offshore";
+      else cloned.categoryKey = "superyacht";
+    }
+
     setCurrentYacht(cloned);
     setValidationError(null);
     setActiveTab("general");
@@ -454,9 +465,17 @@ export default function YachtManagementScreen() {
   // FILTERING
   // -------------------------------------------------------------
   const filteredYachts = yachts.filter((y) => {
+    const key = (y.categoryKey || "").toLowerCase();
+    const catVal = (y.category || y.categoryLabel || "").toLowerCase();
     const matchesCat = activeCategory === "all" || 
-      y.categoryKey?.toLowerCase() === activeCategory.toLowerCase() ||
-      y.category?.toLowerCase() === activeCategory.toLowerCase();
+      (activeCategory === "luxury-motor-yacht"
+        ? (key === "luxury-motor-yacht" || catVal.includes("luxury motor yacht"))
+        : activeCategory === "motor-yacht"
+          ? ((key === "motor-yacht" && key !== "luxury-motor-yacht") || (catVal.includes("motor yacht") && !catVal.includes("luxury motor yacht")))
+          : (key === activeCategory.toLowerCase() ||
+             catVal === activeCategory.toLowerCase() ||
+             catVal.replace(/[^a-z0-9]+/g, "-") === activeCategory.toLowerCase() ||
+             key.includes(activeCategory.toLowerCase())));
 
     const matchesStatus = activeStatusFilter === "all" ||
       (activeStatusFilter === "published" && y.status === "published") ||
@@ -569,10 +588,22 @@ export default function YachtManagementScreen() {
             { id: "three-deck", label: "Three-Deck" },
             { id: "flybridge", label: "Flybridge" },
             { id: "motor-yacht", label: "Motor Yachts" },
+            { id: "luxury-motor-yacht", label: "Luxury Motor Yachts" },
           ].map((cat) => {
             const count = cat.id === "all" 
               ? yachts.length 
-              : yachts.filter(y => (y.categoryKey || y.category?.toLowerCase() || "").includes(cat.id)).length;
+              : yachts.filter(y => {
+                  const key = (y.categoryKey || "").toLowerCase();
+                  const catVal = (y.category || y.categoryLabel || "").toLowerCase();
+                  if (cat.id === "luxury-motor-yacht") {
+                    return key === "luxury-motor-yacht" || catVal.includes("luxury motor yacht");
+                  }
+                  if (cat.id === "motor-yacht") {
+                    return (key === "motor-yacht" && key !== "luxury-motor-yacht") || 
+                           (catVal.includes("motor yacht") && !catVal.includes("luxury motor yacht"));
+                  }
+                  return key.includes(cat.id) || catVal.includes(cat.id);
+                }).length;
 
             return (
               <button
@@ -1015,7 +1046,11 @@ export default function YachtManagementScreen() {
                         Vessel Category
                       </label>
                       <select
-                        value={currentYacht.categoryKey || "superyacht"}
+                        value={
+                          currentYacht.categoryKey === "luxury-motor-yacht" || currentYacht.category === "Luxury Motor Yacht"
+                            ? "luxury-motor-yacht"
+                            : currentYacht.categoryKey || "superyacht"
+                        }
                         onChange={(e) => {
                           const val = e.target.value;
                           const labels = {
@@ -1023,6 +1058,7 @@ export default function YachtManagementScreen() {
                             "three-deck": "Three-Deck Yacht",
                             flybridge: "Flybridge Cruiser",
                             "motor-yacht": "Motor Yacht",
+                            "luxury-motor-yacht": "Luxury Motor Yacht",
                             cruiser: "Express Cruiser",
                             offshore: "Offshore Explorer"
                           };
@@ -1039,6 +1075,7 @@ export default function YachtManagementScreen() {
                         <option value="three-deck">Three-Deck Yacht</option>
                         <option value="flybridge">Flybridge Cruiser</option>
                         <option value="motor-yacht">Motor Yacht</option>
+                        <option value="luxury-motor-yacht">Luxury Motor Yacht</option>
                         <option value="cruiser">Express Cruiser</option>
                         <option value="offshore">Offshore Explorer</option>
                       </select>
