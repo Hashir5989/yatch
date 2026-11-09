@@ -146,10 +146,7 @@ export default function UniversalContactView({ pageData = null }) {
           </h1>
 
           {/* Subtitle */}
-          <p 
-            className="text-xs sm:text-sm md:text-base text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-8 saxdor-desc-justified [text-wrap:balance]"
-            style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "center" }}
-          >
+          <p className="text-xs sm:text-sm md:text-base text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-8 text-center [text-wrap:balance]">
             {heroSubheading}
           </p>
 
@@ -231,10 +228,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
                   Advisory Hotline
                 </h3>
-                <p 
-                  className="text-xs text-white/70 leading-relaxed font-light mb-3 text-justify saxdor-desc-justified min-h-[36px]"
-                  style={{ textAlign: "justify", textJustify: "inter-word" }}
-                >
+                <p className="text-xs text-white/70 leading-relaxed font-light mb-3 min-h-[36px]">
                   Direct telephone contact for private client inquiries, vessel pricing, and sea trials.
                 </p>
                 <a
@@ -271,10 +265,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <h3 className="font-serif text-lg sm:text-[19px] text-white font-normal mb-2">
                   Official Email
                 </h3>
-                <p 
-                  className="text-xs text-white/70 leading-relaxed font-light mb-3 text-justify saxdor-desc-justified min-h-[36px]"
-                  style={{ textAlign: "justify", textJustify: "inter-word" }}
-                >
+                <p className="text-xs text-white/70 leading-relaxed font-light mb-3 min-h-[36px]">
                   Submit detailed technical requirements, charter partnerships, or brochure requests.
                 </p>
                 <a
@@ -340,10 +331,7 @@ export default function UniversalContactView({ pageData = null }) {
                 <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-4">
                   {formHeading}
                 </h2>
-                <p 
-                  className="text-xs sm:text-sm text-white/75 font-light leading-relaxed text-justify saxdor-desc-justified" 
-                  style={{ textAlign: "justify", textJustify: "inter-word" }}
-                >
+                <p className="text-xs sm:text-sm text-white/75 font-light leading-relaxed">
                   {formDescription}
                 </p>
               </div>
@@ -619,14 +607,7 @@ export default function UniversalContactView({ pageData = null }) {
             <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-white uppercase tracking-[0.03em] mb-3">
               Visit Our UAE Shipyard Facility
             </h2>
-            <p 
-              className="text-xs sm:text-sm text-white/75 font-light leading-relaxed max-w-2xl mx-auto saxdor-desc-justified"
-              style={{
-                textAlign: "justify",
-                textJustify: "inter-word",
-                textAlignLast: "center"
-              }}
-            >
+            <p className="text-xs sm:text-sm text-white/75 font-light leading-relaxed max-w-2xl mx-auto text-center [text-wrap:balance]">
               Centrally located on the Ajman waterfront, within 35 minutes of Dubai International Airport (DXB). Private marina berths and helicopter arrival can be coordinated upon request.
             </p>
           </div>
@@ -685,10 +666,7 @@ export default function UniversalContactView({ pageData = null }) {
             <h2 className="font-serif text-2xl sm:text-3xl font-normal text-white uppercase tracking-[0.03em] mb-3">
               Frequently Asked Questions
             </h2>
-            <p 
-              className="text-xs sm:text-sm text-white/70 font-light max-w-xl mx-auto saxdor-desc-justified"
-              style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "center" }}
-            >
+            <p className="text-xs sm:text-sm text-white/70 font-light max-w-xl mx-auto text-center [text-wrap:balance]">
               Key details regarding private sea trials, shipyard visits, and bespoke yacht commissioning.
             </p>
           </div>
@@ -714,10 +692,7 @@ export default function UniversalContactView({ pageData = null }) {
                     </span>
                   </button>
                   {isOpen && (
-                    <div 
-                      className="px-5 sm:px-6 pb-5 sm:pb-6 pt-1 text-xs sm:text-[13px] text-white/75 font-light leading-relaxed border-t border-white/5 text-justify saxdor-desc-justified" 
-                      style={{ textAlign: "justify", textJustify: "inter-word" }}
-                    >
+                    <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-1 text-xs sm:text-[13px] text-white/75 font-light leading-relaxed border-t border-white/5">
                       {faq.a}
                     </div>
                   )}
