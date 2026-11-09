@@ -27,7 +27,7 @@ const collectionCode = fs.readFileSync('./components/public/sections/YachtCollec
 
 assert.ok(collectionCode.includes('MOTOR YACHT'), "YachtCollectionSection must reference MOTOR YACHT");
 assert.ok(collectionCode.includes('model.category.toUpperCase().replace(/^ASMARATY\\s*•?\\s*/i, "")'), "YachtCollectionSection must strip ASMARATY prefix");
-assert.ok(collectionCode.includes('font-sans text-2xl sm:text-4xl lg:text-[42px] font-semibold tracking-tight'), "Yacht heading must use modernized font-sans typography");
+assert.ok(collectionCode.includes('font-logo'), "Yacht heading must use official logo font-logo typography");
 assert.ok(!collectionCode.includes('`ASMARATY • ${model.category}`'), "Old redundant ASMARATY • prefix must be removed");
 console.log("PASS: components/public/sections/YachtCollectionSection.js typography & eyebrow verified");
 
@@ -45,3 +45,4 @@ console.log("PASS: app/admin/yachts/page.js admin synchronization verified");
 console.log("=========================================");
 console.log("  ALL TESTS PASSED SUCCESSFULLY!");
 console.log("=========================================");
+
