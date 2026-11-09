@@ -34,12 +34,16 @@ export default function EnquirySection({
     location: "",
     country: "",
     message: "",
-    consentPrivacy: true,
+    consentPrivacy: false,
     consentMailing: false,
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.consentPrivacy) {
+      setErrorMessage("Please accept the terms and privacy consent to submit your request.");
+      return;
+    }
     setSubmitting(true);
     setErrorMessage(null);
 
@@ -221,7 +225,7 @@ export default function EnquirySection({
                       location: "",
                       country: "",
                       message: "",
-                      consentPrivacy: true,
+                      consentPrivacy: false,
                       consentMailing: false,
                     });
                   }}
@@ -348,17 +352,25 @@ export default function EnquirySection({
 
                 {/* Consents */}
                 <div className="space-y-2.5 pt-2">
-                  <label className="flex items-start gap-2.5 cursor-pointer text-xs text-[#8E9EAF] leading-relaxed">
+                  <label className="flex items-start gap-2.5 cursor-pointer text-xs text-[#8E9EAF] leading-relaxed select-none">
                     <input
                       type="checkbox"
+                      required
                       checked={formData.consentPrivacy}
-                      onChange={(e) => setFormData({ ...formData, consentPrivacy: e.target.checked })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, consentPrivacy: e.target.checked });
+                        if (e.target.checked && errorMessage) {
+                          setErrorMessage(null);
+                        }
+                      }}
                       className="mt-0.5 accent-[#C6A155] rounded-none cursor-pointer"
                     />
-                    <span>By submitting a contact request, you provide consent for us to collect and use your information pursuant to our Privacy Policy and Terms of Use.</span>
+                    <span>
+                      By submitting a contact request, you provide consent for us to collect and use your information pursuant to our Privacy Policy and Terms of Use. <span className="text-[#C6A155] font-semibold">*</span>
+                    </span>
                   </label>
 
-                  <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#8E9EAF]">
+                  <label className="flex items-center gap-2.5 cursor-pointer text-xs text-[#8E9EAF] select-none">
                     <input
                       type="checkbox"
                       checked={formData.consentMailing}
@@ -375,8 +387,13 @@ export default function EnquirySection({
 
                 <button
                   type="submit"
-                  disabled={submitting}
-                  className="w-full saxdor-btn-solid !h-[54px] py-4 flex items-center justify-center gap-2 rounded-none font-bold uppercase tracking-wider text-xs cursor-pointer transition-all disabled:opacity-50"
+                  disabled={submitting || !formData.consentPrivacy}
+                  title={!formData.consentPrivacy ? "Please provide consent to enable sending" : undefined}
+                  className={`w-full saxdor-btn-solid !h-[54px] py-4 flex items-center justify-center gap-2 rounded-none font-bold uppercase tracking-wider text-xs transition-all ${
+                    !formData.consentPrivacy || submitting
+                      ? "opacity-40 cursor-not-allowed"
+                      : "cursor-pointer hover:shadow-xl"
+                  }`}
                 >
                   <span>{submitting ? "Sending..." : "Send Message"}</span>
                   <Send className="w-4 h-4" />
