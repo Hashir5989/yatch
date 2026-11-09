@@ -146,7 +146,7 @@ export default function UniversalContactView({ pageData = null }) {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xs sm:text-sm md:text-base text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-8 text-center [text-wrap:balance]">
+          <p className="text-xs sm:text-sm md:text-base text-white/75 font-light max-w-4xl mx-auto leading-relaxed mb-8 text-center [text-wrap:balance]">
             {heroSubheading}
           </p>
 
