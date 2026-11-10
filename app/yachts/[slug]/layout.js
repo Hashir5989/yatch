@@ -83,14 +83,14 @@ export async function generateMetadata({ params }) {
     // Default fallback titles matching authentic ASMARATY copy
     const fallbackTitles = {
       g100: "ASMARATY G100 Super Yacht | 100ft Tri-Deck Flagship | ASMARATY UAE",
-      g77: "ASMARATY G77 Luxury Yacht | 77ft Three-Deck Masterpiece | ASMARATY UAE",
+      g77: "ASMARATY G77 Luxury Yacht | 77ft Two-Deck Masterpiece | ASMARATY UAE",
       g66: "ASMARATY G66 Luxury Yacht | 66ft Flybridge Cruiser | ASMARATY UAE",
       g50: "ASMARATY G50 Luxury Motor Yacht | 50ft Flybridge Cruiser | ASMARATY UAE",
     };
 
     const fallbackDescriptions = {
       g100: "Explore the ASMARATY G100 — an iconic 100-foot tri-deck luxury superyacht engineered in the UAE by Al Shaali Marine. Discover authentic specifications, 3D GA deck plans, staterooms, twin MTU engines, and official brochure.",
-      g77: "Explore the ASMARATY G77 — an elegant 77-foot three-deck luxury yacht engineered in the UAE by ASMARATY. Discover authentic specifications, 3D GA deck plans, 4+2 staterooms, and expansive flybridge terrace.",
+      g77: "Explore the ASMARATY G77 — an elegant 77-foot two-deck luxury yacht engineered in the UAE by ASMARATY. Discover authentic specifications, 3D GA deck plans, 4+2 staterooms, and expansive flybridge terrace.",
       g66: "Explore the ASMARATY G66 — a 66-foot high-performance luxury flybridge yacht engineered in the UAE. Discover authentic specifications, 3D GA deck plans, 4+2 staterooms, twin Volvo inboards, and expansive flybridge terrace.",
       g50: "Explore the ASMARATY G50 — an elegant 50-foot luxury flybridge motor yacht engineered in the UAE. Discover authentic specifications, 3D GA deck plans, 3 private staterooms, twin Cummins inboards, and official brochure.",
     };

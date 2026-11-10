@@ -45,9 +45,9 @@ const FALLBACK_FLEET_MODELS = [
   },
   {
     ...YACHT_SHOWCASES.g77,
-    categoryKey: "motor-yacht",
-    categoryLabel: "Motor Yacht",
-    decks: "Three Decks",
+    categoryKey: "two-deck",
+    categoryLabel: "Two-Deck Yacht",
+    decks: "Two Decks",
     heroImage: "/images/yachts/g77/g77_asset_01_1672x941.jpg",
     specsSnapshot: {
       loa: "77 FT (23.47 M)",
@@ -60,7 +60,7 @@ const FALLBACK_FLEET_MODELS = [
       displacement: "55 Tons",
       fuel: "1,600 Gal (6,056 L)",
       water: "400 Gal (1,514 L)",
-      hull: "GRP Composite Three-Deck",
+      hull: "GRP Composite Two-Deck",
     }
   },
   {
@@ -203,7 +203,7 @@ export default function UniversalYachtCatalogView() {
   const categories = [
     { id: "all", label: `All Fleet (${effectiveModels.length})` },
     { id: "superyacht", label: "Superyachts" },
-    { id: "three-deck", label: "Three-Deck Cruisers" },
+    { id: "two-deck", label: "Two-Deck Yachts" },
     { id: "flybridge", label: "Flybridge Cruisers" },
     { id: "motor-yacht", label: "Motor Yachts" },
     ...(hasLuxuryMotorYacht ? [{ id: "luxury-motor-yacht", label: "Luxury Motor Yachts" }] : [])

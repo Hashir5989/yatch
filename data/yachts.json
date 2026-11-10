@@ -452,7 +452,7 @@
       }
     ],
     "highlights": [
-      "Spacious Three-Deck Design: Generous indoor & outdoor living with panoramic sea views",
+      "Spacious Tri-Deck Design: Generous indoor & outdoor living with panoramic sea views",
       "Refined Interior Living: Sunlit main salon, formal dining area & elegant lounges",
       "Private Accommodation: Owner's cabin, forward VIP, 2 guest cabins & separate crew (5+2 / 12+5 berths)",
       "Elevated Flybridge Experience: Social gatherings, sunbeds, bar & optional hot tub",
@@ -582,15 +582,15 @@
     "fullName": "ASMARATY G77 Motor Yacht",
     "modelNumber": "G77",
     "slug": "g77",
-    "category": "Three-Deck Yacht",
-    "categoryKey": "three-deck",
-    "categoryLabel": "Three-Deck Yacht",
+    "category": "Two-Deck Yacht",
+    "categoryKey": "two-deck",
+    "categoryLabel": "Two-Deck Yacht",
     "series": "G-Series Motor Yacht",
-    "decks": "Three Decks",
-    "badge": "Three-Deck Masterpiece",
+    "decks": "Two Decks",
+    "badge": "Two-Deck Masterpiece",
     "tagline": "The Signature of the Sea — Where Master Craftsmanship Meets Panoramic Horizons.",
-    "description": "A 77-foot three-deck luxury yacht engineered in the United Arab Emirates. Featuring an open-plan saloon, welcoming flybridge terrace, full-beam owner's suite, and four expansive guest staterooms across three generous decks.",
-    "summaryLine": "Three-Deck Motor Yacht • 23.5 Metres • GRP Composite",
+    "description": "A 77-foot two-deck luxury yacht engineered in the United Arab Emirates. Featuring an open-plan saloon, welcoming flybridge terrace, full-beam owner's suite, and four expansive guest staterooms across two generous decks.",
+    "summaryLine": "Two-Deck Motor Yacht • 23.5 Metres • GRP Composite",
     "insigniaSrc": "/images/yachts/g77/g77_asset_54_438x208.jpg",
     "length": "77 FT (23.47 M)",
     "mainImage": "/images/yachts/g77/g77_asset_01_1672x941.jpg",
@@ -752,7 +752,7 @@
       "displacement": "55 Tons",
       "fuel": "1,600 Gal (6,056 L)",
       "water": "400 Gal (1,514 L)",
-      "hull": "GRP Composite Three-Deck"
+      "hull": "GRP Composite Two-Deck"
     },
     "comparisonMatrix": {
       "loa": "77 FT (23.47 M)",
@@ -765,7 +765,7 @@
       "berths": "8 + 2 Berths (10 Pax)",
       "fuel": "1,600 Gal (6,056 L)",
       "water": "400 Gal (1,514 L)",
-      "hull": "GRP Composite Three-Deck"
+      "hull": "GRP Composite Two-Deck"
     },
     "specs": {
       "yachtType": "Luxury Flybridge Yacht",
@@ -997,7 +997,7 @@
       }
     ],
     "highlights": [
-      "Spacious Three-Deck Layout: Generous cockpit, welcoming flybridge & open-plan salon with formal dining",
+      "Spacious Two-Deck Layout: Generous cockpit, welcoming flybridge & open-plan salon with formal dining",
       "Sunlit Panoramic Interiors: Large side windows offering abundant natural light throughout the main deck",
       "Owner & VIP Accommodation: Owner's cabin with ensuite & walk-in wardrobe, forward VIP & twin guest cabins (4+2 / 8+3 berths)",
       "Dedicated Crew Quarters: Accommodation with two beds, dedicated galley and separate private bathroom",
@@ -1040,14 +1040,14 @@
       "eyebrow": "AT A GLANCE • ARCHITECTURAL NARRATIVE",
       "headline": "Crafted for Expansive Horizons & Supreme Comfort",
       "paragraphs": [
-        "At a glance, find yourself in a world of luxury aboard the ASMARATY G77. Conceived for owners who value both effortless entertaining and confident blue-water seakeeping, this 77-foot three-deck yacht unites expansive social spaces with peerless privacy.",
+        "At a glance, find yourself in a world of luxury aboard the ASMARATY G77. Conceived for owners who value both effortless entertaining and confident blue-water seakeeping, this 77-foot two-deck yacht unites expansive social spaces with peerless privacy.",
         "The main deck welcomes you into a bright, open-plan salon bathed in Arabian daylight through sweeping panoramic side windows. Formal dining for six, a concealed gourmet galley with Corian surfaces, and an ergonomic interior pilot house establish an atmosphere of serene sophistication.",
         "Above, the generous flybridge terrace stands ready for midday relaxation or sunset celebrations, complete with an al-fresco dining table, full wet bar with BBQ grill, upper helm station, and space for an optional spa jacuzzi. Below, four luxurious guest staterooms and private aft crew quarters deliver uninterrupted tranquility for up to eleven guests."
       ],
       "cards": [
         {
           "icon": "Layers",
-          "title": "Tri-Deck Architecture",
+          "title": "Two-Deck Architecture",
           "description": "ISO Certified hand-laminated fiberglass with honeycomb-core support, deep-V keel, and reinforced longitudinal stringers."
         },
         {
@@ -1116,7 +1116,7 @@
     ],
     "seo": {
       "metaTitle": "ASMARATY G77 Luxury Yacht | ASMARATY Luxury Yachts UAE",
-      "metaDescription": "A 77-foot three-deck luxury yacht engineered in the United Arab Emirates. Featuring an open-plan saloon, welcoming flybridge terrace, full-beam owner's suite, and four expansive guest staterooms across three generous decks.",
+      "metaDescription": "A 77-foot two-deck luxury yacht engineered in the United Arab Emirates. Featuring an open-plan saloon, welcoming flybridge terrace, full-beam owner's suite, and four expansive guest staterooms across two generous decks.",
       "ogImage": "/images/yachts/g77/g77_asset_01_1672x941.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",

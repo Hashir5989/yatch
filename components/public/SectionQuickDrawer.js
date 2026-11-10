@@ -402,7 +402,7 @@ export default function SectionQuickDrawer({
               className="w-full px-3 py-2 bg-[#121822] border border-[#232F42] rounded-sm text-xs text-[#DFBA73] font-semibold focus:outline-none focus:border-[#C5A880]"
             >
               <option value="g100">ASMARATY G-100 (100 FT • Flagship)</option>
-              <option value="g77">ASMARATY G77 (77 FT • Tri-Deck)</option>
+              <option value="g77">ASMARATY G77 (77 FT • Two-Deck)</option>
               <option value="g66">ASMARATY G-66 (66 FT • Flybridge)</option>
               <option value="g50">ASMARATY G-50 (50 FT • Express)</option>
             </select>

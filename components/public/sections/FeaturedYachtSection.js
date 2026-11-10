@@ -29,7 +29,7 @@ export default function FeaturedYachtSection({
   } = data;
 
   const features = [
-    "Spacious Three-Deck Design: Generous indoor & outdoor living with panoramic sea views",
+    "Spacious Tri-Deck Design: Generous indoor & outdoor living with panoramic sea views",
     "Refined Interior Living: Sunlit main salon, formal dining area & elegant lounges",
     "Private Accommodation: Owner's cabin, forward VIP, 2 guest cabins & separate crew",
     "Elevated Flybridge Experience: Social gatherings, sunbeds, bar & optional hot tub",

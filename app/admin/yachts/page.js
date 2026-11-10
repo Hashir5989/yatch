@@ -216,7 +216,7 @@ export default function YachtManagementScreen() {
     if (!cloned.categoryKey && cloned.category) {
       const catLower = cloned.category.toLowerCase();
       if (catLower.includes("luxury motor yacht")) cloned.categoryKey = "luxury-motor-yacht";
-      else if (catLower.includes("three-deck") || catLower.includes("three deck") || catLower.includes("tri-deck")) cloned.categoryKey = "three-deck";
+      else if (catLower.includes("two-deck") || catLower.includes("two deck") || catLower.includes("three-deck") || catLower.includes("three deck")) cloned.categoryKey = "two-deck";
       else if (catLower.includes("flybridge")) cloned.categoryKey = "flybridge";
       else if (catLower.includes("motor yacht") || catLower.includes("motor-yacht")) cloned.categoryKey = "motor-yacht";
       else if (catLower.includes("cruiser")) cloned.categoryKey = "cruiser";
@@ -590,7 +590,7 @@ export default function YachtManagementScreen() {
           {[
             { id: "all", label: "All Fleet" },
             { id: "superyacht", label: "Superyachts" },
-            { id: "three-deck", label: "Three-Deck" },
+            { id: "two-deck", label: "Two-Deck" },
             { id: "flybridge", label: "Flybridge" },
             { id: "motor-yacht", label: "Motor Yachts" },
             { id: "luxury-motor-yacht", label: "Luxury Motor Yachts" },
@@ -1060,7 +1060,7 @@ export default function YachtManagementScreen() {
                           const val = e.target.value;
                           const labels = {
                             superyacht: "Superyacht",
-                            "three-deck": "Three-Deck Yacht",
+                            "two-deck": "Two-Deck Yacht",
                             flybridge: "Flybridge Cruiser",
                             "motor-yacht": "Motor Yacht",
                             "luxury-motor-yacht": "Luxury Motor Yacht",
@@ -1077,7 +1077,7 @@ export default function YachtManagementScreen() {
                         className="w-full px-3 py-2 bg-[#080B10] border border-[#1E2838] rounded text-xs text-white focus:outline-none focus:border-[#C6A155]"
                       >
                         <option value="superyacht">Superyacht</option>
-                        <option value="three-deck">Three-Deck Yacht</option>
+                        <option value="two-deck">Two-Deck Yacht</option>
                         <option value="flybridge">Flybridge Cruiser</option>
                         <option value="motor-yacht">Motor Yacht</option>
                         <option value="luxury-motor-yacht">Luxury Motor Yacht</option>
@@ -1107,7 +1107,7 @@ export default function YachtManagementScreen() {
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g. Tri-Deck or Three Decks"
+                        placeholder="e.g. Tri-Deck or Two Decks"
                         value={currentYacht.decks || ""}
                         onChange={(e) => setCurrentYacht({ ...currentYacht, decks: e.target.value })}
                         className="w-full px-3 py-2 bg-[#080B10] border border-[#1E2838] rounded text-xs text-white focus:outline-none focus:border-[#C6A155]"
@@ -1123,7 +1123,7 @@ export default function YachtManagementScreen() {
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g. Official Flagship Model or Three-Deck Masterpiece"
+                        placeholder="e.g. Official Flagship Model or Two-Deck Masterpiece"
                         value={currentYacht.badge || ""}
                         onChange={(e) => setCurrentYacht({ ...currentYacht, badge: e.target.value })}
                         className="w-full px-3 py-2 bg-[#080B10] border border-[#1E2838] rounded text-xs text-white focus:outline-none focus:border-[#C6A155]"
@@ -1632,7 +1632,7 @@ export default function YachtManagementScreen() {
                     <div className="flex gap-2">
                       <input
                         type="text"
-                        placeholder="Add verified highlight (e.g. Spacious Three-Deck Design with panoramic salon)..."
+                        placeholder="Add verified highlight (e.g. Spacious Two-Deck Design with panoramic salon)..."
                         value={newHighlight}
                         onChange={(e) => setNewHighlight(e.target.value)}
                         onKeyDown={(e) => {

@@ -242,7 +242,7 @@ export default function UniversalEventDetailView({ event }) {
                     ASMARATY G77
                   </h4>
                   <p className="text-xs text-white/70 font-light mt-1">
-                    77 FT Tri-Deck Luxury Motor Yacht with 25-Year Shipyard Warranty.
+                    77 FT Two-Deck Luxury Motor Yacht with 25-Year Shipyard Warranty.
                   </p>
                 </div>
                 <Link
