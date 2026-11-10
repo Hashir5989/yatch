@@ -25,14 +25,13 @@ import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 import { getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 
-// 3 Events Curated for the 3-Grid Row
-const ALL_EVENTS = [
+// Curated Past Exhibition Showcases (Abu Dhabi & Dubai are upcoming and exclusively featured in the Upcoming section)
+const PAST_EVENT_SHOWCASES = [
   {
     id: "qibs-2026",
     title: "Qatar International Boat Show 2026",
     subtitle: "Regional Debut of ASMARATY G77 Luxury Yacht",
     category: "Boat Show",
-    statusType: "completed",
     badge: "REGIONAL DEBUT",
     dateBadge: { day: "04 — 07", monthYear: "NOV 2026", locationShort: "OLD DOHA PORT" },
     dates: "4th – 7th November 2026",
@@ -80,118 +79,11 @@ const ALL_EVENTS = [
         tag: "CRAFTSMANSHIP"
       }
     ]
-  },
-  {
-    id: "adibs-2026",
-    title: "Abu Dhabi International Boat Show 2026",
-    subtitle: "ASMARATY Luxury Fleet Showcase at ADNEC Marina",
-    category: "Boat Show",
-    statusType: "upcoming",
-    badge: "UPCOMING BOAT SHOW",
-    dateBadge: { day: "19 — 22", monthYear: "NOV 2026", locationShort: "ADNEC MARINA" },
-    dates: "19th – 22nd November 2026",
-    venue: "ADNEC Marina | Abu Dhabi, United Arab Emirates",
-    vessel: "ASMARATY G77 & G66 Luxury Yacht Fleet",
-    presentedBy: "AL SHAALI MARINE – UAE",
-    featuredImage: "/images/news/adibs-2026-abu-dhabi-boat-show.jpg",
-    featuredImageAlt: "Abu Dhabi International Boat Show waterfront at ADNEC Marina",
-    excerpt:
-      "Experience ASMARATY Luxury Yachts dockside at ADNEC Marina. Connect with our client advisory desk to reserve private VIP walkthroughs and schedule sea trials.",
-    description:
-      "Al Shaali Marine and ASMARATY Luxury Yachts confirm an expansive dockside presence at the Abu Dhabi International Boat Show 2026 (ADIBS). Berthed within the dedicated ADNEC Marina basin, ASMARATY welcomes distinguished collectors, private yacht owners, and marine enthusiasts to explore our premier luxury fleet.\n\nVisitors can schedule appointment-only coastal sea trials departing daily from ADNEC Marina, experience our signature quiet-ride naval architecture, and consult one-on-one with senior naval architects regarding custom layout commissions and priority shipyard build slots.",
-    highlights: [
-      "Full fleet showcase at the UAE capital's premier maritime gathering",
-      "Dedicated private berths and dockside executive client suite",
-      "VIP sea trials departing daily through Abu Dhabi coastal waters",
-      "Private consultations on bespoke interior commissions with master joiners",
-      "Backed by our signature 25-Year Shipyard Hull Integrity Warranty"
-    ],
-    pressDispatchSlug: "abu-dhabi-international-boat-show-2026-adnec-marina",
-    photos: [
-      {
-        id: "adibs-p1",
-        url: "/images/news/adibs-2026-abu-dhabi-boat-show.jpg",
-        alt: "Abu Dhabi International Boat Show ADNEC Marina waterfront view",
-        title: "ADNEC Marina Waterfront Berths",
-        caption: "Panoramic waterfront berths at ADNEC Marina where ASMARATY presents its luxury flybridge and tri-deck collections.",
-        tag: "WATERFRONT SHOWCASE"
-      },
-      {
-        id: "adibs-p2",
-        url: "/images/g77-luxury-yacht.jpg",
-        alt: "ASMARATY G77 Luxury Yacht Three-Deck Profile",
-        title: "ASMARATY G77 Luxury Yacht (77 FT)",
-        caption: "The 77-foot three-deck luxury yacht featured dockside with private VIP salon and staterooms.",
-        tag: "FLEET SPOTLIGHT"
-      },
-      {
-        id: "adibs-p3",
-        url: "/images/asmaraty-four-yachts-journey.jpg",
-        alt: "ASMARATY Open-Water Fleet in cruising formation",
-        title: "ASMARATY Complete Fleet at Sea",
-        caption: "ASMARATY yachts underway across Arabian Gulf waters during pre-exhibition sea trials.",
-        tag: "SEA TRIALS"
-      }
-    ]
-  },
-  {
-    id: "dibs-2026",
-    title: "Dubai International Boat Show 2026",
-    subtitle: "Premier Superyacht Showcase at Dubai Harbour",
-    category: "Superyacht Show",
-    statusType: "upcoming",
-    badge: "PREMIER UPCOMING",
-    dateBadge: { day: "25 — 29", monthYear: "NOV 2026", locationShort: "DUBAI HARBOUR" },
-    dates: "25th – 29th November 2026",
-    venue: "Dubai Harbour Marina | Dubai, United Arab Emirates",
-    vessel: "ASMARATY G-100 Flagship & Full Fleet Showcase",
-    presentedBy: "AL SHAALI MARINE – UAE",
-    featuredImage: "/images/news/dibs-2026-dubai-boat-show.jpg",
-    featuredImageAlt: "Dubai International Boat Show at Dubai Harbour with skyline",
-    excerpt:
-      "ASMARATY Luxury Yachts confirms premier deep-water superyacht berths at Dubai Harbour, headlining the flagship G-100 and hosting private coastal sea trials.",
-    description:
-      "As the largest and most established marine lifestyle and luxury superyacht exhibition in the Middle East, the Dubai International Boat Show gathers royalty, international collectors, and naval architects from around the world.\n\nReturning to Dubai Harbour on home waters, ASMARATY will showcase its complete motor yacht and superyacht portfolio, headlined by the flagship G-100 Tri-Deck Superyacht, the acclaimed G77, and the versatile G66 and G50 models. Throughout the five-day exhibition, ASMARATY will host private, appointment-only sea trials departing directly from Dubai Harbour into the Arabian Gulf.",
-    highlights: [
-      "Official presentation at the Middle East's largest and most prestigious superyacht exhibition",
-      "Dedicated deep-water private berths at Dubai Harbour Marina basin",
-      "VIP sea trials departing daily through Dubai coastal waters & Palm Jumeirah",
-      "Private shipyard commission consultations with Al Shaali Marine master naval architects",
-      "Backed by our signature 25-Year Shipyard Hull Integrity Warranty"
-    ],
-    pressDispatchSlug: "dubai-international-boat-show-2026-dubai-harbour",
-    photos: [
-      {
-        id: "dibs-p1",
-        url: "/images/news/dibs-2026-dubai-boat-show.jpg",
-        alt: "Dubai International Boat Show at Dubai Harbour with illuminated night skyline",
-        title: "Dubai Harbour Marina & Skyline",
-        caption: "The illuminated Dubai Harbour waterfront and iconic marina skyline hosting the ASMARATY deep-water berths.",
-        tag: "HARBOUR SHOWCASE"
-      },
-      {
-        id: "dibs-p2",
-        url: "/images/g100-flagship.jpg",
-        alt: "ASMARATY G-100 Tri-Deck Superyacht Flagship",
-        title: "ASMARATY G-100 Flagship Superyacht",
-        caption: "The 100-foot tri-deck flagship superyacht headlined at Dubai Harbour with bespoke owner staterooms.",
-        tag: "FLAGSHIP MODEL"
-      },
-      {
-        id: "dibs-p3",
-        url: "/images/g66-luxury-yacht.jpg",
-        alt: "ASMARATY G66 Luxury Yacht on open waters",
-        title: "ASMARATY G66 Luxury Yacht",
-        caption: "Contemporary exterior profile and expansive flybridge entertainment deck engineered for Gulf cruising.",
-        tag: "FLYBRIDGE"
-      }
-    ]
   }
 ];
 
 export default function UniversalEventsView() {
   const [articles, setArticles] = useState(() => getAllArticles(true));
-  const [selectedFilter, setSelectedFilter] = useState("all"); // "all" | "completed" | "upcoming"
   const [selectedCardEvent, setSelectedCardEvent] = useState(null); // The event opened in the Detail Modal
   const [activePhotoModal, setActivePhotoModal] = useState(null); // Fullscreen single photo lightbox
 
@@ -210,7 +102,7 @@ export default function UniversalEventsView() {
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
   }, []);
 
-  // Upcoming events extracted for UpcomingEventSection below
+  // Upcoming events extracted for UpcomingEventSection below (Abu Dhabi & Dubai)
   const upcomingEvents = useMemo(() => {
     const list = articles.filter(
       (a) => a.status === "published" && (a.articleType === "event" || a.eventDetails?.isUpcoming)
@@ -218,12 +110,6 @@ export default function UniversalEventsView() {
     if (list.length > 0) return list;
     return DEFAULT_ARTICLES.filter((a) => a.articleType === "event" || a.eventDetails?.isUpcoming);
   }, [articles]);
-
-  // Filter 3 events
-  const filteredEvents = useMemo(() => {
-    if (selectedFilter === "all") return ALL_EVENTS;
-    return ALL_EVENTS.filter((ev) => ev.statusType === selectedFilter);
-  }, [selectedFilter]);
 
   // Close modals on ESC
   useEffect(() => {
@@ -270,72 +156,50 @@ export default function UniversalEventsView() {
           </h1>
 
           <p className="text-xs sm:text-sm text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-6">
-            Explore official photo showcases, dockside presentations, and our upcoming calendar of international boat shows across the Arabian Gulf. Click any event card to view full details and photo galleries.
+            Explore official photo showcases from our exhibitions across the Arabian Gulf, and view our upcoming boat show calendar below.
           </p>
 
-          <a
-            href="#events-grid"
-            className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl"
-          >
-            <span>Explore Event Cards & Galleries ↓</span>
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#showcase-grid"
+              className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl"
+            >
+              <span>View Exhibition Showcases ↓</span>
+            </a>
+            <a
+              href="#upcoming-events"
+              className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#DFBA73] text-xs font-mono text-white/80 hover:text-white transition-all shadow-xl"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C6A155] animate-ping" />
+              <span>Upcoming Boat Shows (Abu Dhabi & Dubai) ↓</span>
+            </a>
+          </div>
         </div>
       </section>
 
       {/* -------------------------------------------------------------
-          2. EVENTS DIRECTORY: 3 GRIDS IN ONE ROW
+          2. EXHIBITION SHOWCASES (3-COLUMN GRID ROW LAYOUT)
           ------------------------------------------------------------- */}
-      <section className="py-16 sm:py-24" id="events-grid">
+      <section className="py-16 sm:py-24" id="showcase-grid">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-          {/* Section Header Strip with Tabs */}
+          {/* Section Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-white/10">
             <div>
               <span className="text-[10px] font-mono uppercase tracking-[0.24em] text-[#C6A155] font-semibold block mb-1">
-                EXHIBITION DIRECTORY
+                EXHIBITION RETROSPECTIVE & PHOTO ARCHIVES
               </span>
               <h2 className="font-serif text-xl sm:text-2xl text-white font-normal uppercase tracking-wide">
-                Exhibitions & Boat Shows
+                Exhibition Showcases
               </h2>
             </div>
-
-            {/* Filter Tabs */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setSelectedFilter("all")}
-                className={`px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer ${
-                  selectedFilter === "all"
-                    ? "bg-[#C6A155] text-black font-semibold"
-                    : "bg-[#0D1522] text-white/70 hover:text-white border border-white/10"
-                }`}
-              >
-                All Events ({ALL_EVENTS.length})
-              </button>
-              <button
-                onClick={() => setSelectedFilter("completed")}
-                className={`px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer ${
-                  selectedFilter === "completed"
-                    ? "bg-[#C6A155] text-black font-semibold"
-                    : "bg-[#0D1522] text-white/70 hover:text-white border border-white/10"
-                }`}
-              >
-                Showcases (1)
-              </button>
-              <button
-                onClick={() => setSelectedFilter("upcoming")}
-                className={`px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer ${
-                  selectedFilter === "upcoming"
-                    ? "bg-[#C6A155] text-black font-semibold"
-                    : "bg-[#0D1522] text-white/70 hover:text-white border border-white/10"
-                }`}
-              >
-                Upcoming (2)
-              </button>
-            </div>
+            <span className="text-xs font-mono text-white/50">
+              Click card to view all event photos & details
+            </span>
           </div>
 
-          {/* 3 GRIDS IN ONE ROW (Responsive: 1 col on mobile, 2 on tablet, 3 on desktop) */}
+          {/* 3-GRID ROW: Cards sit in standard 3-column slots (1 col mobile, 2 col tablet, 3 col desktop) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredEvents.map((event) => {
+            {PAST_EVENT_SHOWCASES.map((event) => {
               const { day, monthYear, locationShort } = event.dateBadge;
               return (
                 <article
@@ -384,7 +248,7 @@ export default function UniversalEventsView() {
                   {/* Card Body */}
                   <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                     <div className="space-y-2.5">
-                      {/* Venue & Dates Strip */}
+                      {/* Venue Strip */}
                       <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#DFBA73] truncate">
                         <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
                         <span className="truncate">{event.venue}</span>
@@ -427,7 +291,7 @@ export default function UniversalEventsView() {
       </section>
 
       {/* -------------------------------------------------------------
-          3. UPCOMING BOAT SHOWS & EVENTS GRID (VIP ACCESS & SEA TRIALS)
+          3. UPCOMING BOAT SHOWS (ABU DHABI & DUBAI - SOLE LOCATION)
           ------------------------------------------------------------- */}
       <UpcomingEventSection events={upcomingEvents} />
 
@@ -586,16 +450,6 @@ export default function UniversalEventsView() {
                     className="saxdor-btn-solid !h-[42px] !px-5 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer shadow-lg"
                   >
                     <span>Read Press Dispatch</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                )}
-
-                {selectedCardEvent.statusType === "upcoming" && (
-                  <Link
-                    href={`/contact?event=${encodeURIComponent(selectedCardEvent.title)}`}
-                    className="saxdor-btn-solid !h-[42px] !px-5 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer shadow-lg"
-                  >
-                    <span>Book VIP Walkthrough</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 )}
