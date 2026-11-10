@@ -3,27 +3,28 @@
 import { useState, useEffect, Suspense } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { 
-  ArrowLeft, 
-  Save, 
-  Sparkles, 
-  Eye, 
-  EyeOff, 
-  ChevronUp, 
-  ChevronDown, 
-  Trash2, 
-  Copy, 
-  Plus, 
-  Monitor, 
-  Tablet, 
-  Smartphone, 
-  CheckCircle2, 
-  ExternalLink, 
+import {
+  ArrowLeft,
+  Save,
+  Sparkles,
+  Eye,
+  EyeOff,
+  ChevronUp,
+  ChevronDown,
+  Trash2,
+  Copy,
+  Plus,
+  Monitor,
+  Tablet,
+  Smartphone,
+  CheckCircle2,
+  ExternalLink,
   Sliders,
   Check,
   PanelLeftClose,
   PanelLeftOpen,
-  Info
+  Info,
+  Images
 } from "lucide-react";
 
 import SectionRenderer from "@/components/public/SectionRenderer";
@@ -31,13 +32,13 @@ import UniversalAboutView from "@/components/public/about/UniversalAboutView";
 import SectionLibraryModal from "@/components/cms/SectionLibraryModal";
 import MediaPickerModal from "@/components/cms/MediaPickerModal";
 import SectionQuickDrawer from "@/components/public/SectionQuickDrawer";
-import { 
-  getPageById, 
-  getPageDraft, 
-  savePageDraft, 
+import {
+  getPageById,
+  getPageDraft,
+  savePageDraft,
   savePageDraftAsync,
   publishPage,
-  getAuthHeaders 
+  getAuthHeaders
 } from "@/lib/cmsStore";
 import { SECTION_TEMPLATES } from "@/lib/data/sectionTemplates";
 import { DEFAULT_ABOUT_PAGE } from "@/lib/data/defaultPages";
@@ -412,11 +413,10 @@ function VisualPageEditorInner() {
           <div className="hidden sm:flex items-center gap-1 bg-[#121824] p-1 rounded-sm border border-[#1E2736]">
             <button
               onClick={() => setViewportMode("desktop")}
-              className={`p-1.5 rounded-sm text-xs flex items-center gap-1.5 transition-colors ${
-                viewportMode === "desktop"
+              className={`p-1.5 rounded-sm text-xs flex items-center gap-1.5 transition-colors ${viewportMode === "desktop"
                   ? "bg-[#C5A880] text-[#080B10] font-semibold"
                   : "text-[#8E9AA8] hover:text-white"
-              }`}
+                }`}
               title="Desktop Viewport (100%)"
             >
               <Monitor className="w-3.5 h-3.5" />
@@ -425,11 +425,10 @@ function VisualPageEditorInner() {
 
             <button
               onClick={() => setViewportMode("tablet")}
-              className={`p-1.5 rounded-sm text-xs flex items-center gap-1.5 transition-colors ${
-                viewportMode === "tablet"
+              className={`p-1.5 rounded-sm text-xs flex items-center gap-1.5 transition-colors ${viewportMode === "tablet"
                   ? "bg-[#C5A880] text-[#080B10] font-semibold"
                   : "text-[#8E9AA8] hover:text-white"
-              }`}
+                }`}
               title="Tablet Viewport (768px)"
             >
               <Tablet className="w-3.5 h-3.5" />
@@ -438,11 +437,10 @@ function VisualPageEditorInner() {
 
             <button
               onClick={() => setViewportMode("mobile")}
-              className={`p-1.5 rounded-sm text-xs flex items-center gap-1.5 transition-colors ${
-                viewportMode === "mobile"
+              className={`p-1.5 rounded-sm text-xs flex items-center gap-1.5 transition-colors ${viewportMode === "mobile"
                   ? "bg-[#C5A880] text-[#080B10] font-semibold"
                   : "text-[#8E9AA8] hover:text-white"
-              }`}
+                }`}
               title="Mobile Viewport (375px)"
             >
               <Smartphone className="w-3.5 h-3.5" />
@@ -453,6 +451,17 @@ function VisualPageEditorInner() {
 
         {/* Right: Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Media Manager Full Page */}
+          <Link
+            href="/admin/media"
+            target="_blank"
+            className="px-2.5 py-1.5 rounded-sm bg-white/5 hover:bg-white/10 text-[#C5A880] border border-[#C5A880]/30 text-xs font-medium hidden md:flex items-center gap-1.5 transition-colors"
+            title="Open Media Manager grid gallery in new tab"
+          >
+            <Images className="w-3.5 h-3.5" />
+            <span>Media Manager ↗</span>
+          </Link>
+
           {/* Insert Section Button */}
           <button
             onClick={() => setIsSectionLibraryOpen(true)}
@@ -476,9 +485,8 @@ function VisualPageEditorInner() {
           <button
             onClick={handlePublish}
             disabled={isPublishing}
-            className={`btn-gold px-4 py-1.5 rounded-sm text-xs font-semibold tracking-wider flex items-center gap-1.5 shadow-md disabled:opacity-50 cursor-pointer ${
-              hasUnsavedChanges ? "ring-2 ring-[#C5A880]/70 animate-pulse" : ""
-            }`}
+            className={`btn-gold px-4 py-1.5 rounded-sm text-xs font-semibold tracking-wider flex items-center gap-1.5 shadow-md disabled:opacity-50 cursor-pointer ${hasUnsavedChanges ? "ring-2 ring-[#C5A880]/70 animate-pulse" : ""
+              }`}
             title="Publish live to website and synchronize database across all browsers (Ctrl+S)"
           >
             <Sparkles className={`w-3.5 h-3.5 ${isPublishing ? "animate-spin" : ""}`} />
@@ -527,11 +535,10 @@ function VisualPageEditorInner() {
                       const el = document.getElementById(`section-${sec.id}`);
                       if (el) el.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className={`group rounded-sm p-2.5 border transition-all cursor-pointer ${
-                      isSelected
+                    className={`group rounded-sm p-2.5 border transition-all cursor-pointer ${isSelected
                         ? "bg-[#151D2A] border-[#C5A880] text-white ring-1 ring-[#C5A880]"
                         : "bg-[#0E131C] border-[#1A2230] text-[#8E9AA8] hover:border-white/20 hover:text-white"
-                    } ${isHidden ? "opacity-40" : ""}`}
+                      } ${isHidden ? "opacity-40" : ""}`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 truncate">
@@ -601,13 +608,12 @@ function VisualPageEditorInner() {
         <main className="flex-1 bg-[#05070B] overflow-y-auto flex flex-col items-center p-4 sm:p-6 relative select-text">
           {/* Device Frame Wrapper */}
           <div
-            className={`transition-all duration-300 bg-[#080B10] shadow-2xl relative w-full ${
-              viewportMode === "desktop"
+            className={`transition-all duration-300 bg-[#080B10] shadow-2xl relative w-full ${viewportMode === "desktop"
                 ? "max-w-full"
                 : viewportMode === "tablet"
-                ? "max-w-[768px] rounded-xl border-[10px] border-[#1A2230] my-4 overflow-hidden"
-                : "max-w-[375px] rounded-[36px] border-[12px] border-[#1A2230] my-4 overflow-hidden"
-            }`}
+                  ? "max-w-[768px] rounded-xl border-[10px] border-[#1A2230] my-4 overflow-hidden"
+                  : "max-w-[375px] rounded-[36px] border-[12px] border-[#1A2230] my-4 overflow-hidden"
+              }`}
           >
             {/* Tablet/Mobile Top Bar simulation */}
             {viewportMode !== "desktop" && (

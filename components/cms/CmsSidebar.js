@@ -35,7 +35,7 @@ export default function CmsSidebar({ currentUser }) {
     { label: "Events & Exhibitions", href: "/admin/events", icon: CalendarDays },
     { label: "News & Updates", href: "/admin/news", icon: Newspaper },
     { label: "Customer Enquiries", href: "/admin/enquiries", icon: Mail },
-    { label: "Media Library", href: "/admin/media", icon: Images },
+    { label: "Media Manager", href: "/admin/media", icon: Images },
     { label: "Settings & System", href: "/admin/settings", icon: Sliders },
   ];
 

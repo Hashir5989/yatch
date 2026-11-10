@@ -48,3 +48,5 @@ next-env.d.ts
 
 # local uploads
 user_uploads/
+public/images/uploads/*
+!public/images/uploads/.gitkeep

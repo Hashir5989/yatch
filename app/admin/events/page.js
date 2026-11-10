@@ -881,17 +881,16 @@ export default function AdminEventsScreen() {
                           placeholder="/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"
                           className="flex-1 px-3 py-2 bg-[#080B10] border border-white/15 text-white focus:outline-none focus:border-[#C6A155]"
                         />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setMediaPickerTarget("featured");
-                            setMediaPickerOpen(true);
-                          }}
-                          className="saxdor-btn-outline !h-[38px] px-3 text-xs uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer text-[#C6A155] border-[#C6A155]/40"
+                        <a
+                          href="/admin/media"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="saxdor-btn-outline !h-[38px] px-3 text-xs uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer text-[#C6A155] border-[#C6A155]/40 hover:bg-[#C6A155] hover:text-black transition-all"
+                          title="Open Media Manager grid gallery in a new tab"
                         >
                           <ImageIcon className="w-3.5 h-3.5" />
-                          <span>Media Library</span>
-                        </button>
+                          <span>Media Manager ↗</span>
+                        </a>
                       </div>
                     </div>
 
@@ -1026,16 +1025,16 @@ export default function AdminEventsScreen() {
                           placeholder="/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"
                           className="flex-1 px-3 py-1.5 bg-[#05070A] border border-white/15 text-white text-xs"
                         />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setMediaPickerTarget("gallery");
-                            setMediaPickerOpen(true);
-                          }}
-                          className="px-2.5 py-1.5 bg-white/10 hover:bg-[#C6A155] text-white hover:text-black border border-white/20 transition-all text-xs font-mono cursor-pointer"
+                        <a
+                          href="/admin/media"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-2.5 py-1.5 bg-white/10 hover:bg-[#C6A155] text-white hover:text-black border border-white/20 transition-all text-xs font-mono inline-flex items-center gap-1 cursor-pointer"
+                          title="Open Media Manager grid gallery"
                         >
-                          Pick
-                        </button>
+                          <ImageIcon className="w-3.5 h-3.5" />
+                          <span>Media Manager ↗</span>
+                        </a>
                       </div>
                     </div>
 

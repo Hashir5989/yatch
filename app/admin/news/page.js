@@ -2,15 +2,15 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { 
-  Newspaper, 
-  Plus, 
-  Edit3, 
-  Trash2, 
-  ExternalLink, 
-  Search, 
-  CheckCircle2, 
-  X, 
+import {
+  Newspaper,
+  Plus,
+  Edit3,
+  Trash2,
+  ExternalLink,
+  Search,
+  CheckCircle2,
+  X,
   Image as ImageIcon,
   Eye,
   EyeOff,
@@ -28,9 +28,9 @@ import {
 } from "lucide-react";
 import CmsHeader from "@/components/cms/CmsHeader";
 import MediaPickerModal from "@/components/cms/MediaPickerModal";
-import { 
-  getAllArticles, 
-  saveArticle, 
+import {
+  getAllArticles,
+  saveArticle,
   saveArticleAsync,
   deleteArticle,
   deleteArticleAsync,
@@ -260,7 +260,7 @@ export default function AdminNewsScreen() {
         try {
           const t = localStorage.getItem("asm_admin_session_token");
           if (t) headers["Authorization"] = `Bearer ${t}`;
-        } catch (_) {}
+        } catch (_) { }
       }
 
       const res = await fetch("/api/media/upload", {
@@ -330,7 +330,7 @@ export default function AdminNewsScreen() {
   const filteredArticles = articles.filter((art) => {
     const matchesStatus = statusFilter === "all" || art.status === statusFilter;
     const query = searchQuery.toLowerCase();
-    const matchesSearch = !query || 
+    const matchesSearch = !query ||
       art.title?.toLowerCase().includes(query) ||
       art.excerpt?.toLowerCase().includes(query) ||
       art.slug?.toLowerCase().includes(query);
@@ -339,8 +339,8 @@ export default function AdminNewsScreen() {
 
   return (
     <div className="flex-1 flex flex-col min-h-screen bg-[#070A0F]">
-      <CmsHeader 
-        title="News & Updates Studio" 
+      <CmsHeader
+        title="News & Updates Studio"
         subtitle="Manage boat shows, press announcements, international launches, and fleet updates"
       />
 
@@ -490,11 +490,10 @@ export default function AdminNewsScreen() {
                             type="button"
                             onClick={() => handleTogglePublish(art)}
                             title="Click to toggle publish status"
-                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                              isPublished
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${isPublished
                                 ? "bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 hover:border-emerald-400"
                                 : "bg-amber-950/60 border border-amber-500/40 text-amber-300 hover:border-amber-400"
-                            }`}
+                              }`}
                           >
                             {isPublished ? (
                               <>
@@ -719,17 +718,16 @@ export default function AdminNewsScreen() {
                     Featured Cover Image *
                   </span>
                   <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setMediaPickerTarget("featured");
-                        setMediaPickerOpen(true);
-                      }}
-                      className="px-3 py-1.5 bg-[#172233] hover:bg-[#202E44] text-[#C5A880] text-[11px] font-medium rounded inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+                    <a
+                      href="/admin/media"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 bg-[#172233] hover:bg-[#202E44] text-[#C5A880] text-[11px] font-medium rounded inline-flex items-center gap-1.5 transition-colors cursor-pointer border border-[#C5A880]/30"
+                      title="Open Media Manager grid gallery in a new tab"
                     >
                       <ImageIcon className="w-3.5 h-3.5" />
-                      <span>Choose from Media Library</span>
-                    </button>
+                      <span>Media Manager ↗</span>
+                    </a>
                     <button
                       type="button"
                       disabled={isUploading}
@@ -1063,17 +1061,16 @@ export default function AdminNewsScreen() {
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setMediaPickerTarget("gallery");
-                        setMediaPickerOpen(true);
-                      }}
-                      className="px-3 py-1.5 bg-[#172233] hover:bg-[#202E44] text-[#C5A880] text-[11px] font-medium rounded inline-flex items-center gap-1.5 cursor-pointer"
+                    <a
+                      href="/admin/media"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 bg-[#172233] hover:bg-[#202E44] text-[#C5A880] text-[11px] font-medium rounded inline-flex items-center gap-1.5 cursor-pointer border border-[#C5A880]/30"
+                      title="Open Media Manager grid gallery"
                     >
                       <ImageIcon className="w-3.5 h-3.5" />
-                      <span>Pick from Media</span>
-                    </button>
+                      <span>Media Manager ↗</span>
+                    </a>
                     <button
                       type="button"
                       disabled={isUploading}

@@ -1431,17 +1431,16 @@ export default function YachtManagementScreen() {
                             }}
                             className="flex-1 px-3 py-2 bg-[#0E1522] border border-[#1E2838] rounded text-xs text-white focus:outline-none focus:border-[#C6A155]"
                           />
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setMediaTargetField("heroImage");
-                              setMediaPickerOpen(true);
-                            }}
+                          <a
+                            href="/admin/media"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="px-3 py-2 rounded bg-[#162030] hover:bg-[#C6A155] hover:text-[#080B10] text-[#C6A155] text-xs font-medium border border-[#2A374C] flex items-center gap-1.5 cursor-pointer flex-shrink-0"
+                            title="Open Media Manager grid gallery in a new tab"
                           >
                             <ImageIcon className="w-3.5 h-3.5" />
-                            <span>Media Library</span>
-                          </button>
+                            <span>Media Manager ↗</span>
+                          </a>
                         </div>
                         <p className="text-[10px] text-white/50">
                           Main photographic cover rendered in the fleet catalog, cards, and hero displays.
@@ -1476,17 +1475,16 @@ export default function YachtManagementScreen() {
                         }}
                         className="flex-1 px-3 py-2 bg-[#0E1522] border border-[#1E2838] rounded text-xs text-white focus:outline-none focus:border-[#C6A155]"
                       />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setMediaTargetField("gallery");
-                          setMediaPickerOpen(true);
-                        }}
+                      <a
+                        href="/admin/media"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="px-3 py-2 rounded bg-[#162030] hover:bg-[#C6A155] hover:text-[#080B10] text-[#C6A155] text-xs font-medium border border-[#2A374C] flex items-center gap-1.5 cursor-pointer flex-shrink-0"
+                        title="Open Media Manager grid gallery"
                       >
                         <ImageIcon className="w-3.5 h-3.5" />
-                        <span>Browse</span>
-                      </button>
+                        <span>Media Manager ↗</span>
+                      </a>
                       <button
                         type="button"
                         onClick={() => handleAddGalleryImage()}

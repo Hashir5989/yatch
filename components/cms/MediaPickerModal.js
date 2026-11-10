@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { X, Search, Plus, Check, Image as ImageIcon, Upload, Loader2, Link2, AlertCircle } from "lucide-react";
+import { X, Search, Plus, Check, Image as ImageIcon, Upload, Loader2, Link2, AlertCircle, ExternalLink } from "lucide-react";
 import { getAllMedia, addMediaItem } from "@/lib/cmsStore";
 
 export default function MediaPickerModal({ 
@@ -150,12 +150,24 @@ export default function MediaPickerModal({
               </p>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="text-[#8E9AA8] hover:text-white p-1.5 rounded hover:bg-white/5 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-3">
+            <a
+              href="/admin/media"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-[#C5A880] hover:text-white px-2.5 py-1 rounded bg-[#17202D] border border-[#C5A880]/30 inline-flex items-center gap-1.5 transition-colors"
+              title="Open full Media Manager page in a new tab"
+            >
+              <span>Open Media Manager Page</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+            <button
+              onClick={onClose}
+              className="text-[#8E9AA8] hover:text-white p-1.5 rounded hover:bg-white/5 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Toolbar */}

@@ -17,7 +17,8 @@ import {
   Layers,
   Compass,
   Sliders,
-  Check
+  Check,
+  Images
 } from "lucide-react";
 
 import UniversalYachtDetailView from "@/components/public/yacht-details/UniversalYachtDetailView";
@@ -285,6 +286,16 @@ function VisualYachtEditorInner() {
 
         {/* Right: Actions (Save Draft, Publish Live, View Public) */}
         <div className="flex items-center gap-2">
+          <Link
+            href="/admin/media"
+            target="_blank"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-[#C6A155]/40 text-xs text-[#DFBA73] hover:text-white rounded transition-colors"
+            title="Open Media Manager grid gallery in new tab"
+          >
+            <Images className="w-3.5 h-3.5" />
+            <span>Media Manager ↗</span>
+          </Link>
+
           <Link
             href={`/yachts/${selectedSlug}`}
             target="_blank"
