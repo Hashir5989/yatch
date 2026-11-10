@@ -226,8 +226,11 @@ export default function AdminEventsScreen() {
   };
 
   // Media Picker callbacks
-  const handleMediaSelected = (mediaItem) => {
-    const url = mediaItem.url || mediaItem.src;
+  const handleMediaSelected = (mediaItem, maybeUrl) => {
+    const url = typeof mediaItem === "string" 
+      ? mediaItem 
+      : (mediaItem?.url || mediaItem?.src || (typeof maybeUrl === "string" ? maybeUrl : ""));
+    if (!url) return;
     if (mediaPickerTarget === "featured") {
       setCurrentEvent((prev) => ({
         ...prev,
@@ -237,7 +240,10 @@ export default function AdminEventsScreen() {
     } else if (mediaPickerTarget === "gallery") {
       setPhotoInputUrl(url);
       if (!photoInputAlt) {
-        setPhotoInputAlt(mediaItem.title || mediaItem.caption || "Event photograph");
+        const altText = typeof mediaItem === "object" && mediaItem !== null
+          ? (mediaItem.title || mediaItem.caption || mediaItem.alt || "Event photograph")
+          : "Event photograph";
+        setPhotoInputAlt(altText);
       }
     }
     setMediaPickerOpen(false);
@@ -1179,6 +1185,8 @@ export default function AdminEventsScreen() {
           isOpen={mediaPickerOpen}
           onClose={() => setMediaPickerOpen(false)}
           onSelectMedia={handleMediaSelected}
+          onSelectImage={handleMediaSelected}
+          onSelect={handleMediaSelected}
         />
       )}
 

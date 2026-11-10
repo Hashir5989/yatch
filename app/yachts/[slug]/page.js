@@ -121,11 +121,14 @@ function YachtDetailPageInner() {
     });
   };
 
-  const handleSelectMedia = (url) => {
+  const handleSelectMedia = (urlOrItem) => {
     if (!mediaPickerConfig.fieldKey) {
       setMediaPickerConfig({ isOpen: false, fieldKey: null, currentUrl: "" });
       return;
     }
+
+    const url = typeof urlOrItem === "string" ? urlOrItem : (urlOrItem?.url || urlOrItem?.src || "");
+    if (!url) return;
 
     const key = mediaPickerConfig.fieldKey;
     const current = workingData || baseData;
@@ -273,6 +276,8 @@ function YachtDetailPageInner() {
         isOpen={mediaPickerConfig.isOpen}
         onClose={() => setMediaPickerConfig({ isOpen: false, fieldKey: null, currentUrl: "" })}
         onSelect={handleSelectMedia}
+        onSelectImage={handleSelectMedia}
+        onSelectMedia={handleSelectMedia}
         currentUrl={mediaPickerConfig.currentUrl}
       />
     </div>

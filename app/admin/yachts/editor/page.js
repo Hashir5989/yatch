@@ -144,11 +144,14 @@ function VisualYachtEditorInner() {
     });
   };
 
-  const handleSelectMedia = (url) => {
+  const handleSelectMedia = (urlOrItem) => {
     if (!mediaPickerConfig.fieldKey || !activeYachtData) {
       setMediaPickerConfig({ isOpen: false, fieldKey: null, currentUrl: "" });
       return;
     }
+
+    const url = typeof urlOrItem === "string" ? urlOrItem : (urlOrItem?.url || urlOrItem?.src || "");
+    if (!url) return;
 
     const key = mediaPickerConfig.fieldKey;
 
@@ -358,6 +361,8 @@ function VisualYachtEditorInner() {
           setMediaPickerConfig({ isOpen: false, fieldKey: null, currentUrl: "" })
         }
         onSelectMedia={handleSelectMedia}
+        onSelectImage={handleSelectMedia}
+        onSelect={handleSelectMedia}
         currentUrl={mediaPickerConfig.currentUrl}
       />
     </div>

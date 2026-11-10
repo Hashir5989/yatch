@@ -4,7 +4,15 @@ import { useState, useEffect, useRef } from "react";
 import { X, Search, Plus, Check, Image as ImageIcon, Upload, Loader2, Link2, AlertCircle } from "lucide-react";
 import { getAllMedia, addMediaItem } from "@/lib/cmsStore";
 
-export default function MediaPickerModal({ isOpen, onClose, onSelectImage, currentImageUrl = "" }) {
+export default function MediaPickerModal({ 
+  isOpen, 
+  onClose, 
+  onSelectImage, 
+  onSelectMedia, 
+  onSelect, 
+  currentImageUrl = "", 
+  currentUrl = "" 
+}) {
   const [mediaList, setMediaList] = useState(() => getAllMedia());
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
@@ -15,6 +23,22 @@ export default function MediaPickerModal({ isOpen, onClose, onSelectImage, curre
   const [uploadError, setUploadError] = useState(null);
 
   const fileInputRef = useRef(null);
+
+  const triggerSelect = (url, item) => {
+    const itemObj = typeof item === "object" && item !== null
+      ? item
+      : { url, title: item || "Media Asset", alt: item || "Media Asset" };
+
+    if (typeof onSelectMedia === "function") {
+      try { onSelectMedia(itemObj, url); } catch (e) { console.warn("onSelectMedia error:", e); }
+    }
+    if (typeof onSelectImage === "function") {
+      try { onSelectImage(url, itemObj); } catch (e) { console.warn("onSelectImage error:", e); }
+    }
+    if (typeof onSelect === "function") {
+      try { onSelect(url, itemObj); } catch (e) { console.warn("onSelect error:", e); }
+    }
+  };
 
   useEffect(() => {
     const handleUpdate = () => {
@@ -34,11 +58,12 @@ export default function MediaPickerModal({ isOpen, onClose, onSelectImage, curre
     { id: "shipyard", label: "Shipyard" },
   ];
 
-  const filteredMedia = mediaList.filter((item) => {
+  const filteredMedia = (Array.isArray(mediaList) ? mediaList : []).filter((item) => {
+    if (!item || !item.url) return false;
     const matchesCat = activeCategory === "all" || item.category === activeCategory;
     const matchesQuery = !searchQuery || 
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.alt.toLowerCase().includes(searchQuery.toLowerCase());
+      (item.title && item.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (item.alt && item.alt.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCat && matchesQuery;
   });
 
@@ -80,7 +105,7 @@ export default function MediaPickerModal({ isOpen, onClose, onSelectImage, curre
       });
 
       setMediaList(getAllMedia());
-      onSelectImage(newItem.url, newItem.title);
+      triggerSelect(newItem.url, newItem);
       onClose();
     } catch (err) {
       console.error("Local file upload error in picker:", err);
@@ -100,7 +125,7 @@ export default function MediaPickerModal({ isOpen, onClose, onSelectImage, curre
       category: activeCategory === "all" ? "exterior" : activeCategory
     });
     setMediaList(getAllMedia());
-    onSelectImage(newItem.url, newItem.title);
+    triggerSelect(newItem.url, newItem);
     setShowAddForm(false);
     setNewImageUrl("");
     setNewImageTitle("");
@@ -245,12 +270,12 @@ export default function MediaPickerModal({ isOpen, onClose, onSelectImage, curre
         {/* Media Grid */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {filteredMedia.map((item) => {
-            const isSelected = currentImageUrl === item.url;
+            const isSelected = (currentImageUrl && currentImageUrl === item.url) || (currentUrl && currentUrl === item.url);
             return (
               <div
                 key={item.id}
                 onClick={() => {
-                  onSelectImage(item.url, item.title);
+                  triggerSelect(item.url, item);
                   onClose();
                 }}
                 className={`group relative rounded-sm overflow-hidden border cursor-pointer bg-[#0A0E15] transition-all duration-200 flex flex-col ${

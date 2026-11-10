@@ -60,7 +60,8 @@ export default function MediaLibraryScreen() {
   const [lightboxUrl, setLightboxUrl] = useState(null);
 
   const loadMedia = () => {
-    setMedia(getAllMedia());
+    const all = getAllMedia();
+    setMedia(Array.isArray(all) ? all : []);
   };
 
   useEffect(() => {
@@ -217,11 +218,12 @@ export default function MediaLibraryScreen() {
     { id: "shipyard", label: "Shipyard" },
   ];
 
-  const filteredMedia = media.filter((item) => {
+  const filteredMedia = (Array.isArray(media) ? media : []).filter((item) => {
+    if (!item || !item.url) return false;
     const matchesCat = activeCategory === "all" || item.category === activeCategory;
     const matchesQuery = !searchQuery || 
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.alt.toLowerCase().includes(searchQuery.toLowerCase());
+      (item.title && item.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (item.alt && item.alt.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCat && matchesQuery;
   });
 
