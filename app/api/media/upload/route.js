@@ -51,7 +51,12 @@ export async function POST(request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const uploadDir = path.join(process.cwd(), "public", "images", "news");
+    // Support destination subfolders: uploads (default), news, events, yachts
+    const rawFolder = formData.get("folder") || "uploads";
+    const allowedFolders = new Set(["uploads", "news", "events", "yachts"]);
+    const targetFolder = allowedFolders.has(rawFolder) ? rawFolder : "uploads";
+
+    const uploadDir = path.join(process.cwd(), "public", "images", targetFolder);
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
@@ -69,13 +74,24 @@ export async function POST(request) {
 
     fs.writeFileSync(filePath, buffer);
 
-    const publicUrl = `/images/news/${fileName}`;
+    const publicUrl = `/images/${targetFolder}/${fileName}`;
+    const title = (formData.get("title") || "").trim() || originalName.replace(/\.[^/.]+$/, "");
+    const alt = (formData.get("alt") || "").trim() || title;
+    const category = (formData.get("category") || "exterior").trim();
 
     return NextResponse.json({
       success: true,
       url: publicUrl,
       fileName,
-      title: originalName,
+      title,
+      item: {
+        id: `media-${Date.now()}`,
+        url: publicUrl,
+        title,
+        alt,
+        category,
+        uploadedAt: new Date().toISOString().split("T")[0],
+      },
     });
   } catch (err) {
     console.error("Image upload API error:", err);

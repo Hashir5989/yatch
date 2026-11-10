@@ -186,3 +186,4 @@ compressPdf(src, dest).catch(err => {
   console.error('Compression failed:', err);
   process.exit(1);
 });
+

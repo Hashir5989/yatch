@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { X, Search, Plus, Check, Image as ImageIcon } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { X, Search, Plus, Check, Image as ImageIcon, Upload, Loader2, Link2, AlertCircle } from "lucide-react";
 import { getAllMedia, addMediaItem } from "@/lib/cmsStore";
 
 export default function MediaPickerModal({ isOpen, onClose, onSelectImage, currentImageUrl = "" }) {
@@ -11,6 +11,10 @@ export default function MediaPickerModal({ isOpen, onClose, onSelectImage, curre
   const [newImageUrl, setNewImageUrl] = useState("");
   const [newImageTitle, setNewImageTitle] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
+  const [isUploadingLocal, setIsUploadingLocal] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
+
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const handleUpdate = () => {
@@ -37,6 +41,55 @@ export default function MediaPickerModal({ isOpen, onClose, onSelectImage, curre
       item.alt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCat && matchesQuery;
   });
+
+  const handleBrowseLocalFile = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingLocal(true);
+    setUploadError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const cleanTitle = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+      formData.append("title", cleanTitle);
+      formData.append("alt", `ASMARATY yacht - ${cleanTitle}`);
+      formData.append("category", activeCategory === "all" ? "exterior" : activeCategory);
+      formData.append("folder", "uploads");
+
+      const res = await fetch("/api/media/upload", {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || `Upload failed (${res.status})`);
+      }
+
+      const uploadedUrl = data.url || data.item?.url;
+      const uploadedTitle = data.title || cleanTitle;
+
+      const newItem = addMediaItem({
+        url: uploadedUrl,
+        title: uploadedTitle,
+        category: activeCategory === "all" ? "exterior" : activeCategory,
+      });
+
+      setMediaList(getAllMedia());
+      onSelectImage(newItem.url, newItem.title);
+      onClose();
+    } catch (err) {
+      console.error("Local file upload error in picker:", err);
+      setUploadError(err.message || "Failed to upload image.");
+    } finally {
+      setIsUploadingLocal(false);
+      e.target.value = "";
+    }
+  };
 
   const handleAddCustomImage = (e) => {
     e.preventDefault();
@@ -111,15 +164,53 @@ export default function MediaPickerModal({ isOpen, onClose, onSelectImage, curre
             ))}
           </div>
 
-          {/* Add Image Toggle Button */}
-          <button
-            onClick={() => setShowAddForm(!showAddForm)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#1A2230] hover:bg-[#253044] text-[#C5A880] text-xs font-medium border border-[#2B384E] transition-colors"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Add by URL</span>
-          </button>
+          {/* Action Buttons: Browse Local & Add by URL */}
+          <div className="flex items-center gap-2">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/avif,image/gif"
+              className="hidden"
+              onChange={handleBrowseLocalFile}
+            />
+
+            <button
+              type="button"
+              disabled={isUploadingLocal}
+              onClick={() => fileInputRef.current?.click()}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#C5A880] hover:bg-white text-[#080B10] text-xs font-semibold transition-all cursor-pointer shadow-md disabled:opacity-50"
+              title="Browse and upload an image from your computer"
+            >
+              {isUploadingLocal ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Uploading...</span>
+                </>
+              ) : (
+                <>
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>Browse Local</span>
+                </>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowAddForm(!showAddForm)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#1A2230] hover:bg-[#253044] text-[#C5A880] text-xs font-medium border border-[#2B384E] transition-colors cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add by URL</span>
+            </button>
+          </div>
         </div>
+
+        {uploadError && (
+          <div className="px-4 py-2.5 bg-red-950/70 border-b border-red-500/40 text-red-200 text-xs flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+            <span>{uploadError}</span>
+          </div>
+        )}
 
         {/* Optional Add Image by URL Panel */}
         {showAddForm && (
