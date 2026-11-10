@@ -14,9 +14,10 @@ import {
 import UpcomingEventSection from "@/components/public/news/UpcomingEventSection";
 import { getAllEvents, syncEventsFromServer, getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
+import { DEFAULT_EVENTS } from "@/lib/data/eventsData";
 
 export default function UniversalEventsView() {
-  const [events, setEvents] = useState(() => getAllEvents(true));
+  const [events, setEvents] = useState(() => DEFAULT_EVENTS.filter((e) => e.status === "published"));
   const [articles, setArticles] = useState(() => DEFAULT_ARTICLES.filter((a) => a.status === "published"));
 
   useEffect(() => {
@@ -170,7 +171,7 @@ export default function UniversalEventsView() {
                     <div className="absolute bottom-3 right-3">
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black/80 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono uppercase tracking-wider">
                         <Camera className="w-3 h-3 text-[#C6A155]" />
-                        <span>{photoCount} Photos</span>
+                        <span suppressHydrationWarning>{photoCount} Photos</span>
                       </span>
                     </div>
                   </div>
