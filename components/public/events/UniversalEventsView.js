@@ -140,7 +140,7 @@ export default function UniversalEventsView() {
                   {/* Card Media Header with Date Badge & Status */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#06090D]">
                     <img
-                      src={event.featuredImage || "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"}
+                      src={event.featuredImage || "/images/events/qibs-2026-fireworks-celebration.jpg"}
                       alt={event.featuredImageAlt || event.title}
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                     />

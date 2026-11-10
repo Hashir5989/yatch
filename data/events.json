@@ -21,9 +21,9 @@
     "vessel": "ASMARATY G77 Luxury Yacht (77 FT)",
     "presentedBy": "AL SHAALI MARINE – UAE",
     "status": "published",
-    "featuredImage": "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg",
-    "featuredImageAlt": "Monumental fireworks celebration over Old Doha Port and ASMARATY G77 luxury yacht at Qatar International Boat Show 2026",
-    "excerpt": "Al Shaali Marine and ASMARATY officially unveiled the newly launched G77 luxury yacht at Stand D06 at Old Doha Port, celebrated with monumental waterfront fireworks and introducing our landmark 25-Year Shipyard Warranty.",
+    "featuredImage": "/images/events/qibs-2026-fireworks-celebration.jpg",
+    "featuredImageAlt": "Monumental fireworks celebration exploding in golden spirals over Old Doha Port and ASMARATY yachts at Qatar International Boat Show 2026",
+    "excerpt": "Al Shaali Marine and ASMARATY officially unveiled the newly launched G77 luxury yacht at Stand D06 at Old Doha Port, celebrated with monumental waterfront fireworks, synchronized drone choreography, and introducing our landmark 25-Year Shipyard Warranty.",
     "description": "DOHA, QATAR — In a landmark celebration of Middle Eastern maritime innovation, ASMARATY Luxury Yachts, in strategic collaboration with veteran shipbuilder Al Shaali Marine, marked a commanding high-profile presentation at the Qatar International Boat Show 2026 (QIBS). Berthing proudly at Stand D06 within the historic and picturesque Old Doha Port, the shipyard captivated royal dignitaries, high-net-worth yacht owners, and maritime aficionados with the exclusive regional unveiling of its latest crown jewel: the ASMARATY G77.\n\nSpanning four days from November 4th through November 7th, the Qatar International Boat Show served as the preeminent gathering for the regional and global luxury marine industry. ASMARATY's expansive dockside presence represented an authoritative showcase of Emirati composite craftsmanship, cutting-edge naval architecture, and bespoke superyacht engineering tailored specifically for the waters of the Arabian Gulf and international charter territories.\n\nMeasuring 77 feet in length overall with an imposing two-deck architectural profile, the newly launched ASMARATY G77 represents the dawn of a new era in regional yacht design. Engineered and handcrafted entirely at Al Shaali Marine's waterfront shipyard facility in Ajman, UAE, the vessel synthesizes muscular oceanic performance with peerless interior serenity. Stepping aboard via the teak hydraulic swim platform, visitors to Stand D06 were greeted by an expansive aft cockpit that transitions seamlessly into a light-drenched main salon through automated floor-to-ceiling glass sliding doors.\n\nInside, master joiners curated an ambiance of understated Arabian opulence: book-matched Calacatta marble counter surfaces, hand-stitched Italian leather paneling, marine-grade brushed bronze hardware, and acoustic isolation membranes that reduce underway decibel levels to whisper-quiet perfection. Below deck, four bespoke staterooms accommodate up to eight guests in utmost comfort, anchored by a full-beam owner's suite with panoramic waterline windows and private dressing boudoirs.",
     "warrantyCallout": "Beyond aesthetic refinement, the centerpiece announcement resounding across Stand D06 was ASMARATY's revolutionary 25-Year Shipyard Warranty. Drawing upon Al Shaali Marine's 45-year legacy of naval engineering since 1979, the shipyard is guaranteeing the structural integrity of every newly commissioned ASMARATY composite hull for a quarter of a century. The structural guarantee covers main longitudinal stringers, transverse bulkheads, hull bottom laminations, and deck-to-hull bonded joints.",
     "highlights": [
@@ -32,44 +32,48 @@
       "Announcement of the landmark, industry-leading 25-Year Shipyard Hull Integrity Warranty",
       "Secured priority build allocations and custom interior commissioning slots",
       "Private technical walkthroughs conducted with senior naval architects and composite engineers",
-      "Evening fireworks celebration viewed from the G77 teak foredeck"
+      "Spectacular evening fireworks and synchronized drone light show viewed from the marina basin"
     ],
     "pressDispatchSlug": "asmaraty-g77-qatar-international-boat-show-2026",
     "photos": [
       {
-        "id": "event-photo-1",
-        "url": "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg",
-        "alt": "Spectacular fireworks celebration lighting up Old Doha Port over the ASMARATY G77",
-        "title": "QIBS Waterfront Fireworks Display",
-        "tag": "FIREWORKS"
+        "id": "event-photo-qibs-1",
+        "url": "/images/events/qibs-2026-asmaraty-g77-docked-daylight.jpg",
+        "alt": "ASMARATY G77 luxury two-deck motor yacht berthed at Stand D06 in Old Doha Port with official ASMARATY flags during daylight",
+        "title": "ASMARATY G77 Regional Debut at Stand D06",
+        "tag": "REGIONAL DEBUT",
+        "caption": "The newly launched ASMARATY G77 berthed along the Old Doha Port waterfront promenade, flying official ASMARATY flags at Stand D06."
       },
       {
-        "id": "event-photo-2",
-        "url": "/images/about/asmaraty-about-hero-fireworks.jpg",
-        "alt": "Panoramic evening fireworks over Doha skyline and luxury marina basin",
-        "title": "Doha Skyline & Marina Illumination",
-        "tag": "EVENING SHOWCASE"
+        "id": "event-photo-qibs-2",
+        "url": "/images/events/qibs-2026-fireworks-celebration.jpg",
+        "alt": "Monumental spiral fireworks display in gold and magenta exploding over ASMARATY yachts and Old Doha Port marina basin",
+        "title": "Grand Waterfront Fireworks Celebration",
+        "tag": "FIREWORKS SPECTACULAR",
+        "caption": "Dazzling spiral fireworks exploding into the night sky directly above the ASMARATY fleet as VIP guests and spectators celebrate the regional debut."
       },
       {
-        "id": "event-photo-3",
-        "url": "/images/news/qibs-2026-asmaraty-g77-bow-ceremony.jpg",
-        "alt": "ASMARATY G77 official presentation and bow ceremony at Stand D06",
-        "title": "Stand D06 Waterfront Presentation",
-        "tag": "EXHIBITION"
+        "id": "event-photo-qibs-3",
+        "url": "/images/events/qibs-2026-drone-light-show.jpg",
+        "alt": "QIBS synchronized drone light show in concentric blue rings spelling 'SEE YOU NEXT YEAR' over illuminated yachts",
+        "title": "QIBS Synchronized Drone Light Show",
+        "tag": "DRONE LIGHT SHOW",
+        "caption": "State-of-the-art drone light formation creating concentric blue celestial rings and the 'SEE YOU NEXT YEAR' salute above the illuminated marina pontoon."
       },
       {
-        "id": "event-photo-4",
-        "url": "/images/news/qibs-2026-asmaraty-g77-emblem-detail.jpg",
-        "alt": "ASMARATY 24K gold-plated hull insignia and maritime craft detail",
-        "title": "Bespoke Hull Insignia & Lighting",
-        "tag": "CRAFTSMANSHIP"
+        "id": "event-photo-qibs-4",
+        "url": "/images/events/qibs-2026-pontoon-walkway-presentation.jpg",
+        "alt": "Dignitaries and attendees on the illuminated pontoon walkway at the Al Shaali Marine and ASMARATY stand at Old Doha Port",
+        "title": "VIP Waterfront Pontoon Walkway & Reception",
+        "tag": "VIP RECEPTION",
+        "caption": "Royal dignitaries and international maritime guests walking the illuminated teak pontoon alongside the ASMARATY yacht showcase and brand monolith."
       }
     ],
     "seo": {
       "metaTitle": "Qatar International Boat Show 2026 Showcase | ASMARATY Luxury Yachts",
-      "metaDescription": "Explore the official exhibition showcase and complete photo gallery of the ASMARATY G77 debut and fireworks celebration at the Qatar International Boat Show 2026 at Old Doha Port.",
-      "ogImage": "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"
+      "metaDescription": "Explore the official exhibition showcase and complete photo gallery of the ASMARATY G77 debut, fireworks display, and drone show at the Qatar International Boat Show 2026 at Old Doha Port.",
+      "ogImage": "/images/events/qibs-2026-fireworks-celebration.jpg"
     },
-    "updatedAt": "2026-11-10T11:36:39.139Z"
+    "updatedAt": "2026-11-10T18:40:00.000Z"
   }
 ]
