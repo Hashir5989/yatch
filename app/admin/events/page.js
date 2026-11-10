@@ -134,6 +134,7 @@ export default function AdminEventsScreen() {
       vessel: "",
       presentedBy: "AL SHAALI MARINE – UAE",
       status: "published",
+      bannerPosition: "top",
       featuredImage: "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg",
       featuredImageAlt: "",
       excerpt: "",
@@ -939,6 +940,14 @@ export default function AdminEventsScreen() {
                       src={currentEvent.featuredImage || "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"}
                       alt="Banner Preview"
                       className="w-full h-full object-cover"
+                      style={{
+                        objectPosition:
+                          currentEvent.bannerPosition === "center"
+                            ? "center center"
+                            : currentEvent.bannerPosition === "bottom"
+                            ? "center bottom"
+                            : "center top",
+                      }}
                     />
                   </div>
 
@@ -974,6 +983,33 @@ export default function AdminEventsScreen() {
                         >
                           <span>Media Manager ↗</span>
                         </a>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-white/80 font-mono text-[11px]">Banner Vertical Alignment (Focal Point)</label>
+                      <div className="inline-flex rounded border border-white/15 bg-[#080B10] p-1 gap-1">
+                        {[
+                          { id: "top", label: "Top (Heads/Faces Visible - Default)" },
+                          { id: "center", label: "Center" },
+                          { id: "bottom", label: "Bottom" },
+                        ].map((pos) => {
+                          const active = (currentEvent.bannerPosition || "top") === pos.id;
+                          return (
+                            <button
+                              key={pos.id}
+                              type="button"
+                              onClick={() => setCurrentEvent((prev) => ({ ...prev, bannerPosition: pos.id }))}
+                              className={`px-2.5 py-1 text-[11px] font-mono transition-colors ${
+                                active
+                                  ? "bg-[#C6A155] text-black font-semibold shadow-sm"
+                                  : "text-white/60 hover:text-white hover:bg-white/5"
+                              }`}
+                            >
+                              {pos.label}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
 

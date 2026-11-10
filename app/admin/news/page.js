@@ -109,6 +109,7 @@ export default function AdminNewsScreen() {
       publishedAt: today,
       readingTime: "3 min read",
       status: "published",
+      bannerPosition: "top",
       featuredImage: "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg",
       featuredImageAlt: "",
       excerpt: "",
@@ -790,6 +791,14 @@ export default function AdminNewsScreen() {
                         src={currentArticle.featuredImage}
                         alt={currentArticle.featuredImageAlt || "Featured image"}
                         className="w-full h-full object-cover"
+                        style={{
+                          objectPosition:
+                            currentArticle.bannerPosition === "center"
+                              ? "center center"
+                              : currentArticle.bannerPosition === "bottom"
+                              ? "center bottom"
+                              : "center top",
+                        }}
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-[#4A5568]">
@@ -810,6 +819,34 @@ export default function AdminNewsScreen() {
                         placeholder="/images/news/..."
                         className="w-full bg-[#080B10] border border-[#1E283A] text-xs text-white px-3 py-2 rounded focus:outline-none focus:border-[#C5A880]"
                       />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] uppercase tracking-wider text-[#7A8796] font-semibold mb-1">
+                        Banner Vertical Alignment (Focal Point)
+                      </label>
+                      <div className="inline-flex rounded border border-[#1E283A] bg-[#080B10] p-1 gap-1">
+                        {[
+                          { id: "top", label: "Top (Heads/Faces Visible - Default)" },
+                          { id: "center", label: "Center" },
+                          { id: "bottom", label: "Bottom" },
+                        ].map((pos) => {
+                          const active = (currentArticle.bannerPosition || "top") === pos.id;
+                          return (
+                            <button
+                              key={pos.id}
+                              type="button"
+                              onClick={() => setCurrentArticle({ ...currentArticle, bannerPosition: pos.id })}
+                              className={`px-2.5 py-1 text-[11px] font-mono rounded transition-colors ${
+                                active
+                                  ? "bg-[#C5A880] text-black font-semibold shadow-sm"
+                                  : "text-white/60 hover:text-white hover:bg-white/5"
+                              }`}
+                            >
+                              {pos.label}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase tracking-wider text-[#7A8796] font-semibold mb-1">

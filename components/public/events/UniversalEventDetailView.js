@@ -124,9 +124,17 @@ export default function UniversalEventDetailView({ event: initialEvent }) {
           <img
             src={event.featuredImage}
             alt={event.featuredImageAlt || event.title}
-            className="w-full h-full object-cover object-center filter brightness-[0.38] contrast-[1.15]"
+            className="w-full h-full object-cover object-top filter brightness-[0.42] contrast-[1.12]"
+            style={{
+              objectPosition:
+                event.bannerPosition === "center"
+                  ? "center center"
+                  : event.bannerPosition === "bottom"
+                  ? "center bottom"
+                  : "center top",
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-black/40 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-black/35 to-black/45" />
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-12 py-20 text-center flex flex-col items-center">

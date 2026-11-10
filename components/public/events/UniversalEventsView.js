@@ -66,7 +66,8 @@ export default function UniversalEventsView() {
           <img
             src="/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"
             alt="ASMARATY International Events and Exhibitions"
-            className="w-full h-full object-cover object-center filter brightness-[0.38] contrast-[1.15]"
+            className="w-full h-full object-cover object-top filter brightness-[0.40] contrast-[1.12]"
+            style={{ objectPosition: "center top" }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-[#080B10]/75 to-[#080B10]/50" />
         </div>
@@ -156,7 +157,15 @@ export default function UniversalEventsView() {
                       <img
                         src={event.featuredImage || "/images/events/qibs-2026-fireworks-celebration.jpg"}
                         alt={event.featuredImageAlt || event.title}
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
+                        style={{
+                          objectPosition:
+                            event.bannerPosition === "center"
+                              ? "center center"
+                              : event.bannerPosition === "bottom"
+                              ? "center bottom"
+                              : "center top",
+                        }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0D1522] via-transparent to-black/30" />
 

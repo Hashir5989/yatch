@@ -120,7 +120,15 @@ export default function UpcomingEventSection({ events = [] }) {
                   <img
                     src={eventArticle.featuredImage || "/images/news/adibs-2026-abu-dhabi-boat-show.jpg"}
                     alt={eventArticle.featuredImageAlt || exhibitionTitle}
-                    className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-[1.1] group-hover:scale-105 transition-transform duration-700 ease-out"
+                    className="w-full h-full object-cover object-top filter brightness-[0.88] contrast-[1.1] group-hover:scale-105 transition-transform duration-700 ease-out"
+                    style={{
+                      objectPosition:
+                        eventArticle.bannerPosition === "center"
+                          ? "center center"
+                          : eventArticle.bannerPosition === "bottom"
+                          ? "center bottom"
+                          : "center top",
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0D1522] via-black/20 to-black/40" />
 
