@@ -186,6 +186,31 @@ function VisualYachtEditorInner() {
     showToast("Visual updated on page");
   };
 
+  // Cross-tab selection from Media Manager
+  useEffect(() => {
+    const handleMessage = (e) => {
+      if (e.data && e.data.type === "ASM_MEDIA_SELECTED") {
+        handleSelectMedia(e.data.item || e.data.url);
+      }
+    };
+    const handleStorage = (e) => {
+      if (e.key === "asm_selected_media" && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed && parsed.url) {
+            handleSelectMedia(parsed.item || parsed.url);
+          }
+        } catch (_) {}
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    window.addEventListener("storage", handleStorage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, [mediaPickerConfig, activeYachtData]);
+
   const allAvailableYachts = yachtsList.length > 0 ? yachtsList : DEFAULT_YACHTS;
 
   return (

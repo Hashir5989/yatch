@@ -231,23 +231,84 @@ export default function AdminEventsScreen() {
       ? mediaItem 
       : (mediaItem?.url || mediaItem?.src || (typeof maybeUrl === "string" ? maybeUrl : ""));
     if (!url) return;
+
     if (mediaPickerTarget === "featured") {
       setCurrentEvent((prev) => ({
         ...prev,
         featuredImage: url,
-        seo: { ...prev.seo, ogImage: url }
+        seo: { ...(prev?.seo || {}), ogImage: url }
       }));
+      showToast("Featured image selected and applied!");
     } else if (mediaPickerTarget === "gallery") {
+      const altText = typeof mediaItem === "object" && mediaItem !== null
+        ? (mediaItem.title || mediaItem.caption || mediaItem.alt || "Event photograph")
+        : "Event photograph";
+      const titleText = typeof mediaItem === "object" && mediaItem !== null
+        ? (mediaItem.title || "Exhibition Photo")
+        : "Exhibition Photo";
+
       setPhotoInputUrl(url);
-      if (!photoInputAlt) {
-        const altText = typeof mediaItem === "object" && mediaItem !== null
-          ? (mediaItem.title || mediaItem.caption || mediaItem.alt || "Event photograph")
-          : "Event photograph";
-        setPhotoInputAlt(altText);
-      }
+      setPhotoInputTitle(titleText);
+      setPhotoInputAlt(altText);
+
+      // Automatically add to photos list immediately upon selection!
+      const newPhoto = {
+        id: `photo-${Date.now()}`,
+        url,
+        title: titleText,
+        alt: altText,
+        tag: photoInputTag || "BOAT SHOW"
+      };
+
+      setCurrentEvent((prev) => {
+        if (!prev) return prev;
+        const list = prev.photos || [];
+        if (list.some((p) => p.url === url)) {
+          return prev;
+        }
+        return {
+          ...prev,
+          photos: [...list, newPhoto]
+        };
+      });
+
+      showToast(`Selected "${titleText}" and added to gallery!`);
     }
     setMediaPickerOpen(false);
   };
+
+  // Cross-tab and window.opener selection listener from Media Manager
+  useEffect(() => {
+    const handleMessage = (e) => {
+      if (e.data && e.data.type === "ASM_MEDIA_SELECTED") {
+        handleMediaSelected(e.data.item || e.data.url, e.data.url);
+      }
+    };
+    const handleCustomEvent = (e) => {
+      if (e.detail && e.detail.url) {
+        handleMediaSelected(e.detail.item || e.detail.url, e.detail.url);
+      }
+    };
+    const handleStorage = (e) => {
+      if (e.key === "asm_selected_media" && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed && parsed.url) {
+            handleMediaSelected(parsed.item || parsed.url, parsed.url);
+          }
+        } catch (_) {}
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    window.addEventListener("asm-media-selected", handleCustomEvent);
+    window.addEventListener("storage", handleStorage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      window.removeEventListener("asm-media-selected", handleCustomEvent);
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, [mediaPickerTarget, photoInputTag]);
 
   // Direct file upload to /api/media
   const handleDirectUpload = async (e) => {
@@ -881,6 +942,18 @@ export default function AdminEventsScreen() {
                           placeholder="/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"
                           className="flex-1 px-3 py-2 bg-[#080B10] border border-white/15 text-white focus:outline-none focus:border-[#C6A155]"
                         />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setMediaPickerTarget("featured");
+                            setMediaPickerOpen(true);
+                          }}
+                          className="btn-gold !h-[38px] px-3.5 text-xs uppercase font-semibold tracking-wider inline-flex items-center gap-1.5 cursor-pointer shadow-md"
+                          title="Click to directly select from media gallery"
+                        >
+                          <ImageIcon className="w-3.5 h-3.5" />
+                          <span>Select from Gallery</span>
+                        </button>
                         <a
                           href="/admin/media"
                           target="_blank"
@@ -888,7 +961,6 @@ export default function AdminEventsScreen() {
                           className="saxdor-btn-outline !h-[38px] px-3 text-xs uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer text-[#C6A155] border-[#C6A155]/40 hover:bg-[#C6A155] hover:text-black transition-all"
                           title="Open Media Manager grid gallery in a new tab"
                         >
-                          <ImageIcon className="w-3.5 h-3.5" />
                           <span>Media Manager ↗</span>
                         </a>
                       </div>
@@ -1025,14 +1097,25 @@ export default function AdminEventsScreen() {
                           placeholder="/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"
                           className="flex-1 px-3 py-1.5 bg-[#05070A] border border-white/15 text-white text-xs"
                         />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setMediaPickerTarget("gallery");
+                            setMediaPickerOpen(true);
+                          }}
+                          className="px-3 py-1.5 bg-[#C6A155] hover:bg-[#DFBA73] text-black font-semibold text-xs font-mono inline-flex items-center gap-1.5 cursor-pointer shadow"
+                          title="Directly select photo from media gallery"
+                        >
+                          <ImageIcon className="w-3.5 h-3.5" />
+                          <span>Select Photo</span>
+                        </button>
                         <a
                           href="/admin/media"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-2.5 py-1.5 bg-white/10 hover:bg-[#C6A155] text-white hover:text-black border border-white/20 transition-all text-xs font-mono inline-flex items-center gap-1 cursor-pointer"
+                          className="px-2.5 py-1.5 bg-white/10 hover:bg-white/20 text-white/80 border border-white/20 transition-all text-xs font-mono inline-flex items-center gap-1 cursor-pointer"
                           title="Open Media Manager grid gallery"
                         >
-                          <ImageIcon className="w-3.5 h-3.5" />
                           <span>Media Manager ↗</span>
                         </a>
                       </div>

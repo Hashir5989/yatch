@@ -88,6 +88,51 @@ export default function YachtManagementScreen() {
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
   }, []);
 
+  // Listen for selection from standalone Media Manager page
+  useEffect(() => {
+    const handleMessage = (e) => {
+      if (e.data && e.data.type === "ASM_MEDIA_SELECTED") {
+        const url = e.data.url;
+        if (!url) return;
+        setCurrentYacht((prev) => {
+          if (!prev) return prev;
+          if (mediaTargetField === "heroImage") {
+            return { ...prev, heroImage: url, mainImage: url, primaryImage: url };
+          }
+          return prev;
+        });
+        if (mediaTargetField === "gallery") {
+          handleAddGalleryImage(url);
+        }
+      }
+    };
+    const handleStorage = (e) => {
+      if (e.key === "asm_selected_media" && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed && parsed.url) {
+            setCurrentYacht((prev) => {
+              if (!prev) return prev;
+              if (mediaTargetField === "heroImage") {
+                return { ...prev, heroImage: parsed.url, mainImage: parsed.url, primaryImage: parsed.url };
+              }
+              return prev;
+            });
+            if (mediaTargetField === "gallery") {
+              handleAddGalleryImage(parsed.url);
+            }
+          }
+        } catch (_) {}
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    window.addEventListener("storage", handleStorage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, [mediaTargetField]);
+
   const showToast = (msg, type = "success") => {
     setToastMessage({ text: msg, type });
     setTimeout(() => setToastMessage(null), 3500);
@@ -1431,14 +1476,25 @@ export default function YachtManagementScreen() {
                             }}
                             className="flex-1 px-3 py-2 bg-[#0E1522] border border-[#1E2838] rounded text-xs text-white focus:outline-none focus:border-[#C6A155]"
                           />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setMediaTargetField("heroImage");
+                              setMediaPickerOpen(true);
+                            }}
+                            className="px-3 py-2 rounded bg-[#C6A155] hover:bg-[#DFBA73] text-[#080B10] text-xs font-semibold flex items-center gap-1.5 cursor-pointer flex-shrink-0 shadow"
+                            title="Directly select cover image from gallery"
+                          >
+                            <ImageIcon className="w-3.5 h-3.5" />
+                            <span>Select from Gallery</span>
+                          </button>
                           <a
                             href="/admin/media"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-3 py-2 rounded bg-[#162030] hover:bg-[#C6A155] hover:text-[#080B10] text-[#C6A155] text-xs font-medium border border-[#2A374C] flex items-center gap-1.5 cursor-pointer flex-shrink-0"
+                            className="px-2.5 py-2 rounded bg-[#162030] hover:bg-white/10 text-[#C6A155] text-xs font-medium border border-[#2A374C] flex items-center gap-1 cursor-pointer flex-shrink-0"
                             title="Open Media Manager grid gallery in a new tab"
                           >
-                            <ImageIcon className="w-3.5 h-3.5" />
                             <span>Media Manager ↗</span>
                           </a>
                         </div>
@@ -1475,14 +1531,25 @@ export default function YachtManagementScreen() {
                         }}
                         className="flex-1 px-3 py-2 bg-[#0E1522] border border-[#1E2838] rounded text-xs text-white focus:outline-none focus:border-[#C6A155]"
                       />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setMediaTargetField("gallery");
+                          setMediaPickerOpen(true);
+                        }}
+                        className="px-3 py-2 rounded bg-[#C6A155] hover:bg-[#DFBA73] text-[#080B10] text-xs font-semibold flex items-center gap-1.5 cursor-pointer flex-shrink-0 shadow"
+                        title="Directly select photo from gallery"
+                      >
+                        <ImageIcon className="w-3.5 h-3.5" />
+                        <span>Select Photo</span>
+                      </button>
                       <a
                         href="/admin/media"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-2 rounded bg-[#162030] hover:bg-[#C6A155] hover:text-[#080B10] text-[#C6A155] text-xs font-medium border border-[#2A374C] flex items-center gap-1.5 cursor-pointer flex-shrink-0"
+                        className="px-2.5 py-2 rounded bg-[#162030] hover:bg-white/10 text-[#C6A155] text-xs font-medium border border-[#2A374C] flex items-center gap-1 cursor-pointer flex-shrink-0"
                         title="Open Media Manager grid gallery"
                       >
-                        <ImageIcon className="w-3.5 h-3.5" />
                         <span>Media Manager ↗</span>
                       </a>
                       <button

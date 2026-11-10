@@ -34,6 +34,43 @@ export default function MediaManagerScreen() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [toastMessage, setToastMessage] = useState(null);
   const [copiedId, setCopiedId] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
+
+  const handleSelectMedia = (item) => {
+    if (!item || !item.url) return;
+    setSelectedId(item.id);
+
+    // 1. Copy URL directly to clipboard
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(item.url).catch(() => {});
+    }
+
+    // 2. Broadcast selection via localStorage for instant cross-tab sync with open editors
+    try {
+      localStorage.setItem(
+        "asm_selected_media",
+        JSON.stringify({
+          url: item.url,
+          title: item.title || "Selected Media Asset",
+          alt: item.alt || item.title || "ASMARATY yacht",
+          item,
+          timestamp: Date.now(),
+        })
+      );
+      window.dispatchEvent(
+        new CustomEvent("asm-media-selected", { detail: { url: item.url, item } })
+      );
+    } catch (_) {}
+
+    // 3. If opened via window.open from an editor, send postMessage
+    if (typeof window !== "undefined" && window.opener && !window.opener.closed) {
+      try {
+        window.opener.postMessage({ type: "ASM_MEDIA_SELECTED", url: item.url, item }, "*");
+      } catch (_) {}
+    }
+
+    showToast(`✓ Selected "${item.title || "Image"}"! Auto-applied to editor.`);
+  };
 
   // Inline Add Panel State (No popup modal!)
   const [showAddPanel, setShowAddPanel] = useState(false);
@@ -677,10 +714,17 @@ export default function MediaManagerScreen() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredMedia.map((item) => {
               const isCopied = copiedId === item.id || copiedId === item.url;
+              const isSelected = selectedId === item.id;
               return (
                 <div
                   key={item.id}
-                  className="group bg-[#0A0D15] rounded-lg border border-[#1A2230] hover:border-[#C5A880]/70 transition-all overflow-hidden flex flex-col justify-between shadow-xl hover:shadow-2xl hover:shadow-[#C5A880]/5"
+                  onClick={() => handleSelectMedia(item)}
+                  className={`group bg-[#0A0D15] rounded-lg border transition-all overflow-hidden flex flex-col justify-between shadow-xl hover:shadow-2xl hover:shadow-[#C5A880]/10 cursor-pointer ${
+                    isSelected
+                      ? "border-[#C5A880] ring-2 ring-[#C5A880]"
+                      : "border-[#1A2230] hover:border-[#C5A880]/80"
+                  }`}
+                  title="Click to automatically select this image"
                 >
                   <div>
                     {/* Image Container with Hover Controls */}
@@ -692,32 +736,53 @@ export default function MediaManagerScreen() {
                         loading="lazy"
                       />
 
-                      {/* Hover Overlay Buttons */}
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2.5">
-                        <button
-                          onClick={() => setLightboxUrl(item.url)}
-                          className="w-9 h-9 rounded-full bg-[#080B10]/90 text-white flex items-center justify-center hover:bg-[#C5A880] hover:text-black transition-colors cursor-pointer shadow-lg"
-                          title="Zoom High-Res View"
-                        >
-                          <ZoomIn className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleCopyUrl(item.url, item.id)}
-                          className="w-9 h-9 rounded-full bg-[#080B10]/90 text-white flex items-center justify-center hover:bg-[#C5A880] hover:text-black transition-colors cursor-pointer shadow-lg"
-                          title="Copy Direct URL"
-                        >
-                          {isCopied ? (
-                            <Check className="w-4 h-4 text-emerald-400" />
-                          ) : (
-                            <Copy className="w-4 h-4" />
-                          )}
-                        </button>
+                      {/* Hover Overlay with Instant Select */}
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2.5 p-3">
+                        <span className="btn-gold px-3.5 py-1.5 text-xs font-bold rounded shadow-xl inline-flex items-center gap-1.5 animate-fadeIn">
+                          <Check className="w-4 h-4 stroke-[3]" />
+                          <span>Click to Select Image</span>
+                        </span>
+
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setLightboxUrl(item.url);
+                            }}
+                            className="w-8 h-8 rounded-full bg-[#080B10]/90 text-white flex items-center justify-center hover:bg-[#C5A880] hover:text-black transition-colors cursor-pointer shadow-lg"
+                            title="Zoom High-Res View"
+                          >
+                            <ZoomIn className="w-4 h-4" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCopyUrl(item.url, item.id);
+                            }}
+                            className="w-8 h-8 rounded-full bg-[#080B10]/90 text-white flex items-center justify-center hover:bg-[#C5A880] hover:text-black transition-colors cursor-pointer shadow-lg"
+                            title="Copy Direct URL"
+                          >
+                            {isCopied ? (
+                              <Check className="w-4 h-4 text-emerald-400" />
+                            ) : (
+                              <Copy className="w-4 h-4" />
+                            )}
+                          </button>
+                        </div>
                       </div>
 
                       {/* Category Badge */}
                       <span className="absolute top-2 left-2 text-[9px] uppercase px-2 py-0.5 rounded bg-black/85 text-[#DFBA73] font-mono tracking-wider border border-white/10 font-bold">
                         {item.category || "exterior"}
                       </span>
+
+                      {isSelected && (
+                        <span className="absolute top-2 right-2 px-2 py-0.5 rounded bg-emerald-600 text-white text-[9px] font-mono font-bold uppercase tracking-wider shadow">
+                          ✓ Selected
+                        </span>
+                      )}
                     </div>
 
                     {/* Metadata Details */}
@@ -752,31 +817,54 @@ export default function MediaManagerScreen() {
                   {/* Actions Footer */}
                   <div className="p-3 border-t border-[#161D27] flex items-center justify-between bg-[#080B10]">
                     <button
-                      onClick={() => handleCopyUrl(item.url, item.id)}
-                      className={`text-xs font-mono font-medium flex items-center gap-1.5 transition-colors cursor-pointer ${
-                        isCopied ? "text-emerald-400 font-bold" : "text-[#DFBA73] hover:text-white"
-                      }`}
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSelectMedia(item);
+                      }}
+                      className="btn-gold !py-1 !px-2.5 text-xs font-semibold rounded inline-flex items-center gap-1 cursor-pointer shadow"
+                      title="Select and apply this image"
                     >
-                      {isCopied ? (
-                        <>
-                          <Check className="w-3.5 h-3.5" />
-                          <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Copy URL</span>
-                        </>
-                      )}
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      <span>Select</span>
                     </button>
 
-                    <button
-                      onClick={() => handleDelete(item.id, item.title)}
-                      className="text-[#6A7888] hover:text-red-400 p-1 rounded hover:bg-red-950/30 transition-colors cursor-pointer"
-                      title="Delete asset from gallery"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCopyUrl(item.url, item.id);
+                        }}
+                        className={`text-xs font-mono font-medium flex items-center gap-1 transition-colors cursor-pointer ${
+                          isCopied ? "text-emerald-400 font-bold" : "text-[#DFBA73] hover:text-white"
+                        }`}
+                      >
+                        {isCopied ? (
+                          <>
+                            <Check className="w-3 h-3" />
+                            <span>Copied</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3 h-3" />
+                            <span>URL</span>
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(item.id, item.title);
+                        }}
+                        className="text-[#6A7888] hover:text-red-400 p-1 rounded hover:bg-red-950/30 transition-colors cursor-pointer"
+                        title="Delete asset from gallery"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               );

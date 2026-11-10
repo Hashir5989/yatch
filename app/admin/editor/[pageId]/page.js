@@ -285,12 +285,41 @@ function VisualPageEditorInner() {
   };
 
   const handleSelectMedia = (url) => {
-    if (mediaPickerConfig.sectionId && mediaPickerConfig.field) {
-      handleUpdateSectionField(mediaPickerConfig.sectionId, mediaPickerConfig.field, url);
+    const finalUrl = typeof url === "string" ? url : (url?.url || url?.src || "");
+    if (finalUrl && mediaPickerConfig.sectionId && mediaPickerConfig.field) {
+      handleUpdateSectionField(mediaPickerConfig.sectionId, mediaPickerConfig.field, finalUrl);
     }
     setMediaPickerConfig({ isOpen: false, sectionId: null, field: null, currentUrl: "" });
     showToast("Image updated on page");
   };
+
+  // Cross-tab selection from Media Manager
+  useEffect(() => {
+    const handleMessage = (e) => {
+      if (e.data && e.data.type === "ASM_MEDIA_SELECTED") {
+        const u = typeof e.data.url === "string" ? e.data.url : (e.data.item?.url || "");
+        if (u && mediaPickerConfig.sectionId && mediaPickerConfig.field) {
+          handleSelectMedia(u);
+        }
+      }
+    };
+    const handleStorage = (e) => {
+      if (e.key === "asm_selected_media" && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed && parsed.url && mediaPickerConfig.sectionId && mediaPickerConfig.field) {
+            handleSelectMedia(parsed.url);
+          }
+        } catch (_) {}
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    window.addEventListener("storage", handleStorage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, [mediaPickerConfig]);
 
   /* ==================== WORKFLOW: SAVE & PUBLISH ==================== */
 

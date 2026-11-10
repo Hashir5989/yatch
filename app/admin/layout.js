@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import AdminAuthGuard from "@/components/cms/AdminAuthGuard";
 
+export const instant = false;
+
 export const metadata = {
   title: "CMS Studio | ASMARATY Luxury Yachts",
   description: "Bespoke Content Management System for ASMARATY luxury yachts, models, and pages.",

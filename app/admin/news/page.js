@@ -304,28 +304,58 @@ export default function AdminNewsScreen() {
     }
   };
 
-  const handleSelectFromMediaPicker = (url, title) => {
+  const handleSelectFromMediaPicker = (arg1, arg2) => {
+    const url = typeof arg1 === "string" ? arg1 : (arg1?.url || arg1?.src || (typeof arg2 === "string" ? arg2 : ""));
+    const item = typeof arg1 === "object" && arg1 !== null ? arg1 : (typeof arg2 === "object" && arg2 !== null ? arg2 : {});
+    const title = item.title || item.alt || (typeof arg2 === "string" ? arg2 : "ASMARATY yacht");
+    if (!url) return;
+
     if (mediaPickerTarget === "featured") {
       setCurrentArticle((prev) => ({
         ...prev,
         featuredImage: url,
-        featuredImageAlt: prev.featuredImageAlt || title
+        featuredImageAlt: prev?.featuredImageAlt || title
       }));
     } else {
       const newImg = {
         id: `gal-${Date.now()}`,
         url,
-        alt: title || "ASMARATY yacht gallery",
-        caption: title || "",
+        alt: item.alt || title || "ASMARATY yacht gallery",
+        caption: item.caption || title || "",
         displayOrder: (currentArticle?.gallery?.length || 0) + 1
       };
       setCurrentArticle((prev) => ({
         ...prev,
-        gallery: [...(prev.gallery || []), newImg]
+        gallery: [...(prev?.gallery || []), newImg]
       }));
     }
     setMediaPickerOpen(false);
   };
+
+  // Listen for selection from standalone Media Manager page
+  useEffect(() => {
+    const handleMessage = (e) => {
+      if (e.data && e.data.type === "ASM_MEDIA_SELECTED") {
+        handleSelectFromMediaPicker(e.data.item || e.data.url, e.data.url);
+      }
+    };
+    const handleStorage = (e) => {
+      if (e.key === "asm_selected_media" && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed && parsed.url) {
+            handleSelectFromMediaPicker(parsed.item || parsed.url, parsed.url);
+          }
+        } catch (_) {}
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    window.addEventListener("storage", handleStorage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, [mediaPickerTarget, currentArticle]);
 
   const filteredArticles = articles.filter((art) => {
     const matchesStatus = statusFilter === "all" || art.status === statusFilter;
@@ -718,14 +748,24 @@ export default function AdminNewsScreen() {
                     Featured Cover Image *
                   </span>
                   <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMediaPickerTarget("featured");
+                        setMediaPickerOpen(true);
+                      }}
+                      className="px-3 py-1.5 bg-[#C5A880] hover:bg-[#DFBA73] text-[#080B10] text-[11px] font-bold rounded inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow"
+                    >
+                      <ImageIcon className="w-3.5 h-3.5" />
+                      <span>Select from Gallery</span>
+                    </button>
                     <a
                       href="/admin/media"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-1.5 bg-[#172233] hover:bg-[#202E44] text-[#C5A880] text-[11px] font-medium rounded inline-flex items-center gap-1.5 transition-colors cursor-pointer border border-[#C5A880]/30"
+                      className="px-2.5 py-1.5 bg-[#172233] hover:bg-[#202E44] text-[#C5A880] text-[11px] font-medium rounded inline-flex items-center gap-1.5 transition-colors cursor-pointer border border-[#C5A880]/30"
                       title="Open Media Manager grid gallery in a new tab"
                     >
-                      <ImageIcon className="w-3.5 h-3.5" />
                       <span>Media Manager ↗</span>
                     </a>
                     <button
@@ -1061,14 +1101,24 @@ export default function AdminNewsScreen() {
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMediaPickerTarget("gallery");
+                        setMediaPickerOpen(true);
+                      }}
+                      className="px-3 py-1.5 bg-[#C5A880] hover:bg-[#DFBA73] text-[#080B10] text-[11px] font-bold rounded inline-flex items-center gap-1.5 cursor-pointer shadow"
+                    >
+                      <ImageIcon className="w-3.5 h-3.5" />
+                      <span>Select Photo</span>
+                    </button>
                     <a
                       href="/admin/media"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-1.5 bg-[#172233] hover:bg-[#202E44] text-[#C5A880] text-[11px] font-medium rounded inline-flex items-center gap-1.5 cursor-pointer border border-[#C5A880]/30"
+                      className="px-2.5 py-1.5 bg-[#172233] hover:bg-[#202E44] text-[#C5A880] text-[11px] font-medium rounded inline-flex items-center gap-1.5 cursor-pointer border border-[#C5A880]/30"
                       title="Open Media Manager grid gallery"
                     >
-                      <ImageIcon className="w-3.5 h-3.5" />
                       <span>Media Manager ↗</span>
                     </a>
                     <button

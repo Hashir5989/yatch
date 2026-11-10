@@ -302,9 +302,10 @@ export default function MediaPickerModal({
                     alt={item.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="btn-gold text-[10px] px-3 py-1 font-semibold rounded-sm tracking-wider">
-                      Select
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                    <span className="btn-gold text-[11px] px-3.5 py-1.5 font-bold rounded-sm tracking-wider shadow-xl flex items-center gap-1.5">
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      <span>Select Image</span>
                     </span>
                   </div>
                   {isSelected && (
