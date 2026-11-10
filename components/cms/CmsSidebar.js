@@ -16,7 +16,8 @@ import {
   LogOut,
   UserCheck,
   Mail,
-  Newspaper
+  Newspaper,
+  CalendarDays
 } from "lucide-react";
 import { resetAllDemoData } from "@/lib/cmsStore";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
@@ -31,6 +32,7 @@ export default function CmsSidebar({ currentUser }) {
     { label: "Pages & Sections", href: "/admin", icon: Layers, exact: true },
     { label: "Yacht Models", href: "/admin/yachts", icon: Anchor, exact: true },
     { label: "Visual Yacht Editor", href: "/admin/yachts/editor", icon: Sparkles },
+    { label: "Events & Exhibitions", href: "/admin/events", icon: CalendarDays },
     { label: "News & Updates", href: "/admin/news", icon: Newspaper },
     { label: "Customer Enquiries", href: "/admin/enquiries", icon: Mail },
     { label: "Media Library", href: "/admin/media", icon: Images },

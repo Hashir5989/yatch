@@ -18,7 +18,14 @@ import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 
 function parseEventDateBadge(article) {
-  const dates = article.eventDetails?.dates || "";
+  if (article.dateBadge && article.dateBadge.day && article.dateBadge.monthYear) {
+    return {
+      day: article.dateBadge.day,
+      monthYear: article.dateBadge.monthYear,
+      locationShort: article.dateBadge.locationShort || "WATERFRONT",
+    };
+  }
+  const dates = article.dates || article.eventDetails?.dates || "";
   
   if (dates.includes("25th – 29th November") || dates.includes("25-29") || dates.includes("25") || dates.includes("Dubai Harbour")) {
     return { day: "25 — 29", monthYear: "NOV 2026", locationShort: "DUBAI HARBOUR" };
@@ -80,15 +87,18 @@ export default function UpcomingEventSection({ events = [] }) {
         {/* UPCOMING EVENTS GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 mb-16">
           {displayEvents.map((eventArticle) => {
-            const event = eventArticle.eventDetails || {};
+            const event = eventArticle.eventDetails || eventArticle;
             const { day, monthYear, locationShort } = parseEventDateBadge(eventArticle);
             const exhibitionTitle = event.exhibition || eventArticle.title;
-            const venue = event.venue || "ADNEC Marina | Abu Dhabi, UAE";
-            const dates = event.dates || "19th – 22nd November 2026";
-            const vessel = event.vesselShowcased || "ASMARATY Fleet";
-            const badge = event.badge || "UPCOMING BOAT SHOW";
-            const highlights = Array.isArray(event.highlights) && event.highlights.length > 0
-              ? event.highlights.slice(0, 4)
+            const venue = event.venue || eventArticle.venue || "ADNEC Marina | Abu Dhabi, UAE";
+            const dates = event.dates || eventArticle.dates || "19th – 22nd November 2026";
+            const vessel = event.vesselShowcased || eventArticle.vessel || "ASMARATY Fleet";
+            const badge = event.badge || eventArticle.badge || "UPCOMING BOAT SHOW";
+            const rawHighlights = Array.isArray(event.highlights) && event.highlights.length > 0
+              ? event.highlights
+              : (Array.isArray(eventArticle.highlights) && eventArticle.highlights.length > 0 ? eventArticle.highlights : []);
+            const highlights = rawHighlights.length > 0
+              ? rawHighlights.slice(0, 4)
               : [
                   "Full fleet showcase at the region's premier maritime gathering",
                   "Dedicated private berths and dockside executive suite",

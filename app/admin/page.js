@@ -122,10 +122,10 @@ export default function AdminPagesScreen() {
     setNewSlug(generated);
   };
 
-  // Dedicated modules (Yacht Models, News & Updates, Customer Enquiries/Contact)
+  // Dedicated modules (Yacht Models, News & Updates, Events & Exhibitions, Customer Enquiries/Contact)
   // are managed in their own dedicated admin sections and excluded from general Pages & Sections table
-  const EXCLUDED_PAGE_SLUGS = ["/yachts", "/news", "/contact"];
-  const EXCLUDED_PAGE_IDS = ["page-yachts", "page-news", "page-contact"];
+  const EXCLUDED_PAGE_SLUGS = ["/yachts", "/news", "/contact", "/events"];
+  const EXCLUDED_PAGE_IDS = ["page-yachts", "page-news", "page-contact", "page-events"];
 
   const filteredPages = pages.filter((p) => {
     if (!p) return false;

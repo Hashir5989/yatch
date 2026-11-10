@@ -2,17 +2,17 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { 
-  Anchor, 
-  Plus, 
-  Edit3, 
-  Trash2, 
-  ExternalLink, 
-  Search, 
-  CheckCircle2, 
-  AlertTriangle, 
-  Check, 
-  X, 
+import {
+  Anchor,
+  Plus,
+  Edit3,
+  Trash2,
+  ExternalLink,
+  Search,
+  CheckCircle2,
+  AlertTriangle,
+  Check,
+  X,
   Image as ImageIcon,
   Star,
   Eye,
@@ -32,9 +32,9 @@ import {
 } from "lucide-react";
 import CmsHeader from "@/components/cms/CmsHeader";
 import MediaPickerModal from "@/components/cms/MediaPickerModal";
-import { 
-  getAllYachts, 
-  saveYacht, 
+import {
+  getAllYachts,
+  saveYacht,
   saveYachtAsync,
   deleteYacht,
   deleteYachtAsync,
@@ -472,22 +472,22 @@ export default function YachtManagementScreen() {
   const filteredYachts = yachts.filter((y) => {
     const key = (y.categoryKey || "").toLowerCase();
     const catVal = (y.category || y.categoryLabel || "").toLowerCase();
-    const matchesCat = activeCategory === "all" || 
+    const matchesCat = activeCategory === "all" ||
       (activeCategory === "luxury-motor-yacht"
         ? (key === "luxury-motor-yacht" || catVal.includes("luxury motor yacht"))
         : activeCategory === "motor-yacht"
           ? ((key === "motor-yacht" && key !== "luxury-motor-yacht") || (catVal.includes("motor yacht") && !catVal.includes("luxury motor yacht")))
           : (key === activeCategory.toLowerCase() ||
-             catVal === activeCategory.toLowerCase() ||
-             catVal.replace(/[^a-z0-9]+/g, "-") === activeCategory.toLowerCase() ||
-             key.includes(activeCategory.toLowerCase())));
+            catVal === activeCategory.toLowerCase() ||
+            catVal.replace(/[^a-z0-9]+/g, "-") === activeCategory.toLowerCase() ||
+            key.includes(activeCategory.toLowerCase())));
 
     const matchesStatus = activeStatusFilter === "all" ||
       (activeStatusFilter === "published" && y.status === "published") ||
       (activeStatusFilter === "draft" && y.status === "draft");
 
     const query = searchQuery.toLowerCase();
-    const matchesQuery = !searchQuery || 
+    const matchesQuery = !searchQuery ||
       y.name?.toLowerCase().includes(query) ||
       y.modelNumber?.toLowerCase().includes(query) ||
       y.slug?.toLowerCase().includes(query) ||
@@ -498,18 +498,17 @@ export default function YachtManagementScreen() {
 
   return (
     <div className="flex-1 flex flex-col min-h-screen bg-[#070A0F] text-[#E8EEF5]">
-      <CmsHeader 
-        title="Yacht Models & Fleet" 
+      <CmsHeader
+        title="Yacht Models & Fleet"
         subtitle="Authoritative vessel management: add, edit, reorder, publish, or configure naval assets"
       />
 
       {/* Floating Toast Notification */}
       {toastMessage && (
-        <div className={`fixed top-20 right-8 z-50 px-5 py-3 rounded shadow-2xl text-xs font-semibold flex items-center gap-2.5 animate-fadeIn border ${
-          toastMessage.type === "error"
+        <div className={`fixed top-20 right-8 z-50 px-5 py-3 rounded shadow-2xl text-xs font-semibold flex items-center gap-2.5 animate-fadeIn border ${toastMessage.type === "error"
             ? "bg-red-950/95 text-red-200 border-red-500/50"
             : "bg-[#0E1B2D] text-[#DFBA73] border-[#C6A155]/60"
-        }`}>
+          }`}>
           {toastMessage.type === "error" ? (
             <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0" />
           ) : (
@@ -595,31 +594,30 @@ export default function YachtManagementScreen() {
             { id: "motor-yacht", label: "Motor Yachts" },
             { id: "luxury-motor-yacht", label: "Luxury Motor Yachts" },
           ].map((cat) => {
-            const count = cat.id === "all" 
-              ? yachts.length 
+            const count = cat.id === "all"
+              ? yachts.length
               : yachts.filter(y => {
-                  const key = (y.categoryKey || "").toLowerCase();
-                  const catVal = (y.category || y.categoryLabel || "").toLowerCase();
-                  if (cat.id === "luxury-motor-yacht") {
-                    return key === "luxury-motor-yacht" || catVal.includes("luxury motor yacht");
-                  }
-                  if (cat.id === "motor-yacht") {
-                    return (key === "motor-yacht" && key !== "luxury-motor-yacht") || 
-                           (catVal.includes("motor yacht") && !catVal.includes("luxury motor yacht"));
-                  }
-                  return key.includes(cat.id) || catVal.includes(cat.id);
-                }).length;
+                const key = (y.categoryKey || "").toLowerCase();
+                const catVal = (y.category || y.categoryLabel || "").toLowerCase();
+                if (cat.id === "luxury-motor-yacht") {
+                  return key === "luxury-motor-yacht" || catVal.includes("luxury motor yacht");
+                }
+                if (cat.id === "motor-yacht") {
+                  return (key === "motor-yacht" && key !== "luxury-motor-yacht") ||
+                    (catVal.includes("motor yacht") && !catVal.includes("luxury motor yacht"));
+                }
+                return key.includes(cat.id) || catVal.includes(cat.id);
+              }).length;
 
             return (
               <button
                 key={cat.id}
                 type="button"
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-3 py-1.5 rounded text-xs tracking-wider uppercase transition-all duration-200 cursor-pointer ${
-                  activeCategory === cat.id
+                className={`px-3 py-1.5 rounded text-xs tracking-wider uppercase transition-all duration-200 cursor-pointer ${activeCategory === cat.id
                     ? "bg-[#C6A155] text-[#080B10] font-bold"
                     : "bg-[#0E1624] text-white/70 hover:text-white border border-white/10"
-                }`}
+                  }`}
               >
                 {cat.label} ({count})
               </button>
@@ -656,11 +654,10 @@ export default function YachtManagementScreen() {
               return (
                 <div
                   key={yacht.id}
-                  className={`bg-[#0A0E17] rounded border overflow-hidden transition-all duration-300 flex flex-col justify-between group shadow-xl ${
-                    yacht.status === "published"
+                  className={`bg-[#0A0E17] rounded border overflow-hidden transition-all duration-300 flex flex-col justify-between group shadow-xl ${yacht.status === "published"
                       ? "border-[#1D2738] hover:border-[#C6A155]/60"
                       : "border-amber-900/40 bg-[#0B0F18]/90 opacity-80"
-                  }`}
+                    }`}
                 >
                   <div>
                     {/* Photo & Badges */}
@@ -693,11 +690,10 @@ export default function YachtManagementScreen() {
                         <button
                           type="button"
                           onClick={() => handleTogglePublish(yacht)}
-                          className={`px-3 py-1 rounded text-[11px] font-semibold flex items-center gap-1.5 transition-all cursor-pointer backdrop-blur-md shadow-lg ${
-                            yacht.status === "published"
+                          className={`px-3 py-1 rounded text-[11px] font-semibold flex items-center gap-1.5 transition-all cursor-pointer backdrop-blur-md shadow-lg ${yacht.status === "published"
                               ? "bg-emerald-950/90 text-emerald-300 border border-emerald-600/70 hover:bg-emerald-900"
                               : "bg-amber-950/90 text-amber-300 border border-amber-600/70 hover:bg-amber-900"
-                          }`}
+                            }`}
                           title="Click to toggle publication status"
                         >
                           {yacht.status === "published" ? (
@@ -748,9 +744,8 @@ export default function YachtManagementScreen() {
                             type="button"
                             onClick={() => handleMoveUp(idx)}
                             disabled={idx === 0}
-                            className={`p-1 rounded transition-colors ${
-                              idx === 0 ? "text-white/20 cursor-not-allowed" : "text-white/70 hover:text-[#C6A155] hover:bg-white/5 cursor-pointer"
-                            }`}
+                            className={`p-1 rounded transition-colors ${idx === 0 ? "text-white/20 cursor-not-allowed" : "text-white/70 hover:text-[#C6A155] hover:bg-white/5 cursor-pointer"
+                              }`}
                             title="Move Up in Display Order"
                           >
                             <ChevronUp className="w-4 h-4" />
@@ -762,9 +757,8 @@ export default function YachtManagementScreen() {
                             type="button"
                             onClick={() => handleMoveDown(idx)}
                             disabled={idx === yachts.length - 1}
-                            className={`p-1 rounded transition-colors ${
-                              idx === yachts.length - 1 ? "text-white/20 cursor-not-allowed" : "text-white/70 hover:text-[#C6A155] hover:bg-white/5 cursor-pointer"
-                            }`}
+                            className={`p-1 rounded transition-colors ${idx === yachts.length - 1 ? "text-white/20 cursor-not-allowed" : "text-white/70 hover:text-[#C6A155] hover:bg-white/5 cursor-pointer"
+                              }`}
                             title="Move Down in Display Order"
                           >
                             <ChevronDown className="w-4 h-4" />
@@ -875,7 +869,7 @@ export default function YachtManagementScreen() {
       {isEditorOpen && currentYacht && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fadeIn">
           <div className="bg-[#0D121B] border border-[#222E42] rounded-lg w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
-            
+
             {/* Modal Header */}
             <div className="p-5 border-b border-[#1E293B] flex items-center justify-between bg-[#0A0E17]">
               <div className="flex items-center gap-3">
@@ -887,11 +881,10 @@ export default function YachtManagementScreen() {
                     <h3 className="font-serif text-lg text-white font-medium">
                       {currentYacht.name ? `Edit Vessel: ${currentYacht.name}` : "Register New Yacht Model"}
                     </h3>
-                    <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded ${
-                      currentYacht.status === "published" 
-                        ? "bg-emerald-950 text-emerald-300 border border-emerald-700" 
+                    <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded ${currentYacht.status === "published"
+                        ? "bg-emerald-950 text-emerald-300 border border-emerald-700"
                         : "bg-amber-950 text-amber-300 border border-amber-700"
-                    }`}>
+                      }`}>
                       {currentYacht.status === "published" ? "Published Live" : "Draft"}
                     </span>
                   </div>
@@ -949,11 +942,10 @@ export default function YachtManagementScreen() {
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-2 py-3 px-4 text-xs font-medium whitespace-nowrap border-b-2 transition-all cursor-pointer ${
-                      isActive
+                    className={`flex items-center gap-2 py-3 px-4 text-xs font-medium whitespace-nowrap border-b-2 transition-all cursor-pointer ${isActive
                         ? "border-[#C6A155] text-[#DFBA73] bg-[#0E1624]"
                         : "border-transparent text-white/60 hover:text-white hover:bg-white/5"
-                    }`}
+                      }`}
                   >
                     <IconComponent className="w-3.5 h-3.5" />
                     <span>{tab.label}</span>

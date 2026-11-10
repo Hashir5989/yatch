@@ -69,6 +69,19 @@ export default function UniversalYachtDetailView({
   // Gallery Filter & Lightbox State
   const [galleryFilter, setGalleryFilter] = useState("All");
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [deckModalOpen, setDeckModalOpen] = useState(false);
+
+  // Close modals on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        if (deckModalOpen) setDeckModalOpen(false);
+        if (lightboxIndex !== null) setLightboxIndex(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [deckModalOpen, lightboxIndex]);
 
   // Filter gallery items
   const filteredGallery =
@@ -597,26 +610,44 @@ export default function UniversalYachtDetailView({
                       </button>
                     )}
 
-                    <InlineButtonEditor
-                      text={activeDeck.resolutionLabel || "View Full Resolution"}
-                      url={activeDeck.image3D}
-                      isEditable={isEditable}
-                      onSave={(newText, newUrl) => {
-                        const decks = (data.deckPlans || []).map((d) =>
-                          d.id === activeDeck.id ? { ...d, resolutionLabel: newText, image3D: newUrl } : d
-                        );
-                        onUpdateField && onUpdateField("deckPlans", decks);
-                      }}
-                      className="saxdor-btn-outline !h-[42px] !min-w-0 !px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      <Maximize2 className="w-3.5 h-3.5 text-[#C8A870] shrink-0" />
-                      <span>{activeDeck.resolutionLabel || "View Full Resolution"}</span>
-                    </InlineButtonEditor>
+                    {isEditable ? (
+                      <InlineButtonEditor
+                        text={activeDeck.resolutionLabel || "View Full Resolution"}
+                        url={activeDeck.image3D}
+                        isEditable={isEditable}
+                        onSave={(newText, newUrl) => {
+                          const decks = (data.deckPlans || []).map((d) =>
+                            d.id === activeDeck.id ? { ...d, resolutionLabel: newText, image3D: newUrl } : d
+                          );
+                          onUpdateField && onUpdateField("deckPlans", decks);
+                        }}
+                        className="saxdor-btn-outline !h-[42px] !min-w-0 !px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5 text-[#C8A870] shrink-0" />
+                        <span>{activeDeck.resolutionLabel || "View Full Resolution"}</span>
+                      </InlineButtonEditor>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setDeckModalOpen(true)}
+                        className="saxdor-btn-outline !h-[42px] !min-w-0 !px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer hover:border-[#C8A870] hover:text-[#C8A870] transition-colors"
+                        title="Open full resolution deck specification"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5 text-[#C8A870] shrink-0" />
+                        <span>{activeDeck.resolutionLabel || "View Full Resolution"}</span>
+                      </button>
+                    )}
                   </div>
                 </div>
 
                 {/* Deck Image Preview */}
-                <div className="relative bg-[#080B10] p-4 sm:p-8 border border-white/5 overflow-hidden group">
+                <div
+                  onClick={() => !isEditable && setDeckModalOpen(true)}
+                  className={`relative bg-[#080B10] p-4 sm:p-8 border border-white/5 overflow-hidden group ${
+                    !isEditable ? "cursor-zoom-in" : ""
+                  }`}
+                  title={!isEditable ? "Click to view full resolution" : ""}
+                >
                   <img
                     src={activeDeck.image3D}
                     alt={activeDeck.caption}
@@ -1146,6 +1177,82 @@ export default function UniversalYachtDetailView({
               <p>{filteredGallery[lightboxIndex].description}</p>
               <span className="font-mono text-[#C8A870]">
                 {lightboxIndex + 1} / {filteredGallery.length}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Deck Plan Full Resolution Lightbox Modal */}
+      {deckModalOpen && activeDeck && (
+        <div
+          className="fixed inset-0 z-50 bg-[#080B10]/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
+          onClick={() => setDeckModalOpen(false)}
+        >
+          <div
+            className="relative max-w-7xl w-full max-h-[95vh] flex flex-col bg-[#0A0D14] border border-white/10 shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 sm:p-5 border-b border-white/10 bg-[#070A0F]">
+              <div className="flex items-center gap-3">
+                <Maximize2 className="w-4 h-4 text-[#C8A870]" />
+                <div>
+                  <span className="text-[10px] uppercase tracking-luxury text-[#C8A870] font-mono block">
+                    {data.name || "ASMARATY YACHT"} • FULL RESOLUTION DECK SPECIFICATION
+                  </span>
+                  <h4 className="font-serif text-base sm:text-lg text-white font-medium">
+                    {activeDeck.name} {activeDeck.subtitle ? `— ${activeDeck.subtitle}` : ""}
+                  </h4>
+                </div>
+              </div>
+
+              {/* Deck tabs inside modal if multiple decks */}
+              {Array.isArray(data.deckPlans) && data.deckPlans.length > 1 && (
+                <div className="hidden md:flex items-center gap-1.5 bg-[#0E131C] p-1 border border-white/10">
+                  {data.deckPlans.map((deck) => (
+                    <button
+                      key={deck.id}
+                      onClick={() => setActiveDeckTab(deck.id)}
+                      className={`px-3 py-1 text-xs tracking-wider uppercase transition-all cursor-pointer ${
+                        activeDeckTab === deck.id
+                          ? "bg-[#C8A870] text-[#080B10] font-bold"
+                          : "text-[#8E9AA8] hover:text-white"
+                      }`}
+                    >
+                      {deck.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Prominent Close button / Cross Symbol */}
+              <button
+                onClick={() => setDeckModalOpen(false)}
+                className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/10 hover:bg-[#C8A870] text-white hover:text-[#080B10] border border-white/20 hover:border-[#C8A870] transition-all text-xs font-bold uppercase tracking-wider cursor-pointer shadow-lg"
+                aria-label="Close full resolution deck view"
+              >
+                <span>CLOSE</span>
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* High-res Image Canvas */}
+            <div className="relative flex-1 min-h-[350px] max-h-[78vh] bg-[#05070A] flex items-center justify-center p-4 overflow-auto">
+              <img
+                src={activeDeck.image3D}
+                alt={activeDeck.caption || activeDeck.name}
+                className="w-full h-auto max-h-[75vh] object-contain mx-auto"
+              />
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-3 sm:p-4 border-t border-white/10 bg-[#070A0F] flex flex-wrap items-center justify-between text-xs text-[#828F9E] gap-2">
+              <p className="font-mono text-[11px] text-[#A2B0C0]">
+                {activeDeck.caption || `${activeDeck.name} architectural GA drawing & 3D cutaway specification.`}
+              </p>
+              <span className="text-[10px] text-[#C8A870] font-mono tracking-wider">
+                PRESS ESC OR CLICK CLOSE TO RETURN
               </span>
             </div>
           </div>

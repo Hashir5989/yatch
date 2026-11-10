@@ -2,19 +2,28 @@ import { notFound } from "next/navigation";
 import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 import UniversalEventDetailView from "@/components/public/events/UniversalEventDetailView";
-import { getEventBySlug, getAllEvents } from "@/lib/data/eventsData";
+import { getEventBySlug as getEventFallback, getAllEvents } from "@/lib/data/eventsData";
+import { getEventBySlugServer, getEventsServer } from "@/lib/server/db";
 
 export async function generateStaticParams() {
-  const events = getAllEvents();
-  return events.map((e) => ({
+  const events = await getEventsServer(true).catch(() => getAllEvents());
+  return (events || []).map((e) => ({
     slug: e.slug,
   }));
+}
+
+async function resolveEvent(slug) {
+  try {
+    const serverEv = await getEventBySlugServer(slug, true);
+    if (serverEv) return serverEv;
+  } catch (_) {}
+  return getEventFallback(slug);
 }
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
-  const event = getEventBySlug(slug);
+  const event = await resolveEvent(slug);
 
   if (!event) {
     return {
@@ -55,7 +64,7 @@ export async function generateMetadata({ params }) {
 export default async function EventDetailPage({ params }) {
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
-  const event = getEventBySlug(slug);
+  const event = await resolveEvent(slug);
 
   if (!event) {
     notFound();

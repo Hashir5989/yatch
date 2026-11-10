@@ -12,17 +12,23 @@ import {
   Layers
 } from "lucide-react";
 import UpcomingEventSection from "@/components/public/news/UpcomingEventSection";
-import { getAllEvents } from "@/lib/data/eventsData";
-import { getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
+import { getAllEvents, syncEventsFromServer, getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 
 export default function UniversalEventsView() {
+  const [events, setEvents] = useState(() => getAllEvents(true));
   const [articles, setArticles] = useState(() => DEFAULT_ARTICLES.filter((a) => a.status === "published"));
-  const pastEvents = useMemo(() => getAllEvents(), []);
 
   useEffect(() => {
     // Read client storage immediately upon mount
+    setEvents(getAllEvents(true));
     setArticles(getAllArticles(true));
+
+    syncEventsFromServer(true).then((synced) => {
+      if (synced && Array.isArray(synced) && synced.length > 0) {
+        setEvents(synced.filter((e) => e.status === "published"));
+      }
+    });
 
     syncArticlesFromServer(true).then((synced) => {
       if (synced && Array.isArray(synced) && synced.length > 0) {
@@ -31,6 +37,7 @@ export default function UniversalEventsView() {
     });
 
     const handleUpdate = () => {
+      setEvents(getAllEvents(true));
       setArticles(getAllArticles(true));
     };
 
@@ -119,8 +126,11 @@ export default function UniversalEventsView() {
 
           {/* 3-GRID ROW: Cards sit in standard 3-column slots (1 col mobile, 2 col tablet, 3 col desktop) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {pastEvents.map((event) => {
-              const { day, monthYear, locationShort } = event.dateBadge;
+            {events.map((event) => {
+              const day = event.dateBadge?.day || "04 — 07";
+              const monthYear = event.dateBadge?.monthYear || "NOV 2026";
+              const locationShort = event.dateBadge?.locationShort || "WATERFRONT";
+              const photoCount = Array.isArray(event.photos) ? event.photos.length : 0;
               return (
                 <Link
                   key={event.id}
@@ -130,8 +140,8 @@ export default function UniversalEventsView() {
                   {/* Card Media Header with Date Badge & Status */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#06090D]">
                     <img
-                      src={event.featuredImage}
-                      alt={event.featuredImageAlt}
+                      src={event.featuredImage || "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"}
+                      alt={event.featuredImageAlt || event.title}
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0D1522] via-transparent to-black/30" />
@@ -152,7 +162,7 @@ export default function UniversalEventsView() {
                     {/* Top Right Status Badge */}
                     <div className="absolute top-3 right-3">
                       <span className="px-2.5 py-1 bg-[#080B10]/90 backdrop-blur-md border border-[#C6A155]/50 text-[#DFBA73] text-[9px] font-mono uppercase tracking-[0.16em] font-semibold">
-                        {event.badge}
+                        {event.badge || "EXHIBITION"}
                       </span>
                     </div>
 
@@ -160,7 +170,7 @@ export default function UniversalEventsView() {
                     <div className="absolute bottom-3 right-3">
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black/80 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono uppercase tracking-wider">
                         <Camera className="w-3 h-3 text-[#C6A155]" />
-                        <span>{event.photos.length} Photos</span>
+                        <span>{photoCount} Photos</span>
                       </span>
                     </div>
                   </div>

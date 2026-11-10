@@ -22,10 +22,25 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
+import { getEventBySlug } from "@/lib/cmsStore";
 
-export default function UniversalEventDetailView({ event }) {
+export default function UniversalEventDetailView({ event: initialEvent }) {
+  const [event, setEvent] = useState(initialEvent);
   const [activePhotoIndex, setActivePhotoIndex] = useState(null); // Lightbox index
   const [copiedShare, setCopiedShare] = useState(false);
+
+  // Sync with CMS updates
+  useEffect(() => {
+    setEvent(initialEvent);
+    const handleUpdate = () => {
+      if (initialEvent?.slug) {
+        const fresh = getEventBySlug(initialEvent.slug, false);
+        if (fresh) setEvent(fresh);
+      }
+    };
+    window.addEventListener("asm-cms-change", handleUpdate);
+    return () => window.removeEventListener("asm-cms-change", handleUpdate);
+  }, [initialEvent]);
 
   // Keyboard navigation for photo lightbox
   useEffect(() => {
