@@ -124,8 +124,8 @@ export default function UniversalEventsView() {
             </span>
           </div>
 
-          {/* 3-GRID ROW: Cards sit in standard 3-column slots (1 col mobile, 2 col tablet, 3 col desktop) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* GRID: Premier showcase card (Qatar) or multi-column grid if multiple */}
+          <div className={events.length === 1 ? "max-w-2xl" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"}>
             {events.map((event) => {
               const day = event.dateBadge?.day || "04 — 07";
               const monthYear = event.dateBadge?.monthYear || "NOV 2026";
