@@ -165,13 +165,13 @@ export default function InlineButtonEditor({
 
     if (isPdf) {
       return (
-        <a href={finalHref} target="_blank" rel="noopener noreferrer" className={className}>
+        <a href={finalHref} target="_blank" rel="noopener noreferrer" className={`max-w-full overflow-hidden ${className}`}>
           {children ? (
-            <span className="inline-flex items-center justify-center gap-2">
+            <span className="inline-flex items-center justify-center gap-2 max-w-full overflow-hidden text-ellipsis">
               {children}
             </span>
           ) : (
-            <span>{label}</span>
+            <span className="max-w-full overflow-hidden text-ellipsis">{label}</span>
           )}
           {Icon && <Icon className="w-4 h-4 ml-2 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />}
         </a>
@@ -179,13 +179,13 @@ export default function InlineButtonEditor({
     }
 
     return (
-      <Link href={finalHref} target={resolvedTarget} rel={rel} className={className}>
+      <Link href={finalHref} target={resolvedTarget} rel={rel} className={`max-w-full overflow-hidden ${className}`}>
         {children ? (
-          <span className="inline-flex items-center justify-center gap-2">
+          <span className="inline-flex items-center justify-center gap-2 max-w-full overflow-hidden text-ellipsis">
             {children}
           </span>
         ) : (
-          <span>{label}</span>
+          <span className="max-w-full overflow-hidden text-ellipsis">{label}</span>
         )}
         {Icon && <Icon className="w-4 h-4 ml-2 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />}
       </Link>
@@ -197,7 +197,7 @@ export default function InlineButtonEditor({
 
   return (
     <>
-      <div ref={buttonRef} className="relative inline-block">
+      <div ref={buttonRef} className="relative inline-block max-w-full">
         <button
           type="button"
           onClick={(e) => {
@@ -205,7 +205,7 @@ export default function InlineButtonEditor({
             e.stopPropagation();
             setIsOpen(true);
           }}
-          className={`${className} relative group/btnedit rounded-none ring-2 ring-dashed ${
+          className={`${className} max-w-full overflow-hidden relative group/btnedit rounded-none ring-2 ring-dashed ${
             visible 
               ? "ring-[#C5A880]/70 hover:ring-[#C5A880]" 
               : "ring-rose-500/70 hover:ring-rose-500 opacity-60 line-through"
@@ -213,11 +213,11 @@ export default function InlineButtonEditor({
           title="Click to manage button text, link URL, type, target, and visibility"
         >
           {children ? (
-            <span className="inline-flex items-center justify-center gap-2">
+            <span className="inline-flex items-center justify-center gap-2 max-w-full overflow-hidden text-ellipsis">
               {children}
             </span>
           ) : (
-            <span>{label}</span>
+            <span className="max-w-full overflow-hidden text-ellipsis">{label}</span>
           )}
           {Icon && <Icon className="w-4 h-4 ml-2 shrink-0" />}
 

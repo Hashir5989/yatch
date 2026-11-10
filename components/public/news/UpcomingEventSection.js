@@ -204,20 +204,20 @@ export default function UpcomingEventSection({ events = [] }) {
                     <div className="flex flex-wrap items-center gap-3">
                       <Link
                         href={`/contact?event=${encodeURIComponent(exhibitionTitle)}`}
-                        className="saxdor-btn-solid !h-[44px] !px-6 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer shadow-lg rounded-none flex-1 justify-center"
+                        className="saxdor-btn-solid !h-[44px] !px-5 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer shadow-lg rounded-none flex-1 min-w-[140px] max-w-full overflow-hidden justify-center"
                       >
-                        <span>Book VIP Walkthrough</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <span className="truncate max-w-full">Book VIP Walkthrough</span>
+                        <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                       </Link>
 
                       <a
                         href={`https://wa.me/971565268126?text=${whatsappMessage}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="saxdor-btn-outline !h-[44px] !px-5 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer rounded-none text-[#25D366] border-[#25D366]/40 hover:bg-[#25D366]/10 flex-1 justify-center"
+                        className="saxdor-btn-outline !h-[44px] !px-4 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer rounded-none text-[#25D366] border-[#25D366]/40 hover:bg-[#25D366]/10 flex-1 min-w-[140px] max-w-full overflow-hidden justify-center"
                       >
-                        <WhatsAppIcon className="w-4 h-4 fill-current" />
-                        <span>WhatsApp Desk</span>
+                        <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
+                        <span className="truncate max-w-full">WhatsApp Desk</span>
                       </a>
                     </div>
                   </div>

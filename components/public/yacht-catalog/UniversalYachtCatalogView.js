@@ -434,9 +434,9 @@ export default function UniversalYachtCatalogView() {
                       <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3 w-full">
                         <Link
                           href={`/yachts/${model.slug}`}
-                          className="flex-1 min-w-0 w-full sm:w-auto saxdor-btn-solid !h-auto min-h-[44px] sm:!h-[46px] !px-4 sm:!px-5 text-[11px] sm:text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none text-center"
+                          className="w-full sm:w-auto flex-1 sm:flex-initial sm:min-w-[150px] max-w-full overflow-hidden saxdor-btn-solid !h-auto min-h-[44px] sm:!h-[46px] !px-4 sm:!px-5 text-[11px] sm:text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none text-center"
                         >
-                          <span>Explore Dossier</span>
+                          <span className="truncate max-w-full">Explore Dossier</span>
                           <ArrowRight className="w-4 h-4 shrink-0" />
                         </Link>
 
@@ -445,18 +445,18 @@ export default function UniversalYachtCatalogView() {
                             href={model.brochureUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex-1 min-w-0 w-full sm:w-auto saxdor-btn-outline !h-auto min-h-[44px] sm:!h-[46px] !px-4 sm:!px-5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73] text-center"
+                            className="w-full sm:w-auto flex-1 sm:flex-initial sm:min-w-[150px] max-w-full overflow-hidden saxdor-btn-outline !h-auto min-h-[44px] sm:!h-[46px] !px-4 sm:!px-5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73] text-center"
                           >
                             <Download className="w-3.5 h-3.5 text-[#C6A155] shrink-0" />
-                            <span>{model.brochureLabel || "Brochure (PDF)"}</span>
+                            <span className="truncate max-w-full">{model.brochureLabel || "Brochure (PDF)"}</span>
                           </a>
                         ) : (
                           <Link
                             href="/contact"
-                            className="flex-1 min-w-0 w-full sm:w-auto saxdor-btn-outline !h-auto min-h-[44px] sm:!h-[46px] !px-4 sm:!px-5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73] text-center"
+                            className="w-full sm:w-auto flex-1 sm:flex-initial sm:min-w-[150px] max-w-full overflow-hidden saxdor-btn-outline !h-auto min-h-[44px] sm:!h-[46px] !px-4 sm:!px-5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73] text-center"
                           >
                             <Mail className="w-3.5 h-3.5 text-[#C6A155] shrink-0" />
-                            <span>Request Brochure</span>
+                            <span className="truncate max-w-full">Request Brochure</span>
                           </Link>
                         )}
 

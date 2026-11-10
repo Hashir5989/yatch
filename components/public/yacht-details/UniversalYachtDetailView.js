@@ -248,9 +248,9 @@ export default function UniversalYachtDetailView({
                     onUpdateField && onUpdateField("heroPrimaryButtonText", newText);
                     onUpdateField && onUpdateField("heroPrimaryButtonUrl", newUrl);
                   }}
-                  className="w-full sm:w-auto saxdor-btn-solid !h-auto min-h-[44px] sm:!h-[52px] !px-4 sm:!px-8 text-[11px] sm:text-xs font-semibold tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer text-center"
+                  className="w-full sm:w-auto max-w-full overflow-hidden saxdor-btn-solid !h-auto min-h-[44px] sm:!h-[50px] !px-4 sm:!px-7 text-[11px] sm:text-xs font-semibold tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer text-center"
                 >
-                  <span>{data.heroPrimaryButtonText || "Book Private Viewing"}</span>
+                  <span className="truncate max-w-full">{data.heroPrimaryButtonText || "Book Private Viewing"}</span>
                   <ArrowUpRight className="w-4 h-4 shrink-0" />
                 </InlineButtonEditor>
 
@@ -270,10 +270,10 @@ export default function UniversalYachtDetailView({
                     onUpdateField && onUpdateField("brochureLabel", newText);
                     onUpdateField && onUpdateField("brochureUrl", newUrl);
                   }}
-                  className="w-full sm:w-auto saxdor-btn-outline !h-auto min-h-[44px] sm:!h-[52px] !px-4 sm:!px-6 text-[11px] sm:text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 bg-[#080B10]/60 backdrop-blur-sm cursor-pointer text-center"
+                  className="w-full sm:w-auto max-w-full overflow-hidden saxdor-btn-outline !h-auto min-h-[44px] sm:!h-[50px] !px-4 sm:!px-6 text-[11px] sm:text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 bg-[#080B10]/60 backdrop-blur-sm cursor-pointer text-center"
                 >
                   <Download className="w-4 h-4 text-[#C8A870] shrink-0" />
-                  <span>{data.brochureLabel || "Download Brochure (PDF)"}</span>
+                  <span className="truncate max-w-full">{data.brochureLabel || "Download Brochure (PDF)"}</span>
                 </InlineButtonEditor>
 
                 <InlineButtonEditor
@@ -633,20 +633,20 @@ export default function UniversalYachtDetailView({
                           );
                           onUpdateField && onUpdateField("deckPlans", decks);
                         }}
-                        className="saxdor-btn-outline !h-[42px] !min-w-0 !px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer"
+                        className="saxdor-btn-outline !h-[42px] !min-w-0 !px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer max-w-full overflow-hidden"
                       >
                         <Maximize2 className="w-3.5 h-3.5 text-[#C8A870] shrink-0" />
-                        <span>{activeDeck.resolutionLabel || "View Full Resolution"}</span>
+                        <span className="truncate max-w-full">{activeDeck.resolutionLabel || "View Full Resolution"}</span>
                       </InlineButtonEditor>
                     ) : (
                       <button
                         type="button"
                         onClick={() => setDeckModalOpen(true)}
-                        className="saxdor-btn-outline !h-[42px] !min-w-0 !px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer hover:border-[#C8A870] hover:text-[#C8A870] transition-colors"
+                        className="saxdor-btn-outline !h-[42px] !min-w-0 !px-4 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer hover:border-[#C8A870] hover:text-[#C8A870] transition-colors max-w-full overflow-hidden"
                         title="Open full resolution deck specification"
                       >
                         <Maximize2 className="w-3.5 h-3.5 text-[#C8A870] shrink-0" />
-                        <span>{activeDeck.resolutionLabel || "View Full Resolution"}</span>
+                        <span className="truncate max-w-full">{activeDeck.resolutionLabel || "View Full Resolution"}</span>
                       </button>
                     )}
                   </div>

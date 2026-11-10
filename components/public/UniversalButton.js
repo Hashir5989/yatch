@@ -40,7 +40,7 @@ export default function UniversalButton({
   // Resolve style class name from predefined luxury variants or custom override
   const matchedStyle = BUTTON_STYLES.find((s) => s.id === normalized.style);
   const baseStyleClass = matchedStyle ? matchedStyle.className : BUTTON_STYLES[0].className;
-  const combinedClass = `max-w-full text-center ${baseStyleClass} ${className}`.trim();
+  const combinedClass = `max-w-full overflow-hidden text-ellipsis text-center ${baseStyleClass} ${className}`.trim();
 
   // If in CMS visual editor mode, wrap inside InlineButtonEditor
   if (isEditable) {
@@ -64,7 +64,7 @@ export default function UniversalButton({
 
   const content = (
     <>
-      <span>{children || normalized.label}</span>
+      <span className="truncate max-w-full inline-block">{children || normalized.label}</span>
       {CustomIcon && <CustomIcon className="w-4 h-4 shrink-0 ml-2 transition-transform duration-300 group-hover:translate-x-1" />}
       {normalized.type === "external" && !CustomIcon && (
         <ExternalLink className="w-3.5 h-3.5 shrink-0 ml-1.5 opacity-70 group-hover:opacity-100" />
