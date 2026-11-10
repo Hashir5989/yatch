@@ -1,10 +1,20 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getPagesServer, savePageServer, authenticateAdminRequest } from "@/lib/server/db";
+
 
 export async function GET() {
   try {
     const pages = await getPagesServer();
-    return NextResponse.json({ success: true, pages });
+    return NextResponse.json(
+      { success: true, pages },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
+          "CDN-Cache-Control": "no-store",
+        },
+      }
+    );
   } catch (err) {
     console.error("Error in GET /api/pages:", err);
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
@@ -26,7 +36,21 @@ export async function POST(req) {
       );
     }
     const saved = await savePageServer(pageData);
-    return NextResponse.json({ success: true, page: saved });
+
+    try {
+      if (saved?.slug) revalidatePath(saved.slug);
+      revalidatePath("/");
+      revalidatePath("/admin");
+    } catch (_) {}
+
+    return NextResponse.json(
+      { success: true, page: saved },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+      }
+    );
   } catch (err) {
     console.error("Error in POST /api/pages:", err);
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });

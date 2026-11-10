@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getArticlesServer, saveArticleServer, authenticateAdminRequest } from "@/lib/server/db";
+
 
 export async function GET(request) {
   try {
@@ -12,7 +14,15 @@ export async function GET(request) {
     const publishedOnly = !isAdmin || publishedParam === "true";
 
     const articles = await getArticlesServer(publishedOnly);
-    return NextResponse.json({ success: true, articles });
+    return NextResponse.json(
+      { success: true, articles },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
+          "CDN-Cache-Control": "no-store",
+        },
+      }
+    );
   } catch (err) {
     console.error("News GET API error:", err);
     return NextResponse.json({ success: false, error: "Failed to load news articles" }, { status: 500 });
@@ -70,7 +80,23 @@ export async function POST(request) {
     };
 
     const saved = await saveArticleServer(cleanedArticle);
-    return NextResponse.json({ success: true, article: saved });
+
+    try {
+      revalidatePath("/news");
+      if (saved?.slug) revalidatePath(`/news/${saved.slug}`);
+      revalidatePath("/events");
+      revalidatePath("/");
+      revalidatePath("/admin/news");
+    } catch (_) {}
+
+    return NextResponse.json(
+      { success: true, article: saved },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+      }
+    );
   } catch (err) {
     console.error("News POST API error:", err);
     return NextResponse.json({ success: false, error: "Failed to create article" }, { status: 500 });

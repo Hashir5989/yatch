@@ -293,25 +293,6 @@ function VisualPageEditorInner() {
 
   /* ==================== WORKFLOW: SAVE & PUBLISH ==================== */
 
-  const handleSaveDraft = async () => {
-    if (!pageId || !pageMeta) return;
-    try {
-      const res = await savePageDraftAsync(pageId, {
-        sections: draftSections,
-        title: pageMeta.title,
-        slug: pageMeta.slug,
-      });
-      if (res && res.success) {
-        setHasUnsavedChanges(true);
-        showToast("Draft saved successfully to server & locally");
-      } else {
-        showToast(res?.error ? `Draft saved locally (Warning: ${res.error})` : "Draft saved locally");
-      }
-    } catch (err) {
-      showToast("Draft saved locally: " + err.message);
-    }
-  };
-
   const handlePublish = async () => {
     if (!pageId || !pageMeta || isPublishing) return;
     setIsPublishing(true);
@@ -337,6 +318,24 @@ function VisualPageEditorInner() {
       setIsPublishing(false);
     }
   };
+
+  const handleSaveDraft = async () => {
+    if (!pageId || !pageMeta) return;
+    // Auto-publish so changes are immediately live on the server and visible across all browsers
+    return handlePublish();
+  };
+
+  // Keyboard shortcut Ctrl+S / Cmd+S to publish live
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+        e.preventDefault();
+        handlePublish();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [draftSections, pageMeta, isPublishing]);
 
   if (!pageMeta) {
     return (
@@ -473,27 +472,17 @@ function VisualPageEditorInner() {
             <ExternalLink className="w-3.5 h-3.5" />
           </Link>
 
-          {/* Save Draft */}
-          <button
-            onClick={handleSaveDraft}
-            className={`px-3 py-1.5 rounded-sm text-xs font-medium border transition-all flex items-center gap-1.5 ${
-              hasUnsavedChanges
-                ? "bg-[#182333] hover:bg-[#223249] text-[#E0C7A6] border-[#C5A880]/50"
-                : "bg-[#111722] text-[#6F7D90] border-transparent"
-            }`}
-          >
-            <Save className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">Save Draft</span>
-          </button>
-
-          {/* Publish Changes */}
+          {/* Save & Publish Live Button (Primary Action) */}
           <button
             onClick={handlePublish}
             disabled={isPublishing}
-            className="btn-gold px-4 py-1.5 rounded-sm text-xs font-semibold tracking-wider flex items-center gap-1.5 shadow-md disabled:opacity-50"
+            className={`btn-gold px-4 py-1.5 rounded-sm text-xs font-semibold tracking-wider flex items-center gap-1.5 shadow-md disabled:opacity-50 cursor-pointer ${
+              hasUnsavedChanges ? "ring-2 ring-[#C5A880]/70 animate-pulse" : ""
+            }`}
+            title="Publish live to website and synchronize database across all browsers (Ctrl+S)"
           >
             <Sparkles className={`w-3.5 h-3.5 ${isPublishing ? "animate-spin" : ""}`} />
-            <span>{isPublishing ? "Publishing..." : "Publish"}</span>
+            <span>{isPublishing ? "Publishing..." : hasUnsavedChanges ? "Publish Live Changes *" : "Saved & Published"}</span>
           </button>
         </div>
       </header>

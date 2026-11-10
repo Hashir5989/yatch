@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getArticleByIdServer, saveArticleServer, deleteArticleServer, authenticateAdminRequest } from "@/lib/server/db";
+
 
 export async function GET(request, { params }) {
   try {
@@ -17,7 +19,15 @@ export async function GET(request, { params }) {
       return NextResponse.json({ success: false, error: "Access denied" }, { status: 403 });
     }
 
-    return NextResponse.json({ success: true, article });
+    return NextResponse.json(
+      { success: true, article },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
+          "CDN-Cache-Control": "no-store",
+        },
+      }
+    );
   } catch (err) {
     console.error("News GET by ID error:", err);
     return NextResponse.json({ success: false, error: "Failed to load article" }, { status: 500 });
@@ -39,7 +49,23 @@ export async function PUT(request, { params }) {
     }
 
     const saved = await saveArticleServer({ ...articleData, id });
-    return NextResponse.json({ success: true, article: saved });
+
+    try {
+      revalidatePath("/news");
+      if (saved?.slug) revalidatePath(`/news/${saved.slug}`);
+      revalidatePath("/events");
+      revalidatePath("/");
+      revalidatePath("/admin/news");
+    } catch (_) {}
+
+    return NextResponse.json(
+      { success: true, article: saved },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+      }
+    );
   } catch (err) {
     console.error("News PUT error:", err);
     return NextResponse.json({ success: false, error: "Failed to update article" }, { status: 500 });
@@ -56,7 +82,21 @@ export async function DELETE(request, { params }) {
     const { id } = await params;
     const success = await deleteArticleServer(id);
 
-    return NextResponse.json({ success, message: success ? "Article deleted" : "Article not found" });
+    try {
+      revalidatePath("/news");
+      revalidatePath("/events");
+      revalidatePath("/");
+      revalidatePath("/admin/news");
+    } catch (_) {}
+
+    return NextResponse.json(
+      { success, message: success ? "Article deleted" : "Article not found" },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+      }
+    );
   } catch (err) {
     console.error("News DELETE error:", err);
     return NextResponse.json({ success: false, error: "Failed to delete article" }, { status: 500 });

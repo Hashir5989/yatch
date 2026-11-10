@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { saveYachtServer, deleteYachtServer, authenticateAdminRequest } from "@/lib/server/db";
+
 
 export async function PUT(request, { params }) {
   try {
@@ -12,7 +14,22 @@ export async function PUT(request, { params }) {
     const yachtData = await request.json();
 
     const saved = await saveYachtServer({ ...yachtData, id });
-    return NextResponse.json({ success: true, yacht: saved });
+
+    try {
+      revalidatePath("/yachts");
+      if (saved?.slug) revalidatePath(`/yachts/${saved.slug}`);
+      revalidatePath("/");
+      revalidatePath("/admin/yachts");
+    } catch (_) {}
+
+    return NextResponse.json(
+      { success: true, yacht: saved },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+      }
+    );
   } catch (err) {
     console.error("Yacht PUT API error:", err);
     return NextResponse.json({ success: false, error: err.message || "Failed to update yacht" }, { status: 400 });
@@ -29,7 +46,20 @@ export async function DELETE(request, { params }) {
     const { id } = await params;
     await deleteYachtServer(id);
 
-    return NextResponse.json({ success: true, message: "Yacht deleted successfully" });
+    try {
+      revalidatePath("/yachts");
+      revalidatePath("/");
+      revalidatePath("/admin/yachts");
+    } catch (_) {}
+
+    return NextResponse.json(
+      { success: true, message: "Yacht deleted successfully" },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+      }
+    );
   } catch (err) {
     console.error("Yacht DELETE API error:", err);
     return NextResponse.json({ success: false, error: "Failed to delete yacht" }, { status: 500 });

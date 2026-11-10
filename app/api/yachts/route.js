@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getYachtsServer, saveYachtServer, authenticateAdminRequest } from "@/lib/server/db";
+
 
 export async function GET(request) {
   try {
@@ -11,7 +13,15 @@ export async function GET(request) {
       ? allYachts.filter((y) => y.status !== "draft")
       : allYachts;
 
-    return NextResponse.json({ success: true, yachts: result });
+    return NextResponse.json(
+      { success: true, yachts: result },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
+          "CDN-Cache-Control": "no-store",
+        },
+      }
+    );
   } catch (err) {
     console.error("Yachts GET API error:", err);
     return NextResponse.json({ success: false, error: "Failed to load yachts" }, { status: 500 });
@@ -31,7 +41,22 @@ export async function POST(request) {
     }
 
     const saved = await saveYachtServer(yachtData);
-    return NextResponse.json({ success: true, yacht: saved });
+
+    try {
+      revalidatePath("/yachts");
+      if (saved?.slug) revalidatePath(`/yachts/${saved.slug}`);
+      revalidatePath("/");
+      revalidatePath("/admin/yachts");
+    } catch (_) {}
+
+    return NextResponse.json(
+      { success: true, yacht: saved },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+      }
+    );
   } catch (err) {
     console.error("Yachts POST API error:", err);
     return NextResponse.json({ success: false, error: err.message || "Failed to create yacht" }, { status: 400 });
