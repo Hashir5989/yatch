@@ -1,24 +1,19 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { verifySessionToken } from "@/lib/server/db";
-
+import { authenticateAdminRequest, createSessionToken } from "@/lib/server/db";
 
 export async function GET(request) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("asm_admin_session")?.value;
+    const session = await authenticateAdminRequest(request);
 
-    if (!token) {
-      return NextResponse.json({ authenticated: false, user: null });
-    }
-
-    const session = verifySessionToken(token);
     if (!session) {
       return NextResponse.json({ authenticated: false, user: null });
     }
 
+    const token = createSessionToken(session);
+
     return NextResponse.json({
       authenticated: true,
+      token,
       user: {
         id: session.id,
         email: session.email,

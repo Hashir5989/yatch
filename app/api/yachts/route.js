@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { getYachtsServer, saveYachtServer, verifySessionToken } from "@/lib/server/db";
-
+import { getYachtsServer, saveYachtServer, authenticateAdminRequest } from "@/lib/server/db";
 
 export async function GET(request) {
   try {
@@ -22,10 +20,8 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("asm_admin_session")?.value;
-
-    if (!token || !verifySessionToken(token)) {
+    const session = await authenticateAdminRequest(request);
+    if (!session) {
       return NextResponse.json({ success: false, error: "Unauthorized. Admin login required." }, { status: 401 });
     }
 

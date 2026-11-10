@@ -48,6 +48,12 @@ export default function AdminLoginPage() {
         return;
       }
 
+      if (data.token) {
+        try {
+          localStorage.setItem("asm_admin_session_token", data.token);
+        } catch (_) {}
+      }
+
       // Success: hard redirect to target admin page to ensure fresh cookie transmission
       window.location.href = redirect || "/admin";
     } catch (err) {

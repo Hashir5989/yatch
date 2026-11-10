@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { getPageByIdServer, savePageServer, deletePageServer, verifySessionToken } from "@/lib/server/db";
-
+import { getPageByIdServer, savePageServer, deletePageServer, authenticateAdminRequest } from "@/lib/server/db";
 
 export async function GET(req, { params }) {
   try {
@@ -19,10 +17,8 @@ export async function GET(req, { params }) {
 
 export async function PUT(req, { params }) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("asm_admin_session")?.value;
-
-    if (!token || !verifySessionToken(token)) {
+    const session = await authenticateAdminRequest(req);
+    if (!session) {
       return NextResponse.json({ success: false, error: "Unauthorized. Admin login required." }, { status: 401 });
     }
 
@@ -38,10 +34,8 @@ export async function PUT(req, { params }) {
 
 export async function DELETE(req, { params }) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("asm_admin_session")?.value;
-
-    if (!token || !verifySessionToken(token)) {
+    const session = await authenticateAdminRequest(req);
+    if (!session) {
       return NextResponse.json({ success: false, error: "Unauthorized. Admin login required." }, { status: 401 });
     }
 

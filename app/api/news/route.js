@@ -1,14 +1,12 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { getArticlesServer, saveArticleServer, verifySessionToken } from "@/lib/server/db";
+import { getArticlesServer, saveArticleServer, authenticateAdminRequest } from "@/lib/server/db";
 
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const publishedParam = searchParams.get("published");
-    const cookieStore = await cookies();
-    const token = cookieStore.get("asm_admin_session")?.value;
-    const isAdmin = Boolean(token && verifySessionToken(token));
+    const session = await authenticateAdminRequest(request);
+    const isAdmin = Boolean(session);
 
     // Non-admin requests or explicit published=true only receive published articles
     const publishedOnly = !isAdmin || publishedParam === "true";
@@ -23,10 +21,9 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("asm_admin_session")?.value;
+    const session = await authenticateAdminRequest(request);
 
-    if (!token || !verifySessionToken(token)) {
+    if (!session) {
       return NextResponse.json({ success: false, error: "Unauthorized. Admin session required." }, { status: 401 });
     }
 

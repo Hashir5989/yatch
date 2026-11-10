@@ -31,8 +31,11 @@ import MediaPickerModal from "@/components/cms/MediaPickerModal";
 import { 
   getAllArticles, 
   saveArticle, 
+  saveArticleAsync,
   deleteArticle,
+  deleteArticleAsync,
   togglePublishArticle,
+  togglePublishArticleAsync,
   syncArticlesFromServer
 } from "@/lib/cmsStore";
 
@@ -160,20 +163,26 @@ export default function AdminNewsScreen() {
     setIsEditorOpen(true);
   };
 
-  const handleDelete = (id, title) => {
+  const handleDelete = async (id, title) => {
     if (confirm(`Are you sure you want to delete "${title}"? This cannot be undone.`)) {
-      deleteArticle(id);
-      loadArticles();
-      showToast(`Deleted "${title}"`);
+      const res = await deleteArticleAsync(id);
+      if (res && res.success) {
+        loadArticles();
+        showToast(`Deleted "${title}"`);
+      } else {
+        showToast(res?.error || "Failed to delete article", "error");
+      }
     }
   };
 
-  const handleTogglePublish = (art) => {
-    const updated = togglePublishArticle(art.id);
-    if (updated) {
+  const handleTogglePublish = async (art) => {
+    const res = await togglePublishArticleAsync(art.id);
+    if (res && res.success) {
       loadArticles();
-      const statusLabel = updated.status === "published" ? "Published live" : "Saved as Draft";
+      const statusLabel = res.article?.status === "published" ? "Published live" : "Saved as Draft";
       showToast(`"${art.title}" is now ${statusLabel}`);
+    } else {
+      showToast(res?.error || "Failed to toggle article status", "error");
     }
   };
 
@@ -192,7 +201,7 @@ export default function AdminNewsScreen() {
     }
   };
 
-  const handleSaveArticleForm = (e) => {
+  const handleSaveArticleForm = async (e) => {
     e.preventDefault();
     if (!currentArticle.title.trim()) {
       alert("Please provide an article title.");
@@ -226,10 +235,14 @@ export default function AdminNewsScreen() {
       }
     };
 
-    saveArticle(payload);
-    loadArticles();
-    setIsEditorOpen(false);
-    showToast(`Saved article "${payload.title}"`);
+    const res = await saveArticleAsync(payload);
+    if (res && res.success) {
+      loadArticles();
+      setIsEditorOpen(false);
+      showToast(`Saved article "${payload.title}"`);
+    } else {
+      showToast(res?.error || "Failed to persist article changes", "error");
+    }
   };
 
   // Direct file upload handler
@@ -242,8 +255,18 @@ export default function AdminNewsScreen() {
     formData.append("file", file);
 
     try {
+      const headers = {};
+      if (typeof window !== "undefined") {
+        try {
+          const t = localStorage.getItem("asm_admin_session_token");
+          if (t) headers["Authorization"] = `Bearer ${t}`;
+        } catch (_) {}
+      }
+
       const res = await fetch("/api/media/upload", {
         method: "POST",
+        credentials: "include",
+        headers,
         body: formData
       });
       const data = await res.json();

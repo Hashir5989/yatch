@@ -35,7 +35,9 @@ import {
   getPageById, 
   getPageDraft, 
   savePageDraft, 
-  publishPage 
+  savePageDraftAsync,
+  publishPage,
+  getAuthHeaders 
 } from "@/lib/cmsStore";
 import { SECTION_TEMPLATES } from "@/lib/data/sectionTemplates";
 import { DEFAULT_ABOUT_PAGE } from "@/lib/data/defaultPages";
@@ -94,7 +96,8 @@ function VisualPageEditorInner() {
       try {
         const res = await fetch(`/api/pages/${encodeURIComponent(pageId)}?t=${Date.now()}`, {
           cache: "no-store",
-          headers: { "Cache-Control": "no-cache" },
+          headers: getAuthHeaders({ "Cache-Control": "no-cache" }),
+          credentials: "include",
         });
 
         if (res.ok) {
@@ -290,34 +293,42 @@ function VisualPageEditorInner() {
 
   /* ==================== WORKFLOW: SAVE & PUBLISH ==================== */
 
-  const handleSaveDraft = () => {
-    if (!pageId) return;
-    savePageDraft(pageId, {
-      sections: draftSections,
-      title: pageMeta.title,
-      slug: pageMeta.slug,
-    });
-    setHasUnsavedChanges(false);
-    showToast("Draft saved locally");
+  const handleSaveDraft = async () => {
+    if (!pageId || !pageMeta) return;
+    try {
+      const res = await savePageDraftAsync(pageId, {
+        sections: draftSections,
+        title: pageMeta.title,
+        slug: pageMeta.slug,
+      });
+      if (res && res.success) {
+        setHasUnsavedChanges(true);
+        showToast("Draft saved successfully to server & locally");
+      } else {
+        showToast(res?.error ? `Draft saved locally (Warning: ${res.error})` : "Draft saved locally");
+      }
+    } catch (err) {
+      showToast("Draft saved locally: " + err.message);
+    }
   };
 
   const handlePublish = async () => {
     if (!pageId || !pageMeta || isPublishing) return;
     setIsPublishing(true);
     try {
-      savePageDraft(pageId, {
+      await savePageDraftAsync(pageId, {
         sections: draftSections,
         title: pageMeta.title,
         slug: pageMeta.slug,
       });
-      const ok = await publishPage(pageId);
-      if (ok) {
+      const res = await publishPage(pageId);
+      if (res && res.success) {
         setHasUnsavedChanges(false);
         const updated = getPageById(pageId);
         if (updated) setPageMeta(updated);
-        showToast("Published to live website!");
+        showToast("Published live to website and synchronized!");
       } else {
-        showToast("Error publishing page");
+        showToast(res?.error || "Error publishing page to server", "error");
       }
     } catch (err) {
       console.error("Error publishing page:", err);

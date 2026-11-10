@@ -39,8 +39,11 @@ import {
   deleteYacht,
   deleteYachtAsync,
   duplicateYacht,
+  duplicateYachtAsync,
   reorderYachts,
+  reorderYachtsAsync,
   togglePublishYacht,
+  togglePublishYachtAsync,
   syncYachtsFromServer
 } from "@/lib/cmsStore";
 
@@ -233,13 +236,13 @@ export default function YachtManagementScreen() {
   // -------------------------------------------------------------
   // DUPLICATE YACHT
   // -------------------------------------------------------------
-  const handleDuplicate = (yacht) => {
-    const dup = duplicateYacht(yacht.id);
-    if (dup) {
+  const handleDuplicate = async (yacht) => {
+    const res = await duplicateYachtAsync(yacht.id);
+    if (res && res.success) {
       loadYachts();
-      showToast(`Duplicated "${yacht.name}". New draft created as "${dup.name}".`);
+      showToast(`Duplicated "${yacht.name}". New draft created as "${res.yacht?.name}".`);
     } else {
-      showToast("Failed to duplicate yacht model.", "error");
+      showToast(res?.error || "Failed to duplicate yacht model.", "error");
     }
   };
 
@@ -267,19 +270,21 @@ export default function YachtManagementScreen() {
   // -------------------------------------------------------------
   // TOGGLE PUBLISH / UNPUBLISH
   // -------------------------------------------------------------
-  const handleTogglePublish = (yacht) => {
-    const updated = togglePublishYacht(yacht.id);
-    if (updated) {
+  const handleTogglePublish = async (yacht) => {
+    const res = await togglePublishYachtAsync(yacht.id);
+    if (res && res.success) {
       loadYachts();
-      const statusLabel = updated.status === "published" ? "Published live" : "Unpublished (Draft)";
+      const statusLabel = res.yacht?.status === "published" ? "Published live" : "Unpublished (Draft)";
       showToast(`"${yacht.name}" is now ${statusLabel}`);
+    } else {
+      showToast(res?.error || "Failed to toggle yacht status", "error");
     }
   };
 
   // -------------------------------------------------------------
   // REORDERING
   // -------------------------------------------------------------
-  const handleMoveUp = (index) => {
+  const handleMoveUp = async (index) => {
     if (index <= 0) return;
     const reorderedList = [...yachts];
     const temp = reorderedList[index];
@@ -287,12 +292,12 @@ export default function YachtManagementScreen() {
     reorderedList[index - 1] = temp;
 
     const orderedIds = reorderedList.map((y) => y.id);
-    const updated = reorderYachts(orderedIds);
-    setYachts(updated);
+    setYachts(reorderedList);
     showToast(`Moved "${temp.name || temp.modelNumber}" up (Order #${index})`);
+    await reorderYachtsAsync(orderedIds);
   };
 
-  const handleMoveDown = (index) => {
+  const handleMoveDown = async (index) => {
     if (index >= yachts.length - 1) return;
     const reorderedList = [...yachts];
     const temp = reorderedList[index];
@@ -300,9 +305,9 @@ export default function YachtManagementScreen() {
     reorderedList[index + 1] = temp;
 
     const orderedIds = reorderedList.map((y) => y.id);
-    const updated = reorderYachts(orderedIds);
-    setYachts(updated);
+    setYachts(reorderedList);
     showToast(`Moved "${temp.name || temp.modelNumber}" down (Order #${index + 2})`);
+    await reorderYachtsAsync(orderedIds);
   };
 
   // -------------------------------------------------------------

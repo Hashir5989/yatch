@@ -23,8 +23,11 @@ import CmsHeader from "@/components/cms/CmsHeader";
 import {
   getAllPages,
   createPage,
+  createPageAsync,
   duplicatePage,
+  duplicatePageAsync,
   deletePage,
+  deletePageAsync,
   syncPagesFromServer
 } from "@/lib/cmsStore";
 
@@ -61,25 +64,29 @@ export default function AdminPagesScreen() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleDuplicate = (pageId, title) => {
-    const dup = duplicatePage(pageId);
-    if (dup) {
+  const handleDuplicate = async (pageId, title) => {
+    const res = await duplicatePageAsync(pageId);
+    if (res && res.success) {
       loadPages();
       showToast(`Duplicated "${title}" as a draft`);
+    } else {
+      showToast(res?.error || "Failed to duplicate page", "error");
     }
   };
 
-  const handleDelete = (pageId, title) => {
+  const handleDelete = async (pageId, title) => {
     if (confirm(`Are you sure you want to delete "${title}"?`)) {
-      const ok = deletePage(pageId);
-      if (ok) {
+      const res = await deletePageAsync(pageId);
+      if (res && res.success) {
         loadPages();
         showToast(`Deleted "${title}"`);
+      } else {
+        showToast(res?.error || "Failed to delete page", "error");
       }
     }
   };
 
-  const handleCreatePage = (e) => {
+  const handleCreatePage = async (e) => {
     e.preventDefault();
     if (!newTitle.trim()) return;
 
@@ -91,17 +98,21 @@ export default function AdminPagesScreen() {
       slug = `/${slug}`;
     }
 
-    const created = createPage({
+    const res = await createPageAsync({
       title: newTitle.trim(),
       slug,
       template: newTemplate,
     });
 
-    setIsCreateModalOpen(false);
-    setNewTitle("");
-    setNewSlug("");
-    showToast(`Created new page "${created.title}"`);
-    router.push(`/admin/editor/${created.id}`);
+    if (res && res.success && res.page) {
+      setIsCreateModalOpen(false);
+      setNewTitle("");
+      setNewSlug("");
+      showToast(`Created new page "${res.page.title}"`);
+      router.push(`/admin/editor/${res.page.id}`);
+    } else {
+      showToast(res?.error || "Failed to create page", "error");
+    }
   };
 
   // Auto-generate slug from title if user hasn't typed a custom slug

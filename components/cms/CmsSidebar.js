@@ -40,7 +40,10 @@ export default function CmsSidebar({ currentUser }) {
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
-      await fetch("/api/auth/logout", { method: "POST" });
+      try {
+        localStorage.removeItem("asm_admin_session_token");
+      } catch (_) {}
+      await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
       router.push("/admin/login");
       router.refresh();
     } catch (err) {

@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import fs from "fs";
 import path from "path";
-import { verifySessionToken } from "@/lib/server/db";
+import { authenticateAdminRequest } from "@/lib/server/db";
 
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
@@ -16,10 +15,9 @@ const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB limit
 
 export async function POST(request) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("asm_admin_session")?.value;
+    const session = await authenticateAdminRequest(request);
 
-    if (!token || !verifySessionToken(token)) {
+    if (!session) {
       return NextResponse.json(
         { success: false, error: "Unauthorized. Admin session required." },
         { status: 401 }

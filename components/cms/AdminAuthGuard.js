@@ -20,13 +20,31 @@ export default function AdminAuthGuard({ children }) {
 
     async function checkAuth() {
       try {
-        const res = await fetch("/api/auth/session");
+        let authHeader = {};
+        if (typeof window !== "undefined") {
+          try {
+            const storedToken = localStorage.getItem("asm_admin_session_token");
+            if (storedToken) {
+              authHeader = { Authorization: `Bearer ${storedToken}` };
+            }
+          } catch (_) {}
+        }
+
+        const res = await fetch("/api/auth/session", {
+          credentials: "include",
+          headers: authHeader,
+        });
         const data = await res.json();
 
         if (isMounted) {
           if (data.authenticated && data.user) {
             setAdminUser(data.user);
             setAuthStatus("authorized");
+            if (data.token) {
+              try {
+                localStorage.setItem("asm_admin_session_token", data.token);
+              } catch (_) {}
+            }
           } else {
             setAuthStatus("unauthorized");
             router.push(`/admin/login?redirect=${encodeURIComponent(pathname)}`);

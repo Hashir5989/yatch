@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { getArticleByIdServer, saveArticleServer, deleteArticleServer, verifySessionToken } from "@/lib/server/db";
+import { getArticleByIdServer, saveArticleServer, deleteArticleServer, authenticateAdminRequest } from "@/lib/server/db";
 
 export async function GET(request, { params }) {
   try {
@@ -10,9 +9,8 @@ export async function GET(request, { params }) {
       return NextResponse.json({ success: false, error: "Article not found" }, { status: 404 });
     }
 
-    const cookieStore = await cookies();
-    const token = cookieStore.get("asm_admin_session")?.value;
-    const isAdmin = Boolean(token && verifySessionToken(token));
+    const session = await authenticateAdminRequest(request);
+    const isAdmin = Boolean(session);
 
     // If draft and not admin, reject
     if (article.status !== "published" && !isAdmin) {
@@ -28,10 +26,8 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("asm_admin_session")?.value;
-
-    if (!token || !verifySessionToken(token)) {
+    const session = await authenticateAdminRequest(request);
+    if (!session) {
       return NextResponse.json({ success: false, error: "Unauthorized. Admin session required." }, { status: 401 });
     }
 
@@ -52,10 +48,8 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("asm_admin_session")?.value;
-
-    if (!token || !verifySessionToken(token)) {
+    const session = await authenticateAdminRequest(request);
+    if (!session) {
       return NextResponse.json({ success: false, error: "Unauthorized. Admin session required." }, { status: 401 });
     }
 
