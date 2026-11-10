@@ -10,6 +10,7 @@
     "readingTime": "5 min read",
     "status": "published",
     "bannerPosition": "top",
+    "bannerPosition": "top",
     "featuredImage": "/images/news/dibs-2026-dubai-boat-show.jpg",
     "featuredImageAlt": "ASMARATY Flagship Yacht at Dubai International Boat Show 2026 at Dubai Harbour",
     "excerpt": "ASMARATY Luxury Yachts and Al Shaali Marine announce their official participation at the Dubai International Boat Show 2026, welcoming global collectors and VIP guests to dedicated deep-water superyacht berths at Dubai Harbour from 25th to 29th November 2026.",
@@ -168,8 +169,9 @@
     "publishedAt": "2026-11-04",
     "readingTime": "6 min read",
     "status": "published",
-    "bannerPosition": "center",
-    "featuredImage": "/images/news/inauguration/6311844283228558315.jpg",
+    "bannerPosition": "top",
+    "bannerPosition": "top",
+    "featuredImage": "/images/uploads/6311844283228558322-1794330806208.jpg",
     "featuredImageAlt": "ASMARATY G77 official inauguration and ribbon ceremony on the teak foredeck at Old Doha Port",
     "excerpt": "Al Shaali Marine and ASMARATY officially unveil the newly launched G77 luxury yacht at the Qatar International Boat Show 2026, welcoming distinguished collectors to Stand D06 at Old Doha Port with an unprecedented 25-Year Shipyard Warranty.",
     "eventDetails": {
@@ -269,6 +271,6 @@
       "canonicalUrl": "https://asmaraty.com/news/asmaraty-g77-qatar-international-boat-show-2026"
     },
     "relatedArticleIds": [],
-    "updatedAt": "2026-11-10T17:14:02.738Z"
+    "updatedAt": "2026-11-10T17:14:43.207Z"
   }
 ]
