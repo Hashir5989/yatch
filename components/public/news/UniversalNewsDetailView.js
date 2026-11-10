@@ -20,7 +20,7 @@ import {
   Quote
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
-import { getArticleBySlug, getAllArticles } from "@/lib/cmsStore";
+import { getArticleBySlug, getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 
 function formatDate(dateStr) {
@@ -42,7 +42,17 @@ export default function UniversalNewsDetailView({ initialArticle, slug }) {
 
   useEffect(() => {
     // Read local cache immediately upon mounting
+    const cached = getArticleBySlug(slug, false);
+    if (cached) setArticle(cached);
     setAllArticles(getAllArticles(true));
+
+    syncArticlesFromServer(false).then((synced) => {
+      if (Array.isArray(synced)) {
+        const fresh = synced.find((a) => a.slug === slug || a.id === slug);
+        if (fresh) setArticle(fresh);
+        setAllArticles(synced.filter((a) => a.status === "published"));
+      }
+    });
 
     const handleUpdate = () => {
       const fresh = getArticleBySlug(slug, false);

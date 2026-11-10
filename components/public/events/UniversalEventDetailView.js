@@ -22,7 +22,7 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
-import { getEventBySlug } from "@/lib/cmsStore";
+import { getEventBySlug, syncEventsFromServer } from "@/lib/cmsStore";
 
 export default function UniversalEventDetailView({ event: initialEvent }) {
   const [event, setEvent] = useState(initialEvent);
@@ -31,7 +31,20 @@ export default function UniversalEventDetailView({ event: initialEvent }) {
 
   // Sync with CMS updates
   useEffect(() => {
-    setEvent(initialEvent);
+    if (initialEvent?.slug) {
+      const cached = getEventBySlug(initialEvent.slug, false);
+      if (cached) setEvent(cached);
+    }
+
+    syncEventsFromServer(false).then((synced) => {
+      if (Array.isArray(synced) && initialEvent?.slug) {
+        const fresh = synced.find(
+          (e) => e.slug === initialEvent.slug || e.id === initialEvent.id
+        );
+        if (fresh) setEvent(fresh);
+      }
+    });
+
     const handleUpdate = () => {
       if (initialEvent?.slug) {
         const fresh = getEventBySlug(initialEvent.slug, false);

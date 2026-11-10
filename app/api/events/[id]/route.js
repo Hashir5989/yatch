@@ -46,15 +46,15 @@ export async function PUT(request, { params }) {
     const id = resolvedParams.id;
     const body = await request.json();
 
-    const existing = await getEventByIdServer(id);
+    let existing = await getEventByIdServer(id);
     if (!existing) {
-      return NextResponse.json({ success: false, error: "Event not found" }, { status: 404 });
+      existing = await getEventBySlugServer(id);
     }
 
     const updated = {
-      ...existing,
+      ...(existing || {}),
       ...body,
-      id, // enforce ID continuity
+      id: existing?.id || id, // enforce ID continuity
       updatedAt: new Date().toISOString(),
     };
 
