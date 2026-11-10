@@ -108,16 +108,11 @@ const FALLBACK_FLEET_MODELS = [
 export default function UniversalYachtCatalogView() {
   const [activeCategory, setActiveCategory] = useState("all");
 
-  // Dynamic Yachts state from authoritative CMS store
-  const [yachts, setYachts] = useState(() => {
-    const all = getAllYachts();
-    return Array.isArray(all) && all.length > 0 ? all : DEFAULT_YACHTS;
-  });
+  // Dynamic Yachts state from authoritative CMS store (initialized with baseline to guarantee exact SSR hydration)
+  const [yachts, setYachts] = useState(() => DEFAULT_YACHTS);
 
   // Dynamic Page metadata from authoritative CMS store
-  const [page, setPage] = useState(() => {
-    return getPageBySlug("/yachts") || getPageById("page-yachts") || DEFAULT_YACHTS_PAGE;
-  });
+  const [page, setPage] = useState(() => DEFAULT_YACHTS_PAGE);
 
   useEffect(() => {
     // Read local cache immediately upon hydration

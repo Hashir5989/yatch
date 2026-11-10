@@ -34,13 +34,18 @@ function formatDateParts(dateStr) {
   return { day, monthYear: `${month} ${year}` };
 }
 
+import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
+
 export default function UniversalNewsListingView() {
-  const [articles, setArticles] = useState(() => getAllArticles(true));
+  const [articles, setArticles] = useState(() => DEFAULT_ARTICLES.filter((a) => a.status === "published"));
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [visibleCount, setVisibleCount] = useState(6);
 
   useEffect(() => {
+    // Read local cache immediately upon mounting
+    setArticles(getAllArticles(true));
+
     syncArticlesFromServer(true).then((synced) => {
       if (synced && Array.isArray(synced) && synced.length > 0) {
         setArticles(synced.filter((a) => a.status === "published"));

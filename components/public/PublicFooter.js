@@ -7,17 +7,23 @@ import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 import { InstagramIcon, FacebookIcon, LinkedinIcon, YoutubeIcon, XTwitterIcon } from "@/components/public/SocialIcons";
 import { 
+  DEFAULT_SETTINGS,
   getSiteSettings, 
   getAllYachts, 
   syncSettingsFromServer, 
   syncYachtsFromServer 
 } from "@/lib/cmsStore";
+import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 
 export default function PublicFooter() {
-  const [settings, setSettings] = useState(() => getSiteSettings());
-  const [yachts, setYachts] = useState(() => getAllYachts(true));
+  const [settings, setSettings] = useState(() => DEFAULT_SETTINGS);
+  const [yachts, setYachts] = useState(() => DEFAULT_YACHTS.filter((y) => y.status === "published"));
 
   useEffect(() => {
+    // 0. Immediately read local client storage upon mounting
+    setSettings(getSiteSettings());
+    setYachts(getAllYachts().filter((y) => y.status === "published"));
+
     // 1. Initial background sync from server
     syncSettingsFromServer().then((synced) => {
       if (synced) setSettings(synced);
@@ -31,7 +37,7 @@ export default function PublicFooter() {
     // 2. Reactive listener for CMS state modifications
     const handleCmsChange = () => {
       setSettings(getSiteSettings());
-      setYachts(getAllYachts(true));
+      setYachts(getAllYachts().filter((y) => y.status === "published"));
     };
 
     window.addEventListener("asm-cms-change", handleCmsChange);

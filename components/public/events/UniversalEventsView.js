@@ -17,10 +17,13 @@ import { getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 
 export default function UniversalEventsView() {
-  const [articles, setArticles] = useState(() => getAllArticles(true));
+  const [articles, setArticles] = useState(() => DEFAULT_ARTICLES.filter((a) => a.status === "published"));
   const pastEvents = useMemo(() => getAllEvents(), []);
 
   useEffect(() => {
+    // Read client storage immediately upon mount
+    setArticles(getAllArticles(true));
+
     syncArticlesFromServer(true).then((synced) => {
       if (synced && Array.isArray(synced) && synced.length > 0) {
         setArticles(synced.filter((a) => a.status === "published"));

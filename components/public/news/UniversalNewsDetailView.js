@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 import { getArticleBySlug, getAllArticles } from "@/lib/cmsStore";
+import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 
 function formatDate(dateStr) {
   if (!dateStr) return "November 2026";
@@ -35,11 +36,14 @@ function formatDate(dateStr) {
 
 export default function UniversalNewsDetailView({ initialArticle, slug }) {
   const [article, setArticle] = useState(initialArticle);
-  const [allArticles, setAllArticles] = useState(() => getAllArticles(true));
+  const [allArticles, setAllArticles] = useState(() => DEFAULT_ARTICLES.filter((a) => a.status === "published"));
   const [lightboxImage, setLightboxImage] = useState(null);
   const [copiedShare, setCopiedShare] = useState(false);
 
   useEffect(() => {
+    // Read local cache immediately upon mounting
+    setAllArticles(getAllArticles(true));
+
     const handleUpdate = () => {
       const fresh = getArticleBySlug(slug, false);
       if (fresh) setArticle(fresh);

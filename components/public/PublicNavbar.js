@@ -19,6 +19,7 @@ import {
   getAllPages, 
   getAllYachts, 
   syncYachtsFromServer,
+  DEFAULT_SETTINGS,
   getSiteSettings,
   syncSettingsFromServer 
 } from "@/lib/cmsStore";
@@ -30,7 +31,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [panelMenuOpen, setPanelMenuOpen] = useState(false);
   const [yachts, setYachts] = useState(() => DEFAULT_YACHTS.filter((y) => y.status === "published"));
-  const [settings, setSettings] = useState(() => getSiteSettings());
+  const [settings, setSettings] = useState(() => DEFAULT_SETTINGS);
   const pathname = usePathname();
 
   // Derive target pageId to edit in visual builder directly without cascading setState
@@ -52,6 +53,10 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   }, []);
 
   useEffect(() => {
+    // 0. Immediately read local client storage upon mounting
+    setSettings(getSiteSettings());
+    setYachts(getAllYachts().filter((y) => y.status === "published"));
+
     // Dynamic sync from server database API so admin-added models appear live in navbar
     syncYachtsFromServer(true).then((synced) => {
       if (synced && Array.isArray(synced) && synced.length > 0) {
