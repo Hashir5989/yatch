@@ -40,7 +40,7 @@ export default function UniversalButton({
   // Resolve style class name from predefined luxury variants or custom override
   const matchedStyle = BUTTON_STYLES.find((s) => s.id === normalized.style);
   const baseStyleClass = matchedStyle ? matchedStyle.className : BUTTON_STYLES[0].className;
-  const combinedClass = `${baseStyleClass} ${className}`.trim();
+  const combinedClass = `max-w-full text-center ${baseStyleClass} ${className}`.trim();
 
   // If in CMS visual editor mode, wrap inside InlineButtonEditor
   if (isEditable) {

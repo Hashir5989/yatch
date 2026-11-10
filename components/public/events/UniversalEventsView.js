@@ -79,18 +79,18 @@ export default function UniversalEventsView() {
             Explore official photo showcases from our exhibitions across the Arabian Gulf, and view our upcoming boat show calendar below. Click any card to open the complete event detail page.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 w-full max-w-2xl px-2">
             <a
               href="#showcase-grid"
-              className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-[11px] sm:text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl text-center"
             >
               <span>View Exhibition Showcases ↓</span>
             </a>
             <a
               href="#upcoming-events"
-              className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#DFBA73] text-xs font-mono text-white/80 hover:text-white transition-all shadow-xl"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#DFBA73] text-[11px] sm:text-xs font-mono text-white/80 hover:text-white transition-all shadow-xl text-center"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C6A155] animate-ping" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C6A155] animate-ping shrink-0" />
               <span>Upcoming Boat Shows (Abu Dhabi & Dubai) ↓</span>
             </a>
           </div>

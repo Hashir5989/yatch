@@ -117,9 +117,9 @@ export default function UniversalNewsListingView() {
 
           <Link
             href="/events"
-            className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl"
+            className="w-full sm:w-auto max-w-full inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-[11px] sm:text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl text-center"
           >
-            <span className="w-2 h-2 rounded-full bg-[#C6A155] animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-[#C6A155] animate-ping shrink-0" />
             <span>Explore Calendar of Events & Boat Shows →</span>
           </Link>
         </div>

@@ -47,7 +47,7 @@ export async function POST(request) {
       if (saved?.slug) revalidatePath(`/yachts/${saved.slug}`);
       revalidatePath("/");
       revalidatePath("/admin/yachts");
-    } catch (_) {}
+    } catch (_) { }
 
     return NextResponse.json(
       { success: true, yacht: saved },

@@ -163,7 +163,7 @@ div.saxdor-desc-justified {
   background: #C6A155;
 }
 
-/* Saxdor Yachts Signature Rectangular Box Buttons */
+/* Saxdor Yachts Signature Rectangular Box Buttons - Fluid & Fully Responsive */
 .saxdor-btn-solid,
 .saxdor-btn-outline,
 .saxdor-btn-navy-outline,
@@ -176,15 +176,15 @@ div.saxdor-desc-justified {
   align-items: center !important;
   justify-content: center !important;
   gap: 0.5rem !important;
-  height: 52px !important;
-  min-height: 52px !important;
-  min-width: 195px;
-  padding: 0 36px !important;
+  height: 52px;
+  min-height: 52px;
+  max-width: 100%;
+  padding: 0 32px;
   border-radius: 0px !important;
   font-family: var(--font-sans) !important;
-  font-size: 13px !important;
+  font-size: 13px;
   font-weight: 700 !important;
-  letter-spacing: 0.14em !important;
+  letter-spacing: 0.14em;
   text-transform: uppercase !important;
   text-align: center !important;
   cursor: pointer !important;
@@ -193,23 +193,86 @@ div.saxdor-desc-justified {
   outline: none;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
   white-space: nowrap;
+  line-height: 1.2;
 }
 
-/* Ensure all SVG icons inside luxury buttons stay horizontally aligned and never wrap */
+/* Ensure inner text in luxury buttons is responsive, wraps cleanly when needed, and never clips */
+.saxdor-btn-solid span,
+.saxdor-btn-outline span,
+.saxdor-btn-navy-outline span,
+.saxdor-btn-navy-solid span,
+.btn-gold span,
+.btn-luxury-outline span,
+.btn-rectangular span,
+.btn-rect span {
+  display: inline-block !important;
+  max-width: 100% !important;
+  text-align: center !important;
+  line-height: inherit !important;
+}
+
+/* Ensure all SVG icons inside luxury buttons stay horizontally aligned and never distort */
 .saxdor-btn-solid svg,
 .saxdor-btn-outline svg,
 .saxdor-btn-navy-outline svg,
 .saxdor-btn-navy-solid svg,
 .btn-gold svg,
-.btn-luxury-outline svg {
+.btn-luxury-outline svg,
+.btn-rectangular svg,
+.btn-rect svg {
   display: inline-block !important;
   vertical-align: middle !important;
   flex-shrink: 0 !important;
   margin: 0 !important;
+  transition: transform 0.25s ease;
 }
 
-/* Fluid Mobile Scaling for Rectangular Box Buttons */
-@media (max-width: 640px) {
+/* =========================================================================
+   RESPONSIVE BREAKPOINTS FOR ALL BUTTONS & INSIDE BUTTON TEXT
+   (Laptop, Desktop, Mobile, Tablet, Small Mobile)
+   ========================================================================= */
+
+/* 1. High-Density Laptops & Medium Screens (1024px – 1279px) */
+@media (max-width: 1279px) and (min-width: 1024px) {
+  .saxdor-btn-solid,
+  .saxdor-btn-outline,
+  .saxdor-btn-navy-outline,
+  .saxdor-btn-navy-solid,
+  .btn-gold,
+  .btn-luxury-outline,
+  .btn-rectangular,
+  .btn-rect {
+    height: 50px !important;
+    min-height: 50px !important;
+    padding-left: 26px !important;
+    padding-right: 26px !important;
+    font-size: 12.5px !important;
+    letter-spacing: 0.12em !important;
+  }
+}
+
+/* 2. Tablets & Small Laptops (768px – 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .saxdor-btn-solid,
+  .saxdor-btn-outline,
+  .saxdor-btn-navy-outline,
+  .saxdor-btn-navy-solid,
+  .btn-gold,
+  .btn-luxury-outline,
+  .btn-rectangular,
+  .btn-rect {
+    height: 48px !important;
+    min-height: 48px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.10em !important;
+    min-width: 0 !important;
+  }
+}
+
+/* 3. Standard Mobile (480px – 767px) */
+@media (max-width: 767px) {
   .saxdor-btn-solid,
   .saxdor-btn-outline,
   .saxdor-btn-navy-outline,
@@ -219,12 +282,83 @@ div.saxdor-desc-justified {
   .btn-rectangular,
   .btn-rect {
     min-width: 0 !important;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    height: 48px !important;
-    min-height: 48px !important;
-    font-size: 12px !important;
-    letter-spacing: 0.12em !important;
+    max-width: 100% !important;
+    padding: 10px 18px !important;
+    height: auto !important;
+    min-height: 46px !important;
+    font-size: 11.5px !important;
+    letter-spacing: 0.08em !important;
+    white-space: normal !important;
+    text-wrap: balance !important;
+    line-height: 1.25 !important;
+  }
+}
+
+/* 4. Small Mobile Devices (<= 479px: e.g. iPhone SE, Galaxy S, 360px – 414px) */
+@media (max-width: 479px) {
+  .saxdor-btn-solid,
+  .saxdor-btn-outline,
+  .saxdor-btn-navy-outline,
+  .saxdor-btn-navy-solid,
+  .btn-gold,
+  .btn-luxury-outline,
+  .btn-rectangular,
+  .btn-rect {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: 8px 14px !important;
+    height: auto !important;
+    min-height: 42px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.06em !important;
+    gap: 0.35rem !important;
+    white-space: normal !important;
+    text-wrap: balance !important;
+    word-break: normal !important;
+    line-height: 1.25 !important;
+  }
+  
+  .saxdor-btn-solid svg,
+  .saxdor-btn-outline svg,
+  .saxdor-btn-navy-outline svg,
+  .saxdor-btn-navy-solid svg,
+  .btn-gold svg,
+  .btn-luxury-outline svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+}
+
+/* 5. Extra-Small Mobile Devices (<= 360px: ultra-compact screens) */
+@media (max-width: 360px) {
+  .saxdor-btn-solid,
+  .saxdor-btn-outline,
+  .saxdor-btn-navy-outline,
+  .saxdor-btn-navy-solid,
+  .btn-gold,
+  .btn-luxury-outline,
+  .btn-rectangular,
+  .btn-rect {
+    padding: 7px 10px !important;
+    min-height: 40px !important;
+    font-size: 10px !important;
+    letter-spacing: 0.04em !important;
+  }
+}
+
+/* Universal responsive safety for ALL action buttons and CTA links */
+button,
+a[role="button"],
+.btn {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  button,
+  a[role="button"],
+  .btn {
+    text-wrap: balance;
   }
 }
 

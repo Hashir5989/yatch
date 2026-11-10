@@ -163,7 +163,7 @@ export default function CallToActionSection({
                 }
               }
             }}
-            className="saxdor-btn-outline !border-white/90 !text-white hover:!bg-white hover:!text-[#08101C] !bg-black/25 backdrop-blur-md !h-[50px] sm:!h-[54px] !px-8 sm:!px-10 !text-xs !tracking-[0.18em] !font-semibold !shadow-[0_8px_24px_rgba(0,0,0,0.75)] w-full sm:w-auto text-center cursor-pointer"
+            className="saxdor-btn-outline !border-white/90 !text-white hover:!bg-white hover:!text-[#08101C] !bg-black/25 backdrop-blur-md !h-auto min-h-[46px] sm:!h-[54px] !px-4 sm:!px-8 lg:!px-10 !text-[11px] sm:!text-xs !tracking-wider sm:!tracking-[0.18em] !font-semibold !shadow-[0_8px_24px_rgba(0,0,0,0.75)] w-full sm:w-auto text-center cursor-pointer"
           />
 
           {secondaryButtonText && (
@@ -191,7 +191,7 @@ export default function CallToActionSection({
                   }
                 }
               }}
-              className="saxdor-btn-outline !h-[50px] sm:!h-[54px] !px-8 sm:!px-10 !text-xs !tracking-[0.18em] !border-white/80 !text-white hover:!bg-white hover:!text-[#08101C] !bg-black/30 backdrop-blur-md !shadow-[0_8px_24px_rgba(0,0,0,0.75)] w-full sm:w-auto text-center"
+              className="saxdor-btn-outline !h-auto min-h-[46px] sm:!h-[54px] !px-4 sm:!px-8 lg:!px-10 !text-[11px] sm:!text-xs !tracking-wider sm:!tracking-[0.18em] !border-white/80 !text-white hover:!bg-white hover:!text-[#08101C] !bg-black/30 backdrop-blur-md !shadow-[0_8px_24px_rgba(0,0,0,0.75)] w-full sm:w-auto text-center"
             />
           )}
         </div>

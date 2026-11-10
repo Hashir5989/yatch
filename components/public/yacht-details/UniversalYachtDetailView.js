@@ -226,7 +226,7 @@ export default function UniversalYachtDetailView({
               </p>
 
               {/* Action Buttons: 100% Inline Editable (Label, URL, Style) */}
-              <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+              <div className="pt-2 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 w-full">
                 <InlineButtonEditor
                   text={data.heroPrimaryButtonText || "Book Private Viewing"}
                   url={data.heroPrimaryButtonUrl || "/contact"}
@@ -235,7 +235,7 @@ export default function UniversalYachtDetailView({
                     onUpdateField && onUpdateField("heroPrimaryButtonText", newText);
                     onUpdateField && onUpdateField("heroPrimaryButtonUrl", newUrl);
                   }}
-                  className="saxdor-btn-solid !h-[52px] !px-8 text-xs font-semibold tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto saxdor-btn-solid !h-auto min-h-[44px] sm:!h-[52px] !px-4 sm:!px-8 text-[11px] sm:text-xs font-semibold tracking-wider rounded-none inline-flex items-center justify-center gap-2 cursor-pointer text-center"
                 >
                   <span>{data.heroPrimaryButtonText || "Book Private Viewing"}</span>
                   <ArrowUpRight className="w-4 h-4 shrink-0" />
@@ -257,7 +257,7 @@ export default function UniversalYachtDetailView({
                     onUpdateField && onUpdateField("brochureLabel", newText);
                     onUpdateField && onUpdateField("brochureUrl", newUrl);
                   }}
-                  className="saxdor-btn-outline !h-[52px] !px-6 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 bg-[#080B10]/60 backdrop-blur-sm cursor-pointer"
+                  className="w-full sm:w-auto saxdor-btn-outline !h-auto min-h-[44px] sm:!h-[52px] !px-4 sm:!px-6 text-[11px] sm:text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-2 bg-[#080B10]/60 backdrop-blur-sm cursor-pointer text-center"
                 >
                   <Download className="w-4 h-4 text-[#C8A870] shrink-0" />
                   <span>{data.brochureLabel || "Download Brochure (PDF)"}</span>
@@ -1052,7 +1052,7 @@ export default function UniversalYachtDetailView({
               </p>
             </div>
 
-            <div className="pt-2 flex flex-wrap justify-center items-center gap-4">
+            <div className="pt-2 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 w-full max-w-3xl mx-auto px-2">
               <InlineButtonEditor
                 text={data.ctaPrimaryButtonText || "REQUEST PRIVATE VIEWING / CONSULTATION"}
                 url={data.ctaPrimaryButtonUrl || "/contact"}
@@ -1061,7 +1061,7 @@ export default function UniversalYachtDetailView({
                   onUpdateField && onUpdateField("ctaPrimaryButtonText", newText);
                   onUpdateField && onUpdateField("ctaPrimaryButtonUrl", newUrl);
                 }}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#C8A870] hover:bg-[#D4B67F] text-black font-semibold text-xs uppercase tracking-luxury transition-all shadow-lg hover:shadow-[#C8A870]/20 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-8 py-3 sm:py-4 bg-[#C8A870] hover:bg-[#D4B67F] text-black font-semibold text-[11px] sm:text-xs uppercase tracking-wider sm:tracking-luxury transition-all shadow-lg hover:shadow-[#C8A870]/20 cursor-pointer text-center"
               >
                 <span>{data.ctaPrimaryButtonText || "REQUEST PRIVATE VIEWING / CONSULTATION"}</span>
                 <ArrowUpRight className="w-4 h-4 shrink-0" />
@@ -1078,7 +1078,7 @@ export default function UniversalYachtDetailView({
                   onUpdateField && onUpdateField("ctaWhatsappButtonText", newText);
                   onUpdateField && onUpdateField("ctaWhatsappButtonUrl", newUrl);
                 }}
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#25D366] font-medium text-xs uppercase tracking-luxury transition-all cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-4 bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#25D366] font-medium text-[11px] sm:text-xs uppercase tracking-wider sm:tracking-luxury transition-all cursor-pointer text-center"
               >
                 <MessageCircle className="w-4 h-4 shrink-0" />
                 <span>{data.ctaWhatsappButtonText || "CHAT ON WHATSAPP"}</span>

@@ -254,22 +254,22 @@ export default function UpcomingEventSection({ events = [] }) {
               </div>
             </div>
 
-            <div className="pt-4 flex flex-wrap items-center gap-4">
+            <div className="pt-4 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 w-full">
               <Link
                 href="/contact"
-                className="saxdor-btn-solid !h-[48px] !px-8 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer shadow-xl rounded-none"
+                className="w-full sm:w-auto saxdor-btn-solid !h-auto min-h-[44px] sm:!h-[48px] !px-4 sm:!px-8 text-[11px] sm:text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer shadow-xl rounded-none text-center"
               >
                 <span>Open Private Consultation Form</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 shrink-0" />
               </Link>
 
               <a
                 href="https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20would%20like%20to%20request%20a%20VIP%20boat%20show%20pass%20and%20consultation."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold uppercase tracking-wider transition-all rounded-none shadow-xl cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all rounded-none shadow-xl cursor-pointer text-center"
               >
-                <WhatsAppIcon className="w-4 h-4 fill-current" />
+                <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
                 <span>WhatsApp Advisory Desk</span>
               </a>
             </div>
