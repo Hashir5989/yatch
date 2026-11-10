@@ -306,57 +306,36 @@ export default function UniversalEventDetailView({ event }) {
             </p>
           </div>
 
-          {/* All Photos Grid (3 Columns) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* All Photos Gallery Grid (Pure Visual Grid, No Description Below) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {photos.map((photo, idx) => (
               <div
                 key={photo.id || idx}
                 onClick={() => setActivePhotoIndex(idx)}
-                className="group relative bg-[#0D1522] border border-white/10 hover:border-[#C6A155] overflow-hidden cursor-pointer transition-all duration-300 shadow-2xl flex flex-col justify-between"
+                className="group relative aspect-[16/10] bg-[#06090D] border border-white/10 hover:border-[#C6A155] overflow-hidden cursor-pointer transition-all duration-300 shadow-2xl"
               >
-                {/* Photo Image Frame */}
-                <div className="aspect-[16/10] overflow-hidden relative bg-[#06090D]">
-                  <img
-                    src={photo.url}
-                    alt={photo.alt}
-                    className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D1522] via-transparent to-black/30 opacity-70 group-hover:opacity-40 transition-opacity" />
+                <img
+                  src={photo.url}
+                  alt={photo.alt || event.title}
+                  className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 opacity-60 group-hover:opacity-30 transition-opacity" />
 
-                  {/* Top Tag Badge */}
+                {/* Top Tag Badge */}
+                {photo.tag && (
                   <div className="absolute top-3 left-3">
                     <span className="px-2.5 py-1 bg-[#08101C]/90 backdrop-blur-md border border-white/15 text-[#DFBA73] text-[9px] font-mono uppercase tracking-[0.18em] font-semibold">
                       {photo.tag}
                     </span>
                   </div>
+                )}
 
-                  {/* Hover Enlarge Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
-                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#0E1A2D]/95 border border-[#C6A155] text-xs font-mono uppercase tracking-wider text-[#DFBA73] shadow-2xl">
-                      <Maximize2 className="w-3.5 h-3.5" />
-                      <span>View Full Resolution</span>
-                    </span>
-                  </div>
-                </div>
-
-                {/* Photo Description Strip */}
-                <div className="p-5 sm:p-6 bg-[#0A101A] border-t border-white/5 space-y-2 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="font-serif text-sm sm:text-base text-white uppercase tracking-wider group-hover:text-[#DFBA73] transition-colors leading-snug">
-                      {photo.title}
-                    </h3>
-                    <p className="text-xs text-white/70 font-light leading-relaxed mt-1.5">
-                      {photo.caption}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-white/40">
-                    <span>PHOTO {idx + 1} OF {photos.length}</span>
-                    <span className="text-[#C6A155] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                      <span>Enlarge</span>
-                      <Maximize2 className="w-3 h-3" />
-                    </span>
-                  </div>
+                {/* Hover Enlarge Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
+                  <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#0E1A2D]/95 border border-[#C6A155] text-xs font-mono uppercase tracking-wider text-[#DFBA73] shadow-2xl">
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    <span>View Full Resolution</span>
+                  </span>
                 </div>
               </div>
             ))}

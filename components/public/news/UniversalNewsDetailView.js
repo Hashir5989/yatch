@@ -238,29 +238,24 @@ export default function UniversalNewsDetailView({ initialArticle, slug }) {
               </h3>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {article.gallery.map((img, idx) => (
-                <figure
+                <div
                   key={img.id || idx}
                   onClick={() => setLightboxImage(img.url)}
-                  className="group bg-[#0D1522] border border-white/10 overflow-hidden cursor-pointer shadow-xl hover:border-[#C6A155]/60 transition-colors"
+                  className="group relative aspect-[16/10] bg-[#06090D] border border-white/10 hover:border-[#C6A155] overflow-hidden cursor-pointer shadow-2xl transition-all duration-300"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-black">
-                    <img
-                      src={img.url}
-                      alt={img.alt || article.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-                      <ZoomIn className="w-6 h-6 text-[#C6A155]" />
-                    </div>
+                  <img
+                    src={img.url}
+                    alt={img.alt || article.title}
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                    <span className="p-3 bg-[#0E1A2D]/95 border border-[#C6A155] text-[#DFBA73] shadow-xl">
+                      <ZoomIn className="w-5 h-5" />
+                    </span>
                   </div>
-                  {img.caption && (
-                    <figcaption className="p-3.5 text-[11px] text-white/70 font-light leading-snug border-t border-white/5">
-                      {img.caption}
-                    </figcaption>
-                  )}
-                </figure>
+                </div>
               ))}
             </div>
           </div>
