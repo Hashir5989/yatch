@@ -9,10 +9,10 @@
     "categoryKey": "superyacht",
     "categoryLabel": "Superyacht",
     "series": "G-Series Superyacht",
-    "decks": "Tri-Deck",
+    "decks": "Super Yacht",
     "badge": "Official Flagship Model",
     "tagline": "The Signature of the Sea — Where Master Craftsmanship Meets Arabian Gulf Grandeur.",
-    "description": "A 100-foot tri-deck luxury superyacht engineered in the United Arab Emirates. Featuring a hand-laid honeycomb-cored composite hull, floor-to-ceiling panoramic salon, full-beam owner stateroom, and expansive entertaining flybridge.",
+    "description": "A 100-foot luxury superyacht engineered in the United Arab Emirates. Featuring a hand-laid honeycomb-cored composite hull, floor-to-ceiling panoramic salon, full-beam owner stateroom, and expansive entertaining flybridge.",
     "summaryLine": "Flagship Superyacht • 30.48 Metres • GRP Composite",
     "insigniaSrc": "/images/yachts/g100/2.png",
     "length": "100 FT (30.48 M)",
@@ -452,7 +452,7 @@
       }
     ],
     "highlights": [
-      "Spacious Tri-Deck Design: Generous indoor & outdoor living with panoramic sea views",
+      "Spacious Super Yacht Design: Generous indoor & outdoor living with panoramic sea views",
       "Refined Interior Living: Sunlit main salon, formal dining area & elegant lounges",
       "Private Accommodation: Owner's cabin, forward VIP, 2 guest cabins & separate crew (5+2 / 12+5 berths)",
       "Elevated Flybridge Experience: Social gatherings, sunbeds, bar & optional hot tub",
@@ -494,14 +494,14 @@
       "eyebrow": "AT A GLANCE • ARCHITECTURAL NARRATIVE",
       "headline": "Crafted for Unrivaled Luxury on the Water",
       "paragraphs": [
-        "Find yourself in a world of luxury with spacious interiors, a generous Burma teak cockpit, and a hospitable tri-deck flybridge. The main deck boasts an expansive open-plan saloon and formal dining area surrounded by ample lounge seating bathed in natural daylight thanks to broad, seamless panoramic side windows.",
+        "Find yourself in a world of luxury with spacious interiors, a generous Burma teak cockpit, and a hospitable flybridge. The main deck boasts an expansive open-plan saloon and formal dining area surrounded by ample lounge seating bathed in natural daylight thanks to broad, seamless panoramic side windows.",
         "The flybridge creates an elevated gathering point ideal for sunset cruising or midday relaxation across all three levels. The clever arrangement on the sky deck allows for an optional hot tub, generous sunbeds, a secondary steering station, and a full wet bar with BBQ grill for guests to savor.",
         "Providing exceptional comfort and privacy, the reinforced hull allows in an impressive amount of natural ocean light into every cabin. The spacious full-beam Owner's cabin is fitted with a King bed, an en-suite marble bathroom, and a walk-in wardrobe, accompanied by a forward VIP stateroom and twin guest cabins."
       ],
       "cards": [
         {
           "icon": "Layers",
-          "title": "Tri-Deck Engineering",
+          "title": "Super Yacht Engineering",
           "description": "Hand-laid combination mat with foam-filled honeycomb-cored hull, deck, and flybridge with solid fiberglass keel and chines."
         },
         {
@@ -570,7 +570,7 @@
     ],
     "seo": {
       "metaTitle": "ASMARATY G100 Super Yacht | ASMARATY Luxury Yachts UAE",
-      "metaDescription": "A 100-foot tri-deck luxury superyacht engineered in the United Arab Emirates. Featuring a hand-laid honeycomb-cored composite hull, floor-to-ceiling panoramic salon, full-beam owner stateroom, and expansive entertaining flybridge.",
+      "metaDescription": "A 100-foot luxury superyacht engineered in the United Arab Emirates. Featuring a hand-laid honeycomb-cored composite hull, floor-to-ceiling panoramic salon, full-beam owner stateroom, and expansive entertaining flybridge.",
       "ogImage": "/images/yachts/g100/0.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",

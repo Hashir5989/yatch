@@ -108,7 +108,7 @@ export default function YachtManagementScreen() {
       categoryKey: "superyacht",
       categoryLabel: "Superyacht",
       series: "G-Series",
-      decks: "Tri-Deck",
+      decks: "Super Yacht",
       badge: "Luxury Vessel",
       tagline: "",
       summaryLine: "",
@@ -1093,7 +1093,7 @@ export default function YachtManagementScreen() {
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g. G-Series Tri-Deck Flagship"
+                        placeholder="e.g. G-Series Super Yacht Flagship"
                         value={currentYacht.series || ""}
                         onChange={(e) => setCurrentYacht({ ...currentYacht, series: e.target.value })}
                         className="w-full px-3 py-2 bg-[#080B10] border border-[#1E2838] rounded text-xs text-white focus:outline-none focus:border-[#C6A155]"
@@ -1107,7 +1107,7 @@ export default function YachtManagementScreen() {
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g. Tri-Deck or Two Decks"
+                        placeholder="e.g. Super Yacht or Two Decks"
                         value={currentYacht.decks || ""}
                         onChange={(e) => setCurrentYacht({ ...currentYacht, decks: e.target.value })}
                         className="w-full px-3 py-2 bg-[#080B10] border border-[#1E2838] rounded text-xs text-white focus:outline-none focus:border-[#C6A155]"

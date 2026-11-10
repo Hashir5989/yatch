@@ -27,7 +27,7 @@ const FALLBACK_FLEET_MODELS = [
     ...YACHT_SHOWCASES.g100,
     categoryKey: "superyacht",
     categoryLabel: "Superyacht",
-    decks: "Tri-Deck",
+    decks: "Super Yacht",
     heroImage: "/images/yachts/g100/0.jpg",
     specsSnapshot: {
       loa: "100 FT (30.48 M)",
