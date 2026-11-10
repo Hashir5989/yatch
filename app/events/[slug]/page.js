@@ -5,6 +5,8 @@ import UniversalEventDetailView from "@/components/public/events/UniversalEventD
 import { getEventBySlug as getEventFallback, getAllEvents } from "@/lib/data/eventsData";
 import { getEventBySlugServer, getEventsServer } from "@/lib/server/db";
 
+export const instant = false;
+
 export async function generateStaticParams() {
   const events = await getEventsServer(true).catch(() => getAllEvents());
   return (events || []).map((e) => ({
