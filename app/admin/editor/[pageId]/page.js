@@ -310,7 +310,7 @@ function VisualPageEditorInner() {
           if (parsed && parsed.url && mediaPickerConfig.sectionId && mediaPickerConfig.field) {
             handleSelectMedia(parsed.url);
           }
-        } catch (_) {}
+        } catch (_) { }
       }
     };
     window.addEventListener("message", handleMessage);
@@ -443,8 +443,8 @@ function VisualPageEditorInner() {
             <button
               onClick={() => setViewportMode("desktop")}
               className={`p-1.5 rounded-sm text-xs flex items-center gap-1.5 transition-colors ${viewportMode === "desktop"
-                  ? "bg-[#C5A880] text-[#080B10] font-semibold"
-                  : "text-[#8E9AA8] hover:text-white"
+                ? "bg-[#C5A880] text-[#080B10] font-semibold"
+                : "text-[#8E9AA8] hover:text-white"
                 }`}
               title="Desktop Viewport (100%)"
             >
@@ -455,8 +455,8 @@ function VisualPageEditorInner() {
             <button
               onClick={() => setViewportMode("tablet")}
               className={`p-1.5 rounded-sm text-xs flex items-center gap-1.5 transition-colors ${viewportMode === "tablet"
-                  ? "bg-[#C5A880] text-[#080B10] font-semibold"
-                  : "text-[#8E9AA8] hover:text-white"
+                ? "bg-[#C5A880] text-[#080B10] font-semibold"
+                : "text-[#8E9AA8] hover:text-white"
                 }`}
               title="Tablet Viewport (768px)"
             >
@@ -467,8 +467,8 @@ function VisualPageEditorInner() {
             <button
               onClick={() => setViewportMode("mobile")}
               className={`p-1.5 rounded-sm text-xs flex items-center gap-1.5 transition-colors ${viewportMode === "mobile"
-                  ? "bg-[#C5A880] text-[#080B10] font-semibold"
-                  : "text-[#8E9AA8] hover:text-white"
+                ? "bg-[#C5A880] text-[#080B10] font-semibold"
+                : "text-[#8E9AA8] hover:text-white"
                 }`}
               title="Mobile Viewport (375px)"
             >
@@ -565,8 +565,8 @@ function VisualPageEditorInner() {
                       if (el) el.scrollIntoView({ behavior: "smooth" });
                     }}
                     className={`group rounded-sm p-2.5 border transition-all cursor-pointer ${isSelected
-                        ? "bg-[#151D2A] border-[#C5A880] text-white ring-1 ring-[#C5A880]"
-                        : "bg-[#0E131C] border-[#1A2230] text-[#8E9AA8] hover:border-white/20 hover:text-white"
+                      ? "bg-[#151D2A] border-[#C5A880] text-white ring-1 ring-[#C5A880]"
+                      : "bg-[#0E131C] border-[#1A2230] text-[#8E9AA8] hover:border-white/20 hover:text-white"
                       } ${isHidden ? "opacity-40" : ""}`}
                   >
                     <div className="flex items-center justify-between">
@@ -638,10 +638,10 @@ function VisualPageEditorInner() {
           {/* Device Frame Wrapper */}
           <div
             className={`transition-all duration-300 bg-[#080B10] shadow-2xl relative w-full ${viewportMode === "desktop"
-                ? "max-w-full"
-                : viewportMode === "tablet"
-                  ? "max-w-[768px] rounded-xl border-[10px] border-[#1A2230] my-4 overflow-hidden"
-                  : "max-w-[375px] rounded-[36px] border-[12px] border-[#1A2230] my-4 overflow-hidden"
+              ? "max-w-full"
+              : viewportMode === "tablet"
+                ? "max-w-[768px] rounded-xl border-[10px] border-[#1A2230] my-4 overflow-hidden"
+                : "max-w-[375px] rounded-[36px] border-[12px] border-[#1A2230] my-4 overflow-hidden"
               }`}
           >
             {/* Tablet/Mobile Top Bar simulation */}

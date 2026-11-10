@@ -9,7 +9,8 @@ import {
   ArrowRight, 
   Sparkles, 
   Camera, 
-  Layers
+  Layers,
+  Folder
 } from "lucide-react";
 import UpcomingEventSection from "@/components/public/news/UpcomingEventSection";
 import { getAllEvents, syncEventsFromServer, getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
@@ -125,96 +126,101 @@ export default function UniversalEventsView() {
             </span>
           </div>
 
-          {/* GRID: Premier showcase card (Qatar) or multi-column grid if multiple */}
-          <div className={events.length === 1 ? "max-w-2xl" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"}>
+          {/* GRID: Exact same 3-column responsive card size and styling as News Page */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {events.map((event) => {
               const day = event.dateBadge?.day || "04 — 07";
               const monthYear = event.dateBadge?.monthYear || "NOV 2026";
-              const locationShort = event.dateBadge?.locationShort || "WATERFRONT";
               const photoCount = Array.isArray(event.photos) ? event.photos.length : 0;
               return (
-                <Link
+                <article
                   key={event.id}
-                  href={`/events/${event.slug}`}
-                  className="group bg-[#0D1522] border border-white/10 hover:border-[#C6A155]/80 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-2xl hover:shadow-[0_12px_40px_rgba(0,0,0,0.7)]"
+                  className="group bg-[#0D1522] border border-white/10 hover:border-[#C6A155]/60 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-2xl hover:shadow-[0_10px_35px_rgba(0,0,0,0.6)]"
                 >
-                  {/* Card Media Header with Date Badge & Status */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-[#06090D]">
-                    <img
-                      src={event.featuredImage || "/images/events/qibs-2026-fireworks-celebration.jpg"}
-                      alt={event.featuredImageAlt || event.title}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0D1522] via-transparent to-black/30" />
-
-                    {/* Date Typography Overlay */}
-                    <div className="absolute top-3 left-3 p-2.5 bg-[#080B10]/95 backdrop-blur-md border border-white/15 text-left pointer-events-none shadow-xl">
-                      <span className="block font-serif text-xl sm:text-2xl font-light text-white leading-none tracking-tight">
-                        {day}
-                      </span>
-                      <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-[#DFBA73] font-semibold mt-1">
-                        {monthYear}
-                      </span>
-                      <span className="block text-[8px] uppercase tracking-wider text-white/60 font-mono mt-0.5 border-t border-white/10 pt-0.5">
-                        {locationShort}
+                  <Link href={`/events/${event.slug}`} className="block flex-1 flex flex-col">
+                    {/* Top Header Strip: Category Pill (Matching News Card) */}
+                    <div className="px-6 py-3.5 border-b border-white/5 bg-[#0A101A] flex items-center justify-between text-xs text-white/70">
+                      <div className="flex items-center gap-2">
+                        <Folder className="w-3.5 h-3.5 text-[#C6A155]" />
+                        <span className="font-mono uppercase tracking-[0.18em] text-[10px] text-[#DFBA73] font-semibold">
+                          Exhibition Showcase
+                        </span>
+                      </div>
+                      <span className="text-[9px] uppercase tracking-wider bg-[#C6A155]/20 text-[#DFBA73] px-2 py-0.5 font-semibold">
+                        {event.badge || "Boat Show"}
                       </span>
                     </div>
 
-                    {/* Top Right Status Badge */}
-                    <div className="absolute top-3 right-3">
-                      <span className="px-2.5 py-1 bg-[#080B10]/90 backdrop-blur-md border border-[#C6A155]/50 text-[#DFBA73] text-[9px] font-mono uppercase tracking-[0.16em] font-semibold">
-                        {event.badge || "EXHIBITION"}
-                      </span>
-                    </div>
+                    {/* Image Frame with Date Badge Overlay */}
+                    <div className="relative aspect-[16/10] overflow-hidden bg-[#06090D]">
+                      <img
+                        src={event.featuredImage || "/images/events/qibs-2026-fireworks-celebration.jpg"}
+                        alt={event.featuredImageAlt || event.title}
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0D1522] via-transparent to-black/30" />
 
-                    {/* Bottom Right Photo Count Tag */}
-                    <div className="absolute bottom-3 right-3">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black/80 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono uppercase tracking-wider">
-                        <Camera className="w-3 h-3 text-[#C6A155]" />
-                        <span suppressHydrationWarning>{photoCount} Photos</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Card Body */}
-                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                    <div className="space-y-2.5">
-                      {/* Venue Strip */}
-                      <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#DFBA73] truncate">
-                        <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                        <span className="truncate">{event.venue}</span>
+                      {/* Date Typography Overlay (Matching reference screenshot) */}
+                      <div className="absolute top-4 left-4 p-2.5 bg-[#080B10]/90 backdrop-blur-md border border-white/15 text-left pointer-events-none">
+                        <span className="block font-serif text-2xl sm:text-3xl font-light text-white leading-none tracking-tight">
+                          {day}
+                        </span>
+                        <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-[#DFBA73] font-semibold mt-1">
+                          {monthYear}
+                        </span>
                       </div>
 
-                      {/* Event Title */}
-                      <h3 className="font-serif text-base sm:text-lg font-normal text-white uppercase tracking-[0.02em] leading-snug line-clamp-2 group-hover:text-[#DFBA73] transition-colors">
-                        {event.title}
-                      </h3>
-
-                      {/* Excerpt */}
-                      <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed line-clamp-3">
-                        {event.excerpt}
-                      </p>
+                      {/* Bottom Right Photo Count Tag */}
+                      <div className="absolute bottom-3 right-3">
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black/80 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono uppercase tracking-wider">
+                          <Camera className="w-3 h-3 text-[#C6A155]" />
+                          <span suppressHydrationWarning>{photoCount} Photos</span>
+                        </span>
+                      </div>
                     </div>
 
-                    {/* Vessel Callout */}
-                    <div className="pt-2 border-t border-white/5 flex items-center gap-1.5 text-[11px] font-mono text-white/60">
-                      <Ship className="w-3.5 h-3.5 text-[#C6A155] flex-shrink-0" />
-                      <span className="truncate">{event.vessel}</span>
-                    </div>
-                  </div>
+                    {/* Content Area */}
+                    <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
+                      <div>
+                        {/* Venue Strip */}
+                        {event.venue && (
+                          <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#DFBA73] truncate mb-2">
+                            <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+                            <span className="truncate">{event.venue}</span>
+                          </div>
+                        )}
 
-                  {/* Card Action Footer */}
-                  <div className="px-6 py-4 border-t border-white/5 bg-[#0A101A] flex items-center justify-between">
+                        <h2 className="font-serif text-base sm:text-lg font-normal text-white uppercase tracking-[0.02em] leading-snug line-clamp-2 group-hover:text-[#DFBA73] transition-colors mb-2">
+                          {event.title}
+                        </h2>
+
+                        <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed line-clamp-3">
+                          {event.excerpt}
+                        </p>
+                      </div>
+
+                      {/* Vessel Callout */}
+                      {event.vessel && (
+                        <div className="pt-2 text-[11px] font-mono text-[#C6A155] border-t border-white/5 flex items-center gap-1.5">
+                          <Ship className="w-3.5 h-3.5 text-[#C6A155] flex-shrink-0" />
+                          <span className="truncate">{event.vessel}</span>
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+
+                  {/* Bottom Action Footer */}
+                  <div className="px-6 sm:px-7 py-4 border-t border-white/5 bg-[#0A101A] flex items-center justify-between">
                     <span className="text-[11px] font-mono text-white/50">
-                      Open Event Page
+                      Open Exhibition
                     </span>
 
                     <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#DFBA73] group-hover:text-white group-hover:translate-x-1 transition-all">
-                      <span>View Full Details & Photos</span>
+                      <span>View Showcase</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
-                </Link>
+                </article>
               );
             })}
           </div>
