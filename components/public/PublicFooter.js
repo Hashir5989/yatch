@@ -195,6 +195,20 @@ export default function PublicFooter() {
                     {settings.contactEmail || "info@asmaraty.com"}
                   </a>
                 </p>
+                <div className="pt-2">
+                  <a
+                    href={social.instagram || "https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-white/80 hover:text-[#DFBA73] transition-colors group"
+                    title="Follow ASMARATY on Instagram"
+                  >
+                    <span className="p-1 rounded bg-[#C6A155]/10 border border-[#C6A155]/40 text-[#DFBA73] group-hover:bg-[#C6A155] group-hover:text-black transition-colors">
+                      <InstagramIcon className="w-3.5 h-3.5" />
+                    </span>
+                    <span className="font-mono text-[11px] tracking-wider">@asmaraty_yachts</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -212,18 +226,17 @@ export default function PublicFooter() {
 
           {/* Social Channels (Manageable via CMS) */}
           <div className="flex items-center gap-4 text-white/60">
-            {social.instagram && (
-              <a
-                href={social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#C6A155] transition-colors p-1"
-                aria-label="ASMARATY Instagram"
-                title="Instagram"
-              >
-                <InstagramIcon className="w-4 h-4" />
-              </a>
-            )}
+            <a
+              href={social.instagram || "https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#DFBA73] hover:text-white transition-colors p-1.5 bg-white/5 hover:bg-[#C6A155]/20 border border-[#C6A155]/40 rounded flex items-center gap-1.5"
+              aria-label="ASMARATY Official Instagram"
+              title="Follow @asmaraty_yachts on Instagram"
+            >
+              <InstagramIcon className="w-4 h-4" />
+              <span className="text-[10px] font-mono uppercase font-bold tracking-wider hidden sm:inline">Instagram</span>
+            </a>
             {social.facebook && (
               <a
                 href={social.facebook}

@@ -26,6 +26,7 @@ import {
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
+import { InstagramIcon } from "@/components/public/SocialIcons";
 
 export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -133,9 +134,20 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
             />
           </div>
 
-          {/* Right Action: Header CTA Button (Manageable from CMS) */}
-          {settings.header?.ctaButton?.visible !== false ? (
-            <div className="flex items-center justify-end flex-1 z-10">
+          {/* Right Action: Header CTA Button & Official Instagram */}
+          <div className="flex items-center justify-end flex-1 z-10 gap-2 sm:gap-3">
+            <a
+              href={settings.socialLinks?.instagram || "https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 bg-[#0E1624]/60 hover:bg-[#C6A155] text-[#DFBA73] hover:text-black border border-[#C6A155]/40 hover:border-[#C6A155] transition-all cursor-pointer shadow-sm group"
+              aria-label="ASMARATY Official Instagram"
+              title="Follow @asmaraty_yachts on Instagram"
+            >
+              <InstagramIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110" />
+            </a>
+
+            {settings.header?.ctaButton?.visible !== false && (
               <Link
                 href={settings.header?.ctaButton?.url || "/contact"}
                 target={settings.header?.ctaButton?.target || "_self"}
@@ -144,10 +156,8 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
               >
                 {settings.header?.ctaButton?.label || "Contact Us"}
               </Link>
-            </div>
-          ) : (
-            <div className="flex-1" />
-          )}
+            )}
+          </div>
         </div>
       </header>
 
@@ -290,6 +300,16 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                   </div>
                   <a href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`} className="hover:underline text-white/70">
                     {settings.contactEmail || "info@asmaraty.com"}
+                  </a>
+                  <a
+                    href={settings.socialLinks?.instagram || "https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-[#DFBA73] hover:text-white transition-colors"
+                    title="Follow @asmaraty_yachts on Instagram"
+                  >
+                    <InstagramIcon className="w-3.5 h-3.5" />
+                    <span className="font-mono text-[11px]">@asmaraty_yachts</span>
                   </a>
                 </div>
               </div>

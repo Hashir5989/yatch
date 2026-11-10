@@ -1008,7 +1008,7 @@ export default function AdminSettingsScreen() {
                   type="text"
                   value={settings.socialLinks?.instagram || ""}
                   onChange={(e) => updateSocial("instagram", e.target.value)}
-                  placeholder="https://instagram.com/asmaraty"
+                  placeholder="https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"
                   className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
                 />
               </div>

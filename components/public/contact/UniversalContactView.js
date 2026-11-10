@@ -21,6 +21,7 @@ import {
   Building2
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
+import { InstagramIcon } from "@/components/public/SocialIcons";
 
 const FAQS = [
   {
@@ -400,6 +401,16 @@ export default function UniversalContactView({ pageData = null }) {
                 >
                   <WhatsAppIcon className="w-4 h-4" />
                   <span>Message on WhatsApp (+971 56 526 8126)</span>
+                </a>
+
+                <a
+                  href="https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#08101C] hover:bg-[#C6A155] text-[#DFBA73] hover:text-black border border-[#C6A155]/50 transition-all text-xs font-bold uppercase tracking-wider group"
+                >
+                  <InstagramIcon className="w-4 h-4" />
+                  <span>Follow @asmaraty_yachts on Instagram</span>
                 </a>
               </div>
             </div>
