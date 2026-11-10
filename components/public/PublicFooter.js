@@ -195,20 +195,6 @@ export default function PublicFooter() {
                     {settings.contactEmail || "info@asmaraty.com"}
                   </a>
                 </p>
-                <div className="pt-2">
-                  <a
-                    href={social.instagram || "https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-white/80 hover:text-[#DFBA73] transition-colors group"
-                    title="Follow ASMARATY on Instagram"
-                  >
-                    <span className="p-1 rounded bg-[#C6A155]/10 border border-[#C6A155]/40 text-[#DFBA73] group-hover:bg-[#C6A155] group-hover:text-black transition-colors">
-                      <InstagramIcon className="w-3.5 h-3.5" />
-                    </span>
-                    <span className="font-mono text-[11px] tracking-wider">@asmaraty_yachts</span>
-                  </a>
-                </div>
               </div>
             </div>
           </div>
