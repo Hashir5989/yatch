@@ -79,19 +79,36 @@ export async function POST(request) {
     const alt = (formData.get("alt") || "").trim() || title;
     const category = (formData.get("category") || "exterior").trim();
 
+    const newItem = {
+      id: `media-${Date.now()}`,
+      url: publicUrl,
+      title,
+      alt,
+      category,
+      uploadedAt: new Date().toISOString().split("T")[0],
+      dimensions: "2000 x 1200",
+    };
+
+    // Persist to data/media.json
+    try {
+      const mediaJsonPath = path.join(process.cwd(), "data", "media.json");
+      let list = [];
+      if (fs.existsSync(mediaJsonPath)) {
+        list = JSON.parse(fs.readFileSync(mediaJsonPath, "utf-8"));
+      }
+      if (!Array.isArray(list)) list = [];
+      list.unshift(newItem);
+      fs.writeFileSync(mediaJsonPath, JSON.stringify(list, null, 2), "utf-8");
+    } catch (saveErr) {
+      console.warn("Could not append uploaded item to media.json:", saveErr);
+    }
+
     return NextResponse.json({
       success: true,
       url: publicUrl,
       fileName,
       title,
-      item: {
-        id: `media-${Date.now()}`,
-        url: publicUrl,
-        title,
-        alt,
-        category,
-        uploadedAt: new Date().toISOString().split("T")[0],
-      },
+      item: newItem,
     });
   } catch (err) {
     console.error("Image upload API error:", err);

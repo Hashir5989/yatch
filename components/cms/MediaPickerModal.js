@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { X, Search, Plus, Check, Image as ImageIcon, Upload, Loader2, Link2, AlertCircle, ExternalLink } from "lucide-react";
-import { getAllMedia, addMediaItem } from "@/lib/cmsStore";
+import { getAllMedia, addMediaItem, syncMediaFromServer } from "@/lib/cmsStore";
 
 export default function MediaPickerModal({ 
   isOpen, 
@@ -41,6 +41,11 @@ export default function MediaPickerModal({
   };
 
   useEffect(() => {
+    syncMediaFromServer().then((synced) => {
+      if (synced && Array.isArray(synced) && synced.length > 0) {
+        setMediaList(synced);
+      }
+    });
     const handleUpdate = () => {
       setMediaList(getAllMedia());
     };
@@ -83,8 +88,15 @@ export default function MediaPickerModal({
       formData.append("category", activeCategory === "all" ? "exterior" : activeCategory);
       formData.append("folder", "uploads");
 
+      const headers = {};
+      try {
+        const token = localStorage.getItem("asm_admin_session_token");
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+      } catch (_) {}
+
       const res = await fetch("/api/media/upload", {
         method: "POST",
+        headers,
         body: formData,
         credentials: "include",
       });

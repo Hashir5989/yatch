@@ -24,6 +24,7 @@ import {
 import CmsHeader from "@/components/cms/CmsHeader";
 import { 
   getAllMedia, 
+  syncMediaFromServer,
   addMediaItem, 
   deleteMediaItem 
 } from "@/lib/cmsStore";
@@ -104,6 +105,13 @@ export default function MediaManagerScreen() {
   };
 
   useEffect(() => {
+    loadMedia();
+    syncMediaFromServer().then((synced) => {
+      if (synced && Array.isArray(synced) && synced.length > 0) {
+        setMedia(synced);
+      }
+    });
+
     const handleUpdate = () => loadMedia();
     window.addEventListener("asm-cms-change", handleUpdate);
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
@@ -168,8 +176,15 @@ export default function MediaManagerScreen() {
       formData.append("category", localCategory);
       formData.append("folder", "uploads");
 
+      const headers = {};
+      try {
+        const token = localStorage.getItem("asm_admin_session_token");
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+      } catch (_) {}
+
       const res = await fetch("/api/media/upload", {
         method: "POST",
+        headers,
         body: formData,
         credentials: "include",
       });
@@ -728,13 +743,24 @@ export default function MediaManagerScreen() {
                 >
                   <div>
                     {/* Image Container with Hover Controls */}
-                    <div className="relative aspect-video overflow-hidden bg-black">
+                    <div className="relative aspect-video overflow-hidden bg-[#0A0E15]">
                       <img
                         src={item.url}
                         alt={item.title || "ASMARATY yacht"}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                          const fallback = e.currentTarget.parentElement?.querySelector(".media-img-fallback");
+                          if (fallback) fallback.classList.remove("hidden");
+                        }}
                       />
+                      <div className="media-img-fallback hidden absolute inset-0 bg-[#0E1522] flex flex-col items-center justify-center p-3 text-center">
+                        <ImageIcon className="w-8 h-8 text-[#C6A155]/60 mb-1" />
+                        <span className="text-[10px] text-white/60 font-mono truncate max-w-full">
+                          {item.title || "Image Asset"}
+                        </span>
+                      </div>
 
                       {/* Hover Overlay with Instant Select */}
                       <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2.5 p-3">

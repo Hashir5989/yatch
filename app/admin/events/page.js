@@ -322,14 +322,25 @@ export default function AdminEventsScreen() {
       formData.append("title", file.name.replace(/\.[^/.]+$/, ""));
       formData.append("category", "events");
 
-      const res = await fetch("/api/media", {
+      const headers = {};
+      if (typeof window !== "undefined") {
+        try {
+          const t = localStorage.getItem("asm_admin_session_token");
+          if (t) headers["Authorization"] = `Bearer ${t}`;
+        } catch (_) {}
+      }
+
+      const res = await fetch("/api/media/upload", {
         method: "POST",
+        credentials: "include",
+        headers,
         body: formData
       });
 
       const data = await res.json();
-      if (data.success && data.item) {
-        const url = data.item.url;
+      const uploadedUrl = data.url || data.item?.url;
+      if (data.success && uploadedUrl) {
+        const url = uploadedUrl;
         if (mediaPickerTarget === "featured") {
           setCurrentEvent((prev) => ({
             ...prev,
