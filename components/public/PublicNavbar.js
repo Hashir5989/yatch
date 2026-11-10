@@ -84,7 +84,8 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   const navLinks = [
     { label: "Fleet", href: "/yachts" },
     { label: "About Us", href: "/about" },
-    { label: "News & Events", href: "/news" },
+    { label: "News", href: "/news" },
+    { label: "Events", href: "/events" },
     { label: "VIP Concierge", href: "/contact" },
   ];
 

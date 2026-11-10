@@ -14,8 +14,6 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
-import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
-import UpcomingEventSection from "@/components/public/news/UpcomingEventSection";
 
 const NEWS_CATEGORIES = [
   { id: "all", label: "ALL NEWS" },
@@ -80,15 +78,6 @@ export default function UniversalNewsListingView() {
   const displayedArticles = filteredArticles.slice(0, visibleCount);
   const hasMore = visibleCount < filteredArticles.length;
 
-  // Extract Upcoming Events / Boat Shows for the dedicated grid below
-  const upcomingEvents = useMemo(() => {
-    const list = articles.filter(
-      (a) => a.status === "published" && (a.articleType === "event" || a.eventDetails?.isUpcoming)
-    );
-    if (list.length > 0) return list;
-    return DEFAULT_ARTICLES.filter((a) => a.articleType === "event" || a.eventDetails?.isUpcoming);
-  }, [articles]);
-
   return (
     <div className="bg-[#080B10] text-[#E8EAEE] min-h-screen">
       {/* -------------------------------------------------------------
@@ -97,9 +86,9 @@ export default function UniversalNewsListingView() {
       <section className="relative min-h-[50vh] lg:min-h-[56vh] flex items-center justify-center overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"
-            alt="ASMARATY Maritime News and Boat Shows"
-            className="w-full h-full object-cover object-center filter brightness-[0.4] contrast-[1.15]"
+            src="/images/news/qibs-2026-asmaraty-g77-bow-ceremony.jpg"
+            alt="ASMARATY Maritime News and Dispatches"
+            className="w-full h-full object-cover object-center filter brightness-[0.38] contrast-[1.15]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-[#080B10]/75 to-[#080B10]/50" />
         </div>
@@ -109,7 +98,7 @@ export default function UniversalNewsListingView() {
           <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-[#0E1A2D]/85 border border-[#C6A155]/40 backdrop-blur-md mb-6">
             <span className="w-2 h-2 rounded-full bg-[#C6A155] animate-pulse" />
             <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.28em] text-[#DFBA73]">
-              Maritime Dispatches & International Debuts
+              Maritime Dispatches & Official Reports
             </span>
           </div>
 
@@ -118,16 +107,16 @@ export default function UniversalNewsListingView() {
           </h1>
 
           <p className="text-xs sm:text-sm text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-6">
-            Follow the latest announcements, international boat show debuts, naval architecture milestones, and shipyard dispatches from ASMARATY Luxury Yachts.
+            Follow the latest shipyard announcements, inauguration milestones, naval architecture dispatches, and corporate news from ASMARATY Luxury Yachts.
           </p>
 
-          <a
-            href="#upcoming-events"
+          <Link
+            href="/events"
             className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl"
           >
             <span className="w-2 h-2 rounded-full bg-[#C6A155] animate-ping" />
-            <span>Featured Event: Abu Dhabi Boat Show 2026 (19–22 Nov) ↓</span>
-          </a>
+            <span>Explore Calendar of Events & Boat Shows →</span>
+          </Link>
         </div>
       </section>
 
@@ -312,11 +301,6 @@ export default function UniversalNewsListingView() {
           )}
         </div>
       </section>
-
-      {/* -------------------------------------------------------------
-          4. BELOW: UPCOMING BOAT SHOWS & EVENTS GRID
-          ------------------------------------------------------------- */}
-      <UpcomingEventSection events={upcomingEvents} />
     </div>
   );
 }

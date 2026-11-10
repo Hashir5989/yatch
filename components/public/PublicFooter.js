@@ -125,7 +125,8 @@ export default function PublicFooter() {
               {(footer.experienceLinks || [
                 { id: "exp-yachts", label: "All Collections", url: "/yachts", target: "_self", visible: true },
                 { id: "exp-about", label: "About Us", url: "/about", target: "_self", visible: true },
-                { id: "exp-news", label: "News & Boat Shows", url: "/news", target: "_self", visible: true },
+                { id: "exp-news", label: "News & Dispatches", url: "/news", target: "_self", visible: true },
+                { id: "exp-events", label: "Events & Exhibitions", url: "/events", target: "_self", visible: true },
                 { id: "exp-contact", label: "Book Sea Trial", url: "/contact", target: "_self", visible: true }
               ])
                 .filter((item) => item.visible !== false)

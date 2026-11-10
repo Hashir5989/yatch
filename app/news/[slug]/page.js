@@ -95,9 +95,9 @@ async function NewsDetailContent({ slug }) {
     notFound();
   }
 
-  // Upcoming events are featured directly in the events section on /news without standalone detail pages
+  // Upcoming events are featured directly in the events section on /events without standalone detail pages
   if (article.articleType === "event" || article.eventDetails?.isUpcoming) {
-    redirect("/news#upcoming-events");
+    redirect("/events#upcoming-events");
   }
 
   return <UniversalNewsDetailView initialArticle={article} slug={slug} />;

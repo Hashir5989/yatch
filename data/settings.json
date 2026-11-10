@@ -51,6 +51,14 @@
         "visible": true
       },
       {
+        "id": "nav-events",
+        "label": "Events",
+        "url": "/events",
+        "type": "internal",
+        "target": "_self",
+        "visible": true
+      },
+      {
         "id": "nav-contact",
         "label": "Contact Us",
         "url": "/contact",
@@ -95,8 +103,16 @@
       },
       {
         "id": "exp-news",
-        "label": "News & Boat Shows",
+        "label": "News & Dispatches",
         "url": "/news",
+        "type": "internal",
+        "target": "_self",
+        "visible": true
+      },
+      {
+        "id": "exp-events",
+        "label": "Events & Boat Shows",
+        "url": "/events",
         "type": "internal",
         "target": "_self",
         "visible": true
