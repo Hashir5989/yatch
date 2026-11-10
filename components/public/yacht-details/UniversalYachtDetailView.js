@@ -1201,29 +1201,19 @@ export default function UniversalYachtDetailView({
           className="fixed inset-0 z-[99999] bg-[#05080E]/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fadeIn"
           onClick={() => setDeckModalOpen(false)}
         >
-          {/* Top-Right Floating Round Cross (X) Close Button */}
-          <button
-            onClick={() => setDeckModalOpen(false)}
-            className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[100000] p-3 bg-[#0E1624] hover:bg-[#C8A870] text-white hover:text-[#080B10] border border-[#C8A870]/60 rounded-full transition-all shadow-[0_4px_25px_rgba(0,0,0,0.8)] cursor-pointer flex items-center justify-center group"
-            aria-label="Close full resolution deck view"
-            title="Close [Esc]"
-          >
-            <X className="w-6 h-6 transition-transform group-hover:rotate-90 duration-300" />
-          </button>
-
           <div
             className="relative max-w-7xl w-full max-h-[95vh] flex flex-col bg-[#0A0D14] border border-[#C8A870]/40 shadow-[0_20px_80px_rgba(0,0,0,0.95)] overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-4 sm:p-5 border-b border-white/10 bg-[#070A0F]">
-              <div className="flex items-center gap-3">
-                <Maximize2 className="w-4 h-4 text-[#C8A870]" />
-                <div>
-                  <span className="text-[10px] uppercase tracking-luxury text-[#C8A870] font-mono block">
+            <div className="flex items-center justify-between p-3 sm:p-5 border-b border-white/10 bg-[#070A0F] gap-3">
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                <Maximize2 className="w-4 h-4 text-[#C8A870] shrink-0" />
+                <div className="min-w-0">
+                  <span className="text-[10px] uppercase tracking-luxury text-[#C8A870] font-mono block truncate">
                     {data.name || "ASMARATY YACHT"} • FULL RESOLUTION DECK SPECIFICATION
                   </span>
-                  <h4 className="font-serif text-base sm:text-lg text-white font-medium">
+                  <h4 className="font-serif text-sm sm:text-lg text-white font-medium truncate">
                     {activeDeck.name} {activeDeck.subtitle ? `— ${activeDeck.subtitle}` : ""}
                   </h4>
                 </div>
@@ -1231,7 +1221,7 @@ export default function UniversalYachtDetailView({
 
               {/* Deck tabs inside modal if multiple decks */}
               {Array.isArray(data.deckPlans) && data.deckPlans.length > 1 && (
-                <div className="hidden md:flex items-center gap-1.5 bg-[#0E131C] p-1 border border-white/10">
+                <div className="hidden md:flex items-center gap-1.5 bg-[#0E131C] p-1 border border-white/10 shrink-0">
                   {data.deckPlans.map((deck) => (
                     <button
                       key={deck.id}
@@ -1248,10 +1238,10 @@ export default function UniversalYachtDetailView({
                 </div>
               )}
 
-              {/* Prominent Header Close button / Cross Symbol */}
+              {/* Single Official Close Button */}
               <button
                 onClick={() => setDeckModalOpen(false)}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#C8A870] hover:bg-white text-[#080B10] border border-[#C8A870] transition-all text-xs font-bold uppercase tracking-wider cursor-pointer shadow-xl mr-12 sm:mr-0"
+                className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#C8A870] hover:bg-white text-[#080B10] border border-[#C8A870] transition-all text-xs font-bold uppercase tracking-wider cursor-pointer shadow-lg shrink-0"
                 aria-label="Close full resolution deck view"
                 title="Close [Esc]"
               >
@@ -1274,17 +1264,9 @@ export default function UniversalYachtDetailView({
               <p className="font-mono text-[11px] text-[#A2B0C0]">
                 {activeDeck.caption || `${activeDeck.name} architectural GA drawing & 3D cutaway specification.`}
               </p>
-              <div className="flex items-center gap-3">
-                <span className="text-[10px] text-[#C8A870] font-mono tracking-wider">
-                  PRESS ESC OR CLICK OUTSIDE TO RETURN
-                </span>
-                <button
-                  onClick={() => setDeckModalOpen(false)}
-                  className="text-[#DFBA73] hover:text-white underline text-xs font-mono uppercase cursor-pointer"
-                >
-                  ✕ Close Window
-                </button>
-              </div>
+              <span className="text-[10px] text-[#C8A870] font-mono tracking-wider">
+                PRESS ESC OR CLICK OUTSIDE TO RETURN
+              </span>
             </div>
           </div>
         </div>
