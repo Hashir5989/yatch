@@ -610,6 +610,18 @@ export default function UniversalYachtDetailView({
                       </button>
                     )}
 
+                    {isEditable && (
+                      <button
+                        type="button"
+                        onClick={() => setDeckModalOpen(true)}
+                        className="saxdor-btn-outline !h-[42px] !min-w-0 !px-3 text-xs font-medium tracking-wider rounded-none inline-flex items-center justify-center gap-1.5 border-[#C8A870]/60 text-[#DFBA73] hover:bg-[#C8A870] hover:text-[#080B10] cursor-pointer"
+                        title="Preview full resolution modal"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5 shrink-0" />
+                        <span>Preview Fullscreen</span>
+                      </button>
+                    )}
+
                     {isEditable ? (
                       <InlineButtonEditor
                         text={activeDeck.resolutionLabel || "View Full Resolution"}
@@ -1186,11 +1198,21 @@ export default function UniversalYachtDetailView({
       {/* Deck Plan Full Resolution Lightbox Modal */}
       {deckModalOpen && activeDeck && (
         <div
-          className="fixed inset-0 z-50 bg-[#080B10]/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
+          className="fixed inset-0 z-[99999] bg-[#05080E]/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fadeIn"
           onClick={() => setDeckModalOpen(false)}
         >
+          {/* Top-Right Floating Round Cross (X) Close Button */}
+          <button
+            onClick={() => setDeckModalOpen(false)}
+            className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[100000] p-3 bg-[#0E1624] hover:bg-[#C8A870] text-white hover:text-[#080B10] border border-[#C8A870]/60 rounded-full transition-all shadow-[0_4px_25px_rgba(0,0,0,0.8)] cursor-pointer flex items-center justify-center group"
+            aria-label="Close full resolution deck view"
+            title="Close [Esc]"
+          >
+            <X className="w-6 h-6 transition-transform group-hover:rotate-90 duration-300" />
+          </button>
+
           <div
-            className="relative max-w-7xl w-full max-h-[95vh] flex flex-col bg-[#0A0D14] border border-white/10 shadow-2xl overflow-hidden"
+            className="relative max-w-7xl w-full max-h-[95vh] flex flex-col bg-[#0A0D14] border border-[#C8A870]/40 shadow-[0_20px_80px_rgba(0,0,0,0.95)] overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -1226,11 +1248,12 @@ export default function UniversalYachtDetailView({
                 </div>
               )}
 
-              {/* Prominent Close button / Cross Symbol */}
+              {/* Prominent Header Close button / Cross Symbol */}
               <button
                 onClick={() => setDeckModalOpen(false)}
-                className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/10 hover:bg-[#C8A870] text-white hover:text-[#080B10] border border-white/20 hover:border-[#C8A870] transition-all text-xs font-bold uppercase tracking-wider cursor-pointer shadow-lg"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[#C8A870] hover:bg-white text-[#080B10] border border-[#C8A870] transition-all text-xs font-bold uppercase tracking-wider cursor-pointer shadow-xl mr-12 sm:mr-0"
                 aria-label="Close full resolution deck view"
+                title="Close [Esc]"
               >
                 <span>CLOSE</span>
                 <X className="w-4 h-4" />
@@ -1242,7 +1265,7 @@ export default function UniversalYachtDetailView({
               <img
                 src={activeDeck.image3D}
                 alt={activeDeck.caption || activeDeck.name}
-                className="w-full h-auto max-h-[75vh] object-contain mx-auto"
+                className="w-full h-auto max-h-[75vh] object-contain mx-auto select-none"
               />
             </div>
 
@@ -1251,9 +1274,17 @@ export default function UniversalYachtDetailView({
               <p className="font-mono text-[11px] text-[#A2B0C0]">
                 {activeDeck.caption || `${activeDeck.name} architectural GA drawing & 3D cutaway specification.`}
               </p>
-              <span className="text-[10px] text-[#C8A870] font-mono tracking-wider">
-                PRESS ESC OR CLICK CLOSE TO RETURN
-              </span>
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] text-[#C8A870] font-mono tracking-wider">
+                  PRESS ESC OR CLICK OUTSIDE TO RETURN
+                </span>
+                <button
+                  onClick={() => setDeckModalOpen(false)}
+                  className="text-[#DFBA73] hover:text-white underline text-xs font-mono uppercase cursor-pointer"
+                >
+                  ✕ Close Window
+                </button>
+              </div>
             </div>
           </div>
         </div>
