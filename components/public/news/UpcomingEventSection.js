@@ -79,7 +79,10 @@ export default function UpcomingEventSection({ events = [] }) {
               Upcoming Events & Boat Shows
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-white/70 font-light max-w-lg leading-relaxed">
+          <p
+            className="text-xs sm:text-sm text-white/70 font-light max-w-lg leading-relaxed saxdor-desc-justified"
+            style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+          >
             Experience ASMARATY Luxury Yachts in person at premier international marine exhibitions. Connect with our client advisory desk to reserve private VIP walkthroughs, schedule sea trials, and meet our senior naval architects.
           </p>
         </div>
@@ -255,7 +258,10 @@ export default function UpcomingEventSection({ events = [] }) {
               Request VIP Sea Trial or Private Berthing Walkthrough
             </h3>
 
-            <p className="text-xs sm:text-sm text-white/75 font-light leading-relaxed">
+            <p
+              className="text-xs sm:text-sm text-white/75 font-light leading-relaxed saxdor-desc-justified"
+              style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+            >
               Connect directly with our luxury yacht advisory desk in the UAE. We arrange confidential one-on-one appointments with Al Shaali Marine naval architects, private boat show passes, and VIP sea trials departing from Abu Dhabi and Dubai.
             </p>
 

@@ -350,7 +350,10 @@ export default function UniversalEventDetailView({ event: initialEvent }) {
                 The Showcase Gallery
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-white/60 font-light max-w-md leading-relaxed">
+            <p
+              className="text-xs sm:text-sm text-white/60 font-light max-w-md leading-relaxed saxdor-desc-justified"
+              style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+            >
               Click any photograph to open the high-resolution fullscreen lightbox view with detailed captions and zoom controls.
             </p>
           </div>
