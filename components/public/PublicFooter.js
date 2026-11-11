@@ -14,6 +14,7 @@ import {
   syncYachtsFromServer 
 } from "@/lib/cmsStore";
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
+import { openCookiePreferences } from "@/lib/cookieConsent";
 
 export default function PublicFooter() {
   const [settings, setSettings] = useState(() => DEFAULT_SETTINGS);
@@ -209,14 +210,22 @@ export default function PublicFooter() {
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Social Links */}
+        {/* Bottom Bar: Copyright, Cookie Settings & Social Links */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-center md:text-left">
-          <div className="flex flex-col sm:flex-row items-center gap-3 text-white/60">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center md:justify-start gap-2.5 sm:gap-3 text-white/60">
             <p>{footer.copyrightText || "© 2026 ASMARATY LLC. All rights reserved."}</p>
             <span className="text-[#243550] hidden sm:inline">•</span>
             <p className="text-[#8E9EAF]">
               {footer.tagline || "Official Shipyard & Luxury Naval Architecture UAE"}
             </p>
+            <span className="text-[#243550] hidden sm:inline">•</span>
+            <button
+              type="button"
+              onClick={openCookiePreferences}
+              className="text-white/75 hover:text-[#DFBA73] underline decoration-[#C6A155]/40 hover:decoration-[#DFBA73] underline-offset-4 transition-colors cursor-pointer"
+            >
+              Cookie Settings
+            </button>
           </div>
 
           {/* Social Channels (Manageable via CMS) */}

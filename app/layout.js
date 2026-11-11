@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import "./globals.css";
+import CookieConsentManager from "@/components/public/CookieConsentManager";
 
 export const metadata = {
   metadataBase: new URL("https://asmaraty.com"),
@@ -137,6 +139,9 @@ export default function RootLayout({ children }) {
       </head>
       <body className="min-h-full bg-[#080B10] text-[#E8EAEE] font-sans selection:bg-[#C6A155] selection:text-black antialiased">
         {children}
+        <Suspense fallback={null}>
+          <CookieConsentManager />
+        </Suspense>
       </body>
     </html>
   );
