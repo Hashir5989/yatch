@@ -663,13 +663,21 @@ export default function YachtCollectionSection({
                           {modelCategory}
                         </div>
 
-                        {/* Model Heading (Official ASMARATY Logo Typography) */}
+                        {/* Model Heading (Michroma Regular 400 Architectural Typography) */}
                         <Link href={`/yachts/${model.slug}`} className="block group">
-                          <h3 className={`font-logo uppercase tracking-[0.03em] text-xl sm:text-2xl md:text-3xl lg:text-[34px] font-bold leading-[1.25] transition-colors ${
-                            isDark 
-                              ? "text-white group-hover:text-[#C6A155]" 
-                              : "text-[#0E2047] group-hover:text-[#C6A155]"
-                          }`}>
+                          <h3
+                            className={`uppercase tracking-[1px] text-lg sm:text-xl md:text-[22px] lg:text-[24px] font-normal leading-[1.35] transition-colors ${
+                              isDark 
+                                ? "text-white group-hover:text-[#C6A155]" 
+                                : "text-[#0E2047] group-hover:text-[#C6A155]"
+                            }`}
+                            style={{
+                              fontFamily: "'Michroma', sans-serif",
+                              fontWeight: 400,
+                              textTransform: "uppercase",
+                              letterSpacing: "1px",
+                            }}
+                          >
                             {modelHeading}
                           </h3>
                         </Link>
