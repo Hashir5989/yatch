@@ -595,12 +595,8 @@
     "length": "77 FT (23.47 M)",
     "mainImage": "/images/yachts/g77/g77_asset_01_1672x941.jpg",
     "primaryImage": "/images/yachts/g77/g77_asset_01_1672x941.jpg",
-    "heroImage": "/images/yachts/g77/g77_asset_01_1672x941.jpg",
+    "heroImage": "/images/yachts/g77/g77_asset_29_1672x941.jpg",
     "heroImages": [
-      {
-        "src": "/images/yachts/g77/g77_asset_01_1672x941.jpg",
-        "label": "Cruising Profile on Arabian Gulf Waters"
-      },
       {
         "src": "/images/yachts/g77/g77_asset_29_1672x941.jpg",
         "label": "Flybridge Terrace & Quilted Leather Lounge"
