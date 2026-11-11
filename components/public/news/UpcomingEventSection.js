@@ -179,13 +179,19 @@ export default function UpcomingEventSection({ events = [] }) {
                       <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#DFBA73] font-semibold block">
                         CORDIAL INVITATION
                       </span>
-                      <p className="text-xs sm:text-sm text-white/90 font-light italic leading-relaxed">
+                      <p
+                        className="text-xs sm:text-sm text-white/90 font-light italic leading-relaxed saxdor-desc-justified"
+                        style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+                      >
                         ASMARATY Luxury Yachts and Al Shaali Marine cordially invite distinguished collectors, private owners, and marine enthusiasts to visit our waterfront showcase at {venue}.
                       </p>
                     </div>
 
                     {/* Excerpt / Overview */}
-                    <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed">
+                    <p
+                      className="text-xs sm:text-sm text-white/70 font-light leading-relaxed saxdor-desc-justified"
+                      style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+                    >
                       {eventArticle.excerpt}
                     </p>
 

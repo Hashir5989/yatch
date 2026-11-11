@@ -207,7 +207,11 @@ export default function UniversalEventDetailView({ event: initialEvent }) {
               {/* Story Paragraphs */}
               <div className="text-sm sm:text-base text-white/85 font-light leading-relaxed space-y-5">
                 {paragraphs.map((p, idx) => (
-                  <p key={idx} className="leading-relaxed">
+                  <p
+                    key={idx}
+                    className="leading-relaxed saxdor-desc-justified"
+                    style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+                  >
                     {p}
                   </p>
                 ))}
@@ -220,7 +224,10 @@ export default function UniversalEventDetailView({ event: initialEvent }) {
                     <ShieldCheck className="w-4 h-4 text-[#C6A155]" />
                     <span>LANDMARK 25-YEAR SHIPYARD HULL INTEGRITY WARRANTY</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-white/90 font-light leading-relaxed">
+                  <p
+                    className="text-xs sm:text-sm text-white/90 font-light leading-relaxed saxdor-desc-justified"
+                    style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+                  >
                     {event.warrantyCallout}
                   </p>
                 </div>
@@ -277,7 +284,10 @@ export default function UniversalEventDetailView({ event: initialEvent }) {
                   <h4 className="font-serif text-lg text-white uppercase tracking-wider">
                     ASMARATY G77
                   </h4>
-                  <p className="text-xs text-white/70 font-light mt-1">
+                  <p
+                    className="text-xs text-white/70 font-light mt-1 saxdor-desc-justified"
+                    style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+                  >
                     77 FT Two-Deck Luxury Motor Yacht with 25-Year Shipyard Warranty.
                   </p>
                 </div>
@@ -295,7 +305,10 @@ export default function UniversalEventDetailView({ event: initialEvent }) {
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#DFBA73] font-semibold block">
                   Direct Shipyard Inquiries
                 </span>
-                <p className="text-white/70 font-light leading-relaxed">
+                <p
+                  className="text-white/70 font-light leading-relaxed saxdor-desc-justified"
+                  style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+                >
                   Interested in commission build slots or private walkthroughs? Contact our senior advisory desk directly.
                 </p>
                 <div className="pt-2 flex flex-col gap-2">

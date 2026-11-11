@@ -203,7 +203,10 @@ export default function UniversalEventsView() {
                           {event.title}
                         </h2>
 
-                        <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed line-clamp-3">
+                        <p
+                          className="text-xs sm:text-sm text-white/70 font-light leading-relaxed line-clamp-3 saxdor-desc-justified"
+                          style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+                        >
                           {event.excerpt}
                         </p>
                       </div>
