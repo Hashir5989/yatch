@@ -19,7 +19,7 @@ import {
 } from "@/lib/cmsStore";
 import { DEFAULT_PAGES, DEFAULT_YACHTS_PAGE } from "@/lib/data/defaultPages";
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
-import { formatButtonHref } from "@/lib/data/buttonSchema";
+import { formatButtonHref, formatPdfZoomUrl } from "@/lib/data/buttonSchema";
 
 // Canonical hardcoded fallback models to guarantee 100% zero-regression uptime
 const FALLBACK_FLEET_MODELS = [
@@ -442,7 +442,7 @@ export default function UniversalYachtCatalogView() {
 
                         {model.brochureUrl ? (
                           <a
-                            href={model.brochureUrl}
+                            href={formatPdfZoomUrl(model.brochureUrl, 40)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-full sm:w-auto flex-1 sm:flex-initial sm:min-w-[150px] max-w-full overflow-hidden saxdor-btn-outline !h-auto min-h-[44px] sm:!h-[46px] !px-4 sm:!px-5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73] text-center"
@@ -637,7 +637,7 @@ export default function UniversalYachtCatalogView() {
                         </Link>
                         {m.brochureUrl ? (
                           <a
-                            href={m.brochureUrl}
+                            href={formatPdfZoomUrl(m.brochureUrl, 40)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="block w-full py-1.5 px-2 text-[10px] uppercase tracking-wider text-white/70 hover:text-[#DFBA73] transition-colors"

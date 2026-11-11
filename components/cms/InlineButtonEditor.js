@@ -26,7 +26,8 @@ import {
   BUTTON_PAGE_PRESETS, 
   detectLinkType,
   normalizeButtonConfig,
-  formatButtonHref
+  formatButtonHref,
+  formatPdfZoomUrl
 } from "@/lib/data/buttonSchema";
 
 const emptySubscribe = () => () => {};
@@ -164,8 +165,9 @@ export default function InlineButtonEditor({
     const rel = resolvedTarget === "_blank" ? "noopener noreferrer" : undefined;
 
     if (isPdf) {
+      const pdfHref = formatPdfZoomUrl(finalHref, 40);
       return (
-        <a href={finalHref} target="_blank" rel="noopener noreferrer" className={`max-w-full overflow-hidden ${className}`}>
+        <a href={pdfHref} target="_blank" rel="noopener noreferrer" className={`max-w-full overflow-hidden ${className}`}>
           {children ? (
             <span className="inline-flex items-center justify-center gap-2 max-w-full overflow-hidden text-ellipsis">
               {children}

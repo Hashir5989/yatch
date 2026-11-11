@@ -26,6 +26,7 @@ import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 import InlineEditableText from "@/components/cms/InlineEditableText";
 import InlineButtonEditor from "@/components/cms/InlineButtonEditor";
+import { formatPdfZoomUrl } from "@/lib/data/buttonSchema";
 
 // Icon mapping helper for narrative cards
 const ICON_MAP = {
@@ -147,13 +148,13 @@ export default function UniversalYachtDetailView({
               <InlineButtonEditor
                 config={{
                   label: data.brochureLabel || "Brochure (PDF)",
-                  url: data.brochureUrl || "/contact",
+                  url: formatPdfZoomUrl(data.brochureUrl, 40) || "/contact",
                   target: data.brochureUrl ? "_blank" : "_self",
                   type: data.brochureUrl ? "external" : "internal",
                   visible: true,
                 }}
                 text={data.brochureLabel || "Brochure (PDF)"}
-                url={data.brochureUrl || "/contact"}
+                url={formatPdfZoomUrl(data.brochureUrl, 40) || "/contact"}
                 isEditable={isEditable}
                 onSave={(newText, newUrl) => {
                   onUpdateField && onUpdateField("brochureLabel", newText);
@@ -257,15 +258,14 @@ export default function UniversalYachtDetailView({
                 <InlineButtonEditor
                   config={{
                     label: data.brochureLabel || "Download Brochure (PDF)",
-                    url: data.brochureUrl || "/contact",
+                    url: formatPdfZoomUrl(data.brochureUrl, 40) || "/contact",
                     target: data.brochureUrl ? "_blank" : "_self",
                     type: data.brochureUrl ? "external" : "internal",
                     visible: true,
                     style: "outline-gold",
                   }}
                   text={data.brochureLabel || "Download Brochure (PDF)"}
-                  url={data.brochureUrl || "/contact"}
-                  isEditable={isEditable}
+                  url={formatPdfZoomUrl(data.brochureUrl, 40) || "/contact"}
                   onSave={(newText, newUrl) => {
                     onUpdateField && onUpdateField("brochureLabel", newText);
                     onUpdateField && onUpdateField("brochureUrl", newUrl);
