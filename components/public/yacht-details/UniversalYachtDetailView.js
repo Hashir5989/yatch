@@ -194,14 +194,19 @@ export default function UniversalYachtDetailView({
             <div className="max-w-3xl space-y-6">
               {/* Title & Tagline */}
               <div>
-                <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-light text-white leading-[1.15] tracking-tight">
-                  <InlineEditableText
-                    as="span"
-                    value={data.brandPrefix || "ASMARATY"}
-                    isEditable={isEditable}
-                    onChange={(val) => onUpdateField && onUpdateField("brandPrefix", val)}
-                    placeholder="ASMARATY"
-                  />{" "}
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-light text-white leading-[1.15] tracking-tight">
+                  <span
+                    className="tracking-wider uppercase"
+                    style={{ fontFamily: "'Michroma', sans-serif" }}
+                  >
+                    <InlineEditableText
+                      as="span"
+                      value={data.brandPrefix || "ASMARATY"}
+                      isEditable={isEditable}
+                      onChange={(val) => onUpdateField && onUpdateField("brandPrefix", val)}
+                      placeholder="ASMARATY"
+                    />
+                  </span>{" "}
                   <span className="font-sans font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#FFFFFF] via-[#E5C392] to-[#C8A870]">
                     <InlineEditableText
                       as="span"
