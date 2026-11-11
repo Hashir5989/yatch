@@ -55,9 +55,9 @@ export default function PublicFooter() {
     <footer className="bg-[#08101C] border-t border-[#152338] text-[#8E9EAF] pt-20 pb-12 font-sans">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* Top Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-12 pb-16 border-b border-[#152338]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-16 border-b border-[#152338]">
           {/* Brand Info (Dynamic from CMS) */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="sm:col-span-2 lg:col-span-4 space-y-6">
             <div className="flex flex-col items-start gap-2">
               <AsmaratyLogo variant="full" imgClassName="h-14 sm:h-16 md:h-18" />
               <p className="saxdor-eyebrow text-[9px] tracking-[0.26em] text-[#C6A155] uppercase font-bold pl-1">
@@ -85,7 +85,7 @@ export default function PublicFooter() {
           </div>
 
           {/* Fleet Links (Dynamic from CMS Published Yachts) */}
-          <div className="space-y-4">
+          <div className="lg:col-span-3 space-y-4">
             <h4 className="saxdor-eyebrow text-xs font-bold text-white uppercase tracking-[0.18em]">
               {footer.fleetHeading || "The Fleet"}
             </h4>
@@ -95,13 +95,15 @@ export default function PublicFooter() {
                   <li key={yacht.id}>
                     <Link
                       href={`/yachts/${yacht.slug}`}
-                      className="hover:text-white transition-colors flex items-center justify-between group"
+                      className="hover:text-white transition-colors flex items-center justify-between gap-3 group"
                     >
-                      <span className="group-hover:translate-x-0.5 transition-transform text-white/90">
+                      <span className="group-hover:translate-x-0.5 transition-transform text-white/90 leading-snug">
                         {yacht.name}
                       </span>
-                      <span className="text-[9px] bg-[#C6A155]/20 text-[#DFBA73] px-1.5 py-0.5 font-bold tracking-widest uppercase">
-                        {yacht.category || (yacht.specs?.lengthOverall ? `${yacht.specs.lengthOverall} FT` : "Yacht")}
+                      <span className="w-[118px] h-[24px] shrink-0 inline-flex items-center justify-center text-center whitespace-nowrap text-[8px] bg-[#C6A155]/20 text-[#DFBA73] px-1.5 font-bold tracking-[0.09em] uppercase">
+                        <span className="truncate">
+                          {yacht.category || (yacht.specs?.lengthOverall ? `${yacht.specs.lengthOverall} FT` : "Yacht")}
+                        </span>
                       </span>
                     </Link>
                   </li>
@@ -109,15 +111,19 @@ export default function PublicFooter() {
               ) : (
                 <>
                   <li>
-                    <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between group">
+                    <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between gap-3 group">
                       <span className="group-hover:translate-x-0.5 transition-transform">G100</span>
-                      <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Superyacht</span>
+                      <span className="w-[118px] h-[24px] shrink-0 inline-flex items-center justify-center text-center whitespace-nowrap text-[8px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 font-bold tracking-[0.09em] uppercase">
+                        Superyacht
+                      </span>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between group">
+                    <Link href="/#fleet" className="hover:text-white transition-colors flex items-center justify-between gap-3 group">
                       <span className="group-hover:translate-x-0.5 transition-transform">G77</span>
-                      <span className="text-[9px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 py-0.5 font-bold tracking-widest uppercase">Luxury Yacht</span>
+                      <span className="w-[118px] h-[24px] shrink-0 inline-flex items-center justify-center text-center whitespace-nowrap text-[8px] bg-[#C6A155]/20 text-[#C6A155] px-1.5 font-bold tracking-[0.09em] uppercase">
+                        Luxury Yacht
+                      </span>
                     </Link>
                   </li>
                 </>
@@ -126,7 +132,7 @@ export default function PublicFooter() {
           </div>
 
           {/* Experience Links (Manageable via CMS) */}
-          <div className="space-y-4">
+          <div className="lg:col-span-2 space-y-4">
             <h4 className="saxdor-eyebrow text-xs font-bold text-white uppercase tracking-[0.18em]">
               {footer.experienceHeading || "Experience"}
             </h4>
@@ -155,7 +161,7 @@ export default function PublicFooter() {
           </div>
 
           {/* Headquarters / Contact (Dynamic from Site Settings) */}
-          <div className="space-y-4">
+          <div className="sm:col-span-2 lg:col-span-3 space-y-4">
             <h4 className="saxdor-eyebrow text-xs font-bold text-white uppercase tracking-[0.18em]">
               {footer.hqHeading || "Headquarters"}
             </h4>
