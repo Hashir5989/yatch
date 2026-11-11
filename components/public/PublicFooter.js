@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Shield, Award, Phone, Mail, MapPin } from "lucide-react";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
-import { InstagramIcon, FacebookIcon, LinkedinIcon, YoutubeIcon, XTwitterIcon } from "@/components/public/SocialIcons";
+import { InstagramIcon, FacebookIcon, LinkedinIcon, YoutubeIcon, XTwitterIcon, TiktokIcon } from "@/components/public/SocialIcons";
 import { 
   DEFAULT_SETTINGS,
   getSiteSettings, 
@@ -228,25 +228,53 @@ export default function PublicFooter() {
             </button>
           </div>
 
-          {/* Social Channels (Manageable via CMS) */}
-          <div className="flex items-center gap-4 text-white/60">
+          {/* Social Channels (Instagram, YouTube, TikTok + extras) */}
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 text-white/80">
+            {/* Instagram */}
             <a
               href={social.instagram || "https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#DFBA73] hover:text-white transition-colors p-1.5 bg-white/5 hover:bg-[#C6A155]/20 border border-[#C6A155]/40 rounded flex items-center gap-1.5"
+              className="p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded flex items-center gap-1.5 text-white/90 hover:text-white transition-all shadow-sm group"
               aria-label="ASMARATY Official Instagram"
               title="Follow @asmaraty_yachts on Instagram"
             >
-              <InstagramIcon className="w-4 h-4" />
+              <InstagramIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
               <span className="text-[10px] font-mono uppercase font-bold tracking-wider hidden sm:inline">Instagram</span>
             </a>
+
+            {/* YouTube */}
+            <a
+              href={social.youtube || "https://youtu.be/FBPzrAe9N0Q"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded flex items-center gap-1.5 text-white/90 hover:text-white transition-all shadow-sm group"
+              aria-label="ASMARATY Official YouTube"
+              title="Watch on YouTube"
+            >
+              <YoutubeIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <span className="text-[10px] font-mono uppercase font-bold tracking-wider hidden sm:inline">YouTube</span>
+            </a>
+
+            {/* TikTok */}
+            <a
+              href={social.tiktok || "https://www.tiktok.com/@asmaraty.yachts?_r=1&_t=ZS-9BJeuRzx6UI"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded flex items-center gap-1.5 text-white/90 hover:text-white transition-all shadow-sm group"
+              aria-label="ASMARATY Official TikTok"
+              title="Follow @asmaraty.yachts on TikTok"
+            >
+              <TiktokIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <span className="text-[10px] font-mono uppercase font-bold tracking-wider hidden sm:inline">TikTok</span>
+            </a>
+
             {social.facebook && (
               <a
                 href={social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#C6A155] transition-colors p-1"
+                className="hover:scale-110 transition-transform p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded flex items-center justify-center"
                 aria-label="ASMARATY Facebook"
                 title="Facebook"
               >
@@ -258,23 +286,11 @@ export default function PublicFooter() {
                 href={social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#C6A155] transition-colors p-1"
+                className="hover:scale-110 transition-transform p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded flex items-center justify-center"
                 aria-label="ASMARATY LinkedIn"
                 title="LinkedIn"
               >
                 <LinkedinIcon className="w-4 h-4" />
-              </a>
-            )}
-            {social.youtube && (
-              <a
-                href={social.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#C6A155] transition-colors p-1"
-                aria-label="ASMARATY YouTube"
-                title="YouTube"
-              >
-                <YoutubeIcon className="w-4 h-4" />
               </a>
             )}
             {social.twitter && (
@@ -282,7 +298,7 @@ export default function PublicFooter() {
                 href={social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#C6A155] transition-colors p-1"
+                className="hover:scale-110 transition-transform p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded flex items-center justify-center"
                 aria-label="ASMARATY X (Twitter)"
                 title="X / Twitter"
               >

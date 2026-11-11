@@ -21,7 +21,7 @@ import {
   Building2
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
-import { InstagramIcon } from "@/components/public/SocialIcons";
+import { InstagramIcon, YoutubeIcon, TiktokIcon } from "@/components/public/SocialIcons";
 
 const FAQS = [
   {
@@ -407,10 +407,30 @@ export default function UniversalContactView({ pageData = null }) {
                   href="https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#08101C] hover:bg-[#C6A155] text-[#DFBA73] hover:text-black border border-[#C6A155]/50 transition-all text-xs font-bold uppercase tracking-wider group"
+                  className="w-full inline-flex items-center justify-center gap-2.5 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group"
                 >
-                  <InstagramIcon className="w-4 h-4" />
+                  <InstagramIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
                   <span>Follow @asmaraty_yachts on Instagram</span>
+                </a>
+
+                <a
+                  href="https://youtu.be/FBPzrAe9N0Q"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2.5 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group"
+                >
+                  <YoutubeIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
+                  <span>Watch on YouTube</span>
+                </a>
+
+                <a
+                  href="https://www.tiktok.com/@asmaraty.yachts?_r=1&_t=ZS-9BJeuRzx6UI"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2.5 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group"
+                >
+                  <TiktokIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
+                  <span>Follow @asmaraty.yachts on TikTok</span>
                 </a>
               </div>
             </div>

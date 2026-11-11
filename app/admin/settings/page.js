@@ -1047,7 +1047,20 @@ export default function AdminSettingsScreen() {
                   type="text"
                   value={settings.socialLinks?.youtube || ""}
                   onChange={(e) => updateSocial("youtube", e.target.value)}
-                  placeholder="https://youtube.com/@asmaraty"
+                  placeholder="https://youtu.be/FBPzrAe9N0Q"
+                  className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] uppercase tracking-wider text-[#9DAAB8] mb-1.5 font-semibold">
+                  TikTok Profile URL
+                </label>
+                <input
+                  type="text"
+                  value={settings.socialLinks?.tiktok || ""}
+                  onChange={(e) => updateSocial("tiktok", e.target.value)}
+                  placeholder="https://www.tiktok.com/@asmaraty.yachts?_r=1&_t=ZS-9BJeuRzx6UI"
                   className="w-full px-3 py-2 bg-[#090D14] border border-[#1E2736] rounded-sm text-xs text-white focus:outline-none focus:border-[#C5A880]"
                 />
               </div>

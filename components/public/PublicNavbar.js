@@ -26,7 +26,7 @@ import {
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
-import { InstagramIcon } from "@/components/public/SocialIcons";
+import { InstagramIcon, YoutubeIcon, TiktokIcon } from "@/components/public/SocialIcons";
 
 export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -290,16 +290,40 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                   <a href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`} className="hover:underline text-white/70">
                     {settings.contactEmail || "info@asmaraty.com"}
                   </a>
-                  <a
-                    href={settings.socialLinks?.instagram || "https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-[#DFBA73] hover:text-white transition-colors"
-                    title="Follow @asmaraty_yachts on Instagram"
-                  >
-                    <InstagramIcon className="w-3.5 h-3.5" />
-                    <span className="font-mono text-[11px]">@asmaraty_yachts</span>
-                  </a>
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <a
+                      href={settings.socialLinks?.instagram || "https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors"
+                      title="Follow @asmaraty_yachts on Instagram"
+                    >
+                      <InstagramIcon className="w-3.5 h-3.5" />
+                      <span className="font-mono text-[11px]">Instagram</span>
+                    </a>
+                    <span className="text-white/20">•</span>
+                    <a
+                      href={settings.socialLinks?.youtube || "https://youtu.be/FBPzrAe9N0Q"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors"
+                      title="Watch on YouTube"
+                    >
+                      <YoutubeIcon className="w-3.5 h-3.5" />
+                      <span className="font-mono text-[11px]">YouTube</span>
+                    </a>
+                    <span className="text-white/20">•</span>
+                    <a
+                      href={settings.socialLinks?.tiktok || "https://www.tiktok.com/@asmaraty.yachts?_r=1&_t=ZS-9BJeuRzx6UI"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors"
+                      title="Follow @asmaraty.yachts on TikTok"
+                    >
+                      <TiktokIcon className="w-3.5 h-3.5" />
+                      <span className="font-mono text-[11px]">TikTok</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
