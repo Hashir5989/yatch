@@ -64,7 +64,10 @@ export default function PublicFooter() {
                 {footer.brandEyebrow || "Yachts • United Arab Emirates"}
               </p>
             </div>
-            <p className="text-xs sm:text-sm text-[#8E9EAF] leading-relaxed max-w-md font-light">
+            <p
+              className="text-xs sm:text-sm text-[#8E9EAF] leading-relaxed max-w-md font-light saxdor-desc-justified"
+              style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+            >
               {footer.brandDescription ||
                 "Since 1979, ASMARATY has pioneered composite boat and high-performance yacht manufacturing across the Arabian Gulf, crafting custom naval vessels where architectural clarity meets endurance at sea."}
             </p>
