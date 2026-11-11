@@ -1,299 +1,160 @@
-"use client";
-
-import { useState, useEffect, Suspense } from "react";
-import { useParams, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { Edit3, Save, X, Sparkles, CheckCircle2, RotateCcw } from "lucide-react";
-import PublicNavbar from "@/components/public/PublicNavbar";
-import PublicFooter from "@/components/public/PublicFooter";
-import UnderConstructionView from "@/components/public/UnderConstructionView";
-import UniversalYachtDetailView from "@/components/public/yacht-details/UniversalYachtDetailView";
-import MediaPickerModal from "@/components/cms/MediaPickerModal";
+import { Suspense } from "react";
+import { connection } from "next/server";
+import { getYachtsServer } from "@/lib/server/db";
 import { getYachtShowcaseData, mergeYachtWithShowcase } from "@/lib/data/yachtShowcaseData";
-import { getYachtBySlug, syncYachtsFromServer, saveYachtAsync } from "@/lib/cmsStore";
+import YachtDetailPageClient from "./YachtDetailPageClient";
 
-function YachtDetailPageInner() {
-  const params = useParams();
-  const searchParams = useSearchParams();
-  const rawSlug = params?.slug;
-  const slug = Array.isArray(rawSlug) ? rawSlug[0] : rawSlug;
+export const instant = false;
 
-  const [cmsYacht, setCmsYacht] = useState(() => (slug ? getYachtBySlug(slug) : null));
+const Connection = async () => {
+  await connection();
+  return null;
+};
 
-  // Client In-Line Editing State
-  const editParam = searchParams?.get("edit");
-  const [isInlineEditing, setIsInlineEditing] = useState(editParam === "true" || editParam === "1");
-  const [workingData, setWorkingData] = useState(null);
-  const [hasChanges, setHasChanges] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null);
-
-  // Media Picker Config
-  const [mediaPickerConfig, setMediaPickerConfig] = useState({
-    isOpen: false,
-    fieldKey: null,
-    currentUrl: "",
-  });
-
-  const showToast = (msg) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3500);
-  };
-
-  useEffect(() => {
-    // Initial fetch from server API
-    syncYachtsFromServer().then(() => {
-      if (slug) {
-        const found = getYachtBySlug(slug);
-        setCmsYacht(found);
+export async function generateStaticParams() {
+  try {
+    const allYachts = await getYachtsServer(true); // published yachts only
+    const params = [];
+    for (const y of allYachts) {
+      if (y.slug && y.status !== "draft") {
+        params.push({ slug: y.slug });
       }
-    });
-
-    if (slug) {
-      setCmsYacht(getYachtBySlug(slug));
     }
-
-    // Reactive listener for live updates when saved in /admin/yachts
-    const handleUpdate = () => {
-      if (slug) {
-        setCmsYacht(getYachtBySlug(slug));
+    // Include aliases for backward compatibility
+    const aliases = ["g100", "g77", "as-77", "as77", "g66", "g50", "g55"];
+    for (const a of aliases) {
+      if (!params.some((p) => p.slug === a)) {
+        params.push({ slug: a });
       }
-    };
-
-    window.addEventListener("asm-cms-change", handleUpdate);
-    return () => window.removeEventListener("asm-cms-change", handleUpdate);
-  }, [slug]);
-
-  // Retrieve base static showcase details (cutaways, original imagery)
-  const staticShowcase = getYachtShowcaseData(slug);
-
-  // If no CMS record and no showcase found: 404 Not Found
-  if (!cmsYacht && !staticShowcase) {
-    return (
-      <div className="min-h-screen bg-[#080B10] text-[#E8EAEE] flex flex-col justify-between">
-        <PublicNavbar />
-        <div className="py-40 text-center space-y-4 px-6">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#C8A870] block">
-            404 • VESSEL NOT FOUND
-          </span>
-          <h1 className="font-serif text-3xl sm:text-5xl text-white font-light">
-            Yacht Model Not Found
-          </h1>
-          <p className="text-sm text-[#828F9E] max-w-md mx-auto leading-relaxed">
-            The requested vessel dossier could not be located in the shipyard catalog or has not yet been registered.
-          </p>
-          <div className="pt-4">
-            <Link
-              href="/yachts"
-              className="saxdor-btn-solid !h-[48px] px-8 text-xs inline-flex items-center justify-center rounded-none tracking-wider"
-            >
-              Return to Fleet Catalog
-            </Link>
-          </div>
-        </div>
-        <PublicFooter />
-      </div>
-    );
+    }
+    return params;
+  } catch (err) {
+    console.error("Error generating static params for yachts:", err);
+    return [
+      { slug: "g100" },
+      { slug: "g77" },
+      { slug: "as-77" },
+      { slug: "as77" },
+      { slug: "g66" },
+      { slug: "g50" },
+      { slug: "g55" },
+    ];
   }
-
-  // Authoritative merged yacht dataset
-  const baseData = mergeYachtWithShowcase(cmsYacht, staticShowcase);
-  const displayData = workingData || baseData;
-
-  // In-line update handler for any vessel property
-  const handleUpdateField = (field, value) => {
-    setWorkingData((prev) => {
-      const current = prev || baseData;
-      return {
-        ...current,
-        [field]: value,
-      };
-    });
-    setHasChanges(true);
-  };
-
-  // Media Picker handlers for in-line photo replacements
-  const handleOpenMediaPicker = (fieldKey, currentUrl = "") => {
-    setMediaPickerConfig({
-      isOpen: true,
-      fieldKey,
-      currentUrl: currentUrl || "",
-    });
-  };
-
-  const handleSelectMedia = (urlOrItem) => {
-    if (!mediaPickerConfig.fieldKey) {
-      setMediaPickerConfig({ isOpen: false, fieldKey: null, currentUrl: "" });
-      return;
-    }
-
-    const url = typeof urlOrItem === "string" ? urlOrItem : (urlOrItem?.url || urlOrItem?.src || "");
-    if (!url) return;
-
-    const key = mediaPickerConfig.fieldKey;
-    const current = workingData || baseData;
-
-    if (key === "insigniaSrc") {
-      handleUpdateField("insigniaSrc", url);
-    } else if (key.startsWith("heroImages[")) {
-      const match = key.match(/\[(\d+)\]/);
-      if (match) {
-        const idx = parseInt(match[1], 10);
-        const images = [...(current.heroImages || [])];
-        if (images[idx]) {
-          images[idx] = { ...images[idx], src: url };
-          handleUpdateField("heroImages", images);
-        }
-      }
-    } else if (key.startsWith("deckPlan_")) {
-      const deckId = key.replace("deckPlan_", "");
-      const decks = (current.deckPlans || []).map((d) =>
-        d.id === deckId ? { ...d, image3D: url } : d
-      );
-      handleUpdateField("deckPlans", decks);
-    } else if (key.startsWith("gallery_")) {
-      const photoId = key.replace("gallery_", "");
-      const gallery = (current.gallery || []).map((g) =>
-        g.id === photoId ? { ...g, src: url } : g
-      );
-      handleUpdateField("gallery", gallery);
-    }
-
-    setMediaPickerConfig({ isOpen: false, fieldKey: null, currentUrl: "" });
-    showToast("Visual updated on page");
-  };
-
-  // Save changes directly to database & local store
-  const handleSaveChanges = async () => {
-    setIsSaving(true);
-    const payload = {
-      ...(workingData || baseData),
-      updatedAt: new Date().toISOString(),
-    };
-
-    const res = await saveYachtAsync(payload);
-    setIsSaving(false);
-
-    if (res.success) {
-      setCmsYacht(payload);
-      setWorkingData(payload);
-      setHasChanges(false);
-      showToast(`✓ "${payload.fullName || payload.name}" published and saved live!`);
-    } else {
-      showToast(res.error || "Failed to persist changes");
-    }
-  };
-
-  // Draft Handling:
-  // If the vessel is explicitly marked as draft and user is not in editor mode
-  if (displayData.status === "draft" && !isInlineEditing) {
-    const modelTitle = `${displayData.fullName || displayData.name} (Draft)`;
-    const modelDesc =
-      "This vessel dossier is currently in private draft preparation and has not yet been published to the live public catalog.";
-
-    return (
-      <>
-        <head>
-          <meta name="robots" content="noindex, nofollow" />
-        </head>
-        <UnderConstructionView
-          pageTitle={modelTitle}
-          pageSlug={`/yachts/${slug || ""}`}
-          description={modelDesc}
-          customBadge="DRAFT VESSEL"
-          yacht={displayData}
-        />
-      </>
-    );
-  }
-
-  return (
-    <div className="relative min-h-screen bg-[#080B10]">
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="fixed top-20 right-6 z-50 px-4 py-2.5 bg-[#0C121D] border border-[#C8A870] text-[#DFBA73] text-xs font-mono shadow-2xl flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
-          <CheckCircle2 className="w-4 h-4 text-[#C8A870]" />
-          <span>{toastMessage}</span>
-        </div>
-      )}
-
-      {/* Sticky Top Toolbar When In-Line Editing is Active */}
-      {isInlineEditing && (
-        <div className="sticky top-0 z-50 bg-[#070A0F]/95 backdrop-blur-md border-b border-[#C8A870]/40 px-4 sm:px-8 py-3 flex flex-wrap items-center justify-between gap-3 shadow-2xl">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#C8A870] animate-pulse"></span>
-            <span className="text-xs uppercase tracking-luxury text-[#E5C392] font-semibold">
-              Client Direct In-Line Editor
-            </span>
-            <span className="text-xs text-white/50 font-mono hidden sm:inline">
-              • {displayData.fullName || displayData.name}
-            </span>
-            {hasChanges && (
-              <span className="px-2 py-0.5 bg-[#C8A870]/20 text-[#DFBA73] border border-[#C8A870]/40 text-[10px] font-mono rounded">
-                Unsaved edits
-              </span>
-            )}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={handleSaveChanges}
-              disabled={isSaving}
-              className="px-4 py-2 bg-[#C8A870] hover:bg-[#DFBA73] text-[#080B10] font-semibold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition-colors cursor-pointer disabled:opacity-50"
-            >
-              <Save className="w-3.5 h-3.5" />
-              <span>{isSaving ? "Saving..." : "Save Changes"}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                if (hasChanges && !confirm("Discard unsaved in-line edits?")) return;
-                setWorkingData(null);
-                setHasChanges(false);
-                setIsInlineEditing(false);
-              }}
-              className="px-3 py-2 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/10 text-xs font-mono flex items-center gap-1.5 transition-colors cursor-pointer"
-            >
-              <X className="w-3.5 h-3.5" />
-              <span>Exit Editor</span>
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Main Yacht Detail View */}
-      <UniversalYachtDetailView
-        data={displayData}
-        isEditable={isInlineEditing}
-        onUpdateField={handleUpdateField}
-        onOpenMediaPicker={handleOpenMediaPicker}
-      />
-
-      {/* Media Picker Modal for Visual Replacements */}
-      <MediaPickerModal
-        isOpen={mediaPickerConfig.isOpen}
-        onClose={() => setMediaPickerConfig({ isOpen: false, fieldKey: null, currentUrl: "" })}
-        onSelect={handleSelectMedia}
-        onSelectImage={handleSelectMedia}
-        onSelectMedia={handleSelectMedia}
-        currentUrl={mediaPickerConfig.currentUrl}
-      />
-    </div>
-  );
 }
 
-export default function YachtDetailPage() {
+export async function generateMetadata({ params }) {
+  "use cache";
+  const resolvedParams = await params;
+  const slug = resolvedParams?.slug;
+  if (!slug) {
+    return {
+      title: "Yacht Specification Dossier | ASMARATY Luxury Yachts",
+      robots: { index: false, follow: true },
+    };
+  }
+
+  const canonicalSlug =
+    slug === "as-77" || slug === "as77"
+      ? "g77"
+      : slug === "g55" || slug === "g-50" || slug === "as-50" || slug === "as50"
+      ? "g50"
+      : slug === "g-66" || slug === "as-66" || slug === "as66"
+      ? "g66"
+      : slug;
+
+  try {
+    const allYachts = await getYachtsServer(false);
+    const cmsYacht = allYachts.find((y) => y.slug?.toLowerCase() === canonicalSlug.toLowerCase());
+    const staticShowcase = getYachtShowcaseData(canonicalSlug);
+    const merged = mergeYachtWithShowcase(cmsYacht, staticShowcase);
+
+    // 1. Unpublished / Draft Yacht Protection
+    if (!merged || merged.status === "draft") {
+      return {
+        title: `${merged?.fullName || "Yacht Model"} (Draft) | ASMARATY Luxury Yachts`,
+        description: "This yacht model dossier is currently in preparation and has not yet been published.",
+        robots: {
+          index: false,
+          follow: false,
+        },
+      };
+    }
+
+    // 2. Published Yacht Metadata
+    const fallbackTitles = {
+      g100: "ASMARATY G100 Super Yacht | 100ft Super Yacht Flagship | ASMARATY UAE",
+      g77: "ASMARATY G77 Luxury Yacht | 77ft Two-Deck Masterpiece | ASMARATY UAE",
+      g66: "ASMARATY G66 Luxury Yacht | 66ft Flybridge Cruiser | ASMARATY UAE",
+      g50: "ASMARATY G50 Luxury Motor Yacht | 50ft Flybridge Cruiser | ASMARATY UAE",
+    };
+
+    const fallbackDescriptions = {
+      g100: "Explore the ASMARATY G100 — an iconic 100-foot luxury superyacht engineered in the UAE by Al Shaali Marine. Discover authentic specifications, 3D GA deck plans, staterooms, twin MTU engines, and official brochure.",
+      g77: "Explore the ASMARATY G77 — an elegant 77-foot two-deck luxury yacht engineered in the UAE by ASMARATY. Discover authentic specifications, 3D GA deck plans, 4+2 staterooms, and expansive flybridge terrace.",
+      g66: "Explore the ASMARATY G66 — a 66-foot high-performance luxury flybridge yacht engineered in the UAE. Discover authentic specifications, 3D GA deck plans, 4+2 staterooms, twin Volvo inboards, and expansive flybridge terrace.",
+      g50: "Explore the ASMARATY G50 — an elegant 50-foot luxury flybridge motor yacht engineered in the UAE. Discover authentic specifications, 3D GA deck plans, 3 private staterooms, twin Cummins inboards, and official brochure.",
+    };
+
+    const defaultTitle = fallbackTitles[canonicalSlug] || `${merged.fullName || merged.name} | ASMARATY UAE`;
+    const defaultDesc = fallbackDescriptions[canonicalSlug] || merged.description || "ASMARATY yacht model specification dossier. Discover our featured luxury yacht models and naval architecture in the UAE.";
+
+    const title = merged.seo?.title || defaultTitle;
+    const description = merged.seo?.description || defaultDesc;
+    const ogImage = merged.seo?.ogImage || merged.heroImage || merged.mainImage || "/images/yachts/g100/0.jpg";
+    const canonicalUrl = `https://asmaraty.com/yachts/${canonicalSlug}`;
+
+    return {
+      title,
+      description,
+      robots: {
+        index: true,
+        follow: true,
+      },
+      openGraph: {
+        title,
+        description,
+        images: [
+          {
+            url: ogImage,
+            alt: title,
+          },
+        ],
+        url: canonicalUrl,
+        type: "website",
+      },
+      alternates: {
+        canonical: canonicalUrl,
+      },
+    };
+  } catch (err) {
+    console.error("Error generating metadata for yacht detail:", err);
+    return {
+      title: "Yacht Specification Dossier | ASMARATY Luxury Yachts",
+      description: "ASMARATY yacht model specification dossier.",
+      robots: { index: false, follow: true },
+      alternates: { canonical: `https://asmaraty.com/yachts/${canonicalSlug || "g100"}` },
+    };
+  }
+}
+
+export default async function YachtDetailPage({ params }) {
+  const resolvedParams = await params;
+  const slug = resolvedParams?.slug;
+
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen bg-[#080B10] text-white flex items-center justify-center font-serif text-sm">
-          Loading Yacht Dossier...
-        </div>
-      }
-    >
-      <YachtDetailPageInner />
-    </Suspense>
+    <>
+      <Suspense fallback={null}>
+        <Connection />
+      </Suspense>
+      <Suspense
+        fallback={
+          <div className="min-h-screen bg-[#080B10] text-white flex items-center justify-center font-serif text-sm">
+            Loading Yacht Dossier...
+          </div>
+        }
+      >
+        <YachtDetailPageClient initialSlug={slug} />
+      </Suspense>
+    </>
   );
 }
