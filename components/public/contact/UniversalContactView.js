@@ -328,115 +328,126 @@ export default function UniversalContactView({ pageData = null }) {
           ------------------------------------------------------------- */}
       <section className="py-24 sm:py-32 bg-[#080B10] relative" id="contact-form">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
             {/* Left Column: Context & Concierge Promise */}
-            <div className="lg:col-span-5 space-y-8">
-              <div>
-                <span className="text-[11px] uppercase tracking-[0.22em] text-[#C6A155] font-semibold block mb-2">
-                  {formEyebrow}
-                </span>
-                <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-3">
-                  {formHeading}
-                </h2>
-                <p 
-                  className="text-xs sm:text-sm text-white/75 font-light leading-relaxed text-justify"
-                  style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
-                >
-                  {formDescription}
-                </p>
+            <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+              <div className="space-y-6">
+                <div>
+                  <span className="text-[11px] uppercase tracking-[0.22em] text-[#C6A155] font-semibold block mb-2">
+                    {formEyebrow}
+                  </span>
+                  <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-normal text-white uppercase tracking-[0.03em] leading-tight mb-3">
+                    {formHeading}
+                  </h2>
+                  <p 
+                    className="text-xs sm:text-sm text-white/75 font-light leading-relaxed text-justify saxdor-desc-justified"
+                    style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
+                  >
+                    {formDescription}
+                  </p>
+                </div>
+
+                {/* Service Capabilities Checklist */}
+                <div className="space-y-3 pt-1">
+                  <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-[#0D1522] border border-white/10">
+                    <div className="w-8 h-8 rounded-full bg-[#C6A155]/15 border border-[#C6A155]/40 flex items-center justify-center text-[#DFBA73] flex-shrink-0 mt-0.5">
+                      <Ship className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs sm:text-[13px] font-semibold text-white mb-0.5">Private Sea Trials</h4>
+                      <p className="text-[11px] sm:text-xs text-white/70 leading-relaxed font-light">
+                        Departing from Dubai Marina or Ajman harbor with our naval engineering team.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-[#0D1522] border border-white/10">
+                    <div className="w-8 h-8 rounded-full bg-[#C6A155]/15 border border-[#C6A155]/40 flex items-center justify-center text-[#DFBA73] flex-shrink-0 mt-0.5">
+                      <Building2 className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs sm:text-[13px] font-semibold text-white mb-0.5">Shipyard Walkthroughs</h4>
+                      <p className="text-[11px] sm:text-xs text-white/70 leading-relaxed font-light">
+                        Inspect active hull laminations, composite joinery, and engineering bays in Ajman.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-[#0D1522] border border-white/10">
+                    <div className="w-8 h-8 rounded-full bg-[#C6A155]/15 border border-[#C6A155]/40 flex items-center justify-center text-[#DFBA73] flex-shrink-0 mt-0.5">
+                      <Sparkles className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs sm:text-[13px] font-semibold text-white mb-0.5">Bespoke Design Atelier</h4>
+                      <p className="text-[11px] sm:text-xs text-white/70 leading-relaxed font-light">
+                        Customize 3D interior layouts, marble selections, audio-visual suites, and tender garages.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Service Capabilities Checklist */}
-              <div className="space-y-3.5 pt-1">
-                <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-[#0D1522] border border-white/10">
-                  <div className="w-8 h-8 rounded-full bg-[#C6A155]/15 border border-[#C6A155]/40 flex items-center justify-center text-[#DFBA73] flex-shrink-0 mt-0.5">
-                    <Ship className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs sm:text-[13px] font-semibold text-white mb-0.5">Private Sea Trials</h4>
-                    <p className="text-[11px] sm:text-xs text-white/70 leading-relaxed font-light">
-                      Departing from Dubai Marina or Ajman harbor with our naval engineering team.
-                    </p>
-                  </div>
+              {/* Instant WhatsApp Action & Official Social Channels */}
+              <div className="p-5 sm:p-6 bg-[#0E1A2D]/80 border border-[#C6A155]/30 space-y-3">
+                <div>
+                  <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#DFBA73] font-semibold block mb-1">
+                    FAST-TRACK VIP ACCESS
+                  </span>
+                  <p className="text-xs text-white/80 leading-relaxed">
+                    Require instant yacht brochures, current delivery lead times, or immediate sea trial scheduling?
+                  </p>
                 </div>
-
-                <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-[#0D1522] border border-white/10">
-                  <div className="w-8 h-8 rounded-full bg-[#C6A155]/15 border border-[#C6A155]/40 flex items-center justify-center text-[#DFBA73] flex-shrink-0 mt-0.5">
-                    <Building2 className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs sm:text-[13px] font-semibold text-white mb-0.5">Shipyard Walkthroughs</h4>
-                    <p className="text-[11px] sm:text-xs text-white/70 leading-relaxed font-light">
-                      Inspect active hull laminations, composite joinery, and engineering bays in Ajman.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5 p-3.5 sm:p-4 bg-[#0D1522] border border-white/10">
-                  <div className="w-8 h-8 rounded-full bg-[#C6A155]/15 border border-[#C6A155]/40 flex items-center justify-center text-[#DFBA73] flex-shrink-0 mt-0.5">
-                    <Sparkles className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs sm:text-[13px] font-semibold text-white mb-0.5">Bespoke Design Atelier</h4>
-                    <p className="text-[11px] sm:text-xs text-white/70 leading-relaxed font-light">
-                      Customize 3D interior layouts, marble selections, audio-visual suites, and tender garages.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Instant WhatsApp Action */}
-              <div className="p-5 sm:p-6 bg-[#0E1A2D]/80 border border-[#C6A155]/30 space-y-2.5">
-                <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#DFBA73] font-semibold block">
-                  FAST-TRACK VIP ACCESS
-                </span>
-                <p className="text-xs text-white/80 leading-relaxed">
-                  Require instant yacht brochures, current delivery lead times, or immediate sea trial scheduling?
-                </p>
+                
                 <a
                   href="https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20am%20inquiring%20about%20your%20yacht%20fleet."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold uppercase tracking-wider transition-all"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md"
                 >
                   <WhatsAppIcon className="w-4 h-4" />
                   <span>Message on WhatsApp (+971 56 526 8126)</span>
                 </a>
 
-                <a
-                  href="https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2.5 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group"
-                >
-                  <InstagramIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
-                  <span>Follow @asmaraty_yachts on Instagram</span>
-                </a>
+                {/* Official Social Channels: Instagram, YouTube, TikTok side-by-side */}
+                <div className="grid grid-cols-3 gap-2 pt-0.5">
+                  <a
+                    href="https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 px-2 py-2 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-[11px] font-bold uppercase tracking-wider group text-center"
+                    title="Follow @asmaraty_yachts on Instagram"
+                  >
+                    <InstagramIcon className="w-3.5 h-3.5 transition-transform group-hover:scale-110 shrink-0" />
+                    <span className="truncate">Instagram</span>
+                  </a>
 
-                <a
-                  href="https://youtu.be/FBPzrAe9N0Q"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2.5 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group"
-                >
-                  <YoutubeIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
-                  <span>Watch on YouTube</span>
-                </a>
+                  <a
+                    href="https://youtu.be/FBPzrAe9N0Q"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 px-2 py-2 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-[11px] font-bold uppercase tracking-wider group text-center"
+                    title="Watch on YouTube"
+                  >
+                    <YoutubeIcon className="w-3.5 h-3.5 transition-transform group-hover:scale-110 shrink-0" />
+                    <span className="truncate">YouTube</span>
+                  </a>
 
-                <a
-                  href="https://www.tiktok.com/@asmaraty.yachts?_r=1&_t=ZS-9BJeuRzx6UI"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2.5 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group"
-                >
-                  <TiktokIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
-                  <span>Follow @asmaraty.yachts on TikTok</span>
-                </a>
+                  <a
+                    href="https://www.tiktok.com/@asmaraty.yachts?_r=1&_t=ZS-9BJeuRzx6UI"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 px-2 py-2 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-[11px] font-bold uppercase tracking-wider group text-center"
+                    title="Follow @asmaraty.yachts on TikTok"
+                  >
+                    <TiktokIcon className="w-3.5 h-3.5 transition-transform group-hover:scale-110 shrink-0" />
+                    <span className="truncate">TikTok</span>
+                  </a>
+                </div>
               </div>
             </div>
 
             {/* Right Column: Complete Interactive Form */}
-            <div className="lg:col-span-7 bg-[#0D1522] border border-white/10 p-6 sm:p-10 shadow-2xl">
+            <div className="lg:col-span-7 bg-[#0D1522] border border-white/10 p-6 sm:p-10 shadow-2xl flex flex-col justify-between h-full">
               {formSubmitted ? (
                 <div className="py-14 text-center space-y-4">
                   <CheckCircle2 className="w-14 h-14 text-[#C6A155] mx-auto animate-bounce" />
@@ -470,21 +481,22 @@ export default function UniversalContactView({ pageData = null }) {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <h3 className="font-serif text-lg sm:text-xl text-white font-normal mb-1">
-                      Client Consultation Form
-                    </h3>
-                    <p className="text-xs text-white/60">
-                      Please enter your contact details and select your vessel or service of interest.
-                    </p>
-                  </div>
-
-                  {errorMessage && (
-                    <div className="p-4 bg-red-900/40 border border-red-500/60 text-red-200 text-xs">
-                      {errorMessage}
+                <form onSubmit={handleSubmit} className="flex-1 flex flex-col justify-between space-y-6">
+                  <div className="space-y-5">
+                    <div>
+                      <h3 className="font-serif text-lg sm:text-xl text-white font-normal mb-1">
+                        Client Consultation Form
+                      </h3>
+                      <p className="text-xs text-white/60">
+                        Please enter your contact details and select your vessel or service of interest.
+                      </p>
                     </div>
-                  )}
+
+                    {errorMessage && (
+                      <div className="p-4 bg-red-900/40 border border-red-500/60 text-red-200 text-xs">
+                        {errorMessage}
+                      </div>
+                    )}
 
                   {/* Vessel of Interest Selection */}
                   <div>
@@ -608,8 +620,10 @@ export default function UniversalContactView({ pageData = null }) {
                       className="w-full bg-[#080B10] border border-white/15 focus:border-[#C6A155] px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none resize-none"
                     />
                   </div>
+                </div>
 
-                  {/* Submit Button */}
+                {/* Submit Button & Disclaimer anchored to bottom */}
+                <div className="pt-4 space-y-3">
                   <button
                     type="submit"
                     disabled={submitting}
@@ -628,7 +642,8 @@ export default function UniversalContactView({ pageData = null }) {
                   <p className="text-[11px] text-white/40 text-center leading-relaxed">
                     By submitting this form, you authorize our confidential yacht advisory team to contact you regarding your inquiry. Your private data is never shared.
                   </p>
-                </form>
+                </div>
+              </form>
               )}
             </div>
           </div>
