@@ -109,12 +109,12 @@ export default function ImageGallerySection({
             <div
               key={idx}
               onClick={() => openLightbox(idx)}
-              className="group relative h-80 overflow-hidden border border-[#182C4B] cursor-pointer bg-[#0E2047]"
+              className="group relative aspect-video overflow-hidden border border-[#182C4B] cursor-pointer bg-[#0E2047] shadow-xl"
             >
               <img
                 src={item.url}
                 alt={item.alt || item.caption || "Yacht Gallery"}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#08101C]/90 via-[#08101C]/30 to-transparent opacity-60 group-hover:opacity-85 transition-opacity"></div>
               

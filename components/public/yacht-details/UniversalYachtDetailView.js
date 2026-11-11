@@ -973,15 +973,15 @@ export default function UniversalYachtDetailView({
                 <div
                   key={item.id || idx}
                   onClick={() => openLightbox(idx)}
-                  className="group relative h-72 sm:h-80 bg-[#080B10] border border-white/10 overflow-hidden cursor-pointer hover:border-[#C8A870]/50 transition-all"
+                  className="group relative aspect-[16/9] bg-[#0E1522] border border-white/10 overflow-hidden cursor-pointer hover:border-[#C8A870]/60 transition-all shadow-xl"
                 >
                   <img
                     src={item.src}
                     alt={item.title}
-                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#080B10] via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080B10]/90 via-[#080B10]/20 to-transparent opacity-75 group-hover:opacity-90 transition-opacity pointer-events-none"></div>
 
                   {/* Gallery In-Line Controls */}
                   {isEditable && (
