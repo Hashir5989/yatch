@@ -266,7 +266,10 @@ export default function UniversalNewsListingView() {
                           <h2 className="font-serif text-base sm:text-lg font-normal text-white uppercase tracking-[0.02em] leading-snug line-clamp-2 group-hover:text-[#DFBA73] transition-colors mb-2">
                             {article.title}
                           </h2>
-                          <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed line-clamp-3">
+                          <p
+                            className="text-xs sm:text-sm text-white/70 font-light leading-relaxed line-clamp-3 saxdor-desc-justified"
+                            style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+                          >
                             {article.excerpt}
                           </p>
                         </div>

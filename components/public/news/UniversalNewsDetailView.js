@@ -199,8 +199,13 @@ export default function UniversalNewsDetailView({ initialArticle, slug }) {
       <article className="max-w-4xl mx-auto px-6 sm:px-12 py-16 sm:py-20 space-y-12">
         {/* Lead Excerpt Paragraph */}
         {article.excerpt && (
-          <div className="p-5 sm:p-6 bg-[#0D1522] border-l-4 border-[#C6A155] text-xs sm:text-sm md:text-[15px] text-white/90 font-light leading-relaxed">
-            {article.excerpt}
+          <div className="p-5 sm:p-6 bg-[#0D1522] border-l-4 border-[#C6A155]">
+            <p
+              className="text-xs sm:text-sm md:text-[15px] text-white/90 font-light leading-relaxed saxdor-desc-justified"
+              style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+            >
+              {article.excerpt}
+            </p>
           </div>
         )}
 
@@ -226,7 +231,12 @@ export default function UniversalNewsDetailView({ initialArticle, slug }) {
                   className="my-6 p-5 sm:p-6 bg-[#0E1A2D]/80 border-l-4 border-[#C6A155] text-white/90 font-serif text-sm sm:text-base italic leading-relaxed shadow-xl relative"
                 >
                   <Quote className="w-8 h-8 text-[#C6A155]/20 absolute top-4 right-4 pointer-events-none" />
-                  <p>{block.replace(/^>\s*/, "").replace(/^"|"$/g, "")}</p>
+                  <p
+                    className="saxdor-desc-justified"
+                    style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+                  >
+                    {block.replace(/^>\s*/, "").replace(/^"|"$/g, "")}
+                  </p>
                 </blockquote>
               );
             }
@@ -235,12 +245,12 @@ export default function UniversalNewsDetailView({ initialArticle, slug }) {
             return (
               <p
                 key={idx}
-                className={`text-xs sm:text-sm text-white/80 font-light leading-relaxed text-justify ${
+                className={`text-xs sm:text-sm text-white/80 font-light leading-relaxed saxdor-desc-justified ${
                   idx === 0
                     ? "first-letter:text-3xl sm:first-letter:text-4xl first-letter:font-serif first-letter:text-[#C6A155] first-letter:float-left first-letter:mr-3 first-letter:leading-none"
                     : ""
                 }`}
-                style={{ textJustify: "inter-word" }}
+                style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
               >
                 {block}
               </p>
