@@ -709,104 +709,61 @@ button.saxdor-btn-navy-solid {
 }
 
 /* =========================================================================
-   Home Page Dedicated Typography Overrides (Romeo Marine Exact Match)
-   Forces ALL headings, titles, body text, buttons, and specs on the home page
-   to match the exact font sizes, weights (100/200/400/500), line heights,
-   letter spacing (1px/2px), and uppercase transforms from romeomarine.com.
+   Global Website Typography (Romeo Marine Exact Spec)
+   Applied across the entire website:
+   - Paragraphs / Descriptions:
+       font-family: "Neue Haas Grotesk Display Pro", Sans-serif;
+       font-size: 17px;
+       line-height: 28px;
+       letter-spacing: 1px;
+   - Headings (h1, h2, h3):
+       font-family: "Neue Haas Grotesk Display Pro", Sans-serif;
+       font-weight: 100;
+       letter-spacing: 1px;
+       text-transform: uppercase;
    Preserves ONLY the official ASMARATY brand logo mark.
    ========================================================================= */
-.home-romeo-theme {
-  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-}
 
-/* Global font reset for all typography on home page except brand logo */
-.home-romeo-theme *:not(.font-logo):not(.font-logo *) {
-  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-}
-
-/* 1. Main Hero & Big Section Headings (DUBAI BORN / OUR YACHTS / ROMEO MARINE WORLD)
-      Romeo Marine spec: 120px desktop (40px-43px mobile), weight 100 or 200, letter-spacing 1px, uppercase */
-.home-romeo-theme h1,
-.home-romeo-theme h2.saxdor-signature-heading,
-.home-romeo-theme .home-hero-heading,
-.home-romeo-theme [class*="font-signature"] {
-  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-weight: 200 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 1px !important;
-  line-height: 1.08 !important;
-}
-
-/* Medium-Large Section Titles (e.g. section headings like "OUR FLEET", "THE COLLECTION", "THE VISION") */
-.home-romeo-theme h2:not(.font-logo *):not(.font-logo) {
-  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-weight: 200 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 1px !important;
-  line-height: 1.15 !important;
-}
-
-/* 2. Yacht Model & Sub-Headings (ROMEO 55 spec: 60px desktop / 30px mobile, weight 100/200, uppercase, 1px) */
-.home-romeo-theme h3:not(.font-logo *):not(.font-logo),
-.home-romeo-theme h4:not(.font-logo *):not(.font-logo) {
-  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-weight: 200 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 1px !important;
-  line-height: 1.2 !important;
-}
-
-/* 3. Card Titles & Post Titles (Romeo Marine spec: 20px desktop / 17px mobile, weight 400, uppercase, 1px) */
-.home-romeo-theme .saxdor-title,
-.home-romeo-theme .card-title,
-.home-romeo-theme [class*="text-xl"]:is(h2, h3, h4, div),
-.home-romeo-theme [class*="text-2xl"]:is(h3, h4, div) {
-  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-weight: 400 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 1px !important;
-}
-
-/* 4. Section Eyebrows & Meta / Small labels (Romeo Marine spec: 13px, weight 500, letter-spacing 1px) */
-.home-romeo-theme .saxdor-eyebrow,
-.home-romeo-theme .meta-label,
-.home-romeo-theme [class*="text-xs"],
-.home-romeo-theme [class*="text-sm"]:is(span, p) {
-  letter-spacing: 1px !important;
-}
-
-/* 5. Numbers & Yacht Specifications (Romeo Marine spec: 24px, letter-spacing 1px) */
-.home-romeo-theme .spec-value,
-.home-romeo-theme [class*="font-semibold"]:is(span, div) {
-  letter-spacing: 1px !important;
-}
-
-/* 6. Body Paragraphs & Editorial Descriptions
-      Romeo Marine spec: 17px, line-height 28px, letter-spacing 1px, weight 300/400 */
-.home-romeo-theme p,
-.home-romeo-theme .saxdor-desc-justified,
-.home-romeo-theme .font-editorial {
-  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-weight: 300 !important;
+/* All paragraphs & descriptions across overall website */
+p,
+.saxdor-desc-justified,
+.font-editorial,
+.rich-text-content p,
+.yacht-description,
+.description-text {
+  font-family: "Neue Haas Grotesk Display Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   font-size: 17px !important;
   line-height: 28px !important;
   letter-spacing: 1px !important;
+  font-weight: 300 !important;
 }
 
-/* 7. Buttons & Action Links (Romeo Marine spec: 12px, weight 500, letter-spacing 2px, uppercase) */
-.home-romeo-theme button,
-.home-romeo-theme a.btn,
-.home-romeo-theme .saxdor-btn-solid,
-.home-romeo-theme .saxdor-btn-outline,
-.home-romeo-theme .saxdor-btn-navy-outline,
-.home-romeo-theme .saxdor-btn-navy-solid,
-.home-romeo-theme .btn-gold,
-.home-romeo-theme .btn-luxury-outline,
-.home-romeo-theme .btn-rectangular,
-.home-romeo-theme .btn-rect {
-  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  letter-spacing: 2px !important;
+/* Big Headings (h3 / h2 / h1) across overall website (Romeo Marine 120px desktop / 40px mobile, weight 100, 1px) */
+h3:not(.font-logo):not(.font-logo *) {
+  font-family: "Neue Haas Grotesk Display Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: clamp(36px, 7vw, 120px) !important;
+  font-weight: 100 !important;
+  letter-spacing: 1px !important;
+  line-height: 1.08 !important;
   text-transform: uppercase !important;
 }
+
+/* Major section titles & h1 / h2 also honor weight 100 and 1px letter spacing */
+h1:not(.font-logo):not(.font-logo *),
+h2:not(.font-logo):not(.font-logo *) {
+  font-family: "Neue Haas Grotesk Display Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-weight: 100 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+}
+
+/* Specific home page overrides */
+.home-romeo-theme h3 {
+  font-family: "Neue Haas Grotesk Display Pro", Sans-serif !important;
+  font-size: clamp(38px, 8vw, 120px) !important;
+  font-weight: 100 !important;
+  letter-spacing: 1px !important;
+  line-height: 1.08 !important;
+  text-transform: uppercase !important;
+}
+
