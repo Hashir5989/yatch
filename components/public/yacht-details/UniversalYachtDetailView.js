@@ -148,13 +148,13 @@ export default function UniversalYachtDetailView({
               <InlineButtonEditor
                 config={{
                   label: data.brochureLabel || "Brochure (PDF)",
-                  url: formatPdfZoomUrl(data.brochureUrl, 40) || "/contact",
+                  url: formatPdfZoomUrl(data.brochureUrl, 33) || "/contact",
                   target: data.brochureUrl ? "_blank" : "_self",
                   type: data.brochureUrl ? "external" : "internal",
                   visible: true,
                 }}
                 text={data.brochureLabel || "Brochure (PDF)"}
-                url={formatPdfZoomUrl(data.brochureUrl, 40) || "/contact"}
+                url={formatPdfZoomUrl(data.brochureUrl, 33) || "/contact"}
                 isEditable={isEditable}
                 onSave={(newText, newUrl) => {
                   onUpdateField && onUpdateField("brochureLabel", newText);
@@ -263,14 +263,14 @@ export default function UniversalYachtDetailView({
                 <InlineButtonEditor
                   config={{
                     label: data.brochureLabel || "Download Brochure (PDF)",
-                    url: formatPdfZoomUrl(data.brochureUrl, 40) || "/contact",
+                    url: formatPdfZoomUrl(data.brochureUrl, 33) || "/contact",
                     target: data.brochureUrl ? "_blank" : "_self",
                     type: data.brochureUrl ? "external" : "internal",
                     visible: true,
                     style: "outline-gold",
                   }}
                   text={data.brochureLabel || "Download Brochure (PDF)"}
-                  url={formatPdfZoomUrl(data.brochureUrl, 40) || "/contact"}
+                  url={formatPdfZoomUrl(data.brochureUrl, 33) || "/contact"}
                   onSave={(newText, newUrl) => {
                     onUpdateField && onUpdateField("brochureLabel", newText);
                     onUpdateField && onUpdateField("brochureUrl", newUrl);

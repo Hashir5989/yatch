@@ -442,7 +442,7 @@ export default function UniversalYachtCatalogView() {
 
                         {model.brochureUrl ? (
                           <a
-                            href={formatPdfZoomUrl(model.brochureUrl, 40)}
+                            href={formatPdfZoomUrl(model.brochureUrl, 33)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-full sm:w-auto flex-1 sm:flex-initial sm:min-w-[150px] max-w-full overflow-hidden saxdor-btn-outline !h-auto min-h-[44px] sm:!h-[46px] !px-4 sm:!px-5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73] text-center"
@@ -637,7 +637,7 @@ export default function UniversalYachtCatalogView() {
                         </Link>
                         {m.brochureUrl ? (
                           <a
-                            href={formatPdfZoomUrl(m.brochureUrl, 40)}
+                            href={formatPdfZoomUrl(m.brochureUrl, 33)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="block w-full py-1.5 px-2 text-[10px] uppercase tracking-wider text-white/70 hover:text-[#DFBA73] transition-colors"

@@ -165,7 +165,7 @@ export default function InlineButtonEditor({
     const rel = resolvedTarget === "_blank" ? "noopener noreferrer" : undefined;
 
     if (isPdf) {
-      const pdfHref = formatPdfZoomUrl(finalHref, 40);
+      const pdfHref = formatPdfZoomUrl(finalHref, 33);
       return (
         <a href={pdfHref} target="_blank" rel="noopener noreferrer" className={`max-w-full overflow-hidden ${className}`}>
           {children ? (
