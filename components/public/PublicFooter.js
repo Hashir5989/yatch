@@ -283,30 +283,31 @@ export default function PublicFooter() {
               <span className="text-[10px] font-mono uppercase font-bold tracking-wider hidden sm:inline">TikTok</span>
             </a>
 
-            {social.facebook && (
-              <a
-                href={social.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:scale-110 transition-transform p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded flex items-center justify-center"
-                aria-label="ASMARATY Facebook"
-                title="Facebook"
-              >
-                <FacebookIcon className="w-4 h-4" />
-              </a>
-            )}
-            {social.linkedin && (
-              <a
-                href={social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:scale-110 transition-transform p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded flex items-center justify-center"
-                aria-label="ASMARATY LinkedIn"
-                title="LinkedIn"
-              >
-                <LinkedinIcon className="w-4 h-4" />
-              </a>
-            )}
+            {/* Facebook */}
+            <a
+              href={social.facebook || "https://www.facebook.com/share/18c2MWbztN/?mibextid=wwXIfr"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded flex items-center gap-1.5 text-white/90 hover:text-white transition-all shadow-sm group"
+              aria-label="ASMARATY Official Facebook"
+              title="Follow ASMARATY on Facebook"
+            >
+              <FacebookIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <span className="text-[10px] font-mono uppercase font-bold tracking-wider hidden sm:inline">Facebook</span>
+            </a>
+
+            {/* LinkedIn */}
+            <a
+              href={social.linkedin || "https://www.linkedin.com/in/asmaraty-yachts-89519444b?utm_source=share_via&utm_content=profile&utm_medium=member_ios"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded flex items-center gap-1.5 text-white/90 hover:text-white transition-all shadow-sm group"
+              aria-label="ASMARATY Official LinkedIn"
+              title="Connect with ASMARATY on LinkedIn"
+            >
+              <LinkedinIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <span className="text-[10px] font-mono uppercase font-bold tracking-wider hidden sm:inline">LinkedIn</span>
+            </a>
             {social.twitter && (
               <a
                 href={social.twitter}

@@ -21,7 +21,7 @@ import {
   Building2
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
-import { InstagramIcon, YoutubeIcon, TiktokIcon } from "@/components/public/SocialIcons";
+import { InstagramIcon, YoutubeIcon, TiktokIcon, FacebookIcon, LinkedinIcon } from "@/components/public/SocialIcons";
 
 const FAQS = [
   {
@@ -443,6 +443,28 @@ export default function UniversalContactView({ pageData = null }) {
                   >
                     <TiktokIcon className="w-4 h-4 transition-transform group-hover:scale-110 shrink-0" />
                     <span>TikTok</span>
+                  </a>
+
+                  <a
+                    href="https://www.facebook.com/share/18c2MWbztN/?mibextid=wwXIfr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group text-center shadow-sm"
+                    title="Follow ASMARATY on Facebook"
+                  >
+                    <FacebookIcon className="w-4 h-4 transition-transform group-hover:scale-110 shrink-0" />
+                    <span>Facebook</span>
+                  </a>
+
+                  <a
+                    href="https://www.linkedin.com/in/asmaraty-yachts-89519444b?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group text-center shadow-sm"
+                    title="Connect with ASMARATY on LinkedIn"
+                  >
+                    <LinkedinIcon className="w-4 h-4 transition-transform group-hover:scale-110 shrink-0" />
+                    <span>LinkedIn</span>
                   </a>
                 </div>
               </div>

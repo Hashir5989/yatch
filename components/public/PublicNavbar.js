@@ -26,7 +26,7 @@ import {
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
-import { InstagramIcon, YoutubeIcon, TiktokIcon } from "@/components/public/SocialIcons";
+import { InstagramIcon, FacebookIcon, LinkedinIcon, YoutubeIcon, TiktokIcon } from "@/components/public/SocialIcons";
 
 export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -342,6 +342,28 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                     >
                       <TiktokIcon className="w-3.5 h-3.5" />
                       <span className="font-mono text-[11px]">TikTok</span>
+                    </a>
+                    <span className="text-white/20">•</span>
+                    <a
+                      href={settings.socialLinks?.facebook || "https://www.facebook.com/share/18c2MWbztN/?mibextid=wwXIfr"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors"
+                      title="Follow ASMARATY on Facebook"
+                    >
+                      <FacebookIcon className="w-3.5 h-3.5" />
+                      <span className="font-mono text-[11px]">Facebook</span>
+                    </a>
+                    <span className="text-white/20">•</span>
+                    <a
+                      href={settings.socialLinks?.linkedin || "https://www.linkedin.com/in/asmaraty-yachts-89519444b?utm_source=share_via&utm_content=profile&utm_medium=member_ios"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors"
+                      title="Connect with ASMARATY on LinkedIn"
+                    >
+                      <LinkedinIcon className="w-3.5 h-3.5" />
+                      <span className="font-mono text-[11px]">LinkedIn</span>
                     </a>
                   </div>
                 </div>
