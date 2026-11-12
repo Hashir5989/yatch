@@ -724,13 +724,21 @@ button.saxdor-btn-navy-solid {
    Preserves ONLY the official ASMARATY brand logo mark.
    ========================================================================= */
 
-/* All paragraphs & descriptions across overall website */
+/* All paragraphs & descriptions across overall website — consistent typography everywhere */
 p,
+li,
 .saxdor-desc-justified,
 .font-editorial,
 .rich-text-content p,
+.rich-text-content li,
+.rich-text-content span,
 .yacht-description,
-.description-text {
+.description-text,
+td,
+blockquote,
+.text-base,
+.text-sm,
+.text-lg {
   font-family: "Neue Haas Grotesk Display Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   line-height: 28px !important;
   letter-spacing: 1px !important;
