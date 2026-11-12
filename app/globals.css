@@ -114,17 +114,17 @@
   --font-sans: var(--font-neue-haas), var(--font-jakarta), var(--font-montserrat), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-serif: var(--font-cormorant), Georgia, serif;
   --font-display: var(--font-neue-haas), var(--font-montserrat), var(--font-jakarta), sans-serif;
-  
+
   /* Saxdor Yachts Signature Palette */
   --navy-deep: #08101C;
   --navy-marine: #0E2047;
   --navy-surface: #101B2E;
   --navy-card: #14233D;
-  
+
   --gold-saxdor: #C6A155;
   --gold-light: #DFBA73;
   --gold-hover: #A4844F;
-  
+
   --white: #FFFFFF;
   --border-subtle: rgba(255, 255, 255, 0.1);
   --border-navy: rgba(14, 32, 71, 0.2);
@@ -310,6 +310,7 @@ div.saxdor-desc-justified {
 
 /* 1. High-Density Laptops & Medium Screens (1024px – 1279px) */
 @media (max-width: 1279px) and (min-width: 1024px) {
+
   .saxdor-btn-solid,
   .saxdor-btn-outline,
   .saxdor-btn-navy-outline,
@@ -330,6 +331,7 @@ div.saxdor-desc-justified {
 
 /* 2. Tablets & Small Laptops (768px – 1023px) */
 @media (max-width: 1023px) and (min-width: 768px) {
+
   .saxdor-btn-solid,
   .saxdor-btn-outline,
   .saxdor-btn-navy-outline,
@@ -351,6 +353,7 @@ div.saxdor-desc-justified {
 
 /* 3. Standard Mobile (480px – 767px) */
 @media (max-width: 767px) {
+
   .saxdor-btn-solid,
   .saxdor-btn-outline,
   .saxdor-btn-navy-outline,
@@ -375,6 +378,7 @@ div.saxdor-desc-justified {
 
 /* 4. Small Mobile Devices (<= 479px: e.g. iPhone SE, Galaxy S, 360px – 414px) */
 @media (max-width: 479px) {
+
   .saxdor-btn-solid,
   .saxdor-btn-outline,
   .saxdor-btn-navy-outline,
@@ -397,7 +401,7 @@ div.saxdor-desc-justified {
     line-height: 1.25 !important;
     overflow: hidden !important;
   }
-  
+
   .saxdor-btn-solid svg,
   .saxdor-btn-outline svg,
   .saxdor-btn-navy-outline svg,
@@ -411,6 +415,7 @@ div.saxdor-desc-justified {
 
 /* 5. Extra-Small Mobile Devices (<= 360px: ultra-compact screens) */
 @media (max-width: 360px) {
+
   .saxdor-btn-solid,
   .saxdor-btn-outline,
   .saxdor-btn-navy-outline,
@@ -450,6 +455,7 @@ button[class*="saxdor-btn"] span {
 }
 
 @media (max-width: 640px) {
+
   button,
   a[role="button"],
   .btn {
@@ -549,12 +555,17 @@ button.saxdor-btn-navy-solid {
 
 /* Subtle Shimmer Animation */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0) 100%);
   background-size: 200% 100%;
   animation: shimmer 3s infinite;
 }
@@ -598,15 +609,19 @@ button.saxdor-btn-navy-solid {
   0% {
     transform: scale(1) translate3d(0px, 0px, 0px) rotate(0deg);
   }
+
   25% {
     transform: scale(1) translate3d(6px, -3px, 0px) rotate(-0.1deg);
   }
+
   50% {
     transform: scale(1) translate3d(10px, -5px, 0px) rotate(0deg);
   }
+
   75% {
     transform: scale(1) translate3d(4px, -2px, 0px) rotate(0.1deg);
   }
+
   100% {
     transform: scale(1) translate3d(0px, 0px, 0px) rotate(0deg);
   }
@@ -617,10 +632,12 @@ button.saxdor-btn-navy-solid {
     opacity: 0.35;
     transform: translate3d(0, 0, 0) scaleY(1);
   }
+
   50% {
     opacity: 0.65;
     transform: translate3d(-20px, 6px, 0) scaleY(1.04);
   }
+
   100% {
     opacity: 0.35;
     transform: translate3d(0, 0, 0) scaleY(1);
@@ -632,10 +649,12 @@ button.saxdor-btn-navy-solid {
     opacity: 0.15;
     background-position: 0% 50%;
   }
+
   50% {
     opacity: 0.45;
     background-position: 100% 50%;
   }
+
   100% {
     opacity: 0.15;
     background-position: 0% 50%;
@@ -647,10 +666,12 @@ button.saxdor-btn-navy-solid {
     transform: translateX(-5%) translateY(0%);
     opacity: 0.2;
   }
+
   50% {
     transform: translateX(5%) translateY(-10px);
     opacity: 0.45;
   }
+
   100% {
     transform: translateX(-5%) translateY(0%);
     opacity: 0.2;
@@ -681,9 +702,111 @@ button.saxdor-btn-navy-solid {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
+/* =========================================================================
+   Home Page Dedicated Typography Overrides (Romeo Marine Exact Match)
+   Forces ALL headings, titles, body text, buttons, and specs on the home page
+   to match the exact font sizes, weights (100/200/400/500), line heights,
+   letter spacing (1px/2px), and uppercase transforms from romeomarine.com.
+   Preserves ONLY the official ASMARATY brand logo mark.
+   ========================================================================= */
+.home-romeo-theme {
+  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
 
+/* Global font reset for all typography on home page except brand logo */
+.home-romeo-theme *:not(.font-logo):not(.font-logo *) {
+  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* 1. Main Hero & Big Section Headings (DUBAI BORN / OUR YACHTS / ROMEO MARINE WORLD)
+      Romeo Marine spec: 120px desktop (40px-43px mobile), weight 100 or 200, letter-spacing 1px, uppercase */
+.home-romeo-theme h1,
+.home-romeo-theme h2.saxdor-signature-heading,
+.home-romeo-theme .home-hero-heading,
+.home-romeo-theme [class*="font-signature"] {
+  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-weight: 200 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  line-height: 1.08 !important;
+}
+
+/* Medium-Large Section Titles (e.g. section headings like "OUR FLEET", "THE COLLECTION", "THE VISION") */
+.home-romeo-theme h2:not(.font-logo *):not(.font-logo) {
+  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-weight: 200 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  line-height: 1.15 !important;
+}
+
+/* 2. Yacht Model & Sub-Headings (ROMEO 55 spec: 60px desktop / 30px mobile, weight 100/200, uppercase, 1px) */
+.home-romeo-theme h3:not(.font-logo *):not(.font-logo),
+.home-romeo-theme h4:not(.font-logo *):not(.font-logo) {
+  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-weight: 200 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  line-height: 1.2 !important;
+}
+
+/* 3. Card Titles & Post Titles (Romeo Marine spec: 20px desktop / 17px mobile, weight 400, uppercase, 1px) */
+.home-romeo-theme .saxdor-title,
+.home-romeo-theme .card-title,
+.home-romeo-theme [class*="text-xl"]:is(h2, h3, h4, div),
+.home-romeo-theme [class*="text-2xl"]:is(h3, h4, div) {
+  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+/* 4. Section Eyebrows & Meta / Small labels (Romeo Marine spec: 13px, weight 500, letter-spacing 1px) */
+.home-romeo-theme .saxdor-eyebrow,
+.home-romeo-theme .meta-label,
+.home-romeo-theme [class*="text-xs"],
+.home-romeo-theme [class*="text-sm"]:is(span, p) {
+  letter-spacing: 1px !important;
+}
+
+/* 5. Numbers & Yacht Specifications (Romeo Marine spec: 24px, letter-spacing 1px) */
+.home-romeo-theme .spec-value,
+.home-romeo-theme [class*="font-semibold"]:is(span, div) {
+  letter-spacing: 1px !important;
+}
+
+/* 6. Body Paragraphs & Editorial Descriptions
+      Romeo Marine spec: 17px, line-height 28px, letter-spacing 1px, weight 300/400 */
+.home-romeo-theme p,
+.home-romeo-theme .saxdor-desc-justified,
+.home-romeo-theme .font-editorial {
+  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 17px !important;
+  line-height: 28px !important;
+  letter-spacing: 1px !important;
+}
+
+/* 7. Buttons & Action Links (Romeo Marine spec: 12px, weight 500, letter-spacing 2px, uppercase) */
+.home-romeo-theme button,
+.home-romeo-theme a.btn,
+.home-romeo-theme .saxdor-btn-solid,
+.home-romeo-theme .saxdor-btn-outline,
+.home-romeo-theme .saxdor-btn-navy-outline,
+.home-romeo-theme .saxdor-btn-navy-solid,
+.home-romeo-theme .btn-gold,
+.home-romeo-theme .btn-luxury-outline,
+.home-romeo-theme .btn-rectangular,
+.home-romeo-theme .btn-rect {
+  font-family: 'Neue Haas Grotesk Display Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+}
