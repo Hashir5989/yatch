@@ -162,21 +162,21 @@ export default function UniversalContactView({ pageData = null }) {
             </a>
 
             <a
+              href="tel:+97167436443"
+              className="w-full sm:w-auto saxdor-btn-outline !h-auto min-h-[42px] sm:!h-[44px] !px-4 sm:!px-8 text-[11px] sm:text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73] text-center"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#C6A155] shrink-0" />
+              <span>Tel: +971 6 743 6443</span>
+            </a>
+
+            <a
               href="https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20would%20like%20to%20connect%20with%20your%20advisory%20team."
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 min-h-[42px] sm:h-[44px] py-2 sm:py-0 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all rounded-none shadow-xl text-center"
             >
               <WhatsAppIcon className="w-4 h-4 shrink-0" />
-              <span>WhatsApp VIP Concierge</span>
-            </a>
-
-            <a
-              href="tel:+971565268126"
-              className="w-full sm:w-auto saxdor-btn-outline !h-auto min-h-[42px] sm:!h-[44px] !px-4 sm:!px-8 text-[11px] sm:text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center gap-2 rounded-none hover:border-[#C6A155] hover:text-[#DFBA73] text-center"
-            >
-              <Phone className="w-3.5 h-3.5 text-[#C6A155] shrink-0" />
-              <span>+971 56 526 8126</span>
+              <span>WhatsApp: +971 56 526 8126</span>
             </a>
           </div>
         </div>
@@ -236,23 +236,25 @@ export default function UniversalContactView({ pageData = null }) {
                   Direct telephone contact for private client inquiries, vessel pricing, and sea trials.
                 </p>
                 <a
-                  href="tel:+971565268126"
-                  className="font-mono text-xs sm:text-[13px] font-semibold text-white hover:text-[#DFBA73] block transition-colors"
-                >
-                  +971 56 526 8126
-                </a>
-                <a
                   href="tel:+97167436443"
-                  className="font-mono text-xs text-white/60 hover:text-white block mt-1 transition-colors"
+                  className="font-mono text-xs sm:text-[13px] font-semibold text-white hover:text-[#DFBA73] block transition-colors"
                 >
                   Tel: +971 6 743 6443
                 </a>
+                <a
+                  href="https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20am%20inquiring%20about%20your%20yacht%20fleet."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-xs sm:text-[13px] text-[#25D366] hover:underline block mt-1.5 transition-colors"
+                >
+                  WhatsApp: +971 56 526 8126
+                </a>
               </div>
               <a
-                href="tel:+971565268126"
+                href="tel:+97167436443"
                 className="text-xs text-[#DFBA73] hover:text-white uppercase tracking-wider font-semibold inline-flex items-center gap-1.5 pt-3 border-t border-white/10 transition-colors"
               >
-                <span>Call Concierge Now</span>
+                <span>Call Telephone Hotline</span>
                 <Phone className="w-3.5 h-3.5" />
               </a>
             </div>

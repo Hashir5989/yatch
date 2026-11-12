@@ -173,34 +173,54 @@ export default function PublicFooter() {
               <p className="whitespace-pre-line">
                 {settings.shipyardAddress || "RASHIDIA 1\nAJMAN, United Arab Emirates"}
               </p>
-              <div className="pt-2 space-y-1.5">
-                <div className="flex items-center gap-2 font-medium text-white">
+              <div className="pt-2 space-y-2">
+                {/* Telephone */}
+                <div className="flex items-center gap-2.5 text-xs text-white">
                   <a
                     href={`tel:${cleanPhone}`}
-                    className="text-[#C6A155] hover:opacity-80 transition-opacity"
+                    className="p-1 bg-white/5 border border-white/10 hover:border-[#C6A155]/60 rounded text-[#C6A155] hover:opacity-80 transition-all shrink-0"
                     title="Direct Phone Call"
-                    aria-label={`Call ${settings.contactPhone || "+971 56 526 8126"}`}
+                    aria-label={`Call ${settings.contactPhone || "+971 6 743 6443"}`}
                   >
                     <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
                   </a>
+                  <div className="flex items-baseline gap-1.5 font-mono">
+                    <span className="text-[10px] text-white/50 uppercase tracking-wider font-sans">Tel</span>
+                    <a 
+                      href={`tel:${cleanPhone}`} 
+                      className="hover:text-[#C6A155] text-white transition-colors tracking-wide"
+                    >
+                      {settings.contactPhone || "+971 6 743 6443"}
+                    </a>
+                  </div>
+                </div>
+
+                {/* WhatsApp */}
+                <div className="flex items-center gap-2.5 text-xs text-white">
                   <a
                     href={`https://wa.me/${cleanWhatsapp}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#25D366] hover:opacity-80 transition-opacity"
+                    className="p-1 bg-[#25D366]/10 border border-[#25D366]/30 hover:border-[#25D366] rounded text-[#25D366] hover:opacity-80 transition-all shrink-0"
                     title="Chat on WhatsApp"
                     aria-label="WhatsApp"
                   >
                     <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
                   </a>
-                  <a 
-                    href={`tel:${cleanPhone}`} 
-                    className="hover:text-[#C6A155] font-mono transition-colors"
-                  >
-                    {settings.contactPhone || "+971 56 526 8126"}
-                  </a>
+                  <div className="flex items-baseline gap-1.5 font-mono">
+                    <span className="text-[10px] text-[#25D366]/80 uppercase tracking-wider font-sans">WhatsApp</span>
+                    <a
+                      href={`https://wa.me/${cleanWhatsapp}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-[#25D366] text-white/90 transition-colors tracking-wide"
+                    >
+                      {settings.whatsappNumber || "+971 56 526 8126"}
+                    </a>
+                  </div>
                 </div>
-                <p className="text-[#C6A155] font-semibold pt-0.5">
+
+                <p className="text-[#C6A155] font-semibold pt-1 text-xs">
                   <a href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`} className="hover:underline">
                     {settings.contactEmail || "info@asmaraty.com"}
                   </a>

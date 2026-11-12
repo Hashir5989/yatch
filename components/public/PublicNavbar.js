@@ -260,34 +260,54 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                 <p className="text-[11px] text-white/60">
                   {settings.shipyardAddress || "RASHIDIA 1, AJMAN, United Arab Emirates"}
                 </p>
-                <div className="pt-2 flex flex-wrap items-center gap-4 text-xs">
+                <div className="pt-2 space-y-2 text-xs">
+                  {/* Telephone */}
                   <div className="flex items-center gap-2">
                     <a
-                      href={`tel:${(settings.contactPhone || "+971 56 526 8126").replace(/\s+/g, '')}`}
-                      className="text-[#C6A155] hover:opacity-80 transition-opacity"
+                      href={`tel:${(settings.contactPhone || "+971 6 743 6443").replace(/\s+/g, '')}`}
+                      className="p-1 bg-white/5 border border-white/10 hover:border-[#C6A155]/60 rounded text-[#C6A155] hover:opacity-80 transition-all shrink-0"
                       title="Direct Phone Call"
-                      aria-label={`Call ${settings.contactPhone || "+971 56 526 8126"}`}
+                      aria-label={`Call ${settings.contactPhone || "+971 6 743 6443"}`}
                     >
                       <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
                     </a>
+                    <div className="flex items-baseline gap-1.5 font-mono">
+                      <span className="text-[10px] text-white/50 uppercase tracking-wider font-sans">Tel</span>
+                      <a 
+                        href={`tel:${(settings.contactPhone || "+971 6 743 6443").replace(/\s+/g, '')}`} 
+                        className="hover:underline text-white hover:text-[#C6A155] transition-colors"
+                      >
+                        {settings.contactPhone || "+971 6 743 6443"}
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* WhatsApp */}
+                  <div className="flex items-center gap-2">
                     <a
                       href={`https://wa.me/${(settings.whatsappNumber || "+971 56 526 8126").replace(/[^0-9]/g, '')}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#25D366] hover:opacity-80 transition-opacity"
+                      className="p-1 bg-[#25D366]/10 border border-[#25D366]/30 hover:border-[#25D366] rounded text-[#25D366] hover:opacity-80 transition-all shrink-0"
                       title="Chat on WhatsApp"
                       aria-label="WhatsApp"
                     >
                       <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
                     </a>
-                    <a 
-                      href={`tel:${(settings.contactPhone || "+971 56 526 8126").replace(/\s+/g, '')}`} 
-                      className="hover:underline font-mono text-white hover:text-[#C6A155] transition-colors"
-                    >
-                      {settings.contactPhone || "+971 56 526 8126"}
-                    </a>
+                    <div className="flex items-baseline gap-1.5 font-mono">
+                      <span className="text-[10px] text-[#25D366]/80 uppercase tracking-wider font-sans">WhatsApp</span>
+                      <a
+                        href={`https://wa.me/${(settings.whatsappNumber || "+971 56 526 8126").replace(/[^0-9]/g, '')}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline text-white/90 hover:text-[#25D366] transition-colors"
+                      >
+                        {settings.whatsappNumber || "+971 56 526 8126"}
+                      </a>
+                    </div>
                   </div>
-                  <a href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`} className="hover:underline text-white/70">
+
+                  <a href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`} className="hover:underline text-white/70 block pt-1">
                     {settings.contactEmail || "info@asmaraty.com"}
                   </a>
                   <div className="flex flex-wrap items-center gap-3 pt-1">
