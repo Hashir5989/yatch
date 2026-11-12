@@ -732,19 +732,16 @@ p,
 .yacht-description,
 .description-text {
   font-family: "Neue Haas Grotesk Display Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 17px !important;
   line-height: 28px !important;
   letter-spacing: 1px !important;
   font-weight: 300 !important;
 }
 
-/* Big Headings (h3 / h2 / h1) across overall website (Romeo Marine 120px desktop / 40px mobile, weight 100, 1px) */
+/* Big Headings (h3 / h2 / h1) across overall website — weight 300, 1px letter-spacing, uppercase */
 h3:not(.font-logo):not(.font-logo *) {
   font-family: "Neue Haas Grotesk Display Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: clamp(36px, 7vw, 120px) !important;
-  font-weight: 100 !important;
+  font-weight: 300 !important;
   letter-spacing: 1px !important;
-  line-height: 1.08 !important;
   text-transform: uppercase !important;
 }
 
@@ -752,18 +749,8 @@ h3:not(.font-logo):not(.font-logo *) {
 h1:not(.font-logo):not(.font-logo *),
 h2:not(.font-logo):not(.font-logo *) {
   font-family: "Neue Haas Grotesk Display Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-weight: 100 !important;
+  font-weight: 300 !important;
   letter-spacing: 1px !important;
-  text-transform: uppercase !important;
-}
-
-/* Specific home page overrides */
-.home-romeo-theme h3 {
-  font-family: "Neue Haas Grotesk Display Pro", Sans-serif !important;
-  font-size: clamp(38px, 8vw, 120px) !important;
-  font-weight: 100 !important;
-  letter-spacing: 1px !important;
-  line-height: 1.08 !important;
   text-transform: uppercase !important;
 }
 
