@@ -408,39 +408,39 @@ export default function UniversalContactView({ pageData = null }) {
                   <span>Message on WhatsApp (+971 56 526 8126)</span>
                 </a>
 
-                {/* Official Social Channels: Instagram, YouTube, TikTok side-by-side */}
-                <div className="grid grid-cols-3 gap-2 pt-0.5">
+                {/* Official Social Channels: 1 per line (vertical stack) */}
+                <div className="space-y-2 pt-0.5">
                   <a
                     href="https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 px-2 py-2 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-[11px] font-bold uppercase tracking-wider group text-center"
+                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group text-center shadow-sm"
                     title="Follow @asmaraty_yachts on Instagram"
                   >
-                    <InstagramIcon className="w-3.5 h-3.5 transition-transform group-hover:scale-110 shrink-0" />
-                    <span className="truncate">Instagram</span>
+                    <InstagramIcon className="w-4 h-4 transition-transform group-hover:scale-110 shrink-0" />
+                    <span>Instagram</span>
                   </a>
 
                   <a
                     href="https://youtu.be/FBPzrAe9N0Q"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 px-2 py-2 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-[11px] font-bold uppercase tracking-wider group text-center"
+                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group text-center shadow-sm"
                     title="Watch on YouTube"
                   >
-                    <YoutubeIcon className="w-3.5 h-3.5 transition-transform group-hover:scale-110 shrink-0" />
-                    <span className="truncate">YouTube</span>
+                    <YoutubeIcon className="w-4 h-4 transition-transform group-hover:scale-110 shrink-0" />
+                    <span>YouTube</span>
                   </a>
 
                   <a
                     href="https://www.tiktok.com/@asmaraty.yachts?_r=1&_t=ZS-9BJeuRzx6UI"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 px-2 py-2 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-[11px] font-bold uppercase tracking-wider group text-center"
+                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#08101C] hover:bg-white/10 text-white border border-white/15 hover:border-white/30 transition-all text-xs font-bold uppercase tracking-wider group text-center shadow-sm"
                     title="Follow @asmaraty.yachts on TikTok"
                   >
-                    <TiktokIcon className="w-3.5 h-3.5 transition-transform group-hover:scale-110 shrink-0" />
-                    <span className="truncate">TikTok</span>
+                    <TiktokIcon className="w-4 h-4 transition-transform group-hover:scale-110 shrink-0" />
+                    <span>TikTok</span>
                   </a>
                 </div>
               </div>
