@@ -184,15 +184,12 @@ export default function PublicFooter() {
                   >
                     <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
                   </a>
-                  <div className="flex items-baseline gap-1.5 font-mono">
-                    <span className="text-[10px] text-white/50 uppercase tracking-wider font-sans">Tel</span>
-                    <a 
-                      href={`tel:${cleanPhone}`} 
-                      className="hover:text-[#C6A155] text-white transition-colors tracking-wide"
-                    >
-                      {settings.contactPhone || "+971 6 743 6443"}
-                    </a>
-                  </div>
+                  <a 
+                    href={`tel:${cleanPhone}`} 
+                    className="hover:text-[#C6A155] font-mono text-white transition-colors tracking-wide"
+                  >
+                    {settings.contactPhone || "+971 6 743 6443"}
+                  </a>
                 </div>
 
                 {/* WhatsApp */}
@@ -207,17 +204,14 @@ export default function PublicFooter() {
                   >
                     <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
                   </a>
-                  <div className="flex items-baseline gap-1.5 font-mono">
-                    <span className="text-[10px] text-[#25D366]/80 uppercase tracking-wider font-sans">WhatsApp</span>
-                    <a
-                      href={`https://wa.me/${cleanWhatsapp}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-[#25D366] text-white/90 transition-colors tracking-wide"
-                    >
-                      {settings.whatsappNumber || "+971 56 526 8126"}
-                    </a>
-                  </div>
+                  <a
+                    href={`https://wa.me/${cleanWhatsapp}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#25D366] font-mono text-white/90 transition-colors tracking-wide"
+                  >
+                    {settings.whatsappNumber || "+971 56 526 8126"}
+                  </a>
                 </div>
 
                 <p className="text-[#C6A155] font-semibold pt-1 text-xs">
