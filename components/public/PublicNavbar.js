@@ -271,15 +271,12 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                     >
                       <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
                     </a>
-                    <div className="flex items-baseline gap-1.5 font-mono">
-                      <span className="text-[10px] text-white/50 uppercase tracking-wider font-sans">Tel</span>
-                      <a 
-                        href={`tel:${(settings.contactPhone || "+971 6 743 6443").replace(/\s+/g, '')}`} 
-                        className="hover:underline text-white hover:text-[#C6A155] transition-colors"
-                      >
-                        {settings.contactPhone || "+971 6 743 6443"}
-                      </a>
-                    </div>
+                    <a 
+                      href={`tel:${(settings.contactPhone || "+971 6 743 6443").replace(/\s+/g, '')}`} 
+                      className="hover:underline text-white hover:text-[#C6A155] transition-colors font-mono"
+                    >
+                      {settings.contactPhone || "+971 6 743 6443"}
+                    </a>
                   </div>
 
                   {/* WhatsApp */}
@@ -294,17 +291,14 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                     >
                       <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
                     </a>
-                    <div className="flex items-baseline gap-1.5 font-mono">
-                      <span className="text-[10px] text-[#25D366]/80 uppercase tracking-wider font-sans">WhatsApp</span>
-                      <a
-                        href={`https://wa.me/${(settings.whatsappNumber || "+971 56 526 8126").replace(/[^0-9]/g, '')}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:underline text-white/90 hover:text-[#25D366] transition-colors"
-                      >
-                        {settings.whatsappNumber || "+971 56 526 8126"}
-                      </a>
-                    </div>
+                    <a
+                      href={`https://wa.me/${(settings.whatsappNumber || "+971 56 526 8126").replace(/[^0-9]/g, '')}?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet.`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline text-white/90 hover:text-[#25D366] transition-colors font-mono"
+                    >
+                      {settings.whatsappNumber || "+971 56 526 8126"}
+                    </a>
                   </div>
 
                   <a href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`} className="hover:underline text-white/70 block pt-1">
