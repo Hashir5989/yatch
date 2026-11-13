@@ -221,7 +221,7 @@
     "vessel": "ASMARATY G-Series Luxury Fleet & G77 (77 FT)",
     "presentedBy": "AL SHAALI MARINE – UAE",
     "status": "published",
-    "featuredImage": "/images/news/inauguration/6311844283228558315.jpg",
+    "featuredImage": "/images/events/qatar-2025/qatar-2025-showcase-1.jpg",
     "featuredImageAlt": "ASMARATY G77 luxury yacht at Qatar Boat Show 2025 at Old Doha Port",
     "excerpt": "Held under the patronage of H.E. Sheikh Mohammed bin Abdulrahman bin Jassim Al Thani, the 2nd Qatar Boat Show welcomed over 27,800 visitors to Old Doha Port. Al Shaali Marine and ASMARATY made their historic first-ever official appearance in Qatar at Stand D06, unveiling bespoke G-Series yachts and introducing the 25-Year Warranty.",
     "description": "DOHA, QATAR — In an extraordinary milestone for Gulf maritime heritage, the 2nd edition of the Qatar Boat Show 2025 concluded at the iconic Old Doha Port, cementing the event as one of the most dynamic luxury marine exhibitions in the Middle East. Held under the distinguished patronage of H.E. Sheikh Mohammed bin Abdulrahman bin Jassim Al Thani, Prime Minister and Minister of Foreign Affairs of Qatar, the four-day show welcomed an astounding 27,800 visitors from 105 countries, including more than 4,600 royal dignitaries and VIP collectors.\n\nSpanning the historic waterfront against the picturesque pastel architecture of the Mina District, the 2025 edition brought together 85 premier exhibitors and 505 international brands, with over 65 luxury superyachts valued at approximately QR 880 million illuminating the deep-water marina basin.\n\nFor ASMARATY Luxury Yachts and its master manufacturing shipyard Al Shaali Marine (established 1979 in the UAE), Qatar Boat Show 2025 represented a landmark historical chapter: the veteran Emirati shipbuilder’s first-ever official appearance in the State of Qatar. Occupying commanding berths at Stand D06 along the prime Old Doha Port waterfront promenade, the shipyard was welcomed with immense enthusiasm by Qatari yacht owners and maritime families.\n\nThe fleet was spearheaded by the magnificent ASMARATY G77 two-deck luxury yacht, alongside scale architectural dossiers of the flagship G-100 Superyacht, the dynamic G-66 Flybridge, and the versatile G-50 cruiser. Each evening, as twilight settled over Doha Bay, Stand D06 transformed into an illuminated waterfront majlis with sapphire-blue underwater LEDs, while monumental fireworks erupted into golden cascades above the skyline.",
@@ -235,11 +235,164 @@
       "Introduction of the landmark 25-Year Shipyard Hull Integrity Warranty to Qatari collectors"
     ],
     "pressDispatchSlug": "asmaraty-qatar-boat-show-2025-old-doha-port",
-    "photos": [],
+    "photos": [
+      {
+        "id": "qatar-2025-photo-1",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-1.jpg",
+        "alt": "ASMARATY yacht berthed at Stand D06, Old Doha Port Mina District",
+        "title": "Old Doha Port Waterfront Berth",
+        "tag": "HISTORIC DEBUT",
+        "caption": "ASMARATY luxury yacht moored at Stand D06 in Old Doha Port during Qatar Boat Show 2025."
+      },
+      {
+        "id": "qatar-2025-photo-2",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-2.jpg",
+        "alt": "ASMARATY G77 luxury yacht daylight showcase at Old Doha Port",
+        "title": "G77 Daylight Showcase",
+        "tag": "FLEET SHOWCASE",
+        "caption": "The magnificent ASMARATY G77 two-deck luxury yacht showcased under the daylight sun at Old Doha Port."
+      },
+      {
+        "id": "qatar-2025-photo-3",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-3.jpg",
+        "alt": "Al Shaali Marine and ASMARATY dockside exhibition stand",
+        "title": "Al Shaali Marine Exhibition Presence",
+        "tag": "EXHIBITION STAND",
+        "caption": "Al Shaali Marine marking its historic first official appearance in the State of Qatar."
+      },
+      {
+        "id": "qatar-2025-photo-4",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-4.jpg",
+        "alt": "VIP dignitaries and guests visiting the ASMARATY yacht",
+        "title": "VIP Onboard Reception",
+        "tag": "VIP RECEPTION",
+        "caption": "Distinguished Qatari guests and maritime collectors touring the ASMARATY fleet."
+      },
+      {
+        "id": "qatar-2025-photo-5",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-5.jpg",
+        "alt": "Old Doha Port Mina District pastel architecture and marina basin",
+        "title": "Mina District Marina Panorama",
+        "tag": "MARINA BASIN",
+        "caption": "Waterfront perspective across the vibrant Mina District marina basin at Qatar Boat Show 2025."
+      },
+      {
+        "id": "qatar-2025-photo-6",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-6.jpg",
+        "alt": "ASMARATY yacht exterior profile and deck architecture",
+        "title": "Exterior Profile & Deck Lines",
+        "tag": "NAVAL ARCHITECTURE",
+        "caption": "Muscular composite profile and handcrafted deck lines engineered in the UAE."
+      },
+      {
+        "id": "qatar-2025-photo-7",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-7.jpg",
+        "alt": "Foredeck and helm walkthrough at Qatar Boat Show",
+        "title": "Foredeck & Helm Navigation Suite",
+        "tag": "WALKTHROUGH",
+        "caption": "State-of-the-art dual-helm electronics and expansive teak foredeck sun lounges."
+      },
+      {
+        "id": "qatar-2025-photo-8",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-8.jpg",
+        "alt": "Luxury interior salon craftsmanship and Italian leather details",
+        "title": "Italian Marble & Leather Interior Salon",
+        "tag": "INTERIOR OPULENCE",
+        "caption": "Book-matched Calacatta marble, hand-stitched leather paneling, and acoustic isolation membranes."
+      },
+      {
+        "id": "qatar-2025-photo-9",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-9.jpg",
+        "alt": "Guests enjoying hospitality on the flybridge terrace",
+        "title": "Flybridge Entertaining Terrace",
+        "tag": "FLYBRIDGE",
+        "caption": "Expansive upper flybridge terrace featuring wet bar, teppanyaki grill, and panoramic seating."
+      },
+      {
+        "id": "qatar-2025-photo-10",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-10.jpg",
+        "alt": "Engine room inspection with twin marine diesels",
+        "title": "Commercial-Duty Marine Propulsion",
+        "tag": "ENGINEERING",
+        "caption": "Heavy-duty commercial marine diesel powerplants engineered for 32-knot sprint performance."
+      },
+      {
+        "id": "qatar-2025-photo-11",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-11.jpg",
+        "alt": "Twilight blue LED illumination on the marina basin",
+        "title": "Twilight Sapphire LED Illumination",
+        "tag": "TWILIGHT SHOWCASE",
+        "caption": "Sapphire-blue underwater LEDs casting a luminescent glow across the Old Doha Port basin."
+      },
+      {
+        "id": "qatar-2025-photo-12",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-12.jpg",
+        "alt": "Evening waterfront majlis aboard ASMARATY yacht",
+        "title": "Evening Waterfront Majlis",
+        "tag": "EVENING SHOWCASE",
+        "caption": "Atmospheric evening majlis welcoming prospective owners for bespoke commission consultations."
+      },
+      {
+        "id": "qatar-2025-photo-13",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-13.jpg",
+        "alt": "Grand fireworks display exploding over Doha skyline and yachts",
+        "title": "Monumental Skyline Fireworks",
+        "tag": "FIREWORKS SPECTACULAR",
+        "caption": "Spectacular fireworks erupting over the Doha skyline and Old Doha Port marina."
+      },
+      {
+        "id": "qatar-2025-photo-14",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-14.jpg",
+        "alt": "ASMARATY yacht dockside presentation view",
+        "title": "Dockside Exhibition View",
+        "tag": "EXHIBITION",
+        "caption": "High-profile dockside presentation attracting international visitors and yacht enthusiasts."
+      },
+      {
+        "id": "qatar-2025-photo-15",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-15.jpg",
+        "alt": "Bespoke composite hull construction and detailing",
+        "title": "Precision Composite Construction",
+        "tag": "CRAFTSMANSHIP",
+        "caption": "Vacuum-infused resin composite lamination built for Arabian Gulf durability."
+      },
+      {
+        "id": "qatar-2025-photo-16",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-16.jpg",
+        "alt": "Aft cockpit seating and hydraulic swim platform",
+        "title": "Aft Cockpit & Teak Swim Platform",
+        "tag": "DECK DETAILING",
+        "caption": "Hydraulic swim platform transitioning seamlessly into the light-drenched main salon."
+      },
+      {
+        "id": "qatar-2025-photo-17",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-17.jpg",
+        "alt": "Client consultation with senior naval architects",
+        "title": "Bespoke Commission Consultations",
+        "tag": "COMMISSIONING",
+        "caption": "Confidential consultations covering personalized deck layouts and rare stone selections."
+      },
+      {
+        "id": "qatar-2025-photo-18",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-18.jpg",
+        "alt": "Full-beam owner stateroom view",
+        "title": "Full-Beam Owner's Stateroom",
+        "tag": "STATEROOMS",
+        "caption": "Panoramic waterline windows and private en-suite dressing boudoir in the master stateroom."
+      },
+      {
+        "id": "qatar-2025-photo-19",
+        "url": "/images/events/qatar-2025/qatar-2025-showcase-19.jpg",
+        "alt": "Night celebration panorama over Old Doha Port and ASMARATY fleet",
+        "title": "Waterfront Celebration Panorama",
+        "tag": "NIGHT PANORAMA",
+        "caption": "Grand celebration marking the conclusion of a triumphant Qatar Boat Show 2025."
+      }
+    ],
     "seo": {
       "metaTitle": "Qatar Boat Show 2025 Showcase | ASMARATY Luxury Yachts",
       "metaDescription": "Explore the official exhibition showcase and retrospective of ASMARATY and Al Shaali Marine at the 2nd Qatar Boat Show 2025 at Old Doha Port.",
-      "ogImage": "/images/news/inauguration/6311844283228558315.jpg"
+      "ogImage": "/images/events/qatar-2025/qatar-2025-showcase-1.jpg"
     }
   }
 ]
