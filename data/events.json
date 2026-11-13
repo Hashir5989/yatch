@@ -133,5 +133,48 @@
       "metaDescription": "Explore the official exhibition showcase and retrospective of ASMARATY Luxury Yachts at the 7th Abu Dhabi International Boat Show (ADIBS 2025) at ADNEC Marina.",
       "ogImage": "/images/news/adibs-2026-abu-dhabi-boat-show.jpg"
     }
+  },
+  {
+    "id": "qatar-boat-show-2025",
+    "slug": "qatar-boat-show-2025",
+    "aliases": [
+      "qbs-2025",
+      "asmaraty-qatar-boat-show-2025-old-doha-port"
+    ],
+    "title": "Qatar Boat Show 2025",
+    "subtitle": "Historic Official Qatar Debut of Al Shaali Marine & ASMARATY",
+    "heroHeadline": "AL SHAALI MARINE AND ASMARATY CAPTIVATE OLD DOHA PORT AT QATAR BOAT SHOW 2025",
+    "category": "Boat Show",
+    "badge": "HISTORIC DEBUT",
+    "dateBadge": {
+      "day": "05 — 08",
+      "monthYear": "NOV 2025",
+      "locationShort": "OLD DOHA PORT"
+    },
+    "dates": "5th – 8th November 2025",
+    "venue": "Stand D06 | Old Doha Port, Mina District, Doha, Qatar",
+    "vessel": "ASMARATY G-Series Luxury Fleet & G77 (77 FT)",
+    "presentedBy": "AL SHAALI MARINE – UAE",
+    "status": "published",
+    "featuredImage": "/images/news/inauguration/6311844283228558315.jpg",
+    "featuredImageAlt": "ASMARATY G77 luxury yacht at Qatar Boat Show 2025 at Old Doha Port",
+    "excerpt": "Held under the patronage of H.E. Sheikh Mohammed bin Abdulrahman bin Jassim Al Thani, the 2nd Qatar Boat Show welcomed over 27,800 visitors to Old Doha Port. Al Shaali Marine and ASMARATY made their historic first-ever official appearance in Qatar at Stand D06, unveiling bespoke G-Series yachts and introducing the 25-Year Warranty.",
+    "description": "DOHA, QATAR — In an extraordinary milestone for Gulf maritime heritage, the 2nd edition of the Qatar Boat Show 2025 concluded at the iconic Old Doha Port, cementing the event as one of the most dynamic luxury marine exhibitions in the Middle East. Held under the distinguished patronage of H.E. Sheikh Mohammed bin Abdulrahman bin Jassim Al Thani, Prime Minister and Minister of Foreign Affairs of Qatar, the four-day show welcomed an astounding 27,800 visitors from 105 countries, including more than 4,600 royal dignitaries and VIP collectors.\n\nSpanning the historic waterfront against the picturesque pastel architecture of the Mina District, the 2025 edition brought together 85 premier exhibitors and 505 international brands, with over 65 luxury superyachts valued at approximately QR 880 million illuminating the deep-water marina basin.\n\nFor ASMARATY Luxury Yachts and its master manufacturing shipyard Al Shaali Marine (established 1979 in the UAE), Qatar Boat Show 2025 represented a landmark historical chapter: the veteran Emirati shipbuilder’s first-ever official appearance in the State of Qatar. Occupying commanding berths at Stand D06 along the prime Old Doha Port waterfront promenade, the shipyard was welcomed with immense enthusiasm by Qatari yacht owners and maritime families.\n\nThe fleet was spearheaded by the magnificent ASMARATY G77 two-deck luxury yacht, alongside scale architectural dossiers of the flagship G-100 Superyacht, the dynamic G-66 Flybridge, and the versatile G-50 cruiser. Each evening, as twilight settled over Doha Bay, Stand D06 transformed into an illuminated waterfront majlis with sapphire-blue underwater LEDs, while monumental fireworks erupted into golden cascades above the skyline.",
+    "warrantyCallout": "Drawing upon Al Shaali Marine's 45-year naval heritage since 1979, ASMARATY reinforced its industry-leading 25-Year Shipyard Hull Integrity Warranty. The quarter-century structural guarantee protects vacuum-infused composite hulls, longitudinal stringers, and structural bulkheads against fatigue and osmotic breakdown, providing unprecedented asset security on Arabian Gulf waters.",
+    "highlights": [
+      "First-ever official appearance of UAE master shipbuilder Al Shaali Marine in Qatar",
+      "Held under the esteemed patronage of H.E. Sheikh Mohammed bin Abdulrahman bin Jassim Al Thani",
+      "Over 27,800 visitors and 4,600 VVIP delegations attending at Old Doha Port",
+      "Commanding waterfront dockside presence at Stand D06 within the Mina District basin",
+      "Official presentation of the bespoke G-Series composite fleet led by the ASMARATY G77",
+      "Introduction of the landmark 25-Year Shipyard Hull Integrity Warranty to Qatari collectors"
+    ],
+    "pressDispatchSlug": "asmaraty-qatar-boat-show-2025-old-doha-port",
+    "photos": [],
+    "seo": {
+      "metaTitle": "Qatar Boat Show 2025 Showcase | ASMARATY Luxury Yachts",
+      "metaDescription": "Explore the official exhibition showcase and retrospective of ASMARATY and Al Shaali Marine at the 2nd Qatar Boat Show 2025 at Old Doha Port.",
+      "ogImage": "/images/news/inauguration/6311844283228558315.jpg"
+    }
   }
 ]
