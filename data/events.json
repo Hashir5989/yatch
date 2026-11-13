@@ -21,7 +21,6 @@
     "vessel": "ASMARATY G77 Luxury Yacht (77 FT)",
     "presentedBy": "AL SHAALI MARINE – UAE",
     "status": "published",
-    "bannerPosition": "top",
     "featuredImage": "/images/events/qibs-2026-fireworks-celebration.jpg",
     "featuredImageAlt": "Monumental fireworks celebration exploding in golden spirals over Old Doha Port and ASMARATY yachts at Qatar International Boat Show 2026",
     "excerpt": "Al Shaali Marine and ASMARATY officially unveiled the newly launched G77 luxury yacht at Stand D06 at Old Doha Port, celebrated with monumental waterfront fireworks, synchronized drone choreography, and introducing our landmark 25-Year Shipyard Warranty.",
@@ -73,22 +72,66 @@
         "id": "photo-1794319670480",
         "url": "/images/uploads/6311844283228558314-1794319666560.jpg",
         "title": "Waterfront Exhibition Photo",
-        "alt": "6311844283228558314",
-        "tag": "BOAT SHOW"
+        "alt": "ASMARATY luxury yacht waterfront exhibition view at Old Doha Port",
+        "tag": "BOAT SHOW",
+        "caption": "Waterfront exhibition view of the ASMARATY yacht fleet during the Qatar International Boat Show 2026."
       },
       {
         "id": "photo-1794327281709",
         "url": "/images/uploads/saveclip-app_900433264_18423701230153217_796415544-1794327278833.jpg",
-        "title": "SaveClip.App 900433264 18423701230153217 7964155444304728174 N",
-        "alt": "SaveClip.App 900433264 18423701230153217 7964155444304728174 N",
-        "tag": "FIREWORKS"
+        "title": "Fireworks & Waterfront Night Celebration",
+        "alt": "Monumental fireworks celebration over Old Doha Port and ASMARATY yachts",
+        "tag": "FIREWORKS",
+        "caption": "Spectacular fireworks illuminated over ASMARATY fleet at Old Doha Port."
       }
     ],
     "seo": {
       "metaTitle": "Qatar International Boat Show 2026 Showcase | ASMARATY Luxury Yachts",
       "metaDescription": "Explore the official exhibition showcase and complete photo gallery of the ASMARATY G77 debut, fireworks display, and drone show at the Qatar International Boat Show 2026 at Old Doha Port.",
       "ogImage": "/images/events/qibs-2026-fireworks-celebration.jpg"
+    }
+  },
+  {
+    "id": "adibs-2025",
+    "slug": "abu-dhabi-international-boat-show-2025",
+    "aliases": [
+      "adibs-2025",
+      "asmaraty-abu-dhabi-international-boat-show-2025"
+    ],
+    "title": "Abu Dhabi International Boat Show 2025",
+    "subtitle": "ASMARATY G-Series Luxury Fleet & The Charter Show Debut",
+    "heroHeadline": "ASMARATY COMMANDS THE WATERFRONT AT THE 7TH ABU DHABI INTERNATIONAL BOAT SHOW 2025",
+    "category": "Boat Show",
+    "badge": "EXHIBITION SHOWCASE",
+    "dateBadge": {
+      "day": "20 — 23",
+      "monthYear": "NOV 2025",
+      "locationShort": "ADNEC MARINA"
     },
-    "updatedAt": "2026-11-10T16:14:57.264Z"
+    "dates": "20th – 23rd November 2025",
+    "venue": "ADNEC Marina Canal & Marina Hall | Abu Dhabi, UAE",
+    "vessel": "ASMARATY G-Series Luxury Fleet (G-100, G77, G-66, G-50)",
+    "presentedBy": "AL SHAALI MARINE – UAE",
+    "status": "published",
+    "featuredImage": "/images/news/adibs-2026-abu-dhabi-boat-show.jpg",
+    "featuredImageAlt": "ASMARATY Luxury Yacht Fleet at the 7th Abu Dhabi International Boat Show 2025 at ADNEC Marina",
+    "excerpt": "Held under the patronage of H.H. Sheikh Hamdan bin Zayed Al Nahyan, the record-breaking 7th edition of the Abu Dhabi International Boat Show (ADIBS 2025) marked the largest maritime gathering in UAE capital history. ASMARATY Luxury Yachts and Al Shaali Marine commanded prime deep-water berths along the ADNEC Marina canal pontoon, presenting the G-Series fleet, participating in the inaugural Charter Show, and showcasing the landmark 25-Year Shipyard Warranty.",
+    "description": "ABU DHABI, UAE — Under the esteemed patronage of H.H. Sheikh Hamdan bin Zayed Al Nahyan, Ruler's Representative in the Al Dhafra Region, the 7th edition of the Abu Dhabi International Boat Show (ADIBS 2025) concluded at ADNEC Centre Abu Dhabi, marking the grandest maritime exhibition in the history of the UAE capital. Spanning over 85,000 square meters across the purpose-built ADNEC Marina and Marina Hall, the record-breaking gathering hosted 1,068 international and local exhibitors from 56 nations.\n\nFor ASMARATY Luxury Yachts, engineered in proud partnership with veteran shipbuilder Al Shaali Marine (established 1979 in the UAE), ADIBS 2025 was a triumphant homecoming on UAE waters. Berthing prominently along the 400-meter ADNEC Marina canal pontoon, the shipyard showcased the depth and technical mastery of its bespoke composite G-Series fleet, led by the flagship G-100 Superyacht, the G77 Two-Deck masterwork, the spirited G-66 Flybridge, and the versatile G-50.\n\nA central milestone of the 2025 showcase was the global debut of The Charter Show, a specialized enclave dedicated to superyachts, luxury charter brokers, and ultra-high-net-worth clients. ASMARATY took center stage within this premier forum, presenting bespoke turnkey charter management solutions and private syndicate allocations to Middle Eastern royal delegations and international family offices.\n\nThroughout the four-day event, ASMARATY conducted daily private sea trials departing directly from the ADNEC Marina basin into Abu Dhabi's protected coastal waterways. Prospective owners evaluated the vessels' effortless hydrodynamic stability, acoustic isolation, and commercial-grade propulsion at full throttle. As twilight descended over the capital, the ASMARATY berths transformed into an atmospheric waterfront majlis, illuminated by warm gold architectural lighting and sapphire-blue underwater LEDs reflecting against the canal.",
+    "warrantyCallout": "Drawing upon Al Shaali Marine's 45-year naval heritage since 1979, ASMARATY reinforced its industry-leading 25-Year Shipyard Hull Integrity Warranty. The quarter-century structural guarantee protects vacuum-infused composite hulls, longitudinal stringers, and structural bulkheads against fatigue and osmotic breakdown, providing unprecedented asset security on Arabian Gulf waters.",
+    "highlights": [
+      "Commanding waterfront berths along the 400-metre ADNEC Marina canal pontoon",
+      "Held under the esteemed patronage of H.H. Sheikh Hamdan bin Zayed Al Nahyan",
+      "Inaugural presentation at the newly launched Charter Show for superyachts",
+      "Comprehensive display of the bespoke G-Series composite fleet (G-100, G77, G-66, G-50)",
+      "Daily private sea trial departures navigating Abu Dhabi coastal waters",
+      "Reinforcement of the landmark 25-Year Shipyard Hull Integrity Warranty"
+    ],
+    "pressDispatchSlug": "asmaraty-abu-dhabi-international-boat-show-2025",
+    "photos": [],
+    "seo": {
+      "metaTitle": "Abu Dhabi International Boat Show 2025 Showcase | ASMARATY Luxury Yachts",
+      "metaDescription": "Explore the official exhibition showcase and retrospective of ASMARATY Luxury Yachts at the 7th Abu Dhabi International Boat Show (ADIBS 2025) at ADNEC Marina.",
+      "ogImage": "/images/news/adibs-2026-abu-dhabi-boat-show.jpg"
+    }
   }
 ]

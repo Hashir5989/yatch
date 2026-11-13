@@ -337,63 +337,65 @@ export default function UniversalEventDetailView({ event: initialEvent }) {
       {/* -------------------------------------------------------------
           4. THE OFFICIAL PHOTO SHOWCASE GALLERY (ALL PHOTOS SHOWCASED)
           ------------------------------------------------------------- */}
-      <section className="py-20 bg-[#06090D] border-t border-b border-white/10" id="photo-gallery">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 space-y-12">
-          {/* Gallery Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-white/10">
-            <div>
-              <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.24em] text-[#C6A155] font-semibold mb-2">
-                <Camera className="w-4 h-4" />
-                <span>OFFICIAL PHOTOGRAPHIC RECORD ({photos.length} PHOTOGRAPHS)</span>
+      {photos && photos.length > 0 && (
+        <section className="py-20 bg-[#06090D] border-t border-b border-white/10" id="photo-gallery">
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 space-y-12">
+            {/* Gallery Header */}
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-white/10">
+              <div>
+                <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.24em] text-[#C6A155] font-semibold mb-2">
+                  <Camera className="w-4 h-4" />
+                  <span>OFFICIAL PHOTOGRAPHIC RECORD ({photos.length} PHOTOGRAPHS)</span>
+                </div>
+                <h2 className="font-serif text-2xl sm:text-3xl text-white font-normal uppercase tracking-wide">
+                  The Showcase Gallery
+                </h2>
               </div>
-              <h2 className="font-serif text-2xl sm:text-3xl text-white font-normal uppercase tracking-wide">
-                The Showcase Gallery
-              </h2>
-            </div>
-            <p
-              className="text-xs sm:text-sm text-white/60 font-light max-w-md leading-relaxed saxdor-desc-justified"
-              style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
-            >
-              Click any photograph to open the high-resolution fullscreen lightbox view with detailed captions and zoom controls.
-            </p>
-          </div>
-
-          {/* All Photos Gallery Grid (Pure Visual Grid, No Description Below) */}
-          <div className={`grid grid-cols-1 ${photos.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 md:grid-cols-3"} gap-6`}>
-            {photos.map((photo, idx) => (
-              <div
-                key={photo.id || idx}
-                onClick={() => setActivePhotoIndex(idx)}
-                className="group relative aspect-[16/10] bg-[#06090D] border border-white/10 hover:border-[#C6A155] overflow-hidden cursor-pointer transition-all duration-300 shadow-2xl"
+              <p
+                className="text-xs sm:text-sm text-white/60 font-light max-w-md leading-relaxed saxdor-desc-justified"
+                style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
               >
-                <img
-                  src={photo.url}
-                  alt={photo.alt || event.title}
-                  className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 opacity-60 group-hover:opacity-30 transition-opacity" />
+                Click any photograph to open the high-resolution fullscreen lightbox view with detailed captions and zoom controls.
+              </p>
+            </div>
 
-                {/* Top Tag Badge */}
-                {photo.tag && (
-                  <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 bg-[#08101C]/90 backdrop-blur-md border border-white/15 text-[#DFBA73] text-[9px] font-mono uppercase tracking-[0.18em] font-semibold">
-                      {photo.tag}
+            {/* All Photos Gallery Grid (Pure Visual Grid, No Description Below) */}
+            <div className={`grid grid-cols-1 ${photos.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 md:grid-cols-3"} gap-6`}>
+              {photos.map((photo, idx) => (
+                <div
+                  key={photo.id || idx}
+                  onClick={() => setActivePhotoIndex(idx)}
+                  className="group relative aspect-[16/10] bg-[#06090D] border border-white/10 hover:border-[#C6A155] overflow-hidden cursor-pointer transition-all duration-300 shadow-2xl"
+                >
+                  <img
+                    src={photo.url}
+                    alt={photo.alt || event.title}
+                    className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 opacity-60 group-hover:opacity-30 transition-opacity" />
+
+                  {/* Top Tag Badge */}
+                  {photo.tag && (
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2.5 py-1 bg-[#08101C]/90 backdrop-blur-md border border-white/15 text-[#DFBA73] text-[9px] font-mono uppercase tracking-[0.18em] font-semibold">
+                        {photo.tag}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Hover Enlarge Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#0E1A2D]/95 border border-[#C6A155] text-xs font-mono uppercase tracking-wider text-[#DFBA73] shadow-2xl">
+                      <Maximize2 className="w-3.5 h-3.5" />
+                      <span>View Full Resolution</span>
                     </span>
                   </div>
-                )}
-
-                {/* Hover Enlarge Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
-                  <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#0E1A2D]/95 border border-[#C6A155] text-xs font-mono uppercase tracking-wider text-[#DFBA73] shadow-2xl">
-                    <Maximize2 className="w-3.5 h-3.5" />
-                    <span>View Full Resolution</span>
-                  </span>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* -------------------------------------------------------------
           5. BOTTOM NAVIGATION & UPCOMING EVENTS CALLOUT
