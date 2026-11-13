@@ -167,7 +167,7 @@
     "readingTime": "6 min read",
     "status": "published",
     "bannerPosition": "top",
-    "featuredImage": "/images/news/inauguration/6311844283228558315.jpg",
+    "featuredImage": "/images/uploads/6311844283228558320-1794583409841.jpg",
     "featuredImageAlt": "ASMARATY G77 official inauguration and ribbon ceremony on the teak foredeck at Old Doha Port",
     "excerpt": "Al Shaali Marine and ASMARATY officially unveil the newly launched G77 luxury yacht at the Qatar International Boat Show 2026, welcoming distinguished collectors to Stand D06 at Old Doha Port with an unprecedented 25-Year Shipyard Warranty.",
     "eventDetails": {
@@ -268,7 +268,8 @@
     },
     "relatedArticleIds": [
       "news-adibs-2025-abu-dhabi"
-    ]
+    ],
+    "updatedAt": "2026-11-13T15:23:43.799Z"
   },
   {
     "id": "news-adibs-2025-abu-dhabi",
