@@ -113,7 +113,7 @@
     "vessel": "ASMARATY G-Series Luxury Fleet (G-100, G77, G-66, G-50)",
     "presentedBy": "AL SHAALI MARINE – UAE",
     "status": "published",
-    "featuredImage": "/images/news/adibs-2026-abu-dhabi-boat-show.jpg",
+    "featuredImage": "/images/events/adibs-2025/adibs-2025-showcase-1.jpg",
     "featuredImageAlt": "ASMARATY Luxury Yacht Fleet at the 7th Abu Dhabi International Boat Show 2025 at ADNEC Marina",
     "excerpt": "Held under the patronage of H.H. Sheikh Hamdan bin Zayed Al Nahyan, the record-breaking 7th edition of the Abu Dhabi International Boat Show (ADIBS 2025) marked the largest maritime gathering in UAE capital history. ASMARATY Luxury Yachts and Al Shaali Marine commanded prime deep-water berths along the ADNEC Marina canal pontoon, presenting the G-Series fleet, participating in the inaugural Charter Show, and showcasing the landmark 25-Year Shipyard Warranty.",
     "description": "ABU DHABI, UAE — Under the esteemed patronage of H.H. Sheikh Hamdan bin Zayed Al Nahyan, Ruler's Representative in the Al Dhafra Region, the 7th edition of the Abu Dhabi International Boat Show (ADIBS 2025) concluded at ADNEC Centre Abu Dhabi, marking the grandest maritime exhibition in the history of the UAE capital. Spanning over 85,000 square meters across the purpose-built ADNEC Marina and Marina Hall, the record-breaking gathering hosted 1,068 international and local exhibitors from 56 nations.\n\nFor ASMARATY Luxury Yachts, engineered in proud partnership with veteran shipbuilder Al Shaali Marine (established 1979 in the UAE), ADIBS 2025 was a triumphant homecoming on UAE waters. Berthing prominently along the 400-meter ADNEC Marina canal pontoon, the shipyard showcased the depth and technical mastery of its bespoke composite G-Series fleet, led by the flagship G-100 Superyacht, the G77 Two-Deck masterwork, the spirited G-66 Flybridge, and the versatile G-50.\n\nA central milestone of the 2025 showcase was the global debut of The Charter Show, a specialized enclave dedicated to superyachts, luxury charter brokers, and ultra-high-net-worth clients. ASMARATY took center stage within this premier forum, presenting bespoke turnkey charter management solutions and private syndicate allocations to Middle Eastern royal delegations and international family offices.\n\nThroughout the four-day event, ASMARATY conducted daily private sea trials departing directly from the ADNEC Marina basin into Abu Dhabi's protected coastal waterways. Prospective owners evaluated the vessels' effortless hydrodynamic stability, acoustic isolation, and commercial-grade propulsion at full throttle. As twilight descended over the capital, the ASMARATY berths transformed into an atmospheric waterfront majlis, illuminated by warm gold architectural lighting and sapphire-blue underwater LEDs reflecting against the canal.",
@@ -127,11 +127,76 @@
       "Reinforcement of the landmark 25-Year Shipyard Hull Integrity Warranty"
     ],
     "pressDispatchSlug": "asmaraty-abu-dhabi-international-boat-show-2025",
-    "photos": [],
+    "photos": [
+      {
+        "id": "adibs-photo-1",
+        "url": "/images/events/adibs-2025/adibs-2025-showcase-1.jpg",
+        "alt": "ASMARATY luxury yacht waterfront berth at Abu Dhabi International Boat Show 2025",
+        "title": "ADNEC Marina Waterfront Showcase",
+        "tag": "EXHIBITION SHOWCASE",
+        "caption": "ASMARATY luxury yacht moored along the ADNEC Marina canal pontoon during the 7th Abu Dhabi International Boat Show 2025."
+      },
+      {
+        "id": "adibs-photo-2",
+        "url": "/images/events/adibs-2025/adibs-2025-showcase-2.jpg",
+        "alt": "ASMARATY fleet dockside presentation at ADNEC Marina",
+        "title": "Fleet Dockside Presentation",
+        "tag": "FLEET SHOWCASE",
+        "caption": "Dockside presentation of the ASMARATY fleet at ADNEC Marina, welcoming dignitaries and maritime collectors."
+      },
+      {
+        "id": "adibs-photo-3",
+        "url": "/images/events/adibs-2025/adibs-2025-showcase-3.jpg",
+        "alt": "ASMARATY luxury yacht exterior profile at Abu Dhabi Boat Show",
+        "title": "Exterior Profile & Naval Architecture",
+        "tag": "NAVAL ARCHITECTURE",
+        "caption": "Sleek composite profile and handcrafted deck lines engineered by Al Shaali Marine."
+      },
+      {
+        "id": "adibs-photo-4",
+        "url": "/images/events/adibs-2025/adibs-2025-showcase-4.jpg",
+        "alt": "VIP guests aboard ASMARATY yacht at ADIBS 2025",
+        "title": "VIP Onboard Reception & Walkthrough",
+        "tag": "VIP RECEPTION",
+        "caption": "Distinguished guests and prospective owners experiencing the bespoke interior salon and expansive cockpit."
+      },
+      {
+        "id": "adibs-photo-5",
+        "url": "/images/events/adibs-2025/adibs-2025-showcase-5.jpg",
+        "alt": "ASMARATY yacht on the ADNEC Marina canal basin",
+        "title": "ADNEC Marina Basin View",
+        "tag": "MARINA BASIN",
+        "caption": "Panoramic view across the ADNEC Marina waterfront pontoon during the 4-day international exhibition."
+      },
+      {
+        "id": "adibs-photo-6",
+        "url": "/images/events/adibs-2025/adibs-2025-showcase-6.jpg",
+        "alt": "Bespoke composite craftsmanship and deck detailing",
+        "title": "Master Composite Craftsmanship",
+        "tag": "CRAFTSMANSHIP",
+        "caption": "Hand-laid composite finish and precision maritime hardware engineered for the Arabian Gulf."
+      },
+      {
+        "id": "adibs-photo-7",
+        "url": "/images/events/adibs-2025/adibs-2025-showcase-7.jpg",
+        "alt": "Twilight waterfront view of ASMARATY yachts at ADIBS 2025",
+        "title": "Twilight Illumination & Evening Showcase",
+        "tag": "TWILIGHT SHOWCASE",
+        "caption": "Atmospheric evening illumination over the ASMARATY yacht berths along the ADNEC waterfront."
+      },
+      {
+        "id": "adibs-photo-8",
+        "url": "/images/events/adibs-2025/adibs-2025-showcase-8.jpg",
+        "alt": "Grand waterfront perspective of the ASMARATY showcase at ADNEC",
+        "title": "Waterfront Exhibition Perspective",
+        "tag": "WATERFRONT PANORAMA",
+        "caption": "Commanding dockside presence of ASMARATY and Al Shaali Marine at the 7th Abu Dhabi International Boat Show 2025."
+      }
+    ],
     "seo": {
       "metaTitle": "Abu Dhabi International Boat Show 2025 Showcase | ASMARATY Luxury Yachts",
       "metaDescription": "Explore the official exhibition showcase and retrospective of ASMARATY Luxury Yachts at the 7th Abu Dhabi International Boat Show (ADIBS 2025) at ADNEC Marina.",
-      "ogImage": "/images/news/adibs-2026-abu-dhabi-boat-show.jpg"
+      "ogImage": "/images/events/adibs-2025/adibs-2025-showcase-1.jpg"
     }
   },
   {
