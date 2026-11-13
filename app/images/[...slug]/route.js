@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { resolveMediaFile } from "@/lib/server/storage";
 
 const MIME_TYPES = {
   ".jpg": "image/jpeg",
@@ -24,28 +25,8 @@ export async function GET(request, { params }) {
       return new NextResponse("Not Found", { status: 404 });
     }
 
-    // Sanitize path against directory traversal
-    const safeParts = slugArray.map((p) => path.basename(decodeURIComponent(p)));
-    const relativePath = path.join(...safeParts);
-
-    const searchDirs = [
-      path.join(process.cwd(), "public", "images"),
-      path.join(process.cwd(), "user_uploads"),
-      path.join(process.cwd(), "data", "uploads"),
-    ];
-
-    let foundPath = null;
-    for (const baseDir of searchDirs) {
-      const candidate = path.join(baseDir, relativePath);
-      if (fs.existsSync(candidate)) {
-        try {
-          if (fs.statSync(candidate).isFile()) {
-            foundPath = candidate;
-            break;
-          }
-        } catch (_) {}
-      }
-    }
+    // Resolves across persistent storage, local .uploads, and legacy public/images
+    const foundPath = resolveMediaFile(slugArray);
 
     if (!foundPath) {
       return new NextResponse("File Not Found", { status: 404 });

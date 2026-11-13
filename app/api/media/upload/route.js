@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-import { authenticateAdminRequest } from "@/lib/server/db";
+import { authenticateAdminRequest, saveMediaServer } from "@/lib/server/db";
+import { saveMediaFile, deleteMediaFileByUrl } from "@/lib/server/storage";
 
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
@@ -14,6 +13,8 @@ const ALLOWED_MIME_TYPES = new Set([
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB limit
 
 export async function POST(request) {
+  let savedFileResult = null;
+
   try {
     const session = await authenticateAdminRequest(request);
 
@@ -51,31 +52,19 @@ export async function POST(request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Support destination subfolders: uploads (default), news, events, yachts
+    // Support destination subfolder: uploads (default), news, events, yachts
     const rawFolder = formData.get("folder") || "uploads";
-    const allowedFolders = new Set(["uploads", "news", "events", "yachts"]);
-    const targetFolder = allowedFolders.has(rawFolder) ? rawFolder : "uploads";
 
-    const uploadDir = path.join(process.cwd(), "public", "images", targetFolder);
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
+    // 1. Save file to persistent storage (outside Git) with path traversal protection
+    savedFileResult = await saveMediaFile({
+      buffer,
+      originalName: file.name || "uploaded-image.jpg",
+      subfolder: rawFolder,
+      mimeType: file.type,
+    });
 
-    const originalName = file.name || "uploaded-image.jpg";
-    const ext = path.extname(originalName) || ".jpg";
-    const baseName = path
-      .basename(originalName, ext)
-      .toLowerCase()
-      .replace(/[^\w-]/g, "-")
-      .slice(0, 50);
-
-    const fileName = `${baseName}-${Date.now()}${ext.toLowerCase()}`;
-    const filePath = path.join(uploadDir, fileName);
-
-    fs.writeFileSync(filePath, buffer);
-
-    const publicUrl = `/images/${targetFolder}/${fileName}`;
-    const title = (formData.get("title") || "").trim() || originalName.replace(/\.[^/.]+$/, "");
+    const publicUrl = savedFileResult.relativeUrl;
+    const title = (formData.get("title") || "").trim() || (file.name || "Uploaded Media").replace(/\.[^/.]+$/, "");
     const alt = (formData.get("alt") || "").trim() || title;
     const category = (formData.get("category") || "exterior").trim();
 
@@ -87,26 +76,26 @@ export async function POST(request) {
       category,
       uploadedAt: new Date().toISOString().split("T")[0],
       dimensions: "2000 x 1200",
+      storageKey: savedFileResult.storageKey,
     };
 
-    // Persist to data/media.json
+    // 2. Save metadata to PostgreSQL / runtime fallback (NEVER writes to Git-tracked data/media.json)
     try {
-      const mediaJsonPath = path.join(process.cwd(), "data", "media.json");
-      let list = [];
-      if (fs.existsSync(mediaJsonPath)) {
-        list = JSON.parse(fs.readFileSync(mediaJsonPath, "utf-8"));
+      await saveMediaServer(newItem);
+    } catch (dbErr) {
+      // Cleanup orphaned file if database/metadata save fails
+      if (savedFileResult && savedFileResult.relativeUrl) {
+        try {
+          await deleteMediaFileByUrl(savedFileResult.relativeUrl);
+        } catch (_) {}
       }
-      if (!Array.isArray(list)) list = [];
-      list.unshift(newItem);
-      fs.writeFileSync(mediaJsonPath, JSON.stringify(list, null, 2), "utf-8");
-    } catch (saveErr) {
-      console.warn("Could not append uploaded item to media.json:", saveErr);
+      throw new Error(`Failed to record media metadata: ${dbErr.message}`);
     }
 
     return NextResponse.json({
       success: true,
       url: publicUrl,
-      fileName,
+      fileName: savedFileResult.fileName,
       title,
       item: newItem,
     });
@@ -118,4 +107,3 @@ export async function POST(request) {
     );
   }
 }
-

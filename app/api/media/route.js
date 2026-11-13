@@ -1,49 +1,17 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { authenticateAdminRequest, getMediaServer, saveMediaServer, deleteMediaServer } from "@/lib/server/db";
+import { deleteMediaFileByUrl } from "@/lib/server/storage";
 import { POST as handleUploadPost } from "./upload/route";
-import { DEFAULT_MEDIA } from "@/lib/data/defaultMedia";
-import { authenticateAdminRequest } from "@/lib/server/db";
-
-const MEDIA_FILE = path.join(process.cwd(), "data", "media.json");
-
-function readServerMedia() {
-  try {
-    if (fs.existsSync(MEDIA_FILE)) {
-      const raw = fs.readFileSync(MEDIA_FILE, "utf-8");
-      const list = JSON.parse(raw);
-      if (Array.isArray(list) && list.length > 0) {
-        return list;
-      }
-    }
-  } catch (err) {
-    console.warn("Could not read data/media.json, falling back:", err);
-  }
-  return DEFAULT_MEDIA;
-}
-
-function writeServerMedia(list) {
-  try {
-    const dir = path.dirname(MEDIA_FILE);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(MEDIA_FILE, JSON.stringify(list, null, 2), "utf-8");
-    return true;
-  } catch (err) {
-    console.error("Error writing data/media.json:", err);
-    return false;
-  }
-}
 
 export async function GET() {
   try {
-    const media = readServerMedia();
+    const media = await getMediaServer();
     return NextResponse.json({
       success: true,
       media,
     });
   } catch (err) {
+    console.error("GET /api/media error:", err);
     return NextResponse.json(
       { success: false, error: err.message || "Failed to retrieve media library" },
       { status: 500 }
@@ -62,7 +30,13 @@ export async function POST(request) {
   // Otherwise handle JSON item addition
   try {
     const session = await authenticateAdminRequest(request);
-    // Allow non-blocking session check or proceed
+    if (!session) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized. Admin session required." },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json().catch(() => ({}));
     if (!body || !body.url) {
       return NextResponse.json(
@@ -79,16 +53,16 @@ export async function POST(request) {
       category: body.category || "exterior",
       uploadedAt: body.uploadedAt || new Date().toISOString().split("T")[0],
       dimensions: body.dimensions || "2000 x 1200",
+      storageKey: body.storageKey || null,
     };
 
-    const mediaList = readServerMedia();
-    const updated = [newItem, ...mediaList.filter((m) => m && m.id !== newItem.id && m.url !== newItem.url)];
-    writeServerMedia(updated);
+    const saved = await saveMediaServer(newItem);
+    const media = await getMediaServer();
 
     return NextResponse.json({
       success: true,
-      item: newItem,
-      media: updated,
+      item: saved,
+      media,
     });
   } catch (err) {
     console.error("Error saving media item:", err);
@@ -102,6 +76,13 @@ export async function POST(request) {
 export async function DELETE(request) {
   try {
     const session = await authenticateAdminRequest(request);
+    if (!session) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized. Admin session required." },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     let id = searchParams.get("id");
 
@@ -117,15 +98,23 @@ export async function DELETE(request) {
       );
     }
 
-    const mediaList = readServerMedia();
-    const filtered = mediaList.filter((m) => m && m.id !== id);
-    writeServerMedia(filtered);
+    // Step 1: Delete metadata from database / local store first
+    const deletedRecord = await deleteMediaServer(id);
+
+    // Step 2: Only after metadata deletion is confirmed, safely attempt physical file deletion
+    if (deletedRecord && deletedRecord.url) {
+      await deleteMediaFileByUrl(deletedRecord.url);
+    }
+
+    const media = await getMediaServer();
 
     return NextResponse.json({
       success: true,
-      media: filtered,
+      deleted: deletedRecord,
+      media,
     });
   } catch (err) {
+    console.error("DELETE /api/media error:", err);
     return NextResponse.json(
       { success: false, error: err.message || "Failed to delete media item" },
       { status: 500 }

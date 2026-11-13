@@ -46,5 +46,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local uploads
+# local uploads & runtime media (outside Git)
+.uploads/
 user_uploads/
+.runtime/
