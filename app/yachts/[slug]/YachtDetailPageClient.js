@@ -41,8 +41,8 @@ export default function YachtDetailPageClient({ initialSlug }) {
   };
 
   useEffect(() => {
-    // Initial fetch from server API
-    syncYachtsFromServer().then(() => {
+    // Initial fetch from server API (request published yachts only on public page)
+    syncYachtsFromServer(true).then(() => {
       if (slug) {
         const found = getYachtBySlug(slug);
         setCmsYacht(found);

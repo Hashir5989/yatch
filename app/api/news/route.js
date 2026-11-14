@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getArticlesServer, saveArticleServer, authenticateAdminRequest } from "@/lib/server/db";
 
-
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -67,6 +66,7 @@ export async function POST(request) {
       status: articleData.status === "draft" ? "draft" : "published",
       featuredImage: articleData.featuredImage || "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg",
       featuredImageAlt: articleData.featuredImageAlt || articleData.title.trim(),
+      bannerPosition: articleData.bannerPosition || articleData.banner_position || "center",
       excerpt: (articleData.excerpt || "").trim(),
       content: (articleData.content || "").trim(),
       publishedAt: articleData.publishedAt || new Date().toISOString().slice(0, 10),
@@ -98,8 +98,7 @@ export async function POST(request) {
       }
     );
   } catch (err) {
-    console.error("News POST API error:", err);
-    return NextResponse.json({ success: false, error: "Failed to create article" }, { status: 500 });
+    console.error("News POST error:", err);
+    return NextResponse.json({ success: false, error: err.message || "Failed to create article" }, { status: 500 });
   }
 }
-

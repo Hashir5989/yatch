@@ -21,6 +21,13 @@ export async function GET(request, { params }) {
       return NextResponse.json({ success: false, error: "Event not found" }, { status: 404 });
     }
 
+    const session = await authenticateAdminRequest(request);
+    const isAdmin = Boolean(session);
+
+    if (event.status !== "published" && !isAdmin) {
+      return NextResponse.json({ success: false, error: "Access denied" }, { status: 403 });
+    }
+
     return NextResponse.json(
       { success: true, event },
       {
@@ -51,10 +58,14 @@ export async function PUT(request, { params }) {
       existing = await getEventBySlugServer(id);
     }
 
+    if (!existing) {
+      return NextResponse.json({ success: false, error: `Event with ID '${id}' not found.` }, { status: 404 });
+    }
+
     const updated = {
-      ...(existing || {}),
+      ...existing,
       ...body,
-      id: existing?.id || id, // enforce ID continuity
+      id: existing.id || id, // enforce ID continuity
       updatedAt: new Date().toISOString(),
     };
 
@@ -93,11 +104,14 @@ export async function DELETE(request, { params }) {
     const resolvedParams = await params;
     const id = resolvedParams.id;
 
-    const existing = await getEventByIdServer(id);
-    const success = await deleteEventServer(id);
+    const existing = await getEventByIdServer(id) || await getEventBySlugServer(id);
+    if (!existing) {
+      return NextResponse.json({ success: false, error: `Event with ID '${id}' not found.` }, { status: 404 });
+    }
 
+    const success = await deleteEventServer(existing.id || id);
     if (!success) {
-      return NextResponse.json({ success: false, error: "Event not found or could not be deleted" }, { status: 404 });
+      return NextResponse.json({ success: false, error: `Event with ID '${id}' not found or could not be deleted.` }, { status: 404 });
     }
 
     try {
@@ -121,4 +135,3 @@ export async function DELETE(request, { params }) {
     return NextResponse.json({ success: false, error: "Failed to delete event" }, { status: 500 });
   }
 }
-
