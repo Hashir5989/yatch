@@ -1120,8 +1120,8 @@
   },
   {
     "id": "yacht-g66",
-    "name": "ASMARATY G66 Motor Yacht",
-    "fullName": "ASMARATY G66 Motor Yacht",
+    "name": "ASMARATY G66",
+    "fullName": "ASMARATY G66",
     "modelNumber": "G66",
     "slug": "g66",
     "category": "Flybridge Cruiser",
@@ -1676,12 +1676,12 @@
       "ogImage": "/images/yachts/g66/hero-01.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-09T13:10:08.616Z"
+    "updatedAt": "2026-11-14T11:58:04.004Z"
   },
   {
     "id": "yacht-g50",
-    "name": "ASMARATY G50 Motor Yacht",
-    "fullName": "ASMARATY G50 Motor Yacht",
+    "name": "ASMARATY G50",
+    "fullName": "ASMARATY G50",
     "modelNumber": "G50",
     "slug": "g50",
     "category": "Motor Yacht",
@@ -2215,6 +2215,6 @@
       "ogImage": "/images/yachts/g50/hero-01.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-09T13:10:20.927Z"
+    "updatedAt": "2026-11-14T11:58:12.817Z"
   }
 ]

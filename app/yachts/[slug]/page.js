@@ -95,7 +95,8 @@ export async function generateMetadata({ params }) {
       g50: "Explore the ASMARATY G50 — an elegant 50-foot luxury flybridge motor yacht engineered in the UAE. Discover authentic specifications, 3D GA deck plans, 3 private staterooms, twin Cummins inboards, and official brochure.",
     };
 
-    const defaultTitle = fallbackTitles[canonicalSlug] || `${merged.fullName || merged.name} | ASMARATY UAE`;
+    const modelDisplayName = merged.name || merged.fullName;
+    const defaultTitle = modelDisplayName ? `${modelDisplayName} | ASMARATY UAE` : (fallbackTitles[canonicalSlug] || "ASMARATY Luxury Yacht | ASMARATY UAE");
     const defaultDesc = fallbackDescriptions[canonicalSlug] || merged.description || "ASMARATY yacht model specification dossier. Discover our featured luxury yacht models and naval architecture in the UAE.";
 
     const title = merged.seo?.title || defaultTitle;

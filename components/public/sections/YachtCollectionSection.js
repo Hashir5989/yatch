@@ -610,19 +610,17 @@ export default function YachtCollectionSection({
                 model.slug === "g50" || 
                 (model.slug !== "g100" && model.slug !== "g66" && idx % 2 === 1);
 
-              // Custom title overrides for home page showcase models:
-              // G77: ASMARATY G77 Luxury Yacht
-              // G66: ASMARATY G66 Luxury Yacht
-              // G50: ASMARATY G50 Luxury Motor Yacht
+              // Fallback model titles if name is not set in database or CMS:
               const HOME_MODEL_TITLE_MAP = {
                 g77: "ASMARATY G77 Luxury Yacht",
                 g66: "ASMARATY G66 Luxury Yacht",
                 g50: "ASMARATY G50 Luxury Motor Yacht",
               };
               const modelHeading =
+                model.name ||
                 data.modelTitleOverrides?.[model.slug] ||
                 HOME_MODEL_TITLE_MAP[model.slug] ||
-                model.name;
+                "ASMARATY Yacht";
 
               return (
                 <div

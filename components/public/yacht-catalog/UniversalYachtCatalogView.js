@@ -163,7 +163,7 @@ export default function UniversalYachtCatalogView() {
       ...baseline,
       ...showcase,
       ...m,
-      fullName: m.fullName || m.name || baseline.fullName || showcase.fullName,
+      fullName: m.name || m.fullName || baseline.fullName || showcase.fullName,
       modelNumber: m.modelNumber || baseline.modelNumber || showcase.modelNumber || m.slug?.toUpperCase(),
       badge: m.badge || baseline.badge || showcase.badge,
       decks: m.decks || baseline.decks || showcase.decks || "Multi-Deck",
@@ -357,7 +357,7 @@ export default function UniversalYachtCatalogView() {
                       <Link href={`/yachts/${model.slug}`} className="block w-full h-full relative group flex items-center justify-center">
                         <img
                           src={cardImage}
-                          alt={model.fullName || model.name}
+                          alt={model.name || model.fullName}
                           className="w-full h-full object-contain object-center transition-opacity duration-300 group-hover:opacity-90"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0D1522] via-transparent to-transparent opacity-60 lg:opacity-30" />
@@ -385,7 +385,7 @@ export default function UniversalYachtCatalogView() {
                         {/* Model Title */}
                         <Link href={`/yachts/${model.slug}`} className="group block">
                           <h3 className="font-serif text-xl sm:text-2xl text-white font-normal group-hover:text-[#DFBA73] transition-colors leading-tight mb-2">
-                            {model.fullName || model.name}
+                            {model.name || model.fullName}
                           </h3>
                         </Link>
 

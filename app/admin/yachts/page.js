@@ -1021,12 +1021,12 @@ export default function YachtManagementScreen() {
                         onChange={(e) => {
                           const name = e.target.value;
                           const slugAuto = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-                          setCurrentYacht({
-                            ...currentYacht,
+                          setCurrentYacht((prev) => ({
+                            ...prev,
                             name,
-                            fullName: currentYacht.fullName || name,
-                            slug: currentYacht.slug || slugAuto,
-                          });
+                            fullName: name,
+                            slug: prev.slug || slugAuto,
+                          }));
                         }}
                         className="w-full px-3 py-2 bg-[#080B10] border border-[#1E2838] rounded text-sm text-white focus:outline-none focus:border-[#C6A155]"
                       />

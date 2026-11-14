@@ -121,7 +121,7 @@ export default function UniversalYachtDetailView({
               <span className="text-[#C8A870] font-medium">
                 <InlineEditableText
                   as="span"
-                  value={data.fullName || data.name}
+                  value={data.name || data.fullName}
                   isEditable={isEditable}
                   onChange={(val) => {
                     onUpdateField && onUpdateField("fullName", val);
