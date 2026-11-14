@@ -226,77 +226,90 @@ export default function UniversalAboutView({
                     />
                   </h2>
 
-                  <p className="text-[#556375] text-xs sm:text-sm md:text-[14px] font-light leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
-                    <InlineEditableText
-                      as="span"
-                      value={
-                        storySection?.description ||
-                        "Since 1979, ASMARATY has pioneered composite boat and high-performance yacht manufacturing across the Arabian Gulf, crafting custom naval vessels that set new standards in luxury and performance."
-                      }
-                      isEditable={isEditable}
-                      onChange={(val) => updateField(storySection?.id || "about-story", "description", val)}
-                      placeholder="Enter brand story description..."
-                      multiline={true}
-                    />
-                  </p>
-
-                  {(storySection?.primaryButton?.visible !== false && storySection?.buttonVisible !== false) && (
-                    <div className="pt-2">
-                      {isEditable ? (
-                        <InlineButtonEditor
-                          config={storySection?.primaryButton || {
-                            label: storySection?.buttonText || "Discover Our Journey",
-                            url: storySection?.buttonUrl || "/contact",
-                            type: "internal",
-                            target: "_self",
-                            visible: true,
-                            style: "solid-dark"
-                          }}
-                          text={storySection?.primaryButton?.label || storySection?.buttonText || "Discover Our Journey"}
-                          url={storySection?.primaryButton?.url || storySection?.buttonUrl || "/contact"}
-                          isEditable={true}
-                          onSave={(newText, newUrl, updatedConfig) => {
-                            updateField(storySection?.id || "about-story", "primaryButton", {
-                              ...updatedConfig,
-                              label: newText,
-                              url: newUrl
-                            });
-                            updateField(storySection?.id || "about-story", "buttonText", newText);
-                            updateField(storySection?.id || "about-story", "buttonUrl", newUrl);
-                          }}
-                          className="inline-flex items-center gap-2.5 bg-[#0B1523] hover:bg-[#162338] text-white text-xs sm:text-[13px] font-medium px-6 py-2.5 rounded-full transition-all shadow-md group"
+                  {/* Expanded Company History: Al Shaali Marine & Alshaali Group */}
+                  <div className="space-y-6 pt-1">
+                    <div className="space-y-2">
+                      <h4
+                        className="text-xs sm:text-[13px] font-sans font-bold uppercase tracking-[0.2em] text-[#A68037]"
+                        style={{ fontWeight: 700 }}
+                      >
+                        <InlineEditableText
+                          as="span"
+                          value={storySection?.paragraph1Title || "Al Shaali Marine"}
+                          isEditable={isEditable}
+                          onChange={(val) => updateField(storySection?.id || "about-story", "paragraph1Title", val)}
+                          placeholder="Al Shaali Marine"
                         />
-                      ) : (
-                        <Link
-                          href={formatButtonHref(
-                            storySection?.primaryButton?.url || storySection?.buttonUrl || "/contact",
-                            storySection?.primaryButton?.type || "internal"
-                          )}
-                          target={storySection?.primaryButton?.target || "_self"}
-                          rel={storySection?.primaryButton?.target === "_blank" ? "noopener noreferrer" : undefined}
-                          className="inline-flex items-center gap-2.5 bg-[#0B1523] hover:bg-[#162338] text-white text-xs sm:text-[13px] font-medium px-6 py-2.5 rounded-full transition-all shadow-md hover:shadow-xl group"
-                        >
-                          <span>
-                            {storySection?.primaryButton?.label || storySection?.buttonText || "Discover Our Journey"}
-                          </span>
-                          <ArrowRight className="w-4 h-4 text-[#C6A155] group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                      )}
+                      </h4>
+                      <p className="text-[#556375] text-xs sm:text-sm md:text-[14px] font-light leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
+                        <InlineEditableText
+                          as="span"
+                          value={
+                            storySection?.paragraph1 ||
+                            (storySection?.description?.includes("\n\n") ? storySection.description.split("\n\n")[0] : null) ||
+                            "Founded in 1979, Al Shaali Marine is the foundation of the Alshaali Group's journey, built on a longstanding passion for marine craftsmanship, innovation and quality. What began as a pioneering boat-building venture grew into one of the region's established names in yacht and boat manufacturing. Drawing inspiration from the UAE's rich maritime heritage, Al Shaali Marine continues to combine traditional craftsmanship with modern engineering and design, creating vessels that reflect performance, reliability and timeless elegance."
+                          }
+                          isEditable={isEditable}
+                          onChange={(val) => updateField(storySection?.id || "about-story", "paragraph1", val)}
+                          placeholder="Enter Al Shaali Marine history..."
+                          multiline={true}
+                        />
+                      </p>
                     </div>
-                  )}
+
+                    <div className="space-y-2">
+                      <h4
+                        className="text-xs sm:text-[13px] font-sans font-bold uppercase tracking-[0.2em] text-[#A68037]"
+                        style={{ fontWeight: 700 }}
+                      >
+                        <InlineEditableText
+                          as="span"
+                          value={storySection?.paragraph2Title || "Alshaali Group"}
+                          isEditable={isEditable}
+                          onChange={(val) => updateField(storySection?.id || "about-story", "paragraph2Title", val)}
+                          placeholder="Alshaali Group"
+                        />
+                      </h4>
+                      <p className="text-[#556375] text-xs sm:text-sm md:text-[14px] font-light leading-relaxed saxdor-desc-justified" style={{ textAlign: "justify", textJustify: "inter-word" }}>
+                        <InlineEditableText
+                          as="span"
+                          value={
+                            storySection?.paragraph2 ||
+                            (storySection?.description?.includes("\n\n") ? storySection.description.split("\n\n")[1] : null) ||
+                            "Building on the vision and entrepreneurial spirit of the Alshaali family, Alshaali Group was formally established in 2008 to bring together the family's growing business interests. Today, the group has diversified across several sectors, including marine manufacturing, construction, aluminium and glass manufacturing, property services and education. With a commitment to quality, innovation and long-term relationships, the group continues to build on its heritage while exploring new opportunities for growth in the UAE and international markets."
+                          }
+                          isEditable={isEditable}
+                          onChange={(val) => updateField(storySection?.id || "about-story", "paragraph2", val)}
+                          placeholder="Enter Alshaali Group history..."
+                          multiline={true}
+                        />
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Right Column: Meaningful Fleet & Craftsmanship Visual */}
                 <div className="lg:col-span-6 relative group">
                   {/* Soft warm champagne backdrop shape */}
-                  <div className="absolute -inset-6 bg-[#EFE9DD] rounded-full blur-2xl opacity-70 pointer-events-none" />
+                  <div className="absolute -inset-4 bg-[#EFE9DD] rounded-[6px] blur-2xl opacity-70 pointer-events-none" />
 
-                  <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl border border-[#E8E2D5] bg-[#EFECE5]">
+                  <div className="relative overflow-hidden rounded-[6px] shadow-2xl border border-[#E8E2D5] bg-[#EFECE5]">
                     <img
                       src={storySection?.imageUrl || "/images/asmaraty-four-yachts-journey.jpg"}
                       alt={storySection?.imageAlt || "ASMARATY Fleet Formation Cruising Arabian Gulf"}
-                      className="w-full h-[320px] sm:h-[400px] lg:h-[440px] object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-[340px] sm:h-[420px] lg:h-[480px] object-cover object-center rounded-[6px] group-hover:scale-105 transition-transform duration-700"
                     />
+
+                    {/* Support for secondary historical photograph if provided */}
+                    {storySection?.secondaryImageUrl && (
+                      <div className="mt-4 overflow-hidden rounded-[6px] border border-[#E8E2D5]">
+                        <img
+                          src={storySection.secondaryImageUrl}
+                          alt={storySection?.secondaryImageAlt || "Historical Photograph"}
+                          className="w-full h-[200px] object-cover object-center rounded-[6px]"
+                        />
+                      </div>
+                    )}
 
                     {/* Change Photo Trigger in CMS Mode */}
                     {isEditable && onOpenMediaPicker && (
@@ -319,7 +332,7 @@ export default function UniversalAboutView({
                     )}
 
                     {/* Floating Heritage Badge */}
-                    <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-[#0B1523]/85 backdrop-blur-md border border-[#C6A155]/30 px-4 py-2 rounded-full flex items-center gap-2.5 shadow-lg">
+                    <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-[#0B1523]/85 backdrop-blur-md border border-[#C6A155]/30 px-4 py-2 rounded-[6px] flex items-center gap-2.5 shadow-lg">
                       <span className="w-2 h-2 rounded-full bg-[#C6A155] animate-pulse" />
                       <span className="text-[10px] sm:text-[11px] uppercase tracking-widest text-[#FAF8F5] font-semibold">
                         <InlineEditableText

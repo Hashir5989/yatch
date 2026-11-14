@@ -550,7 +550,7 @@ export default function UniversalYachtDetailView({
                 GENERAL ARRANGEMENT • DECK-BY-DECK 3D CUTAWAY
               </span>
               <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-light text-white">
-                Explore the Three Expansive Decks
+                Explore the Expansive Decks
               </h2>
               <p className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed">
                 Inspect the authentic 3D architectural cutaway models and official general arrangement (GA) drawings engineered for the {data.fullName}.
