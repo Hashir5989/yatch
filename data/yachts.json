@@ -1,7 +1,7 @@
 [
   {
     "id": "yacht-g100",
-    "name": "ASMARATY G100 Super Yacht",
+    "name": "ASMARATY G100",
     "fullName": "ASMARATY G100 Super Yacht",
     "modelNumber": "G100",
     "slug": "g100",
@@ -574,11 +574,11 @@
       "ogImage": "/images/yachts/g100/0.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-09T13:07:48.650Z"
+    "updatedAt": "2026-11-14T11:29:27.668Z"
   },
   {
     "id": "yacht-g77",
-    "name": "ASMARATY G77 Motor Yacht",
+    "name": "ASMARATY G77",
     "fullName": "ASMARATY G77 Motor Yacht",
     "modelNumber": "G77",
     "slug": "g77",
@@ -1116,7 +1116,7 @@
       "ogImage": "/images/yachts/g77/g77_asset_01_1672x941.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-09T13:09:06.051Z"
+    "updatedAt": "2026-11-14T11:29:36.336Z"
   },
   {
     "id": "yacht-g66",
@@ -1307,7 +1307,7 @@
       "Flybridge Terrace"
     ],
     "brochureUrl": "/documents/asmaraty-g66-brochure.pdf#zoom=25",
-    "brochureLabel": "Brochure (PDF, 10.0 MB)",
+    "brochureLabel": "Brochure (PDF, 6.7 MB)",
     "floorplanUrl": "/images/yachts/g66/deck-main.jpg",
     "featured": true,
     "status": "published",
