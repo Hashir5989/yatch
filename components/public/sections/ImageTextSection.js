@@ -28,6 +28,7 @@ export default function ImageTextSection({
   const isWhite = isLight;
   const isVideo = layoutStyle === "video";
   const isSplitTextOnly = layoutStyle === "split_text_only";
+  const isSharedPassion = data.id === "home-vision" || (typeof heading === "string" && heading.toUpperCase().includes("SHARED PASSION"));
 
   const bgClass = backgroundStyle === "light"
     ? "bg-[#FAF8F5] text-[#0A121E] border-b border-[#E8E2D5]"
@@ -189,7 +190,7 @@ export default function ImageTextSection({
             {/* Media / Video Showcase Column */}
             <div className={`lg:col-span-6 relative ${isImageRight ? "lg:order-2" : "lg:order-1"}`}>
               {isVideo ? (
-                <div className="relative aspect-video w-full overflow-hidden border border-[#0E2047]/15 group shadow-2xl bg-[#08101C]">
+                <div className={`relative aspect-video w-full overflow-hidden ${isSharedPassion ? "" : "border border-[#0E2047]/15"} group shadow-2xl bg-[#08101C]`}>
                   <img
                     src={imageUrl}
                     alt={imageAlt || heading}
@@ -212,7 +213,7 @@ export default function ImageTextSection({
                   )}
                 </div>
               ) : (
-                <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden border border-[#0E2047]/10 group shadow-xl bg-gray-100 rounded-sm">
+                <div className={`relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden ${isSharedPassion ? "" : "border border-[#0E2047]/10"} group shadow-xl bg-gray-100 rounded-sm`}>
                   <img
                     src={imageUrl}
                     alt={imageAlt || heading}

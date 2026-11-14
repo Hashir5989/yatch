@@ -2,16 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { 
+import {
   ArrowRight,
-  ArrowUpRight, 
-  ChevronLeft, 
-  ChevronRight, 
-  Check, 
-  ShieldCheck, 
-  Anchor, 
-  Compass, 
-  Sparkles, 
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+  Check,
+  ShieldCheck,
+  Anchor,
+  Compass,
+  Sparkles,
   Layers,
   Sliders,
   X,
@@ -481,18 +481,30 @@ export default function YachtCollectionSection({
     const showcaseModels = (yachts && yachts.length > 0) ? yachts.slice(0, 4) : [];
 
     return (
-      <section 
-        className={`${
-          isDark 
-            ? "bg-[#08101C] text-[#E8EEF5] border-t border-b border-white/10" 
+      <section
+        className={`${isDark
+            ? "bg-[#08101C] text-[#E8EEF5] border-t border-b border-white/10"
             : "bg-white text-[#0E2047] border-b border-[#0E2047]/10"
-        } relative overflow-hidden`} 
+          } relative overflow-hidden`}
         id="fleet"
       >
+        {/* Scoped CSS ensuring font-weight 300 is enforced with highest priority */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            #fleet h3.yacht-model-title,
+            #fleet .yacht-model-title,
+            h3.yacht-model-title {
+              font-family: "Neue Haas Grotesk Display Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+              font-weight: 300 !important;
+              letter-spacing: 1px !important;
+              text-transform: uppercase !important;
+            }
+          `
+        }} />
         {/* Section Header: Watermark background preserved ("OUR SUPERYACHT COLLECTION thsi wate rmark background dont change") */}
         <div className={`relative overflow-hidden pt-20 sm:pt-28 lg:pt-32 pb-16 sm:pb-24 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
           {/* ASMARATY Luxury Wings Watermark Monogram Pattern (Header Background) */}
-          <div 
+          <div
             className="absolute inset-0 pointer-events-none z-0 select-none"
             style={{
               backgroundImage: "url('/images/asmaraty-wings-pattern.svg')",
@@ -599,15 +611,15 @@ export default function YachtCollectionSection({
                 ? "MOTOR YACHT"
                 : (model.category ? model.category.toUpperCase().replace(/^ASMARATY\s*•?\s*/i, "") : "SUPERYACHT");
               const modelCategory = rawCategory.trim();
-              
+
               // Alternating wings watermark background:
               // G100 (idx 0): plain
               // G77 (idx 1): watermark
               // G66 (idx 2): plain
               // G50 (idx 3): watermark
-              const hasWingsWatermark = 
-                model.slug === "g77" || 
-                model.slug === "g50" || 
+              const hasWingsWatermark =
+                model.slug === "g77" ||
+                model.slug === "g50" ||
                 (model.slug !== "g100" && model.slug !== "g66" && idx % 2 === 1);
 
               // Fallback model titles if name is not set in database or CMS:
@@ -625,15 +637,14 @@ export default function YachtCollectionSection({
               return (
                 <div
                   key={model.id || idx}
-                  className={`relative overflow-hidden py-16 sm:py-24 lg:py-28 ${
-                    hasWingsWatermark 
-                      ? (isDark ? "bg-[#091322]" : "bg-[#FAF9F6]/60") 
+                  className={`relative overflow-hidden py-16 sm:py-24 lg:py-28 ${hasWingsWatermark
+                      ? (isDark ? "bg-[#091322]" : "bg-[#FAF9F6]/60")
                       : (isDark ? "bg-[#08101C]" : "bg-white")
-                  }`}
+                    }`}
                 >
                   {/* ASMARATY Luxury Wings Watermark Monogram Pattern (for G77, G50 / alternating models) */}
                   {hasWingsWatermark && (
-                    <div 
+                    <div
                       className="absolute inset-0 pointer-events-none z-0 select-none"
                       style={{
                         backgroundImage: "url('/images/asmaraty-wings-pattern.svg')",
@@ -650,30 +661,28 @@ export default function YachtCollectionSection({
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                       {/* Description & Button Column */}
                       <div
-                        className={`lg:col-span-5 space-y-5 sm:space-y-6 ${
-                          isEven
+                        className={`lg:col-span-5 space-y-5 sm:space-y-6 ${isEven
                             ? "lg:order-1 order-1 lg:pr-4"
                             : "lg:order-2 order-2 lg:pl-4"
-                        }`}
+                          }`}
                       >
                         {/* Eyebrow / Category */}
                         <div className="text-xs sm:text-sm font-sans font-semibold uppercase tracking-[0.24em] text-[#C6A155]">
                           {modelCategory}
                         </div>
 
-                        {/* Model Heading (Michroma Regular 400 Architectural Typography) */}
+                        {/* Model Heading (Neue Haas Grotesk Light 300 Typography) */}
                         <Link href={`/yachts/${model.slug}`} className="block group">
                           <h3
-                            className={`uppercase tracking-[1px] text-lg sm:text-xl md:text-[22px] lg:text-[24px] font-normal leading-[1.35] transition-colors ${
-                              isDark 
-                                ? "text-white group-hover:text-[#C6A155]" 
+                            className={`yacht-model-title font-light uppercase tracking-[1px] text-lg sm:text-xl md:text-[22px] lg:text-[24px] leading-[1.35] transition-colors ${isDark
+                                ? "text-white group-hover:text-[#C6A155]"
                                 : "text-[#0E2047] group-hover:text-[#C6A155]"
-                            }`}
+                              }`}
                             style={{
-                              fontFamily: "'Michroma', sans-serif",
-                              fontWeight: 400,
-                              textTransform: "uppercase",
+                              fontFamily: '"Neue Haas Grotesk Display Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                              fontWeight: 300,
                               letterSpacing: "1px",
+                              textTransform: "uppercase",
                             }}
                           >
                             {modelHeading}
@@ -688,9 +697,8 @@ export default function YachtCollectionSection({
                         )}
 
                         {/* Narrative Description (No measurements, pure story) */}
-                        <p className={`text-sm sm:text-base font-normal leading-relaxed text-justify ${
-                          isDark ? "text-white/75" : "text-[#0E2047]/80"
-                        }`} style={{ textJustify: "inter-word" }}>
+                        <p className={`text-sm sm:text-base font-normal leading-relaxed text-justify ${isDark ? "text-white/75" : "text-[#0E2047]/80"
+                          }`} style={{ textJustify: "inter-word" }}>
                           {model.description}
                         </p>
 
@@ -707,17 +715,16 @@ export default function YachtCollectionSection({
 
                       {/* Image Column */}
                       <div
-                        className={`lg:col-span-7 ${
-                          isEven
+                        className={`lg:col-span-7 ${isEven
                             ? "lg:order-2 order-2"
                             : "lg:order-1 order-1"
-                        }`}
+                          }`}
                       >
                         <Link
                           href={`/yachts/${model.slug}`}
-                          className="block group overflow-hidden bg-[#0A1322] shadow-xl border border-black/5"
+                          className="block group overflow-hidden shadow-xl"
                         >
-                          <div className="relative aspect-video overflow-hidden bg-[#0A1322]">
+                          <div className="relative aspect-video overflow-hidden">
                             <img
                               src={model.mainImage || model.primaryImage || "/images/hero-yacht.jpg"}
                               alt={modelHeading}
@@ -746,9 +753,8 @@ export default function YachtCollectionSection({
           return (
             <div
               key={slide.id || idx}
-              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                isActive ? "opacity-100 z-0 pointer-events-auto" : "opacity-0 -z-10 pointer-events-none"
-              }`}
+              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${isActive ? "opacity-100 z-0 pointer-events-auto" : "opacity-0 -z-10 pointer-events-none"
+                }`}
             >
               <img
                 src={slide.image}
@@ -809,11 +815,10 @@ export default function YachtCollectionSection({
                   key={idx}
                   type="button"
                   onClick={() => setActiveSlide(idx)}
-                  className={`h-1.5 transition-all cursor-pointer ${
-                    activeSlide === idx
+                  className={`h-1.5 transition-all cursor-pointer ${activeSlide === idx
                       ? "w-7 bg-[#C6A155]"
                       : "w-2 bg-white/40 hover:bg-white/80"
-                  }`}
+                    }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}
@@ -877,11 +882,10 @@ export default function YachtCollectionSection({
                   setActiveCategory(cat.id);
                   setActiveSlide(0);
                 }}
-                className={`text-xs px-5 py-2.5 uppercase tracking-wider transition-all duration-200 cursor-pointer rounded-none ${
-                  activeCategory === cat.id
+                className={`text-xs px-5 py-2.5 uppercase tracking-wider transition-all duration-200 cursor-pointer rounded-none ${activeCategory === cat.id
                     ? "bg-white text-[#0E2047] font-bold"
                     : "bg-[#0E2047] text-white/70 hover:text-white border border-white/10"
-                }`}
+                  }`}
               >
                 {cat.label}
               </button>
