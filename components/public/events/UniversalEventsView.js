@@ -15,7 +15,7 @@ import {
 import UpcomingEventSection from "@/components/public/news/UpcomingEventSection";
 import { getAllEvents, syncEventsFromServer, getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
-import { DEFAULT_EVENTS } from "@/lib/data/eventsData";
+import { DEFAULT_EVENTS, getEventDateTimestamp } from "@/lib/data/eventsData";
 
 export default function UniversalEventsView() {
   const [events, setEvents] = useState(() => DEFAULT_EVENTS.filter((e) => e.status === "published"));
@@ -47,6 +47,11 @@ export default function UniversalEventsView() {
     return () => window.removeEventListener("asm-cms-change", handleUpdate);
   }, []);
 
+  // Sort events by event date descending (latest/newest date first)
+  const sortedEvents = useMemo(() => {
+    return [...events].sort((a, b) => getEventDateTimestamp(b) - getEventDateTimestamp(a));
+  }, [events]);
+
   // Upcoming events extracted for UpcomingEventSection below (Abu Dhabi & Dubai)
   const upcomingEvents = useMemo(() => {
     const list = articles.filter(
@@ -64,7 +69,7 @@ export default function UniversalEventsView() {
       <section className="relative min-h-[46vh] lg:min-h-[52vh] flex items-center justify-center overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"
+            src="/images/events/qibs-2026-fireworks-celebration.jpg"
             alt="ASMARATY International Events and Exhibitions"
             className="w-full h-full object-cover object-top filter brightness-[0.40] contrast-[1.12]"
             style={{ objectPosition: "center top" }}
@@ -129,7 +134,7 @@ export default function UniversalEventsView() {
 
           {/* GRID: Exact same 3-column responsive card size and styling as News Page */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {events.map((event) => {
+            {sortedEvents.map((event) => {
               const day = event.dateBadge?.day || "04 — 07";
               const monthYear = event.dateBadge?.monthYear || "NOV 2026";
               const photoCount = Array.isArray(event.photos) ? event.photos.length : 0;

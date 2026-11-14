@@ -41,6 +41,15 @@ export default function MediaManagerScreen() {
     if (!item || !item.url) return;
     setSelectedId(item.id);
 
+    // Read target module if opened with ?module=events or ?module=news
+    let targetModule = null;
+    if (typeof window !== "undefined") {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        targetModule = params.get("module") || null;
+      } catch (_) {}
+    }
+
     // 1. Copy URL directly to clipboard
     if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(item.url).catch(() => {});
@@ -55,18 +64,19 @@ export default function MediaManagerScreen() {
           title: item.title || "Selected Media Asset",
           alt: item.alt || item.title || "ASMARATY yacht",
           item,
+          module: targetModule,
           timestamp: Date.now(),
         })
       );
       window.dispatchEvent(
-        new CustomEvent("asm-media-selected", { detail: { url: item.url, item } })
+        new CustomEvent("asm-media-selected", { detail: { url: item.url, item, module: targetModule } })
       );
     } catch (_) {}
 
     // 3. If opened via window.open from an editor, send postMessage
     if (typeof window !== "undefined" && window.opener && !window.opener.closed) {
       try {
-        window.opener.postMessage({ type: "ASM_MEDIA_SELECTED", url: item.url, item }, "*");
+        window.opener.postMessage({ type: "ASM_MEDIA_SELECTED", url: item.url, item, module: targetModule }, "*");
       } catch (_) {}
     }
 

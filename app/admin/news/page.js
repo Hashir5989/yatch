@@ -333,10 +333,12 @@ export default function AdminNewsScreen() {
     setMediaPickerOpen(false);
   };
 
-  // Listen for selection from standalone Media Manager page
+  // Listen for selection from standalone Media Manager page (Scoped to News module)
   useEffect(() => {
     const handleMessage = (e) => {
       if (e.data && e.data.type === "ASM_MEDIA_SELECTED") {
+        if (e.data.module && e.data.module !== "news") return;
+        if (!isEditorOpen && e.data.module !== "news") return;
         handleSelectFromMediaPicker(e.data.item || e.data.url, e.data.url);
       }
     };
@@ -345,6 +347,8 @@ export default function AdminNewsScreen() {
         try {
           const parsed = JSON.parse(e.newValue);
           if (parsed && parsed.url) {
+            if (parsed.module && parsed.module !== "news") return;
+            if (!isEditorOpen && parsed.module !== "news") return;
             handleSelectFromMediaPicker(parsed.item || parsed.url, parsed.url);
           }
         } catch (_) {}
@@ -356,7 +360,7 @@ export default function AdminNewsScreen() {
       window.removeEventListener("message", handleMessage);
       window.removeEventListener("storage", handleStorage);
     };
-  }, [mediaPickerTarget, currentArticle]);
+  }, [isEditorOpen, mediaPickerTarget, currentArticle]);
 
   const filteredArticles = articles.filter((art) => {
     const matchesStatus = statusFilter === "all" || art.status === statusFilter;
@@ -761,7 +765,7 @@ export default function AdminNewsScreen() {
                       <span>Select from Gallery</span>
                     </button>
                     <a
-                      href="/admin/media"
+                      href="/admin/media?module=news"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-2.5 py-1.5 bg-[#172233] hover:bg-[#202E44] text-[#C5A880] text-[11px] font-medium rounded inline-flex items-center gap-1.5 transition-colors cursor-pointer border border-[#C5A880]/30"
@@ -1150,7 +1154,7 @@ export default function AdminNewsScreen() {
                       <span>Select Photo</span>
                     </button>
                     <a
-                      href="/admin/media"
+                      href="/admin/media?module=news"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-2.5 py-1.5 bg-[#172233] hover:bg-[#202E44] text-[#C5A880] text-[11px] font-medium rounded inline-flex items-center gap-1.5 cursor-pointer border border-[#C5A880]/30"

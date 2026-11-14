@@ -135,7 +135,7 @@ export default function AdminEventsScreen() {
       presentedBy: "AL SHAALI MARINE – UAE",
       status: "published",
       bannerPosition: "top",
-      featuredImage: "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg",
+      featuredImage: "/images/events/qibs-2026-fireworks-celebration.jpg",
       featuredImageAlt: "",
       excerpt: "",
       description: "",
@@ -146,7 +146,7 @@ export default function AdminEventsScreen() {
       seo: {
         metaTitle: "",
         metaDescription: "",
-        ogImage: "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg"
+        ogImage: "/images/events/qibs-2026-fireworks-celebration.jpg"
       },
       displayOrder: events.length + 1
     };
@@ -278,15 +278,19 @@ export default function AdminEventsScreen() {
     setMediaPickerOpen(false);
   };
 
-  // Cross-tab and window.opener selection listener from Media Manager
+  // Cross-tab and window.opener selection listener from Media Manager (Scoped to Events module)
   useEffect(() => {
     const handleMessage = (e) => {
       if (e.data && e.data.type === "ASM_MEDIA_SELECTED") {
+        if (e.data.module && e.data.module !== "events") return;
+        if (!isEditorOpen && e.data.module !== "events") return;
         handleMediaSelected(e.data.item || e.data.url, e.data.url);
       }
     };
     const handleCustomEvent = (e) => {
       if (e.detail && e.detail.url) {
+        if (e.detail.module && e.detail.module !== "events") return;
+        if (!isEditorOpen && e.detail.module !== "events") return;
         handleMediaSelected(e.detail.item || e.detail.url, e.detail.url);
       }
     };
@@ -295,6 +299,8 @@ export default function AdminEventsScreen() {
         try {
           const parsed = JSON.parse(e.newValue);
           if (parsed && parsed.url) {
+            if (parsed.module && parsed.module !== "events") return;
+            if (!isEditorOpen && parsed.module !== "events") return;
             handleMediaSelected(parsed.item || parsed.url, parsed.url);
           }
         } catch (_) {}
@@ -309,7 +315,7 @@ export default function AdminEventsScreen() {
       window.removeEventListener("asm-media-selected", handleCustomEvent);
       window.removeEventListener("storage", handleStorage);
     };
-  }, [mediaPickerTarget, photoInputTag]);
+  }, [isEditorOpen, mediaPickerTarget, photoInputTag]);
 
   // Direct file upload to /api/media
   const handleDirectUpload = async (e) => {
@@ -975,7 +981,7 @@ export default function AdminEventsScreen() {
                           <span>Select from Gallery</span>
                         </button>
                         <a
-                          href="/admin/media"
+                          href="/admin/media?module=events"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="saxdor-btn-outline !h-[38px] px-3 text-xs uppercase tracking-wider inline-flex items-center gap-1.5 cursor-pointer text-[#C6A155] border-[#C6A155]/40 hover:bg-[#C6A155] hover:text-black transition-all"
@@ -1157,7 +1163,7 @@ export default function AdminEventsScreen() {
                           <span>Select Photo</span>
                         </button>
                         <a
-                          href="/admin/media"
+                          href="/admin/media?module=events"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="px-2.5 py-1.5 bg-white/10 hover:bg-white/20 text-white/80 border border-white/20 transition-all text-xs font-mono inline-flex items-center gap-1 cursor-pointer"

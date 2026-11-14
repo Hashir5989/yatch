@@ -16,6 +16,7 @@
       "monthYear": "NOV 2026",
       "locationShort": "OLD DOHA PORT"
     },
+    "startDate": "2026-11-04",
     "dates": "4th – 7th November 2026",
     "venue": "Stand D06 | Old Doha Port, Doha, Qatar",
     "vessel": "ASMARATY G77 Luxury Yacht (77 FT)",
@@ -108,6 +109,7 @@
       "monthYear": "NOV 2025",
       "locationShort": "ADNEC MARINA"
     },
+    "startDate": "2025-11-20",
     "dates": "20th – 23rd November 2025",
     "venue": "ADNEC Marina Canal & Marina Hall | Abu Dhabi, UAE",
     "vessel": "ASMARATY G-Series Luxury Fleet (G-100, G77, G-66, G-50)",
@@ -216,6 +218,7 @@
       "monthYear": "NOV 2025",
       "locationShort": "OLD DOHA PORT"
     },
+    "startDate": "2025-11-05",
     "dates": "5th – 8th November 2025",
     "venue": "Stand D06 | Old Doha Port, Mina District, Doha, Qatar",
     "vessel": "ASMARATY G-Series Luxury Fleet & G77 (77 FT)",

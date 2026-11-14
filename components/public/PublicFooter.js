@@ -214,11 +214,23 @@ export default function PublicFooter() {
                   </a>
                 </div>
 
-                <p className="text-[#C6A155] font-semibold pt-1 text-xs">
-                  <a href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`} className="hover:underline">
+                {/* Email */}
+                <div className="flex items-center gap-2.5 text-xs text-white">
+                  <a
+                    href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`}
+                    className="p-1 bg-white/5 border border-white/10 hover:border-[#C6A155]/60 rounded text-[#C6A155] hover:opacity-80 transition-all shrink-0"
+                    title="Direct Email"
+                    aria-label={`Email ${settings.contactEmail || "info@asmaraty.com"}`}
+                  >
+                    <Mail className="w-3.5 h-3.5 text-[#C6A155]" />
+                  </a>
+                  <a
+                    href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`}
+                    className="text-white hover:text-[#C6A155] font-mono transition-colors tracking-wide hover:underline"
+                  >
                     {settings.contactEmail || "info@asmaraty.com"}
                   </a>
-                </p>
+                </div>
               </div>
             </div>
           </div>

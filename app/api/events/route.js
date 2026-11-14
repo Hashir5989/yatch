@@ -66,7 +66,7 @@ export async function POST(request) {
       category: eventData.category || "Boat Show",
       badge: eventData.badge || "EXHIBITION SHOWCASE",
       status: eventData.status || "published",
-      featuredImage: eventData.featuredImage || "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg",
+      featuredImage: eventData.featuredImage || "/images/events/qibs-2026-fireworks-celebration.jpg",
       featuredImageAlt: eventData.featuredImageAlt || eventData.title,
       photos: Array.isArray(eventData.photos) ? eventData.photos : [],
       highlights: Array.isArray(eventData.highlights) ? eventData.highlights : [],
