@@ -483,8 +483,8 @@ export default function YachtCollectionSection({
     return (
       <section
         className={`${isDark
-            ? "bg-[#08101C] text-[#E8EEF5] border-t border-b border-white/10"
-            : "bg-white text-[#0E2047] border-b border-[#0E2047]/10"
+          ? "bg-[#08101C] text-[#E8EEF5] border-t border-b border-white/10"
+          : "bg-white text-[#0E2047] border-b border-[#0E2047]/10"
           } relative overflow-hidden`}
         id="fleet"
       >
@@ -654,8 +654,8 @@ export default function YachtCollectionSection({
                 <div
                   key={model.id || idx}
                   className={`relative overflow-hidden py-16 sm:py-24 lg:py-28 ${hasWingsWatermark
-                      ? (isDark ? "bg-[#091322]" : "bg-[#FAF9F6]/60")
-                      : (isDark ? "bg-[#08101C]" : "bg-white")
+                    ? (isDark ? "bg-[#091322]" : "bg-[#FAF9F6]/60")
+                    : (isDark ? "bg-[#08101C]" : "bg-white")
                     }`}
                 >
                   {/* ASMARATY Luxury Wings Watermark Monogram Pattern (for G77, G50 / alternating models) */}
@@ -678,8 +678,8 @@ export default function YachtCollectionSection({
                       {/* Description & Button Column */}
                       <div
                         className={`lg:col-span-5 space-y-5 sm:space-y-6 ${isEven
-                            ? "lg:order-1 order-1 lg:pr-4"
-                            : "lg:order-2 order-2 lg:pl-4"
+                          ? "lg:order-1 order-1 lg:pr-4"
+                          : "lg:order-2 order-2 lg:pl-4"
                           }`}
                       >
                         {/* Eyebrow / Category */}
@@ -691,8 +691,8 @@ export default function YachtCollectionSection({
                         <Link href={`/yachts/${model.slug}`} className="block group">
                           <h3
                             className={`yacht-model-title font-light uppercase tracking-[1px] text-lg sm:text-xl md:text-[22px] lg:text-[24px] leading-[1.35] transition-colors ${isDark
-                                ? "text-white group-hover:text-[#C6A155]"
-                                : "text-[#0E2047] group-hover:text-[#C6A155]"
+                              ? "text-white group-hover:text-[#C6A155]"
+                              : "text-[#0E2047] group-hover:text-[#C6A155]"
                               }`}
                             style={{
                               fontFamily: '"Neue Haas Grotesk Display Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
@@ -732,8 +732,8 @@ export default function YachtCollectionSection({
                       {/* Image Column */}
                       <div
                         className={`lg:col-span-7 ${isEven
-                            ? "lg:order-2 order-2"
-                            : "lg:order-1 order-1"
+                          ? "lg:order-2 order-2"
+                          : "lg:order-1 order-1"
                           }`}
                       >
                         <Link
@@ -744,7 +744,10 @@ export default function YachtCollectionSection({
                             <img
                               src={modelImage}
                               alt={modelHeading}
-                              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                              className={`w-full h-full object-cover object-center transition-transform duration-700 ease-out ${model.slug === "g100"
+                                  ? "scale-[1.06] group-hover:scale-[1.12]"
+                                  : "group-hover:scale-[1.04]"
+                                }`}
                             />
                           </div>
                         </Link>
@@ -832,8 +835,8 @@ export default function YachtCollectionSection({
                   type="button"
                   onClick={() => setActiveSlide(idx)}
                   className={`h-1.5 transition-all cursor-pointer ${activeSlide === idx
-                      ? "w-7 bg-[#C6A155]"
-                      : "w-2 bg-white/40 hover:bg-white/80"
+                    ? "w-7 bg-[#C6A155]"
+                    : "w-2 bg-white/40 hover:bg-white/80"
                     }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
@@ -899,8 +902,8 @@ export default function YachtCollectionSection({
                   setActiveSlide(0);
                 }}
                 className={`text-xs px-5 py-2.5 uppercase tracking-wider transition-all duration-200 cursor-pointer rounded-none ${activeCategory === cat.id
-                    ? "bg-white text-[#0E2047] font-bold"
-                    : "bg-[#0E2047] text-white/70 hover:text-white border border-white/10"
+                  ? "bg-white text-[#0E2047] font-bold"
+                  : "bg-[#0E2047] text-white/70 hover:text-white border border-white/10"
                   }`}
               >
                 {cat.label}

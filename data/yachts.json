@@ -16,13 +16,13 @@
     "summaryLine": "Flagship Superyacht • 30.48 Metres • GRP Composite",
     "insigniaSrc": "/images/yachts/g100/2.png",
     "length": "100 FT (30.48 M)",
-    "homeImage": "/images/uploads/whatsapp-image-2026-11-15-at-3-28-23-pm-1794761281803-f1e0a24e6c44.jpeg",
-    "mainImage": "/images/uploads/whatsapp-image-2026-11-15-at-3-28-23-pm-1794761281803-f1e0a24e6c44.jpeg",
-    "primaryImage": "/images/uploads/whatsapp-image-2026-11-15-at-3-28-23-pm-1794761281803-f1e0a24e6c44.jpeg",
-    "heroImage": "/images/uploads/whatsapp-image-2026-11-15-at-3-28-23-pm-1794761281803-f1e0a24e6c44.jpeg",
+    "homeImage": "/images/uploads/g100--1-1794761905143-3564625cd9ed.jpg",
+    "mainImage": "/images/uploads/g100--1-1794761905143-3564625cd9ed.jpg",
+    "primaryImage": "/images/uploads/g100--1-1794761905143-3564625cd9ed.jpg",
+    "heroImage": "/images/uploads/g100--1-1794761905143-3564625cd9ed.jpg",
     "heroImages": [
       {
-        "src": "/images/uploads/whatsapp-image-2026-11-15-at-3-28-23-pm-1794761281803-f1e0a24e6c44.jpeg",
+        "src": "/images/uploads/g100--1-1794761905143-3564625cd9ed.jpg",
         "label": "Burj Al Arab Daylight Profile"
       },
       {
@@ -576,7 +576,7 @@
       "ogImage": "/images/yachts/g100/0.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-15T16:48:04.877Z"
+    "updatedAt": "2026-11-15T16:59:02.290Z"
   },
   {
     "id": "yacht-g77",

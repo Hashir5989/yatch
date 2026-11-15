@@ -350,7 +350,7 @@ export default function UniversalYachtCatalogView() {
                   <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
                     {/* Image Column */}
                     <div
-                      className={`lg:col-span-7 relative overflow-hidden bg-[#0A101A] flex items-center justify-center p-2 sm:p-4 min-h-[340px] sm:min-h-[420px] ${
+                      className={`lg:col-span-7 relative overflow-hidden min-h-[340px] sm:min-h-[420px] ${
                         isEven ? "lg:order-1" : "lg:order-2"
                       }`}
                     >
@@ -358,7 +358,11 @@ export default function UniversalYachtCatalogView() {
                         <img
                           src={cardImage}
                           alt={model.name || model.fullName}
-                          className="w-full h-full object-contain object-center transition-opacity duration-300 group-hover:opacity-90"
+                          className={`w-full h-full object-cover object-center transition-transform duration-700 ease-out ${
+                            model.slug === "g100"
+                              ? "scale-[1.06] group-hover:scale-[1.12]"
+                              : "group-hover:scale-105"
+                          }`}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0D1522] via-transparent to-transparent opacity-60 lg:opacity-30" />
 
