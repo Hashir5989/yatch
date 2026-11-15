@@ -634,18 +634,20 @@ export default function YachtCollectionSection({
                 HOME_MODEL_TITLE_MAP[model.slug] ||
                 "ASMARATY Yacht";
 
-              // Model showcase image (allows home page override or model-specific home showcase image)
+              // Model showcase image (authoritative CMS/database image with default showcase fallback)
               const HOME_MODEL_IMAGE_MAP = {
                 g100: "/images/yachts/g100/g100-home-showcase.jpg",
               };
+              const primaryYachtImage = model.heroImage || model.mainImage || model.primaryImage;
+              const isDefaultG100Placeholder =
+                model.slug === "g100" &&
+                (!primaryYachtImage || primaryYachtImage === "/images/yachts/g100/0.jpg");
+
               const modelImage =
+                (isDefaultG100Placeholder
+                  ? (model.homeImage || HOME_MODEL_IMAGE_MAP.g100)
+                  : (primaryYachtImage || model.homeImage || HOME_MODEL_IMAGE_MAP[model.slug])) ||
                 data.modelImageOverrides?.[model.slug] ||
-                model.homeImage ||
-                (model.slug === "g100" && (model.mainImage === "/images/yachts/g100/0.jpg" || !model.mainImage)
-                  ? HOME_MODEL_IMAGE_MAP.g100
-                  : null) ||
-                model.mainImage ||
-                model.primaryImage ||
                 "/images/hero-yacht.jpg";
 
               return (

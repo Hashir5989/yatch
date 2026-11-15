@@ -143,6 +143,12 @@ export default function YachtDetailPageClient({ initialSlug }) {
         if (images[idx]) {
           images[idx] = { ...images[idx], src: url };
           handleUpdateField("heroImages", images);
+          if (idx === 0) {
+            handleUpdateField("heroImage", url);
+            handleUpdateField("mainImage", url);
+            handleUpdateField("primaryImage", url);
+            handleUpdateField("homeImage", url);
+          }
         }
       }
     } else if (key.startsWith("deckPlan_")) {
@@ -166,8 +172,14 @@ export default function YachtDetailPageClient({ initialSlug }) {
   // Save changes directly to database & local store
   const handleSaveChanges = async () => {
     setIsSaving(true);
+    const activeData = workingData || baseData;
+    const primaryImg = activeData.heroImages?.[0]?.src || activeData.heroImage || activeData.mainImage;
     const payload = {
-      ...(workingData || baseData),
+      ...activeData,
+      heroImage: primaryImg || activeData.heroImage,
+      mainImage: primaryImg || activeData.mainImage,
+      primaryImage: primaryImg || activeData.primaryImage,
+      homeImage: primaryImg || activeData.homeImage,
       updatedAt: new Date().toISOString(),
     };
 

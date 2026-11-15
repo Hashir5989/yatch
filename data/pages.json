@@ -76,9 +76,6 @@
           "g77": "ASMARATY G77 Luxury Yacht",
           "g66": "ASMARATY G66 Luxury Yacht",
           "g50": "ASMARATY G50 Luxury Motor Yacht"
-        },
-        "modelImageOverrides": {
-          "g100": "/images/yachts/g100/g100-home-showcase.jpg"
         }
       },
       {

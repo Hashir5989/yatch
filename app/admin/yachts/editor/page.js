@@ -128,9 +128,14 @@ function VisualYachtEditorInner() {
     setIsSaving(true);
 
     const status = targetStatus || activeYachtData.status || "published";
+    const primaryImg = activeYachtData.heroImages?.[0]?.src || activeYachtData.heroImage || activeYachtData.mainImage;
     const payload = {
       ...activeYachtData,
       status,
+      heroImage: primaryImg || activeYachtData.heroImage,
+      mainImage: primaryImg || activeYachtData.mainImage,
+      primaryImage: primaryImg || activeYachtData.primaryImage,
+      homeImage: primaryImg || activeYachtData.homeImage,
       updatedAt: new Date().toISOString()
     };
 
@@ -177,6 +182,12 @@ function VisualYachtEditorInner() {
         if (images[idx]) {
           images[idx] = { ...images[idx], src: url };
           handleUpdateField("heroImages", images);
+          if (idx === 0) {
+            handleUpdateField("heroImage", url);
+            handleUpdateField("mainImage", url);
+            handleUpdateField("primaryImage", url);
+            handleUpdateField("homeImage", url);
+          }
         }
       }
     } else if (key.startsWith("deckPlan_")) {

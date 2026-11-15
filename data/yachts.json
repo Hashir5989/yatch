@@ -16,13 +16,13 @@
     "summaryLine": "Flagship Superyacht • 30.48 Metres • GRP Composite",
     "insigniaSrc": "/images/yachts/g100/2.png",
     "length": "100 FT (30.48 M)",
-    "homeImage": "/images/yachts/g100/g100-home-showcase.jpg",
-    "mainImage": "/images/yachts/g100/0.jpg",
-    "primaryImage": "/images/yachts/g100/0.jpg",
-    "heroImage": "/images/yachts/g100/0.jpg",
+    "homeImage": "/images/uploads/whatsapp-image-2026-11-15-at-3-28-23-pm-1794761281803-f1e0a24e6c44.jpeg",
+    "mainImage": "/images/uploads/whatsapp-image-2026-11-15-at-3-28-23-pm-1794761281803-f1e0a24e6c44.jpeg",
+    "primaryImage": "/images/uploads/whatsapp-image-2026-11-15-at-3-28-23-pm-1794761281803-f1e0a24e6c44.jpeg",
+    "heroImage": "/images/uploads/whatsapp-image-2026-11-15-at-3-28-23-pm-1794761281803-f1e0a24e6c44.jpeg",
     "heroImages": [
       {
-        "src": "/images/yachts/g100/0.jpg",
+        "src": "/images/uploads/whatsapp-image-2026-11-15-at-3-28-23-pm-1794761281803-f1e0a24e6c44.jpeg",
         "label": "Burj Al Arab Daylight Profile"
       },
       {
@@ -185,7 +185,8 @@
         "title": "MTU Twin Machinery Room",
         "category": "Flybridge, Decks & Helm",
         "description": "Immaculate engine compartment housing twin 1,600 HP MTU diesels, twin 50 kVA generators, and 24-ton chiller plant."
-      }
+      },
+      "/images/yachts/g100.jpg"
     ],
     "galleryCategories": [
       "All",
@@ -575,7 +576,7 @@
       "ogImage": "/images/yachts/g100/0.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-14T11:29:27.668Z"
+    "updatedAt": "2026-11-15T16:48:04.877Z"
   },
   {
     "id": "yacht-g77",
@@ -1117,7 +1118,8 @@
       "ogImage": "/images/yachts/g77/g77_asset_01_1672x941.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-14T11:29:36.336Z"
+    "updatedAt": "2026-11-14T11:29:36.336Z",
+    "homeImage": "/images/yachts/g77/g77_asset_01_1672x941.jpg"
   },
   {
     "id": "yacht-g66",
@@ -1677,7 +1679,8 @@
       "ogImage": "/images/yachts/g66/hero-01.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-14T11:58:04.004Z"
+    "updatedAt": "2026-11-14T11:58:04.004Z",
+    "homeImage": "/images/yachts/g66/hero-01.jpg"
   },
   {
     "id": "yacht-g50",
@@ -2216,6 +2219,7 @@
       "ogImage": "/images/yachts/g50/hero-01.jpg"
     },
     "createdAt": "2026-10-24T10:00:00.000Z",
-    "updatedAt": "2026-11-14T11:58:12.817Z"
+    "updatedAt": "2026-11-14T11:58:12.817Z",
+    "homeImage": "/images/yachts/g50/hero-01.jpg"
   }
 ]

@@ -97,7 +97,17 @@ export default function YachtManagementScreen() {
         setCurrentYacht((prev) => {
           if (!prev) return prev;
           if (mediaTargetField === "heroImage") {
-            return { ...prev, heroImage: url, mainImage: url, primaryImage: url };
+            const baseHeroImages = Array.isArray(prev.heroImages) && prev.heroImages.length > 0
+              ? prev.heroImages.map((img, idx) => idx === 0 ? { ...img, src: url } : img)
+              : [{ src: url, label: prev.name || "Cover Image" }];
+            return {
+              ...prev,
+              heroImage: url,
+              mainImage: url,
+              primaryImage: url,
+              homeImage: url,
+              heroImages: baseHeroImages,
+            };
           }
           return prev;
         });
@@ -114,7 +124,17 @@ export default function YachtManagementScreen() {
             setCurrentYacht((prev) => {
               if (!prev) return prev;
               if (mediaTargetField === "heroImage") {
-                return { ...prev, heroImage: parsed.url, mainImage: parsed.url, primaryImage: parsed.url };
+                const baseHeroImages = Array.isArray(prev.heroImages) && prev.heroImages.length > 0
+                  ? prev.heroImages.map((img, idx) => idx === 0 ? { ...img, src: parsed.url } : img)
+                  : [{ src: parsed.url, label: prev.name || "Cover Image" }];
+                return {
+                  ...prev,
+                  heroImage: parsed.url,
+                  mainImage: parsed.url,
+                  primaryImage: parsed.url,
+                  homeImage: parsed.url,
+                  heroImages: baseHeroImages,
+                };
               }
               return prev;
             });
@@ -479,8 +499,12 @@ export default function YachtManagementScreen() {
     const displayOrder = isNaN(order) ? (yachts.length + 1) : order;
     const targetStatus = statusOverride || currentYacht.status || "published";
 
-    // Ensure hero image synchronization
-    const primaryImg = currentYacht.heroImage || currentYacht.mainImage || "/images/yachts/g100/0.jpg";
+    // Ensure hero image synchronization across all image properties
+    const primaryImg = currentYacht.heroImage || currentYacht.mainImage || currentYacht.primaryImage || "/images/yachts/g100/0.jpg";
+
+    const updatedHeroImages = Array.isArray(currentYacht.heroImages) && currentYacht.heroImages.length > 0
+      ? currentYacht.heroImages.map((img, idx) => idx === 0 ? { ...img, src: primaryImg } : img)
+      : [{ src: primaryImg, label: name }];
 
     const payload = {
       ...currentYacht,
@@ -493,6 +517,8 @@ export default function YachtManagementScreen() {
       heroImage: primaryImg,
       mainImage: primaryImg,
       primaryImage: primaryImg,
+      homeImage: primaryImg,
+      heroImages: updatedHeroImages,
     };
 
     const res = await saveYachtAsync(payload);
@@ -1467,11 +1493,16 @@ export default function YachtManagementScreen() {
                             value={currentYacht.heroImage || currentYacht.mainImage || ""}
                             onChange={(e) => {
                               const val = e.target.value;
+                              const baseHeroImages = Array.isArray(currentYacht.heroImages) && currentYacht.heroImages.length > 0
+                                ? currentYacht.heroImages.map((img, idx) => idx === 0 ? { ...img, src: val } : img)
+                                : [{ src: val, label: currentYacht.name || "Cover Image" }];
                               setCurrentYacht({
                                 ...currentYacht,
                                 heroImage: val,
                                 mainImage: val,
-                                primaryImage: val
+                                primaryImage: val,
+                                homeImage: val,
+                                heroImages: baseHeroImages,
                               });
                             }}
                             className="flex-1 px-3 py-2 bg-[#0E1522] border border-[#1E2838] rounded text-xs text-white focus:outline-none focus:border-[#C6A155]"
@@ -2043,11 +2074,16 @@ export default function YachtManagementScreen() {
         onSelectImage={(url) => {
           if (!currentYacht) return;
           if (mediaTargetField === "heroImage") {
+            const baseHeroImages = Array.isArray(currentYacht.heroImages) && currentYacht.heroImages.length > 0
+              ? currentYacht.heroImages.map((img, idx) => idx === 0 ? { ...img, src: url } : img)
+              : [{ src: url, label: currentYacht.name || "Cover Image" }];
             setCurrentYacht({
               ...currentYacht,
               heroImage: url,
               mainImage: url,
-              primaryImage: url
+              primaryImage: url,
+              homeImage: url,
+              heroImages: baseHeroImages,
             });
           } else if (mediaTargetField === "gallery") {
             handleAddGalleryImage(url);
