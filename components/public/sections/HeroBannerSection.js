@@ -66,49 +66,58 @@ export default function HeroBannerSection({
   }, [effectiveVideoUrl]);
 
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-between overflow-hidden bg-[#080B10] group/hero">
-      {/* Background Media: Live Video or Photo with Dark Vignette Gradient */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {effectiveVideoUrl ? (
-          <div className="absolute inset-0 w-full h-full">
-            <video
-              ref={videoRef}
-              key={effectiveVideoUrl}
-              src={effectiveVideoUrl}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              poster={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
-              className="w-full h-full object-cover object-center"
-            >
-              <source src="/videos/banner-home.mp4" type="video/mp4" />
-              <source src="/videos/asmaraty-hero-banner.mp4" type="video/mp4" />
-              <source src={effectiveVideoUrl} type="video/mp4" />
+    <div className={isHomeHero ? "w-full bg-white pb-8 sm:pb-12 md:pb-14 lg:pb-16 xl:pb-20" : ""}>
+      <section
+        className={`relative flex flex-col justify-between overflow-hidden bg-[#080B10] group/hero ${
+          isHomeHero
+            ? "h-[280px] sm:h-[380px] md:h-[460px] lg:h-[540px] xl:h-[600px]"
+            : "min-h-[92vh]"
+        }`}
+      >
+        {/* Background Media: Live Video or Photo with Dark Vignette Gradient */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          {effectiveVideoUrl ? (
+            <div className="absolute inset-0 w-full h-full">
+              <video
+                ref={videoRef}
+                key={effectiveVideoUrl}
+                src={effectiveVideoUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                poster={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
+                className="w-full h-full object-cover object-center"
+              >
+                <source src="/videos/banner-home.mp4" type="video/mp4" />
+                <source src="/videos/asmaraty-hero-banner.mp4" type="video/mp4" />
+                <source src={effectiveVideoUrl} type="video/mp4" />
+                <img
+                  src={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
+                  alt={imageAlt || heading}
+                  className="w-full h-full object-cover object-center scale-105"
+                />
+              </video>
+            </div>
+          ) : (
+            <div className="relative w-full h-full">
               <img
-                src={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
+                src={imageUrl || "/images/about/asmaraty-about-hero-fireworks.jpg"}
                 alt={imageAlt || heading}
-                className="w-full h-full object-cover object-center scale-105"
+                className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.04] transition-transform duration-1000 ease-out"
               />
-            </video>
-          </div>
-        ) : (
-          <div className="relative w-full h-full">
-            <img
-              src={imageUrl || "/images/about/asmaraty-about-hero-fireworks.jpg"}
-              alt={imageAlt || heading}
-              className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.04] transition-transform duration-1000 ease-out"
-            />
-            {/* Ambient luxury gradients for typographic clarity on non-video heroes */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/90 via-[#070D18]/55 to-transparent sm:via-[#070D18]/40" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#070D18]/60 via-transparent to-black/30" />
-          </div>
-        )}
-        {/* Crystal-clear bright daylight video with subtle bottom edge transition */}
-        <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#08101C] to-transparent pointer-events-none opacity-80" />
+              {/* Ambient luxury gradients for typographic clarity on non-video heroes */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/90 via-[#070D18]/55 to-transparent sm:via-[#070D18]/40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#070D18]/60 via-transparent to-black/30" />
+            </div>
+          )}
+          {/* Subtle bottom edge transition on non-home heroes */}
+          {!isHomeHero && (
+            <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#08101C] to-transparent pointer-events-none opacity-80" />
+          )}
 
-        {/* Change Background Media Button when in Edit Mode */}
+          {/* Change Background Media Button when in Edit Mode */}
         {isEditable && onOpenMediaPicker && (
           <div className="absolute top-6 right-6 z-30 flex items-center gap-2 pointer-events-auto">
             <button
@@ -140,7 +149,13 @@ export default function HeroBannerSection({
       </div>
 
       {/* Main Hero Container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-32 pb-16 sm:pb-24 flex-1 flex flex-col justify-end pointer-events-none">
+      <div
+        className={`relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pointer-events-none ${
+          isHomeHero
+            ? "h-full flex items-center justify-center py-4"
+            : "pt-32 pb-16 sm:pb-24 flex-1 flex flex-col justify-end"
+        }`}
+      >
         {isHomeHero ? (
           <div className="max-w-4xl text-center mx-auto">
             {/* Accessible Heading for Home SEO */}
@@ -272,5 +287,6 @@ export default function HeroBannerSection({
         </div>
       )}
     </section>
+  </div>
   );
 }

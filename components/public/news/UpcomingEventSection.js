@@ -54,7 +54,72 @@ function parseEventDateBadge(article) {
   return { day: "19 — 22", monthYear: "NOV 2026", locationShort: "BOAT SHOW" };
 }
 
-export default function UpcomingEventSection({ events = [] }) {
+export function VipSeaTrialBanner() {
+  return (
+    <div className="p-8 sm:p-12 bg-[#0D1522] border-2 border-[#C6A155]/40 shadow-2xl relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#C6A155]/5 rounded-bl-full pointer-events-none" />
+
+      <div className="max-w-3xl space-y-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#C6A155]/20 text-[#DFBA73] text-[10px] font-mono uppercase tracking-[0.24em] font-semibold">
+          <Sparkles className="w-3.5 h-3.5 text-[#C6A155]" />
+          <span>VIP BOAT SHOW CONCIERGE & ADVISORY DESK</span>
+        </div>
+
+        <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal uppercase tracking-wide">
+          Request VIP Sea Trial or Private Berthing Walkthrough
+        </h3>
+
+        <p
+          className="text-xs sm:text-sm text-white/75 font-light leading-relaxed saxdor-desc-justified"
+          style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
+        >
+          Connect directly with our luxury yacht advisory desk in the UAE. We arrange confidential one-on-one appointments with Al Shaali Marine naval architects, private boat show passes, and VIP sea trials departing from Abu Dhabi and Dubai.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 text-xs font-mono text-white/80">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-[#C6A155] flex-shrink-0" />
+            <span className="truncate">Ajman & Dubai, UAE</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Phone className="w-4 h-4 text-[#C6A155] flex-shrink-0" />
+            <a href="tel:+971565268126" className="hover:text-[#DFBA73] transition-colors truncate">
+              +971 56 526 8126
+            </a>
+          </div>
+          <div className="flex items-center gap-2">
+            <Mail className="w-4 h-4 text-[#C6A155] flex-shrink-0" />
+            <a href="mailto:info@asmaraty.com" className="hover:text-[#DFBA73] transition-colors truncate">
+              info@asmaraty.com
+            </a>
+          </div>
+        </div>
+
+        <div className="pt-4 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 w-full">
+          <Link
+            href="/contact"
+            className="w-full sm:w-auto saxdor-btn-solid !h-auto min-h-[44px] sm:!h-[48px] !px-4 sm:!px-8 text-[11px] sm:text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer shadow-xl rounded-none text-center"
+          >
+            <span>Open Private Consultation Form</span>
+            <ArrowRight className="w-4 h-4 shrink-0" />
+          </Link>
+
+          <a
+            href="https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20would%20like%20to%20request%20a%20VIP%20boat%20show%20pass%20and%20consultation."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all rounded-none shadow-xl cursor-pointer text-center"
+          >
+            <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
+            <span>WhatsApp Advisory Desk</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function UpcomingEventSection({ events = [], showVipBanner = false }) {
   const displayEvents = (Array.isArray(events) && events.length > 0)
     ? events
     : DEFAULT_ARTICLES.filter((a) => a.articleType === "event" || a.eventDetails?.isUpcoming);
@@ -245,66 +310,11 @@ export default function UpcomingEventSection({ events = [] }) {
         </div>
 
         {/* DEDICATED VIP CONCIERGE & ADVISORY CONTACT BANNER */}
-        <div className="p-8 sm:p-12 bg-[#0D1522] border-2 border-[#C6A155]/40 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#C6A155]/5 rounded-bl-full pointer-events-none" />
-
-          <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#C6A155]/20 text-[#DFBA73] text-[10px] font-mono uppercase tracking-[0.24em] font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-[#C6A155]" />
-              <span>VIP BOAT SHOW CONCIERGE & ADVISORY DESK</span>
-            </div>
-
-            <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal uppercase tracking-wide">
-              Request VIP Sea Trial or Private Berthing Walkthrough
-            </h3>
-
-            <p
-              className="text-xs sm:text-sm text-white/75 font-light leading-relaxed saxdor-desc-justified"
-              style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
-            >
-              Connect directly with our luxury yacht advisory desk in the UAE. We arrange confidential one-on-one appointments with Al Shaali Marine naval architects, private boat show passes, and VIP sea trials departing from Abu Dhabi and Dubai.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 text-xs font-mono text-white/80">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#C6A155] flex-shrink-0" />
-                <span className="truncate">Ajman & Dubai, UAE</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#C6A155] flex-shrink-0" />
-                <a href="tel:+971565268126" className="hover:text-[#DFBA73] transition-colors truncate">
-                  +971 56 526 8126
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#C6A155] flex-shrink-0" />
-                <a href="mailto:info@asmaraty.com" className="hover:text-[#DFBA73] transition-colors truncate">
-                  info@asmaraty.com
-                </a>
-              </div>
-            </div>
-
-            <div className="pt-4 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 w-full">
-              <Link
-                href="/contact"
-                className="w-full sm:w-auto saxdor-btn-solid !h-auto min-h-[44px] sm:!h-[48px] !px-4 sm:!px-8 text-[11px] sm:text-xs font-bold uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer shadow-xl rounded-none text-center"
-              >
-                <span>Open Private Consultation Form</span>
-                <ArrowRight className="w-4 h-4 shrink-0" />
-              </Link>
-
-              <a
-                href="https://wa.me/971565268126?text=Hello%20ASMARATY%20Yachts,%20I%20would%20like%20to%20request%20a%20VIP%20boat%20show%20pass%20and%20consultation."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all rounded-none shadow-xl cursor-pointer text-center"
-              >
-                <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
-                <span>WhatsApp Advisory Desk</span>
-              </a>
-            </div>
+        {showVipBanner && (
+          <div className="mt-12 sm:mt-16">
+            <VipSeaTrialBanner />
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

@@ -13,7 +13,8 @@ import {
   Compass,
   Phone,
   Ship,
-  Layers
+  Layers,
+  Mail
 } from "lucide-react";
 import { 
   getAllPages, 
@@ -301,9 +302,23 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
                     </a>
                   </div>
 
-                  <a href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`} className="hover:underline text-white/70 block pt-1">
-                    {settings.contactEmail || "info@asmaraty.com"}
-                  </a>
+                  {/* Email */}
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`}
+                      className="p-1 bg-white/5 border border-white/10 hover:border-[#C6A155]/60 rounded text-[#C6A155] hover:opacity-80 transition-all shrink-0"
+                      title="Send Email"
+                      aria-label={`Email ${settings.contactEmail || "info@asmaraty.com"}`}
+                    >
+                      <Mail className="w-3.5 h-3.5 text-[#C6A155]" />
+                    </a>
+                    <a
+                      href={`mailto:${settings.contactEmail || "info@asmaraty.com"}`}
+                      className="hover:underline text-white/80 hover:text-[#C6A155] transition-colors font-mono"
+                    >
+                      {settings.contactEmail || "info@asmaraty.com"}
+                    </a>
+                  </div>
                   <div className="flex flex-wrap items-center gap-3 pt-1">
                     <a
                       href={settings.socialLinks?.instagram || "https://www.instagram.com/asmaraty_yachts?mdxt=NnA5dGNweTYwNDB6"}

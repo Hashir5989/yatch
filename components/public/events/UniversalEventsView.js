@@ -2,17 +2,17 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
-import { 
-  Calendar, 
-  MapPin, 
-  Ship, 
-  ArrowRight, 
-  Sparkles, 
-  Camera, 
+import {
+  Calendar,
+  MapPin,
+  Ship,
+  ArrowRight,
+  Sparkles,
+  Camera,
   Layers,
   Folder
 } from "lucide-react";
-import UpcomingEventSection from "@/components/public/news/UpcomingEventSection";
+import UpcomingEventSection, { VipSeaTrialBanner } from "@/components/public/news/UpcomingEventSection";
 import { getAllEvents, syncEventsFromServer, getAllArticles, syncArticlesFromServer } from "@/lib/cmsStore";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 import { DEFAULT_EVENTS, getEventDateTimestamp } from "@/lib/data/eventsData";
@@ -91,31 +91,36 @@ export default function UniversalEventsView() {
           </h1>
 
           <p className="text-xs sm:text-sm text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-6">
-            Explore official photo showcases from our exhibitions across the Arabian Gulf, and view our upcoming boat show calendar below. Click any card to open the complete event detail page.
+            Explore our upcoming boat show calendar below, and view official photo showcases from our exhibitions across the Arabian Gulf. Click any card to open the complete event detail page.
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 w-full max-w-2xl px-2">
             <a
-              href="#showcase-grid"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-[11px] sm:text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl text-center"
-            >
-              <span>View Exhibition Showcases ↓</span>
-            </a>
-            <a
               href="#upcoming-events"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#DFBA73] text-[11px] sm:text-xs font-mono text-white/80 hover:text-white transition-all shadow-xl text-center"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-[11px] sm:text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl text-center"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#C6A155] animate-ping shrink-0" />
               <span>Upcoming Boat Shows (Abu Dhabi & Dubai) ↓</span>
+            </a>
+            <a
+              href="#showcase-grid"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#DFBA73] text-[11px] sm:text-xs font-mono text-white/80 hover:text-white transition-all shadow-xl text-center"
+            >
+              <span>View Exhibition Showcases ↓</span>
             </a>
           </div>
         </div>
       </section>
 
       {/* -------------------------------------------------------------
-          2. EXHIBITION SHOWCASES (3-COLUMN GRID ROW LAYOUT - DIRECT PAGE LINKS)
+          2. UPCOMING BOAT SHOWS (ABU DHABI & DUBAI - SOLE LOCATION)
           ------------------------------------------------------------- */}
-      <section className="py-16 sm:py-24" id="showcase-grid">
+      <UpcomingEventSection events={upcomingEvents} />
+
+      {/* -------------------------------------------------------------
+          3. EXHIBITION SHOWCASES (3-COLUMN GRID ROW LAYOUT - DIRECT PAGE LINKS)
+          ------------------------------------------------------------- */}
+      <section className="py-16 sm:py-24 border-t border-white/10" id="showcase-grid">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-white/10">
@@ -168,8 +173,8 @@ export default function UniversalEventsView() {
                             event.bannerPosition === "center"
                               ? "center center"
                               : event.bannerPosition === "bottom"
-                              ? "center bottom"
-                              : "center top",
+                                ? "center bottom"
+                                : "center top",
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0D1522] via-transparent to-black/30" />
@@ -245,9 +250,13 @@ export default function UniversalEventsView() {
       </section>
 
       {/* -------------------------------------------------------------
-          3. UPCOMING BOAT SHOWS (ABU DHABI & DUBAI - SOLE LOCATION)
+          4. VIP SEA TRIAL OR PRIVATE BERTHING WALKTHROUGH (LAST SECTION)
           ------------------------------------------------------------- */}
-      <UpcomingEventSection events={upcomingEvents} />
+      <section className="py-16 sm:py-24 border-t border-white/10 bg-[#06090D] relative overflow-hidden" id="vip-sea-trial">
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
+          <VipSeaTrialBanner />
+        </div>
+      </section>
     </div>
   );
 }
