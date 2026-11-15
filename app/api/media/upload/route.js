@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import path from "path";
 import { authenticateAdminRequest, saveMediaServer } from "@/lib/server/db";
-import { saveMediaFile, deleteMediaFileByUrl } from "@/lib/server/storage";
+import { saveMediaFile, deleteMediaFileByUrl, detectMagicBytes } from "@/lib/server/storage";
+export { detectMagicBytes };
 
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
@@ -35,13 +37,6 @@ export async function POST(request) {
       );
     }
 
-    if (!ALLOWED_MIME_TYPES.has(file.type)) {
-      return NextResponse.json(
-        { success: false, error: `Unsupported image format (${file.type}). Please upload a JPEG, PNG, WEBP, or AVIF image.` },
-        { status: 400 }
-      );
-    }
-
     if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
         { success: false, error: "Image file exceeds 15MB limit." },
@@ -52,15 +47,78 @@ export async function POST(request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
+    // 1. Detect actual file signature via magic bytes
+    const detectedMime = detectMagicBytes(buffer);
+    if (!detectedMime || !ALLOWED_MIME_TYPES.has(detectedMime)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Invalid file signature. Only authentic JPEG, PNG, WEBP, AVIF, or GIF images are permitted.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // 2. Validate file extension matches detected format
+    const originalExt = path.extname(file.name || "").toLowerCase();
+    const validExtensions = {
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/png": [".png"],
+      "image/webp": [".webp"],
+      "image/gif": [".gif"],
+      "image/avif": [".avif"],
+    };
+    const allowedExts = validExtensions[detectedMime] || [];
+    if (originalExt && !allowedExts.includes(originalExt)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `File extension "${originalExt}" does not match detected format (${detectedMime}).`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // 3. Extract actual image dimensions safely via Sharp (Reject if corrupt or unparseable)
+    let dimensions = null;
+    let width = null;
+    let height = null;
+    try {
+      const sharp = (await import("sharp")).default;
+      const meta = await sharp(buffer).metadata();
+      if (meta && typeof meta.width === "number" && typeof meta.height === "number" && meta.width > 0 && meta.height > 0) {
+        width = meta.width;
+        height = meta.height;
+        dimensions = `${meta.width} x ${meta.height}`;
+      } else {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Invalid or corrupt image: unable to parse valid dimensions from file header.",
+          },
+          { status: 400 }
+        );
+      }
+    } catch (metaErr) {
+      console.warn("[media/upload] Sharp dimension parsing failed:", metaErr.message);
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Corrupt or unreadable image file: unable to decode image data (${metaErr.message}).`,
+        },
+        { status: 400 }
+      );
+    }
+
     // Support destination subfolder: uploads (default), news, events, yachts
     const rawFolder = formData.get("folder") || "uploads";
 
-    // 1. Save file to persistent storage (outside Git) with path traversal protection
+    // 4. Save file to persistent storage (outside Git) with path traversal protection
     savedFileResult = await saveMediaFile({
       buffer,
       originalName: file.name || "uploaded-image.jpg",
       subfolder: rawFolder,
-      mimeType: file.type,
+      mimeType: detectedMime,
     });
 
     const publicUrl = savedFileResult.relativeUrl;
@@ -74,12 +132,15 @@ export async function POST(request) {
       title,
       alt,
       category,
+      width,
+      height,
+      size: buffer.length,
       uploadedAt: new Date().toISOString().split("T")[0],
-      dimensions: "2000 x 1200",
+      dimensions,
       storageKey: savedFileResult.storageKey,
     };
 
-    // 2. Save metadata to PostgreSQL / runtime fallback (NEVER writes to Git-tracked data/media.json)
+    // 5. Save metadata to PostgreSQL / runtime fallback (NEVER writes to Git-tracked data/media.json)
     try {
       await saveMediaServer(newItem);
     } catch (dbErr) {
@@ -97,6 +158,7 @@ export async function POST(request) {
       url: publicUrl,
       fileName: savedFileResult.fileName,
       title,
+      dimensions,
       item: newItem,
     });
   } catch (err) {

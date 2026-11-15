@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getArticleByIdServer, saveArticleServer, deleteArticleServer, authenticateAdminRequest } from "@/lib/server/db";
 
-
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
@@ -42,13 +41,20 @@ export async function PUT(request, { params }) {
     }
 
     const { id } = await params;
+    if (!id) {
+      return NextResponse.json({ success: false, error: "Article ID is required." }, { status: 400 });
+    }
+
     const articleData = await request.json();
 
-    if (!articleData.title || !articleData.title.trim()) {
-      return NextResponse.json({ success: false, error: "News title is required." }, { status: 400 });
+    if (articleData.title !== undefined && (!articleData.title || !articleData.title.trim())) {
+      return NextResponse.json({ success: false, error: "News title cannot be empty." }, { status: 400 });
     }
 
     const saved = await saveArticleServer({ ...articleData, id });
+    if (!saved) {
+      return NextResponse.json({ success: false, error: `Article with ID '${id}' not found.` }, { status: 404 });
+    }
 
     try {
       revalidatePath("/news");
@@ -68,7 +74,14 @@ export async function PUT(request, { params }) {
     );
   } catch (err) {
     console.error("News PUT error:", err);
-    return NextResponse.json({ success: false, error: "Failed to update article" }, { status: 500 });
+    const isClientError = err.message && (
+      err.message.includes("is required") ||
+      err.message.includes("cannot be empty") ||
+      err.message.includes("already in use") ||
+      err.message.includes("must contain only")
+    );
+    const status = isClientError ? 400 : 500;
+    return NextResponse.json({ success: false, error: err.message || "Failed to update article" }, { status });
   }
 }
 
@@ -80,7 +93,14 @@ export async function DELETE(request, { params }) {
     }
 
     const { id } = await params;
+    if (!id) {
+      return NextResponse.json({ success: false, error: "Article ID is required." }, { status: 400 });
+    }
+
     const success = await deleteArticleServer(id);
+    if (!success) {
+      return NextResponse.json({ success: false, error: `Article with ID '${id}' not found.` }, { status: 404 });
+    }
 
     try {
       revalidatePath("/news");
@@ -90,7 +110,7 @@ export async function DELETE(request, { params }) {
     } catch (_) {}
 
     return NextResponse.json(
-      { success, message: success ? "Article deleted" : "Article not found" },
+      { success: true, message: "Article deleted successfully" },
       {
         headers: {
           "Cache-Control": "no-store, no-cache, must-revalidate",
@@ -102,4 +122,3 @@ export async function DELETE(request, { params }) {
     return NextResponse.json({ success: false, error: "Failed to delete article" }, { status: 500 });
   }
 }
-

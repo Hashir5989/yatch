@@ -68,6 +68,7 @@ export async function POST(request) {
       status: eventData.status || "published",
       featuredImage: eventData.featuredImage || "/images/events/qibs-2026-fireworks-celebration.jpg",
       featuredImageAlt: eventData.featuredImageAlt || eventData.title,
+      bannerPosition: eventData.bannerPosition || eventData.banner_position || "center",
       photos: Array.isArray(eventData.photos) ? eventData.photos : [],
       highlights: Array.isArray(eventData.highlights) ? eventData.highlights : [],
     };
@@ -93,4 +94,3 @@ export async function POST(request) {
     return NextResponse.json({ success: false, error: "Failed to create event showcase" }, { status: 500 });
   }
 }
-

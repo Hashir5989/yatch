@@ -1,10 +1,19 @@
 import { NextResponse } from "next/server";
 import { authenticateAdminRequest, getMediaServer, saveMediaServer, deleteMediaServer } from "@/lib/server/db";
 import { deleteMediaFileByUrl } from "@/lib/server/storage";
+import { findMediaReferences } from "@/lib/server/mediaReferences";
 import { POST as handleUploadPost } from "./upload/route";
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const session = await authenticateAdminRequest(request);
+    if (!session) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized. Admin session required to access media library." },
+        { status: 401 }
+      );
+    }
+
     const media = await getMediaServer();
     return NextResponse.json({
       success: true,
@@ -98,12 +107,58 @@ export async function DELETE(request) {
       );
     }
 
-    // Step 1: Delete metadata from database / local store first
-    const deletedRecord = await deleteMediaServer(id);
+    // Path traversal security guard: block attempts to delete outside uploads directory
+    if (id.includes("..") || id.includes("//") || id.startsWith("~")) {
+      return NextResponse.json(
+        { success: false, error: "Access denied: paths outside uploads directory are blocked" },
+        { status: 403 }
+      );
+    }
 
-    // Step 2: Only after metadata deletion is confirmed, safely attempt physical file deletion
-    if (deletedRecord && deletedRecord.url) {
-      await deleteMediaFileByUrl(deletedRecord.url);
+    // Safety Step 0: Find existing media record to determine its URL
+    const allMedia = await getMediaServer();
+    const targetItem = (allMedia || []).find((m) => m && (m.id === id || m.url === id));
+    const targetUrl = targetItem?.url || (id.startsWith("/images/") ? id : null);
+
+    // Safety Step 1: Check whether media is referenced by pages, yachts, news, or events (Fail-Closed)
+    if (targetUrl) {
+      try {
+        const refCheck = await findMediaReferences(targetUrl);
+        if (refCheck.isReferenced) {
+          return NextResponse.json(
+            {
+              success: false,
+              error: `Cannot delete image because it is currently referenced by active CMS content: ${refCheck.references.join("; ")}`,
+              references: refCheck.references,
+            },
+            { status: 409 }
+          );
+        }
+      } catch (scanErr) {
+        console.error("[media/DELETE] Media reference verification scan failed:", scanErr.message);
+        return NextResponse.json(
+          {
+            success: false,
+            error: `Media reference scan failed: ${scanErr.message}. Deletion blocked to protect content integrity.`,
+          },
+          { status: 500 }
+        );
+      }
+    }
+
+    // Step 2: Delete metadata from database / local store
+    const deletedRecord = await deleteMediaServer(id);
+    if (!deletedRecord && !targetItem) {
+      return NextResponse.json(
+        { success: false, error: "Media item not found" },
+        { status: 404 }
+      );
+    }
+
+    // Step 3: Only after metadata deletion is confirmed, safely attempt physical file deletion
+    const urlToDelete = deletedRecord?.url || targetUrl;
+    if (urlToDelete) {
+      await deleteMediaFileByUrl(urlToDelete);
     }
 
     const media = await getMediaServer();
