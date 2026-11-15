@@ -4,21 +4,24 @@ import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 import UniversalNewsDetailView from "@/components/public/news/UniversalNewsDetailView";
 import { getArticleBySlugServer, getArticlesServer } from "@/lib/server/db";
+import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 
 export const instant = false;
 
 export async function generateStaticParams() {
+  let articles = [];
   try {
-    const articles = await getArticlesServer(true);
-    return articles
-      .filter((article) => article.articleType !== "event" && !article.eventDetails?.isUpcoming)
-      .map((article) => ({
-        slug: article.slug,
-      }));
+    articles = await getArticlesServer(true);
   } catch (err) {
     console.warn("Failed to load static params for news:", err.message);
-    return [{ slug: "asmaraty-g77-qatar-international-boat-show-2026" }];
   }
+
+  const source = articles?.length ? articles : DEFAULT_ARTICLES;
+  return source
+    .filter((article) => article.articleType !== "event" && !article.eventDetails?.isUpcoming)
+    .map((article) => ({
+      slug: article.slug,
+    }));
 }
 
 export async function generateMetadata({ params }) {

@@ -105,6 +105,17 @@ function VisualYachtEditorInner() {
             loa: loaMetric.main,
           };
         }
+
+        // Keep the Accommodations subtitle and berth snapshot synchronized.
+        const accommodationsMetric = value.find(
+          (m) => m.label?.toLowerCase().includes("accommodations")
+        );
+        if (accommodationsMetric?.sub !== undefined) {
+          updated.specsSnapshot = {
+            ...(updated.specsSnapshot || {}),
+            berths: accommodationsMetric.sub,
+          };
+        }
       }
       return updated;
     });

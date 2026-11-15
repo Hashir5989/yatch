@@ -8,8 +8,9 @@ import { getEventBySlugServer, getEventsServer } from "@/lib/server/db";
 export const instant = false;
 
 export async function generateStaticParams() {
-  const events = await getEventsServer(true).catch(() => getAllEvents());
-  return (events || []).map((e) => ({
+  const events = await getEventsServer(true).catch(() => []);
+  const source = events?.length ? events : getAllEvents(true);
+  return source.map((e) => ({
     slug: e.slug,
   }));
 }

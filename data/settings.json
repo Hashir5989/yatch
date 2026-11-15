@@ -28,41 +28,47 @@
     "navLinks": [
       {
         "id": "nav-fleet",
-        "label": "Fleet",
         "url": "/yachts",
         "type": "internal",
+        "label": "Fleet",
         "target": "_self",
         "visible": true
       },
       {
         "id": "nav-about",
-        "label": "About Us",
         "url": "/about",
         "type": "internal",
+        "label": "About Us",
         "target": "_self",
         "visible": true
       },
       {
         "id": "nav-news",
-        "label": "News",
         "url": "/news",
         "type": "internal",
+        "label": "News",
         "target": "_self",
         "visible": true
       },
       {
-        "id": "nav-events",
-        "label": "Events",
+        "id": "nav-1794714444349",
         "url": "/events",
-        "type": "internal",
+        "label": "Events",
         "target": "_self",
+        "visible": true
+      },
+      {
+        "id": "nav-1794715456877",
+        "label": "Al Shaali Marine",
+        "url": "https://alshaalimarine.com/",
+        "target": "_blank",
         "visible": true
       },
       {
         "id": "nav-contact",
-        "label": "Contact Us",
         "url": "/contact",
         "type": "internal",
+        "label": "Contact Us",
         "target": "_self",
         "visible": true
       }
@@ -87,41 +93,40 @@
     "experienceLinks": [
       {
         "id": "exp-collections",
-        "label": "All Collections",
         "url": "/yachts",
         "type": "internal",
+        "label": "All Collections",
         "target": "_self",
         "visible": true
       },
       {
         "id": "exp-about",
-        "label": "About Us",
         "url": "/about",
         "type": "internal",
+        "label": "About Us",
         "target": "_self",
         "visible": true
       },
       {
         "id": "exp-news",
-        "label": "News & Dispatches",
         "url": "/news",
         "type": "internal",
+        "label": "News & Boat Shows",
         "target": "_self",
         "visible": true
       },
       {
-        "id": "exp-events",
-        "label": "Events & Boat Shows",
+        "id": "exp-1794715514993",
+        "label": "Events",
         "url": "/events",
-        "type": "internal",
         "target": "_self",
         "visible": true
       },
       {
         "id": "exp-trial",
-        "label": "Book Sea Trial",
         "url": "/contact",
         "type": "internal",
+        "label": "Book Sea Trial",
         "target": "_self",
         "visible": true
       }
@@ -137,5 +142,6 @@
     "facebook": "https://www.facebook.com/share/18c2MWbztN/?mibextid=wwXIfr",
     "linkedin": "https://www.linkedin.com/in/asmaraty-yachts-89519444b?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
     "whatsapp": "https://wa.me/971565268126?text=Hello%20ASMARATY%2C%20I%20would%20like%20to%20enquire%20about%20your%20yacht%20fleet."
-  }
+  },
+  "updatedAt": "2026-11-15T04:05:33.955Z"
 }

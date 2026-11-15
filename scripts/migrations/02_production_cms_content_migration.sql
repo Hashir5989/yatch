@@ -1828,87 +1828,9 @@ BEGIN
     END IF;
 END $media_media_3$;
 
-DO $media_media_4$
-DECLARE
-    existing_url_id VARCHAR(100);
-    existing_id_url TEXT;
-BEGIN
-    SELECT id INTO existing_url_id FROM media_items WHERE url = 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=80' AND id != 'media-4';
-    SELECT url INTO existing_id_url FROM media_items WHERE id = 'media-4' AND url != 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=80';
 
-    -- 1. Dual conflict: abort immediately
-    IF existing_url_id IS NOT NULL AND existing_id_url IS NOT NULL THEN
-        RAISE EXCEPTION 'CRITICAL DUAL MEDIA CONFLICT: record id "%" points to url "%" AND requested url "%" is owned by id "%". Aborting for manual review.',
-            'media-4', existing_id_url, 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=80', existing_url_id;
-    -- 2. ID exists with different URL: abort immediately
-    ELSIF existing_id_url IS NOT NULL THEN
-        RAISE EXCEPTION 'Media ID conflict: record id "%" already exists with different url "%". Aborting for manual review.',
-            'media-4', existing_id_url;
-    -- 3. URL already belongs to another production media ID: do NOT overwrite metadata automatically -> abort for manual review!
-    ELSIF existing_url_id IS NOT NULL THEN
-        RAISE EXCEPTION 'Media URL conflict: requested url "%" is already owned by production media id "%" (expected id "%"). Aborting for manual review.',
-            'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=80', existing_url_id, 'media-4';
-    -- 4. Both ID and URL match: update metadata
-    ELSIF EXISTS (SELECT 1 FROM media_items WHERE id = 'media-4') THEN
-        UPDATE media_items SET
-            title = $title$Main Deck Saloon & Dining Lounge$title$,
-            alt = $alt$Minimalist luxury yacht interior with floor-to-ceiling glazing and Calacatta marble accents$alt$,
-            category = 'interior',
-            dimensions = '2000 x 1333',
-            updated_at = NOW()
-        WHERE id = 'media-4' AND url = 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=80';
-    -- 5. Neither exists: insert fresh item
-    ELSE
-        INSERT INTO media_items (
-            id, url, title, alt, category, uploaded_at, dimensions, storage_key, created_at, updated_at
-        ) VALUES (
-            'media-4', 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=80', $title$Main Deck Saloon & Dining Lounge$title$, $alt$Minimalist luxury yacht interior with floor-to-ceiling glazing and Calacatta marble accents$alt$,
-            'interior', '2026-03-18', '2000 x 1333', NULL,
-            NOW(), NOW()
-        );
-    END IF;
-END $media_media_4$;
 
-DO $media_media_5$
-DECLARE
-    existing_url_id VARCHAR(100);
-    existing_id_url TEXT;
-BEGIN
-    SELECT id INTO existing_url_id FROM media_items WHERE url = 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=2000&q=80' AND id != 'media-5';
-    SELECT url INTO existing_id_url FROM media_items WHERE id = 'media-5' AND url != 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=2000&q=80';
 
-    -- 1. Dual conflict: abort immediately
-    IF existing_url_id IS NOT NULL AND existing_id_url IS NOT NULL THEN
-        RAISE EXCEPTION 'CRITICAL DUAL MEDIA CONFLICT: record id "%" points to url "%" AND requested url "%" is owned by id "%". Aborting for manual review.',
-            'media-5', existing_id_url, 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=2000&q=80', existing_url_id;
-    -- 2. ID exists with different URL: abort immediately
-    ELSIF existing_id_url IS NOT NULL THEN
-        RAISE EXCEPTION 'Media ID conflict: record id "%" already exists with different url "%". Aborting for manual review.',
-            'media-5', existing_id_url;
-    -- 3. URL already belongs to another production media ID: do NOT overwrite metadata automatically -> abort for manual review!
-    ELSIF existing_url_id IS NOT NULL THEN
-        RAISE EXCEPTION 'Media URL conflict: requested url "%" is already owned by production media id "%" (expected id "%"). Aborting for manual review.',
-            'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=2000&q=80', existing_url_id, 'media-5';
-    -- 4. Both ID and URL match: update metadata
-    ELSIF EXISTS (SELECT 1 FROM media_items WHERE id = 'media-5') THEN
-        UPDATE media_items SET
-            title = $title$Upper Deck Flybridge Jacuzzi & Sun Deck$title$,
-            alt = $alt$AS 100 flybridge with heated glass-fronted spa pool and teak sun loungers$alt$,
-            category = 'lifestyle',
-            dimensions = '2000 x 1333',
-            updated_at = NOW()
-        WHERE id = 'media-5' AND url = 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=2000&q=80';
-    -- 5. Neither exists: insert fresh item
-    ELSE
-        INSERT INTO media_items (
-            id, url, title, alt, category, uploaded_at, dimensions, storage_key, created_at, updated_at
-        ) VALUES (
-            'media-5', 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=2000&q=80', $title$Upper Deck Flybridge Jacuzzi & Sun Deck$title$, $alt$AS 100 flybridge with heated glass-fronted spa pool and teak sun loungers$alt$,
-            'lifestyle', '2026-03-20', '2000 x 1333', NULL,
-            NOW(), NOW()
-        );
-    END IF;
-END $media_media_5$;
 
 DO $media_media_6$
 DECLARE
@@ -2454,7 +2376,7 @@ FROM media_items m WHERE id IN (
     'media-news-qibs-bow-ceremony', 'media-shipyard-facility', 'media-a77-journey', 'media-hero-banner-video',
     'media-shared-passion', 'media-g77', 'media-g77-night', 'media-g66',
     'media-g50', 'media-g-flybridge', 'media-g-interior', 'media-1',
-    'media-2', 'media-3', 'media-4', 'media-5',
+    'media-2', 'media-3',
     'media-6', 'media-7', 'media-8', 'media-9',
     'media-10', 'media-11', 'media-12', 'media-1794470632717'
 )
