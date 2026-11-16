@@ -102,7 +102,6 @@ export default function HeroBannerSection({
                 muted
                 playsInline
                 preload="auto"
-                poster="/images/asmaraty-hero-banner-poster.jpg"
                 className="w-full h-full object-cover object-[center_30%]"
               />
             </div>
