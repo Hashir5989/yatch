@@ -45,9 +45,6 @@ export default function HeroBannerSection({
     video.defaultMuted = true;
     video.muted = true;
     video.playsInline = true;
-    try {
-      video.load();
-    } catch (_) { }
 
     const playPromise = video.play();
     if (playPromise !== undefined) {
@@ -72,7 +69,7 @@ export default function HeroBannerSection({
     <div className={isHomeHero ? "w-full bg-[#FAF8F5] pb-14 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32" : ""}>
       <section
         className={`relative flex flex-col justify-between overflow-hidden bg-[#080B10] group/hero ${isHomeHero
-            ? "h-[260px] sm:h-[350px] md:h-[420px] lg:h-[490px] xl:h-[530px] max-h-[calc(100vh-180px)] min-h-[220px]"
+            ? "h-[280px] sm:h-[380px] md:h-[460px] lg:h-[530px] xl:h-[570px] max-h-[calc(100vh-140px)] min-h-[240px]"
             : "min-h-[92vh]"
           }`}
       >
@@ -90,7 +87,7 @@ export default function HeroBannerSection({
                 playsInline
                 preload="auto"
                 poster={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-[center_30%]"
               >
                 <source src="/videos/asmaraty-home-banner-final.mp4?v=20261116" type="video/mp4" />
                 <source src="/videos/banner-home.mp4" type="video/mp4" />
