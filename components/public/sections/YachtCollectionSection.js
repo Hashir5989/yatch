@@ -502,7 +502,7 @@ export default function YachtCollectionSection({
           `
         }} />
         {/* Section Header: Watermark background preserved ("OUR SUPERYACHT COLLECTION thsi wate rmark background dont change") */}
-        <div className={`relative overflow-hidden pt-20 sm:pt-28 lg:pt-32 pb-16 sm:pb-24 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
+        <div className="relative overflow-hidden pt-20 sm:pt-28 lg:pt-32 pb-16 sm:pb-24">
           {/* ASMARATY Luxury Wings Watermark Monogram Pattern (Header Background) */}
           <div
             className="absolute inset-0 pointer-events-none z-0 select-none"
@@ -598,7 +598,7 @@ export default function YachtCollectionSection({
              - G-66: Plain background
              - G-50: Wings watermark background
           */
-          <div className={`divide-y ${isDark ? "divide-white/10" : "divide-black/10"}`}>
+          <div>
             {showcaseModels.map((model, idx) => {
               // Alternating layout:
               // idx = 0 (1st): Text Left, Image Right
@@ -653,10 +653,7 @@ export default function YachtCollectionSection({
               return (
                 <div
                   key={model.id || idx}
-                  className={`relative overflow-hidden py-16 sm:py-24 lg:py-28 ${hasWingsWatermark
-                    ? (isDark ? "bg-[#091322]" : "bg-[#FAF9F6]/60")
-                    : (isDark ? "bg-[#08101C]" : "bg-white")
-                    }`}
+                  className={`relative overflow-hidden py-16 sm:py-24 lg:py-28 ${isDark ? "bg-[#08101C]" : "bg-white"}`}
                 >
                   {/* ASMARATY Luxury Wings Watermark Monogram Pattern (for G77, G50 / alternating models) */}
                   {hasWingsWatermark && (
