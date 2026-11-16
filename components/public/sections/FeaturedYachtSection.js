@@ -46,7 +46,7 @@ export default function FeaturedYachtSection({
               <img
                 src={imageUrl}
                 alt={imageAlt || heading}
-                className="w-full h-[450px] sm:h-[550px] object-cover object-center scale-[1.06] group-hover:scale-[1.12] transition-transform duration-700 ease-out"
+                className="w-full h-[450px] sm:h-[550px] object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#08101C] via-transparent to-transparent opacity-80"></div>
 

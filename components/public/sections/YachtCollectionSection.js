@@ -744,10 +744,7 @@ export default function YachtCollectionSection({
                             <img
                               src={modelImage}
                               alt={modelHeading}
-                              className={`w-full h-full object-cover object-center transition-transform duration-700 ease-out ${model.slug === "g100"
-                                  ? "scale-[1.06] group-hover:scale-[1.12]"
-                                  : "group-hover:scale-[1.04]"
-                                }`}
+                              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                             />
                           </div>
                         </Link>
