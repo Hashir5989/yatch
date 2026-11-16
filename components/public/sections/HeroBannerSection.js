@@ -46,23 +46,39 @@ export default function HeroBannerSection({
     video.muted = true;
     video.playsInline = true;
 
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Fallback: start autoplay upon first user interaction (touch/scroll/click)
-        const onFirstInteraction = () => {
-          if (videoRef.current) {
-            videoRef.current.play().catch(() => { });
-          }
-          window.removeEventListener("click", onFirstInteraction);
-          window.removeEventListener("touchstart", onFirstInteraction);
-          window.removeEventListener("scroll", onFirstInteraction);
-        };
-        window.addEventListener("click", onFirstInteraction, { once: true, passive: true });
-        window.addEventListener("touchstart", onFirstInteraction, { once: true, passive: true });
-        window.addEventListener("scroll", onFirstInteraction, { once: true, passive: true });
-      });
-    }
+    const playVideo = () => {
+      if (video && video.paused) {
+        const p = video.play();
+        if (p !== undefined) {
+          p.catch(() => {
+            // If browser policy strictly blocks autoplay without gesture, start on first interaction
+            const onFirstInteraction = () => {
+              if (videoRef.current && videoRef.current.paused) {
+                videoRef.current.play().catch(() => {});
+              }
+              window.removeEventListener("click", onFirstInteraction);
+              window.removeEventListener("touchstart", onFirstInteraction);
+              window.removeEventListener("scroll", onFirstInteraction);
+            };
+            window.addEventListener("click", onFirstInteraction, { once: true, passive: true });
+            window.addEventListener("touchstart", onFirstInteraction, { once: true, passive: true });
+            window.addEventListener("scroll", onFirstInteraction, { once: true, passive: true });
+          });
+        }
+      }
+    };
+
+    // Attempt autoplay immediately
+    playVideo();
+
+    // If media was buffering or not ready yet, play as soon as data arrives
+    video.addEventListener("loadeddata", playVideo, { once: true });
+    video.addEventListener("canplay", playVideo, { once: true });
+
+    return () => {
+      video.removeEventListener("loadeddata", playVideo);
+      video.removeEventListener("canplay", playVideo);
+    };
   }, [effectiveVideoUrl]);
 
   return (
@@ -86,18 +102,9 @@ export default function HeroBannerSection({
                 muted
                 playsInline
                 preload="auto"
-                poster={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
+                poster="/images/asmaraty-hero-banner-poster.jpg"
                 className="w-full h-full object-cover object-[center_30%]"
-              >
-                <source src="/videos/asmaraty-home-banner-final.mp4?v=20261116" type="video/mp4" />
-                <source src="/videos/banner-home.mp4" type="video/mp4" />
-                <source src={effectiveVideoUrl} type="video/mp4" />
-                <img
-                  src={imageUrl || "/images/asmaraty-hero-banner-poster.jpg"}
-                  alt={imageAlt || heading}
-                  className="w-full h-full object-cover object-center scale-105"
-                />
-              </video>
+              />
             </div>
           ) : (
             <div className="relative w-full h-full">
