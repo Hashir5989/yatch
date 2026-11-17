@@ -178,9 +178,8 @@ export default function UniversalYachtDetailView({
                 key={img.src || idx}
                 src={img.src}
                 alt={img.label}
-                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out scale-[1.01] ${
-                  activeHeroIdx === idx ? "opacity-100" : "opacity-0 pointer-events-none"
-                }`}
+                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out scale-[1.01] ${activeHeroIdx === idx ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
               />
             ))}
             {/* Dark & Gold Vignette Gradients */}
@@ -230,8 +229,8 @@ export default function UniversalYachtDetailView({
               </div>
 
               {/* Key Highlights Subtitle */}
-              <p 
-                className="text-xs sm:text-sm text-[#9DAAB8] font-light max-w-xl leading-relaxed text-justify"
+              <p
+                className="text-xs sm:text-sm text-[#fff] font-light max-w-xl leading-relaxed text-justify"
                 style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
               >
                 <InlineEditableText
@@ -306,11 +305,10 @@ export default function UniversalYachtDetailView({
                     onClick={() => setActiveHeroIdx(idx)}
                     aria-label={img.label}
                     title={img.label}
-                    className={`h-1.5 transition-all duration-500 rounded-full cursor-pointer ${
-                      activeHeroIdx === idx
-                        ? "w-8 bg-[#C8A870]"
-                        : "w-2 bg-white/30 hover:bg-white/60"
-                    }`}
+                    className={`h-1.5 transition-all duration-500 rounded-full cursor-pointer ${activeHeroIdx === idx
+                      ? "w-8 bg-[#C8A870]"
+                      : "w-2 bg-white/30 hover:bg-white/60"
+                      }`}
                   />
                 ))}
                 <span className="ml-3 text-[11px] text-[#828F9E] font-mono">
@@ -466,9 +464,9 @@ export default function UniversalYachtDetailView({
                 </h2>
               </div>
 
-              <div className="space-y-4 text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed">
+              <div className="space-y-4 text-xs sm:text-sm text-[#fff] font-light leading-relaxed">
                 {(data.narrative?.paragraphs || []).map((p, idx) => (
-                  <p 
+                  <p
                     key={idx}
                     className="text-justify"
                     style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
@@ -517,8 +515,8 @@ export default function UniversalYachtDetailView({
                         placeholder="Feature title..."
                       />
                     </h3>
-                    <p 
-                      className="text-xs text-[#828F9E] leading-relaxed font-light text-justify"
+                    <p
+                      className="text-xs text-[#fff] leading-relaxed font-light text-justify"
                       style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
                     >
                       <InlineEditableText
@@ -552,7 +550,7 @@ export default function UniversalYachtDetailView({
               <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-light text-white">
                 Explore the Expansive Decks
               </h2>
-              <p className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#fff] font-light leading-relaxed">
                 Inspect the authentic 3D architectural cutaway models and official general arrangement (GA) drawings engineered for the {data.fullName}.
               </p>
             </div>
@@ -563,11 +561,10 @@ export default function UniversalYachtDetailView({
                 <button
                   key={deck.id}
                   onClick={() => setActiveDeckTab(deck.id)}
-                  className={`px-5 py-3 text-xs uppercase tracking-luxury font-medium transition-all border ${
-                    activeDeckTab === deck.id
-                      ? "bg-[#C8A870] text-[#080B10] font-semibold border-[#C8A870] shadow-[0_0_20px_rgba(200,168,112,0.3)]"
-                      : "bg-[#0E131C] text-[#8E9AA8] border-white/10 hover:text-white hover:border-white/30"
-                  }`}
+                  className={`px-5 py-3 text-xs uppercase tracking-luxury font-medium transition-all border ${activeDeckTab === deck.id
+                    ? "bg-[#C8A870] text-[#080B10] font-semibold border-[#C8A870] shadow-[0_0_20px_rgba(200,168,112,0.3)]"
+                    : "bg-[#0E131C] text-[#8E9AA8] border-white/10 hover:text-white hover:border-white/30"
+                    }`}
                 >
                   {deck.name}
                 </button>
@@ -660,9 +657,8 @@ export default function UniversalYachtDetailView({
                 {/* Deck Image Preview */}
                 <div
                   onClick={() => !isEditable && setDeckModalOpen(true)}
-                  className={`relative bg-[#080B10] p-4 sm:p-8 border border-white/5 overflow-hidden group ${
-                    !isEditable ? "cursor-zoom-in" : ""
-                  }`}
+                  className={`relative bg-[#080B10] p-4 sm:p-8 border border-white/5 overflow-hidden group ${!isEditable ? "cursor-zoom-in" : ""
+                    }`}
                   title={!isEditable ? "Click to view full resolution" : ""}
                 >
                   <img
@@ -726,7 +722,7 @@ export default function UniversalYachtDetailView({
                         <div className="w-5 h-5 rounded-none bg-[#C8A870]/10 border border-[#C8A870]/30 flex items-center justify-center text-[#C8A870] flex-shrink-0 mt-0.5">
                           <Check className="w-3 h-3" />
                         </div>
-                        <span className="text-xs text-[#C9D2DF] font-light leading-relaxed flex-1">
+                        <span className="text-xs text-[#fff] font-light leading-relaxed flex-1">
                           <InlineEditableText
                             as="span"
                             value={feat}
@@ -782,7 +778,7 @@ export default function UniversalYachtDetailView({
             <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-light text-white">
               Technical Specifications Dossier
             </h2>
-            <p className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#fff] font-light leading-relaxed">
               Exacting engineering standards, propulsion systems, and capacity matrices as certified for the {data.fullName}.
             </p>
           </div>
@@ -793,11 +789,10 @@ export default function UniversalYachtDetailView({
               <button
                 key={cat.id}
                 onClick={() => setActiveSpecCategory(cat.id)}
-                className={`px-4 py-2.5 text-xs uppercase tracking-luxury font-medium transition-all border ${
-                  activeSpecCategory === cat.id
-                    ? "bg-[#C8A870] text-[#080B10] font-semibold border-[#C8A870]"
-                    : "bg-[#0E131C] text-[#8E9AA8] border-white/10 hover:text-white hover:border-white/30"
-                }`}
+                className={`px-4 py-2.5 text-xs uppercase tracking-luxury font-medium transition-all border ${activeSpecCategory === cat.id
+                  ? "bg-[#C8A870] text-[#080B10] font-semibold border-[#C8A870]"
+                  : "bg-[#0E131C] text-[#8E9AA8] border-white/10 hover:text-white hover:border-white/30"
+                  }`}
               >
                 {cat.title}
               </button>
@@ -925,8 +920,8 @@ export default function UniversalYachtDetailView({
                 <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-light text-white">
                   Luxury In Every Perspective
                 </h2>
-                <p 
-                  className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed text-justify"
+                <p
+                  className="text-xs sm:text-sm text-[#fff] font-light leading-relaxed text-justify"
                   style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
                 >
                   Original photography showcasing exterior skyline cruises, handcrafted teak decks, master staterooms, and marble ensuite suites.
@@ -960,11 +955,10 @@ export default function UniversalYachtDetailView({
                   <button
                     key={cat}
                     onClick={() => setGalleryFilter(cat)}
-                    className={`px-3 py-1.5 transition-all border ${
-                      galleryFilter === cat
-                        ? "bg-[#C8A870] text-[#080B10] font-semibold border-[#C8A870]"
-                        : "bg-[#0E131C] text-[#828F9E] border-white/10 hover:border-white/30 hover:text-white"
-                    }`}
+                    className={`px-3 py-1.5 transition-all border ${galleryFilter === cat
+                      ? "bg-[#C8A870] text-[#080B10] font-semibold border-[#C8A870]"
+                      : "bg-[#0E131C] text-[#828F9E] border-white/10 hover:border-white/30 hover:text-white"
+                      }`}
                   >
                     {cat}
                   </button>
@@ -1039,7 +1033,7 @@ export default function UniversalYachtDetailView({
                         placeholder="Photo title..."
                       />
                     </h3>
-                    <p className="text-xs text-[#9DAAB8] line-clamp-1 font-light">
+                    <p className="text-xs text-[#fff] line-clamp-1 font-light">
                       <InlineEditableText
                         as="span"
                         value={item.description}
@@ -1082,8 +1076,8 @@ export default function UniversalYachtDetailView({
                   placeholder="CTA Headline..."
                 />
               </h2>
-              <p 
-                className="text-xs sm:text-sm text-[#9DAAB8] font-light leading-relaxed text-justify"
+              <p
+                className="text-xs sm:text-sm text-[#fff] font-light leading-relaxed text-justify"
                 style={{ textAlign: "justify", textJustify: "inter-word", hyphens: "auto" }}
               >
                 <InlineEditableText
@@ -1231,11 +1225,10 @@ export default function UniversalYachtDetailView({
                     <button
                       key={deck.id}
                       onClick={() => setActiveDeckTab(deck.id)}
-                      className={`px-3 py-1 text-xs tracking-wider uppercase transition-all cursor-pointer ${
-                        activeDeckTab === deck.id
-                          ? "bg-[#C8A870] text-[#080B10] font-bold"
-                          : "text-[#8E9AA8] hover:text-white"
-                      }`}
+                      className={`px-3 py-1 text-xs tracking-wider uppercase transition-all cursor-pointer ${activeDeckTab === deck.id
+                        ? "bg-[#C8A870] text-[#080B10] font-bold"
+                        : "text-[#8E9AA8] hover:text-white"
+                        }`}
                     >
                       {deck.name}
                     </button>

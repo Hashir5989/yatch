@@ -6,12 +6,12 @@ import { Shield, Award, Phone, Mail, MapPin } from "lucide-react";
 import { WhatsAppIcon } from "@/components/public/WhatsAppConcierge";
 import AsmaratyLogo from "@/components/public/AsmaratyLogo";
 import { InstagramIcon, FacebookIcon, LinkedinIcon, YoutubeIcon, XTwitterIcon, TiktokIcon } from "@/components/public/SocialIcons";
-import { 
+import {
   DEFAULT_SETTINGS,
-  getSiteSettings, 
-  getAllYachts, 
-  syncSettingsFromServer, 
-  syncYachtsFromServer 
+  getSiteSettings,
+  getAllYachts,
+  syncSettingsFromServer,
+  syncYachtsFromServer
 } from "@/lib/cmsStore";
 import { DEFAULT_YACHTS } from "@/lib/data/defaultYachts";
 import { openCookiePreferences } from "@/lib/cookieConsent";
@@ -66,7 +66,7 @@ export default function PublicFooter() {
               </p>
             </div>
             <p
-              className="text-xs sm:text-sm text-[#8E9EAF] leading-relaxed max-w-md font-light saxdor-desc-justified"
+              className="text-xs sm:text-sm text-[#fff] leading-relaxed max-w-md font-light saxdor-desc-justified"
               style={{ textAlign: "justify", textJustify: "inter-word", textAlignLast: "left" }}
             >
               {footer.brandDescription ||
@@ -170,7 +170,7 @@ export default function PublicFooter() {
               <p className="text-white font-semibold tracking-wide">
                 {settings.companyName || "AL SHAALI MARINE"}
               </p>
-              <p className="whitespace-pre-line">
+              <p className="whitespace-pre-line text-[#fff]">
                 {settings.shipyardAddress || "RASHIDIA 1\nAJMAN, United Arab Emirates"}
               </p>
               <div className="pt-2 space-y-2">
@@ -184,8 +184,8 @@ export default function PublicFooter() {
                   >
                     <Phone className="w-3.5 h-3.5 text-[#C6A155]" />
                   </a>
-                  <a 
-                    href={`tel:${cleanPhone}`} 
+                  <a
+                    href={`tel:${cleanPhone}`}
                     className="hover:text-[#C6A155] font-mono text-white transition-colors tracking-wide"
                   >
                     {settings.contactPhone || "+971 6 743 6443"}
