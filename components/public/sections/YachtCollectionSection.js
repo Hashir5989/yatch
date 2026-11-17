@@ -341,7 +341,7 @@ export default function YachtCollectionSection({
     const line1 = headingLines[0] || "The Signature";
     const line2 = headingLines.slice(1).join(" ") || "Of the Sea";
     return (
-      <section className="py-14 sm:py-20 lg:py-24 bg-[#FAF8F5] text-[#0E2047] border-b border-[#E2D9CC]" id="the-fleet">
+      <section className="py-14 sm:py-20 lg:py-24 bg-white text-[#0E2047] border-b border-[#E2D9CC]" id="the-fleet">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-stretch">
             {/* Left Column: Signature Cursive Heading + Eyebrow at bottom (equal height) */}

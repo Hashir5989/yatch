@@ -82,7 +82,7 @@ export default function HeroBannerSection({
   }, [effectiveVideoUrl]);
 
   return (
-    <div className={isHomeHero ? "w-full bg-[#FAF8F5] pb-14 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32" : ""}>
+    <div className={isHomeHero ? "w-full bg-white pb-14 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32" : ""}>
       <section
         className={`relative flex flex-col justify-between overflow-hidden bg-[#080B10] group/hero ${isHomeHero
             ? "h-[280px] sm:h-[380px] md:h-[460px] lg:h-[530px] xl:h-[570px] max-h-[calc(100vh-140px)] min-h-[240px]"

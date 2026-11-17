@@ -53,7 +53,7 @@
         "filterCategory": "all",
         "limit": 4,
         "layoutStyle": "fleet_feature",
-        "backgroundStyle": "light",
+        "backgroundStyle": "white",
         "contentAlignment": "center",
         "buttonText": "DISCOVER OUR STORY",
         "buttonUrl": "/about"
