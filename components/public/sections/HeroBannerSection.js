@@ -65,7 +65,7 @@ export default function HeroBannerSection({
               if (err.name !== "AbortError") {
                 const onFirstInteraction = () => {
                   if (videoRef.current && videoRef.current.paused) {
-                    videoRef.current.play().catch(() => {});
+                    videoRef.current.play().catch(() => { });
                   }
                   window.removeEventListener("touchstart", onFirstInteraction);
                   window.removeEventListener("click", onFirstInteraction);
@@ -114,7 +114,7 @@ export default function HeroBannerSection({
         video.load();
         video.currentTime = currentTime;
         if (wasPlaying) {
-          video.play().catch(() => {});
+          video.play().catch(() => { });
         }
       }
     };
@@ -123,7 +123,7 @@ export default function HeroBannerSection({
   }, [isHomeHero]);
 
   return (
-    <div className={isHomeHero ? "w-full bg-[#FAF8F5] pb-14 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32" : ""}>
+    <div className={isHomeHero ? "w-full bg-white pb-14 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32" : ""}>
       <section
         className={`relative flex flex-col justify-between overflow-hidden bg-[#080B10] group/hero ${isHomeHero
           ? "h-[280px] sm:h-[380px] md:h-[460px] lg:h-[530px] xl:h-[570px] max-h-[calc(100vh-140px)] min-h-[240px]"

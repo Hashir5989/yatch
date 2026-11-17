@@ -229,19 +229,19 @@ export default function UniversalEventsView() {
                         </div>
                       )}
                     </div>
+
+                    {/* Bottom Action Footer */}
+                    <div className="px-6 sm:px-7 py-4 border-t border-white/5 bg-[#0A101A] flex items-center justify-between mt-auto">
+                      <span className="text-[11px] font-mono text-white/50">
+                        Open Exhibition
+                      </span>
+
+                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#DFBA73] group-hover:text-white group-hover:translate-x-1 transition-all">
+                        <span>View Showcase</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
                   </Link>
-
-                  {/* Bottom Action Footer */}
-                  <div className="px-6 sm:px-7 py-4 border-t border-white/5 bg-[#0A101A] flex items-center justify-between">
-                    <span className="text-[11px] font-mono text-white/50">
-                      Open Exhibition
-                    </span>
-
-                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#DFBA73] group-hover:text-white group-hover:translate-x-1 transition-all">
-                      <span>View Showcase</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
                 </article>
               );
             })}

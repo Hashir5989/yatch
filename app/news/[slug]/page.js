@@ -24,8 +24,26 @@ export async function generateStaticParams() {
     }));
 }
 
+async function resolveArticle(slug) {
+  if (!slug) return null;
+  const decoded = decodeURIComponent(slug).toLowerCase().trim();
+  try {
+    const article = await getArticleBySlugServer(decoded, false);
+    if (article) return article;
+  } catch (err) {
+    console.warn("[News] Error loading article from server:", err.message);
+  }
+
+  return (
+    DEFAULT_ARTICLES.find(
+      (a) =>
+        (a.slug && a.slug.toLowerCase() === decoded) ||
+        (a.id && a.id.toLowerCase() === decoded)
+    ) || null
+  );
+}
+
 export async function generateMetadata({ params }) {
-  "use cache";
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
   if (!slug) {
@@ -35,7 +53,7 @@ export async function generateMetadata({ params }) {
   }
 
   try {
-    const article = await getArticleBySlugServer(slug, false);
+    const article = await resolveArticle(slug);
 
     if (!article) {
       return {
@@ -48,7 +66,7 @@ export async function generateMetadata({ params }) {
     const title = article.seo?.metaTitle || `${article.title} | ASMARATY Luxury Yachts`;
     const description = article.seo?.metaDescription || article.excerpt;
     const ogImage = article.seo?.ogImage || article.featuredImage || "/images/news/qibs-2026-asmaraty-g77-fireworks-main.jpg";
-    const canonicalUrl = article.seo?.canonicalUrl || `https://asmaraty.com/news/${slug}`;
+    const canonicalUrl = article.seo?.canonicalUrl || `https://asmaraty.com/news/${article.slug || slug}`;
 
     return {
       title,
@@ -92,7 +110,7 @@ export async function generateMetadata({ params }) {
 }
 
 async function NewsDetailContent({ slug }) {
-  const article = await getArticleBySlugServer(slug, false);
+  const article = await resolveArticle(slug);
 
   if (!article) {
     notFound();
@@ -103,7 +121,7 @@ async function NewsDetailContent({ slug }) {
     redirect("/events#upcoming-events");
   }
 
-  return <UniversalNewsDetailView initialArticle={article} slug={slug} />;
+  return <UniversalNewsDetailView initialArticle={article} slug={article.slug || slug} />;
 }
 
 export default async function IndividualNewsPage({ params }) {

@@ -16,11 +16,13 @@ export async function generateStaticParams() {
 }
 
 async function resolveEvent(slug) {
+  if (!slug) return null;
+  const normalized = decodeURIComponent(slug).toLowerCase().trim();
   try {
-    const serverEv = await getEventBySlugServer(slug, true);
+    const serverEv = await getEventBySlugServer(normalized, false);
     if (serverEv) return serverEv;
   } catch (_) {}
-  return getEventFallback(slug);
+  return getEventFallback(normalized);
 }
 
 export async function generateMetadata({ params }) {
