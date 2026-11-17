@@ -37,7 +37,7 @@ export default function AsmaratyLogo({
           <img
             src={logoSrc}
             alt="ASMARATY YACHTS"
-            className={`w-auto object-contain ${isDarkTone ? "" : "drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"} ${effectiveImgClass}`}
+            className={`w-auto object-contain ${isDarkTone ? "" : "drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"} ${effectiveImgClass}`}
             loading={priority ? "eager" : "lazy"}
           />
         </div>

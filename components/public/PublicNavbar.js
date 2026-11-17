@@ -107,7 +107,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
             : "bg-gradient-to-b from-[#08101C]/95 via-[#08101C]/70 to-transparent py-4 sm:py-5"
         }`}
       >
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 flex items-center justify-between min-h-[50px] sm:min-h-[56px]">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 flex items-center justify-between min-h-[50px] sm:min-h-[56px] md:min-h-[62px]">
           {/* Left: Saxdor 3-Line Panel Menu Toggle */}
           <div className="flex items-center flex-1 justify-start z-10">
             <button
@@ -131,7 +131,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
             <AsmaratyLogo 
               variant="full" 
               priority={true} 
-              imgClassName="h-10 sm:h-12 md:h-14"
+              imgClassName="h-[42px] sm:h-[50px] md:h-[58px] lg:h-[60px]"
             />
           </div>
 
@@ -166,7 +166,7 @@ export default function PublicNavbar({ currentPageId, showAdminBar = false }) {
             <div className="p-6 sm:p-8 border-b border-white/10 bg-[#0E2047]/60 flex items-center justify-between">
               <AsmaratyLogo 
                 variant="full" 
-                imgClassName="h-10 sm:h-12" 
+                imgClassName="h-10 sm:h-12 md:h-13" 
                 onClick={() => setPanelMenuOpen(false)} 
               />
 
