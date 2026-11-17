@@ -374,15 +374,6 @@ export default function UniversalEventDetailView({ event: initialEvent }) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 opacity-60 group-hover:opacity-30 transition-opacity" />
 
-                  {/* Top Tag Badge */}
-                  {photo.tag && (
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-1 bg-[#08101C]/90 backdrop-blur-md border border-white/15 text-[#DFBA73] text-[9px] font-mono uppercase tracking-[0.18em] font-semibold">
-                        {photo.tag}
-                      </span>
-                    </div>
-                  )}
-
                   {/* Hover Enlarge Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
                     <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#0E1A2D]/95 border border-[#C6A155] text-xs font-mono uppercase tracking-wider text-[#DFBA73] shadow-2xl">
