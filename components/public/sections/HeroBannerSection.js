@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { ArrowRight, Image as ImageIcon } from "lucide-react";
 import InlineEditableText from "@/components/cms/InlineEditableText";
 import UniversalButton from "@/components/public/UniversalButton";
@@ -33,60 +33,101 @@ export default function HeroBannerSection({
 
   const isHomeHero = data.id === "home-hero";
   const effectiveVideoUrl = isHomeHero
-    ? "/videos/asmaraty-home-banner-final.mp4?v=20261116"
+    ? "/videos/asmaraty-home-banner-final.mp4"
     : (videoUrl && videoUrl.trim() !== "" ? videoUrl : null);
 
   const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const playAttemptsRef = useRef(0);
 
   useEffect(() => {
+    let isMounted = true;
     const video = videoRef.current;
     if (!video || !effectiveVideoUrl) return;
 
+    // Explicitly enforce muted audio state before attempting playback
     video.defaultMuted = true;
     video.muted = true;
     video.playsInline = true;
 
-    const playVideo = () => {
-      if (video && video.paused) {
-        const p = video.play();
-        if (p !== undefined) {
-          p.catch(() => {
-            // If browser policy strictly blocks autoplay without gesture, start on first interaction
-            const onFirstInteraction = () => {
-              if (videoRef.current && videoRef.current.paused) {
-                videoRef.current.play().catch(() => {});
+    const attemptPlayback = () => {
+      if (!isMounted || !video) return;
+      if (video.paused && playAttemptsRef.current < 4) {
+        playAttemptsRef.current += 1;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              if (isMounted) setIsPlaying(true);
+            })
+            .catch((err) => {
+              // Ignore AbortError caused by normal navigation or chunk buffering
+              if (err.name !== "AbortError") {
+                const onFirstInteraction = () => {
+                  if (videoRef.current && videoRef.current.paused) {
+                    videoRef.current.play().catch(() => {});
+                  }
+                  window.removeEventListener("touchstart", onFirstInteraction);
+                  window.removeEventListener("click", onFirstInteraction);
+                  window.removeEventListener("scroll", onFirstInteraction);
+                };
+                window.addEventListener("touchstart", onFirstInteraction, { once: true, passive: true });
+                window.addEventListener("click", onFirstInteraction, { once: true, passive: true });
+                window.addEventListener("scroll", onFirstInteraction, { once: true, passive: true });
               }
-              window.removeEventListener("click", onFirstInteraction);
-              window.removeEventListener("touchstart", onFirstInteraction);
-              window.removeEventListener("scroll", onFirstInteraction);
-            };
-            window.addEventListener("click", onFirstInteraction, { once: true, passive: true });
-            window.addEventListener("touchstart", onFirstInteraction, { once: true, passive: true });
-            window.addEventListener("scroll", onFirstInteraction, { once: true, passive: true });
-          });
+            });
         }
       }
     };
 
-    // Attempt autoplay immediately
-    playVideo();
+    // If browser already buffered enough data (readyState >= 2), play immediately
+    if (video.readyState >= 2) {
+      attemptPlayback();
+    } else {
+      video.addEventListener("loadeddata", attemptPlayback, { once: true });
+      video.addEventListener("canplay", attemptPlayback, { once: true });
+    }
 
-    // If media was buffering or not ready yet, play as soon as data arrives
-    video.addEventListener("loadeddata", playVideo, { once: true });
-    video.addEventListener("canplay", playVideo, { once: true });
+    const onPlaying = () => {
+      if (isMounted) setIsPlaying(true);
+    };
+
+    video.addEventListener("playing", onPlaying);
 
     return () => {
-      video.removeEventListener("loadeddata", playVideo);
-      video.removeEventListener("canplay", playVideo);
+      isMounted = false;
+      video.removeEventListener("loadeddata", attemptPlayback);
+      video.removeEventListener("canplay", attemptPlayback);
+      video.removeEventListener("playing", onPlaying);
     };
   }, [effectiveVideoUrl]);
 
+  // Seamless responsive source switching across the 768px breakpoint without losing playback position
+  useEffect(() => {
+    if (typeof window === "undefined" || !isHomeHero) return;
+    const mql = window.matchMedia("(max-width: 768px)");
+    const handleBreakpointSwitch = () => {
+      const video = videoRef.current;
+      if (video) {
+        const currentTime = video.currentTime;
+        const wasPlaying = !video.paused;
+        video.load();
+        video.currentTime = currentTime;
+        if (wasPlaying) {
+          video.play().catch(() => {});
+        }
+      }
+    };
+    mql.addEventListener("change", handleBreakpointSwitch);
+    return () => mql.removeEventListener("change", handleBreakpointSwitch);
+  }, [isHomeHero]);
+
   return (
-    <div className={isHomeHero ? "w-full bg-white pb-14 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32" : ""}>
+    <div className={isHomeHero ? "w-full bg-[#FAF8F5] pb-14 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32" : ""}>
       <section
         className={`relative flex flex-col justify-between overflow-hidden bg-[#080B10] group/hero ${isHomeHero
-            ? "h-[280px] sm:h-[380px] md:h-[460px] lg:h-[530px] xl:h-[570px] max-h-[calc(100vh-140px)] min-h-[240px]"
-            : "min-h-[92vh]"
+          ? "h-[280px] sm:h-[380px] md:h-[460px] lg:h-[530px] xl:h-[570px] max-h-[calc(100vh-140px)] min-h-[240px]"
+          : "min-h-[92vh]"
           }`}
       >
         {/* Background Media: Live Video or Photo with Dark Vignette Gradient */}
@@ -95,15 +136,23 @@ export default function HeroBannerSection({
             <div className="absolute inset-0 w-full h-full">
               <video
                 ref={videoRef}
-                key={effectiveVideoUrl}
-                src={effectiveVideoUrl}
                 autoPlay
                 loop
                 muted
                 playsInline
                 preload="auto"
+                poster="/images/asmaraty-hero-banner-poster.jpg"
                 className="w-full h-full object-cover object-[center_30%]"
-              />
+              >
+                {isHomeHero ? (
+                  <>
+                    <source src="/videos/asmaraty-home-banner-mobile.mp4" media="(max-width: 768px)" type="video/mp4" />
+                    <source src="/videos/asmaraty-home-banner-final.mp4" type="video/mp4" />
+                  </>
+                ) : (
+                  <source src={effectiveVideoUrl} type="video/mp4" />
+                )}
+              </video>
             </div>
           ) : (
             <div className="relative w-full h-full">
@@ -156,8 +205,8 @@ export default function HeroBannerSection({
         {/* Main Hero Container */}
         <div
           className={`relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pointer-events-none ${isHomeHero
-              ? "h-full flex items-center justify-center py-4"
-              : "pt-32 pb-16 sm:pb-24 flex-1 flex flex-col justify-end"
+            ? "h-full flex items-center justify-center py-4"
+            : "pt-32 pb-16 sm:pb-24 flex-1 flex flex-col justify-end"
             }`}
         >
           {isHomeHero ? (
