@@ -7,6 +7,7 @@ import { getArticleBySlugServer, getArticlesServer } from "@/lib/server/db";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 
 export const instant = false;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   let articles = [];
@@ -17,11 +18,9 @@ export async function generateStaticParams() {
   }
 
   const source = articles?.length ? articles : DEFAULT_ARTICLES;
-  return source
-    .filter((article) => article.articleType !== "event" && !article.eventDetails?.isUpcoming)
-    .map((article) => ({
-      slug: article.slug,
-    }));
+  return source.map((article) => ({
+    slug: article.slug,
+  }));
 }
 
 async function resolveArticle(slug) {
@@ -114,11 +113,6 @@ async function NewsDetailContent({ slug }) {
 
   if (!article) {
     notFound();
-  }
-
-  // Upcoming events are featured directly in the events section on /events without standalone detail pages
-  if (article.articleType === "event" || article.eventDetails?.isUpcoming) {
-    redirect("/events#upcoming-events");
   }
 
   return <UniversalNewsDetailView initialArticle={article} slug={article.slug || slug} />;

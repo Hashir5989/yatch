@@ -1,11 +1,12 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import PublicNavbar from "@/components/public/PublicNavbar";
 import PublicFooter from "@/components/public/PublicFooter";
 import UniversalEventDetailView from "@/components/public/events/UniversalEventDetailView";
 import { getEventBySlug as getEventFallback, getAllEvents } from "@/lib/data/eventsData";
-import { getEventBySlugServer, getEventsServer } from "@/lib/server/db";
+import { getEventBySlugServer, getEventsServer, getArticleBySlugServer } from "@/lib/server/db";
 
 export const instant = false;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const events = await getEventsServer(true).catch(() => []);
@@ -31,6 +32,18 @@ export async function generateMetadata({ params }) {
   const event = await resolveEvent(slug);
 
   if (!event) {
+    if (slug) {
+      try {
+        const normalized = decodeURIComponent(slug).toLowerCase().trim();
+        const article = await getArticleBySlugServer(normalized, false);
+        if (article) {
+          return {
+            title: article.seo?.metaTitle || `${article.title} | ASMARATY Luxury Yachts`,
+            description: article.seo?.metaDescription || article.excerpt,
+          };
+        }
+      } catch (_) {}
+    }
     return {
       title: "Event Not Found | ASMARATY Luxury Yachts",
     };
@@ -72,6 +85,15 @@ export default async function EventDetailPage({ params }) {
   const event = await resolveEvent(slug);
 
   if (!event) {
+    if (slug) {
+      try {
+        const normalized = decodeURIComponent(slug).toLowerCase().trim();
+        const article = await getArticleBySlugServer(normalized, false);
+        if (article?.slug) {
+          redirect(`/news/${article.slug}`);
+        }
+      } catch (_) {}
+    }
     notFound();
   }
 

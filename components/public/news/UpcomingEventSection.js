@@ -184,7 +184,11 @@ export default function UpcomingEventSection({ events = [], showVipBanner = fals
                 className="group bg-[#0D1522] border-2 border-white/10 hover:border-[#C6A155]/70 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-2xl"
               >
                 {/* Visual Media Header with Date Badge Overlay */}
-                <div className="relative aspect-[16/9] overflow-hidden bg-[#06090D]">
+                <Link
+                  href={eventArticle.slug ? `/news/${eventArticle.slug}` : "#"}
+                  className="relative aspect-[16/9] overflow-hidden bg-[#06090D] block group/img"
+                  title={`View ${exhibitionTitle} full showcase dispatch`}
+                >
                   <img
                     src={eventArticle.featuredImage || "/images/news/adibs-2026-abu-dhabi-boat-show.jpg"}
                     alt={eventArticle.featuredImageAlt || exhibitionTitle}
@@ -219,7 +223,7 @@ export default function UpcomingEventSection({ events = [], showVipBanner = fals
                       {badge}
                     </span>
                   </div>
-                </div>
+                </Link>
 
                 {/* Event Card Body */}
                 <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
@@ -238,9 +242,12 @@ export default function UpcomingEventSection({ events = [], showVipBanner = fals
                     </div>
 
                     {/* Exhibition Title */}
-                    <h3 className="font-serif text-lg sm:text-xl font-normal text-white uppercase tracking-[0.02em] leading-snug">
+                    <Link
+                      href={eventArticle.slug ? `/news/${eventArticle.slug}` : "#"}
+                      className="block font-serif text-lg sm:text-xl font-normal text-white uppercase tracking-[0.02em] leading-snug hover:text-[#DFBA73] transition-colors"
+                    >
                       {exhibitionTitle}
-                    </h3>
+                    </Link>
 
                     {/* CORDIAL INVITATION CALLOUT */}
                     <div className="p-4 bg-[#0E1A2D]/90 border-l-4 border-[#C6A155] space-y-1 shadow-md">
@@ -284,11 +291,21 @@ export default function UpcomingEventSection({ events = [], showVipBanner = fals
                     </span>
 
                     <div className="flex flex-wrap items-center gap-3">
+                      {eventArticle.slug && (
+                        <Link
+                          href={`/news/${eventArticle.slug}`}
+                          className="saxdor-btn-solid !h-[44px] !px-4 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer shadow-lg rounded-none flex-1 min-w-[130px] max-w-full overflow-hidden justify-center"
+                        >
+                          <span className="truncate max-w-full">Event Story</span>
+                          <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+                        </Link>
+                      )}
+
                       <Link
                         href={`/contact?event=${encodeURIComponent(exhibitionTitle)}`}
-                        className="saxdor-btn-solid !h-[44px] !px-5 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer shadow-lg rounded-none flex-1 min-w-[140px] max-w-full overflow-hidden justify-center"
+                        className="saxdor-btn-outline !h-[44px] !px-4 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer shadow-lg rounded-none flex-1 min-w-[130px] max-w-full overflow-hidden justify-center"
                       >
-                        <span className="truncate max-w-full">Book VIP Walkthrough</span>
+                        <span className="truncate max-w-full">VIP Pass</span>
                         <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                       </Link>
 
@@ -296,10 +313,10 @@ export default function UpcomingEventSection({ events = [], showVipBanner = fals
                         href={`https://wa.me/971565268126?text=${whatsappMessage}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="saxdor-btn-outline !h-[44px] !px-4 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer rounded-none text-[#25D366] border-[#25D366]/40 hover:bg-[#25D366]/10 flex-1 min-w-[140px] max-w-full overflow-hidden justify-center"
+                        className="saxdor-btn-outline !h-[44px] !px-4 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer rounded-none text-[#25D366] border-[#25D366]/40 hover:bg-[#25D366]/10 flex-1 min-w-[130px] max-w-full overflow-hidden justify-center"
                       >
                         <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
-                        <span className="truncate max-w-full">WhatsApp Desk</span>
+                        <span className="truncate max-w-full">WhatsApp</span>
                       </a>
                     </div>
                   </div>

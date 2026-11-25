@@ -38,7 +38,9 @@ import {
   deleteEventAsync,
   togglePublishEvent,
   togglePublishEventAsync,
-  syncEventsFromServer
+  syncEventsFromServer,
+  getAllArticles,
+  syncArticlesFromServer
 } from "@/lib/cmsStore";
 
 const EVENT_CATEGORIES = [
@@ -73,6 +75,7 @@ function generateSlug(text) {
 
 export default function AdminEventsScreen() {
   const [events, setEvents] = useState(() => getAllEvents(false));
+  const [newsArticles, setNewsArticles] = useState(() => getAllArticles(false));
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -99,12 +102,18 @@ export default function AdminEventsScreen() {
 
   const loadEvents = () => {
     setEvents(getAllEvents(false));
+    setNewsArticles(getAllArticles(false));
   };
 
   useEffect(() => {
     syncEventsFromServer(false).then((synced) => {
       if (synced && Array.isArray(synced) && synced.length > 0) {
         setEvents(synced);
+      }
+    });
+    syncArticlesFromServer(false).then((synced) => {
+      if (synced && Array.isArray(synced) && synced.length > 0) {
+        setNewsArticles(synced);
       }
     });
     const handleUpdate = () => loadEvents();
@@ -450,10 +459,15 @@ export default function AdminEventsScreen() {
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
+  // Upcoming events configured via News & Updates (feature in upcoming events)
+  const upcomingFromNews = newsArticles.filter(
+    (a) => a.articleType === "event" || a.eventDetails?.isUpcoming
+  );
+
   // Overview metric stats
   const totalCount = events.length;
   const publishedCount = events.filter((e) => e.status === "published").length;
-  const upcomingCount = events.filter((e) => (e.badge || "").includes("UPCOMING") || (e.dates || "").includes("2026") || (e.dates || "").includes("2027")).length;
+  const upcomingCount = upcomingFromNews.length + events.filter((e) => (e.badge || "").includes("UPCOMING")).length;
   const totalPhotosCount = events.reduce((acc, curr) => acc + (curr.photos?.length || 0), 0);
 
   return (
@@ -565,6 +579,102 @@ export default function AdminEventsScreen() {
               <span>New Event Showcase</span>
             </button>
           </div>
+        </div>
+
+        {/* Upcoming Exhibitions & Boat Shows (Configured via News) */}
+        {upcomingFromNews.length > 0 && (
+          <div className="space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-[#DFBA73] animate-pulse" />
+                <h3 className="font-serif text-base uppercase tracking-wider text-white">
+                  Upcoming Boat Shows & Exhibitions
+                </h3>
+                <span className="text-[10px] font-mono px-2 py-0.5 bg-[#DFBA73]/15 text-[#DFBA73] border border-[#DFBA73]/30">
+                  Configured in News
+                </span>
+              </div>
+              <Link
+                href="/admin/news"
+                className="text-xs text-[#DFBA73] hover:text-white inline-flex items-center gap-1 font-mono transition-colors"
+              >
+                <span>Manage & Edit in News Studio →</span>
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {upcomingFromNews.map((upEv) => {
+                const details = upEv.eventDetails || {};
+                return (
+                  <div
+                    key={upEv.id}
+                    className="p-5 bg-[#0D1522] border border-[#DFBA73]/30 hover:border-[#DFBA73]/70 transition-all flex flex-col justify-between gap-4"
+                  >
+                    <div className="flex items-start gap-4">
+                      {upEv.featuredImage && (
+                        <div className="w-24 h-16 bg-[#080B10] border border-white/10 overflow-hidden flex-shrink-0">
+                          <img
+                            src={upEv.featuredImage}
+                            alt={upEv.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="space-y-1 min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] font-mono uppercase tracking-wider bg-[#DFBA73]/20 text-[#DFBA73] px-2 py-0.5 font-bold">
+                            {details.badge || "UPCOMING EVENT"}
+                          </span>
+                          <span className="text-[10px] text-white/50 font-mono">
+                            {details.dates || upEv.publishedAt}
+                          </span>
+                        </div>
+                        <h4 className="font-serif text-sm text-white truncate font-medium">
+                          {details.exhibition || upEv.title}
+                        </h4>
+                        <p className="text-[11px] text-white/60 line-clamp-1 font-mono">
+                          {details.venue || "Venue not set"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+                      <span className="text-[10px] text-white/40 font-mono">
+                        Slug: /news/{upEv.slug}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={`/news/${upEv.slug}`}
+                          target="_blank"
+                          className="px-3 py-1 bg-white/5 hover:bg-[#DFBA73] text-white/80 hover:text-black text-xs font-mono transition-all border border-white/10 flex items-center gap-1.5"
+                        >
+                          <span>Preview</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </Link>
+                        <Link
+                          href="/admin/news"
+                          className="px-3 py-1 bg-[#DFBA73] text-black text-xs font-mono font-bold hover:bg-[#f0c97e] transition-all flex items-center gap-1.5"
+                        >
+                          <Edit3 className="w-3 h-3" />
+                          <span>Edit in News</span>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Exhibition Showcases Header */}
+        <div className="border-b border-white/10 pb-3 flex items-center justify-between">
+          <h3 className="font-serif text-base uppercase tracking-wider text-white">
+            Exhibition Showcases & Photo Archives
+          </h3>
+          <span className="text-xs text-white/50 font-mono">
+            {filteredEvents.length} Curated Showcases
+          </span>
         </div>
 
         {/* Events Grid Listing */}
