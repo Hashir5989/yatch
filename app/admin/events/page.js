@@ -40,7 +40,8 @@ import {
   togglePublishEventAsync,
   syncEventsFromServer,
   getAllArticles,
-  syncArticlesFromServer
+  syncArticlesFromServer,
+  deleteArticleAsync
 } from "@/lib/cmsStore";
 
 const EVENT_CATEGORIES = [
@@ -192,6 +193,19 @@ export default function AdminEventsScreen() {
         loadEvents();
       } else {
         showToast(res?.error || "Error deleting event");
+      }
+    }
+  };
+
+  // Delete upcoming event configured in news
+  const handleDeleteUpcoming = async (id, title) => {
+    if (window.confirm(`Are you sure you want to delete "${title}"? This cannot be undone.`)) {
+      const res = await deleteArticleAsync(id);
+      if (res && res.success) {
+        showToast("Upcoming event deleted successfully.");
+        loadEvents();
+      } else {
+        showToast(res?.error || "Error deleting upcoming event");
       }
     }
   };
@@ -658,6 +672,14 @@ export default function AdminEventsScreen() {
                           <Edit3 className="w-3 h-3" />
                           <span>Edit in News</span>
                         </Link>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteUpcoming(upEv.id, upEv.title)}
+                          className="p-1.5 bg-white/5 hover:bg-rose-500/20 text-white/40 hover:text-rose-400 border border-white/10 hover:border-rose-500/30 transition-all cursor-pointer"
+                          title="Delete upcoming event"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     </div>
                   </div>
