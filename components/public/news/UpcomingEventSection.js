@@ -120,9 +120,7 @@ export function VipSeaTrialBanner() {
 }
 
 export default function UpcomingEventSection({ events = [], showVipBanner = false }) {
-  const displayEvents = (Array.isArray(events) && events.length > 0)
-    ? events
-    : DEFAULT_ARTICLES.filter((a) => a.articleType === "event" || a.eventDetails?.isUpcoming);
+  const displayEvents = Array.isArray(events) ? events : [];
 
   if (!displayEvents || displayEvents.length === 0) return null;
 

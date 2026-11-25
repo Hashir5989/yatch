@@ -54,11 +54,9 @@ export default function UniversalEventsView() {
 
   // Upcoming events extracted for UpcomingEventSection below (Abu Dhabi & Dubai)
   const upcomingEvents = useMemo(() => {
-    const list = articles.filter(
+    return articles.filter(
       (a) => a.status === "published" && (a.articleType === "event" || a.eventDetails?.isUpcoming)
     );
-    if (list.length > 0) return list;
-    return DEFAULT_ARTICLES.filter((a) => a.articleType === "event" || a.eventDetails?.isUpcoming);
   }, [articles]);
 
   return (
