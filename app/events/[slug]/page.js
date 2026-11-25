@@ -6,7 +6,6 @@ import { getEventBySlug as getEventFallback, getAllEvents } from "@/lib/data/eve
 import { getEventBySlugServer, getEventsServer, getArticleBySlugServer } from "@/lib/server/db";
 
 export const instant = false;
-export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const events = await getEventsServer(true).catch(() => []);

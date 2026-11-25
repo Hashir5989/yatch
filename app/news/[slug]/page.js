@@ -7,7 +7,6 @@ import { getArticleBySlugServer, getArticlesServer } from "@/lib/server/db";
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 
 export const instant = false;
-export const dynamicParams = true;
 
 export async function generateStaticParams() {
   let articles = [];
