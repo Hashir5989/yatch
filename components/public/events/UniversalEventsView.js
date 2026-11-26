@@ -89,17 +89,21 @@ export default function UniversalEventsView() {
           </h1>
 
           <p className="text-xs sm:text-sm text-white/75 font-light max-w-2xl mx-auto leading-relaxed mb-6">
-            Explore our upcoming boat show calendar below, and view official photo showcases from our exhibitions across the Arabian Gulf. Click any card to open the complete event detail page.
+            {upcomingEvents.length > 0
+              ? "Explore our upcoming boat show calendar below, and view official photo showcases from our exhibitions across the Arabian Gulf. Click any card to open the complete event detail page."
+              : "Explore official photo showcases from our exhibitions across the Arabian Gulf. Click any card to open the complete event detail page."}
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 w-full max-w-2xl px-2">
-            <a
-              href="#upcoming-events"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-[11px] sm:text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl text-center"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C6A155] animate-ping shrink-0" />
-              <span>Upcoming Boat Shows (Abu Dhabi & Dubai) ↓</span>
-            </a>
+            {upcomingEvents.length > 0 && (
+              <a
+                href="#upcoming-events"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-[#0E1A2D]/90 border border-[#C6A155]/60 hover:border-[#DFBA73] text-[11px] sm:text-xs font-mono text-[#DFBA73] hover:text-white transition-all shadow-xl text-center"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C6A155] animate-ping shrink-0" />
+                <span>Upcoming Boat Shows ↓</span>
+              </a>
+            )}
             <a
               href="#showcase-grid"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-[#DFBA73] text-[11px] sm:text-xs font-mono text-white/80 hover:text-white transition-all shadow-xl text-center"

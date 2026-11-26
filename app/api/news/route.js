@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { getArticlesServer, saveArticleServer, authenticateAdminRequest } from "@/lib/server/db";
+import { getArticlesServer, saveArticleServer, authenticateAdminRequest, getDeletedArticleIdsServer } from "@/lib/server/db";
 
 export async function GET(request) {
   try {
@@ -13,8 +13,9 @@ export async function GET(request) {
     const publishedOnly = !isAdmin || publishedParam === "true";
 
     const articles = await getArticlesServer(publishedOnly);
+    const deletedIds = Array.from(await getDeletedArticleIdsServer());
     return NextResponse.json(
-      { success: true, articles },
+      { success: true, articles, deletedIds },
       {
         headers: {
           "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",

@@ -398,18 +398,18 @@ export default function UniversalEventDetailView({ event: initialEvent }) {
               CONTINUE EXPLORING
             </span>
             <h3 className="font-serif text-xl sm:text-2xl text-white font-normal uppercase tracking-wide">
-              Upcoming Boat Shows & Exhibitions
+              Exhibitions & Boat Shows
             </h3>
             <p className="text-xs text-white/60 font-light mt-1">
-              Discover our upcoming calendar including Abu Dhabi and Dubai International Boat Shows.
+              Discover our exhibitions and boat show showcases across the Arabian Gulf.
             </p>
           </div>
 
           <Link
-            href="/events#upcoming-events"
+            href="/events"
             className="saxdor-btn-solid !h-[46px] !px-8 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 cursor-pointer shadow-xl flex-shrink-0"
           >
-            <span>View Upcoming Calendar</span>
+            <span>View All Exhibitions</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

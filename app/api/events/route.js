@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { getEventsServer, saveEventServer, authenticateAdminRequest } from "@/lib/server/db";
+import { getEventsServer, saveEventServer, authenticateAdminRequest, getDeletedEventIdsServer } from "@/lib/server/db";
 
 export async function GET(request) {
   try {
@@ -13,8 +13,9 @@ export async function GET(request) {
     const publishedOnly = !isAdmin || publishedParam === "true";
 
     const events = await getEventsServer(publishedOnly);
+    const deletedIds = Array.from(await getDeletedEventIdsServer());
     return NextResponse.json(
-      { success: true, events },
+      { success: true, events, deletedIds },
       {
         headers: {
           "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
