@@ -32,13 +32,7 @@ async function resolveArticle(slug) {
     console.warn("[News] Error loading article from server:", err.message);
   }
 
-  return (
-    DEFAULT_ARTICLES.find(
-      (a) =>
-        (a.slug && a.slug.toLowerCase() === decoded) ||
-        (a.id && a.id.toLowerCase() === decoded)
-    ) || null
-  );
+  return null;
 }
 
 export async function generateMetadata({ params }) {

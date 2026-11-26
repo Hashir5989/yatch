@@ -22,7 +22,7 @@ async function resolveEvent(slug) {
     const serverEv = await getEventBySlugServer(normalized, false);
     if (serverEv) return serverEv;
   } catch (_) {}
-  return getEventFallback(normalized);
+  return null;
 }
 
 export async function generateMetadata({ params }) {

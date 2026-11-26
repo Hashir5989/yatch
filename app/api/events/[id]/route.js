@@ -105,22 +105,18 @@ export async function DELETE(request, { params }) {
     const id = resolvedParams.id;
 
     const existing = await getEventByIdServer(id) || await getEventBySlugServer(id);
-    if (!existing) {
-      return NextResponse.json({ success: false, error: `Event with ID '${id}' not found.` }, { status: 404 });
-    }
+    await deleteEventServer(existing?.id || id);
 
-    const success = await deleteEventServer(existing.id || id);
-    if (!success) {
-      return NextResponse.json({ success: false, error: `Event with ID '${id}' not found or could not be deleted.` }, { status: 404 });
-    }
-
-    try {
-      revalidatePath("/events");
-      if (existing?.slug) {
-        revalidatePath(`/events/${existing.slug}`);
-      }
-      revalidatePath("/admin/events");
-    } catch (_) {}
+    // Schedule revalidations in background microtask so HTTP response is instant and does not block admin
+    Promise.resolve().then(() => {
+      try {
+        revalidatePath("/events");
+        if (existing?.slug) {
+          revalidatePath(`/events/${existing.slug}`);
+        }
+        revalidatePath("/admin/events");
+      } catch (_) {}
+    });
 
     return NextResponse.json(
       { success: true, message: "Event deleted successfully" },

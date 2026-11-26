@@ -37,7 +37,7 @@ function formatDateParts(dateStr) {
 import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 
 export default function UniversalNewsListingView() {
-  const [articles, setArticles] = useState(() => DEFAULT_ARTICLES.filter((a) => a.status === "published"));
+  const [articles, setArticles] = useState(() => getAllArticles(true));
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [visibleCount, setVisibleCount] = useState(6);

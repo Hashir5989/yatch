@@ -97,17 +97,17 @@ export async function DELETE(request, { params }) {
       return NextResponse.json({ success: false, error: "Article ID is required." }, { status: 400 });
     }
 
-    const success = await deleteArticleServer(id);
-    if (!success) {
-      return NextResponse.json({ success: false, error: `Article with ID '${id}' not found.` }, { status: 404 });
-    }
+    await deleteArticleServer(id);
 
-    try {
-      revalidatePath("/news");
-      revalidatePath("/events");
-      revalidatePath("/");
-      revalidatePath("/admin/news");
-    } catch (_) {}
+    // Schedule revalidations in background microtask so HTTP response is instant and does not block admin
+    Promise.resolve().then(() => {
+      try {
+        revalidatePath("/news");
+        revalidatePath("/events");
+        revalidatePath("/");
+        revalidatePath("/admin/news");
+      } catch (_) {}
+    });
 
     return NextResponse.json(
       { success: true, message: "Article deleted successfully" },

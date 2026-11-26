@@ -18,8 +18,8 @@ import { DEFAULT_ARTICLES } from "@/lib/data/defaultArticles";
 import { DEFAULT_EVENTS, getEventDateTimestamp } from "@/lib/data/eventsData";
 
 export default function UniversalEventsView() {
-  const [events, setEvents] = useState(() => DEFAULT_EVENTS.filter((e) => e.status === "published"));
-  const [articles, setArticles] = useState(() => DEFAULT_ARTICLES.filter((a) => a.status === "published"));
+  const [events, setEvents] = useState(() => getAllEvents(true));
+  const [articles, setArticles] = useState(() => getAllArticles(true));
 
   useEffect(() => {
     // Read client storage immediately upon mount

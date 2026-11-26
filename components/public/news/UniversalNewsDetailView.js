@@ -36,7 +36,7 @@ function formatDate(dateStr) {
 
 export default function UniversalNewsDetailView({ initialArticle, slug }) {
   const [article, setArticle] = useState(initialArticle);
-  const [allArticles, setAllArticles] = useState(() => DEFAULT_ARTICLES.filter((a) => a.status === "published"));
+  const [allArticles, setAllArticles] = useState(() => getAllArticles(true));
   const [lightboxImage, setLightboxImage] = useState(null);
   const [copiedShare, setCopiedShare] = useState(false);
 
